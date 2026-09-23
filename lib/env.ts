@@ -41,7 +41,7 @@ export const env = createEnv({
       .url()
       .transform((value) => value.replace(/\/$/, ""))
       .optional(),
-    /** The per-round bearer key minted by `yarn review:create` over there. */
+    /** The shared sister-repo key: the same value as taylor-aucoin's REVIEW_INGEST_KEY (M-KR-5). */
     REVIEW_INGEST_KEY: z.string().min(16).optional(),
   },
 

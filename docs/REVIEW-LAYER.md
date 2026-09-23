@@ -38,12 +38,12 @@ On every gated page: a bar with **Comment** (click-to-comment), the comment coun
 
 ## 4. Backend
 
-`docs/REVIEW-BACKEND-CONTRACT.md` is the contract with tayloraucoin.com. The client site's server holds the per-round key (`REVIEW_INGEST_KEY`) and talks to `REVIEW_BACKEND_URL`; the browser never sees either. With the two unset, the layer still works and says so on the index: comments stay in the reviewer's browser.
+`docs/REVIEW-BACKEND-CONTRACT.md` is the contract with tayloraucoin.com. The client site's server holds the shared sister-repo key (`REVIEW_INGEST_KEY`, the same value as taylor-aucoin's) and talks to `REVIEW_BACKEND_URL`, sending `lib/review/client.ts` (which client this is) with every call; the browser never sees any of it. With the two unset, the layer still works and says so on the index: comments stay in the reviewer's browser.
 
 Setting up a round:
 
-1. In taylor-aucoin: `yarn review:create --client "Name" --label "Phase 1 · kits and layouts"`. Copy the key it prints; it is shown once.
-2. In the client repo's environment (Vercel project settings or `.env.local`): the four `REVIEW_*` variables.
+1. In `lib/review/client.ts`: this repo's `clientApp` (a slug, fixed for good), the engagement's id in taylor-aucoin's production database, and the round's label. taylor-aucoin creates the round the first time the site reports in.
+2. In the client repo's environment (Vercel project settings or `.env.local`): the four `REVIEW_*` variables, with `REVIEW_INGEST_KEY` set to the same value as taylor-aucoin's.
 3. Open `/review/access` with the code, confirm the bar says **Connected**.
 4. Send the client the URL and the code, separately.
 

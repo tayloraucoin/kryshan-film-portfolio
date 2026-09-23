@@ -9,7 +9,7 @@ Ticked here only after `PROGRESS.md`, which leads.
 - [x] **KR-3** — Review trio C: kit C, layout C, mock home C. Depends on KR-1. `…prompt-C.md`
 - [x] **KR-5** — Review clarity: `/review/brand` (pillars), plain-language layout briefs, any demo in any kit (`/review/mocks/<mock>/<kit>`). Runs before KR-4. `KR-5-review-clarity.md`
 - [x] **KR-6** — Feedback questions: pillar/kit/layout rankings, intake sliders re-asked on 0.0–7.0, the four layout forks, favourite of nine combinations; wire format extended in taylor-aucoin (REV-2). Runs before KR-4. `KR-6-feedback-questions.md`
-- [ ] **KR-4** — Round setup: mint the round in taylor-aucoin, set the four `REVIEW_*` variables, deploy, walk all nine pages on a phone, send the link. Depends on KR-1..3.
+- [ ] **KR-4** — Round setup: apply taylor-aucoin migrations `0017`–`0019` to production, set the four `REVIEW_*` variables (the shared key as in taylor-aucoin), deploy, walk all nine pages on a phone, send the link. Depends on KR-1..3.
 
 ## Build (Phase 2)
 

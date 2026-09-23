@@ -210,3 +210,7 @@ _You answered these before you'd seen anything. Answer again for the site you wa
 - **Lane names:** the second pair reads "Films I made because I wanted to · Films I was hired to make" (03 §8 had "because I had to"; Taylor: "had to" sounds wrong). Option id `wanted-to-hired`.
 - **New `layout.nav` (choice, after `layout.first`):** "Which menu works best?" *The strip with your name and the page links. Each layout does it differently.* Options from 06 overview's Nav row: a bar across the top, name left, pages right (A) · a column down the left with name, pages, three lines and the email, always there (B) · a bar across the top with the pages in spaced-out capitals (C). Its thoughts box is open: "What works or doesn't about each one?" Serves: the build's site header (06 layouts A/B/C §3 nav; B's rail is also overview fork 4).
 - Now 14 structured questions.
+
+## Amendment 4 (Taylor, 2026-09-22): the handshake
+
+No per-round keys. `lib/review/client.ts` hard-codes `clientApp: "kryshan-film-portfolio"`, the production engagement id `cd1d6c5f-9c21-49ef-9e4b-a759c74b8554` and the label; `lib/review/backend.ts` sends them as `X-Review-Client-App` / `X-Review-Engagement` / `X-Review-Label`. `REVIEW_INGEST_KEY` is one shared secret, the same value here and in taylor-aucoin. taylor-aucoin creates the round on first contact (REV-4, M-REV-6; here M-KR-5).

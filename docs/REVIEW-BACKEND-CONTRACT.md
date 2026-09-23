@@ -9,8 +9,9 @@ The client review layer (`/review/*` in every client site) reports to taylorauco
 |          |                                                                                                                                                                                                       |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Base URL | `REVIEW_BACKEND_URL` in the client site's env (for example `https://tayloraucoin.com`). Every path below is relative to it.                                                                           |
-| Auth     | `Authorization: Bearer <key>`. One key per review round, minted in taylor-aucoin by `yarn review:create`, shown once, stored only as a SHA-256 hash. The client site holds it as `REVIEW_INGEST_KEY`. |
+| Auth     | `Authorization: Bearer <key>`: one shared secret, `REVIEW_INGEST_KEY`, set to the same value in taylor-aucoin and in every client site. It proves the caller is one of Taylor's repos (M-REV-6 / M-KR-5; supersedes the per-round keys of M-REV-1). |
 | Caller   | The client site's **server** (server actions in `app/review/_actions/`). The key never reaches a browser, so there is no CORS and no origin check.                                                    |
+| Identity | Three headers on every request, from the client site's `lib/review/client.ts`: `X-Review-Client-App` (static slug, `[a-z0-9-]`, ≤ 64; names the round), `X-Review-Engagement` (the engagement's uuid in taylor-aucoin's production database; optional), `X-Review-Label` (URI-encoded, ≤ 200). taylor-aucoin creates the round on first contact and links the engagement only if that id exists in its database. Missing or malformed identity is a 401. |
 | Encoding | JSON both ways. `Content-Type: application/json`. Request bodies over 64 KB are refused.                                                                                                              |
 | Timeouts | The client waits 8 seconds, then treats the call as failed. Failed writes are kept in the reviewer's browser and retried with the **same id**, so every write must be idempotent on `id`.             |
 
@@ -18,7 +19,7 @@ The client review layer (`/review/*` in every client site) reports to taylorauco
 
 | Status | Body                          | When                                                                   |
 | ------ | ----------------------------- | ---------------------------------------------------------------------- |
-| 401    | `{ "error": "unauthorized" }` | Missing, malformed, or unknown key. No distinction between the three.  |
+| 401    | `{ "error": "unauthorized" }` | Missing or wrong key, or missing or malformed identity headers. No distinction between them. |
 | 400    | `{ "error": "bad_request" }`  | Body fails validation.                                                 |
 | 405    | `{ "error": "method" }`       | Wrong method.                                                          |
 | 500    | `{ "error": "server" }`       | Anything else. Logged with an id and a count, never with comment text. |
@@ -132,7 +133,7 @@ All the shapes are validated with zod on both sides. The zod schemas live at `li
 
 Three tables, deny-all RLS like every other table there:
 
-- `review_rounds` — one per client review round: `id`, `created_at`, `updated_at`, `client_name`, `label`, `engagement_id` (nullable, `on delete set null`), `key_hash` (unique), `site_url` (nullable), `submitted_at` (nullable).
+- `review_rounds` — one per client site (`client_app`, unique), created on first contact: `id`, `created_at`, `updated_at`, `client_app`, `client_name` (the engagement's business name, else `client_app`), `label`, `engagement_id` (nullable, `on delete set null`; set only when the sent id exists), `site_url` (nullable), `submitted_at` (nullable).
 - `review_comments` — `id` (client-supplied uuid, primary key), `round_id` (cascade), `created_at`, `client_created_at`, `deleted_at`, `path`, `target` (jsonb), `body`, `viewport_width`, `viewport_height`.
 - `review_submissions` — `id` (client-supplied uuid, primary key), `round_id` (cascade), `created_at`, `payload` (jsonb: the full `ReviewSubmission`, `answers` included; no migration was needed for it).
 
@@ -140,5 +141,5 @@ Three tables, deny-all RLS like every other table there:
 
 - No browser-side calls. If a future surface needs them, add CORS and a separate public token; do not expose the ingest key.
 - No admin UI for writing. taylor-aucoin reads rounds, forms and comments at `/admin/design-reviews` (REV-3); nothing there replies, resolves or mints.
-- No rate limiting. The key is the gate; a leaked key is rotated by minting a new round.
+- No rate limiting. The shared key is the gate; a leaked key is rotated by changing it in taylor-aucoin and in every client site.
 - No editing of comments. Delete and re-add.

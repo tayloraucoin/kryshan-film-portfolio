@@ -1,5 +1,6 @@
 import "server-only";
 import { env, reviewBackendConfigured } from "@/lib/env";
+import { REVIEW_CLIENT } from "@/lib/review/client";
 import type {
   ReviewActionResult,
   ReviewComment,
@@ -9,8 +10,9 @@ import type {
 
 /**
  * The only client of tayloraucoin.com's review ingest
- * (docs/REVIEW-BACKEND-CONTRACT.md). Server-only: the bearer key is read from
- * `lib/env.ts` and never leaves this process.
+ * (docs/REVIEW-BACKEND-CONTRACT.md). Server-only: the shared bearer key is read
+ * from `lib/env.ts` and never leaves this process; `REVIEW_CLIENT` says which
+ * client this is.
  *
  * Every function returns a result rather than throwing. "offline" covers an
  * unconfigured backend, a network failure, and a timeout alike, because the
@@ -35,6 +37,10 @@ async function call<T>(
       method: init.method,
       headers: {
         Authorization: `Bearer ${env.REVIEW_INGEST_KEY}`,
+        "X-Review-Client-App": REVIEW_CLIENT.clientApp,
+        "X-Review-Engagement": REVIEW_CLIENT.engagementId,
+        // Headers are ASCII; the label is not ("·").
+        "X-Review-Label": encodeURIComponent(REVIEW_CLIENT.label),
         "Content-Type": "application/json",
         Accept: "application/json",
       },

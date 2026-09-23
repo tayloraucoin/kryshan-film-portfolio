@@ -56,3 +56,4 @@ YYYY-MM-DD · <ticket-id> · <what changed> · <why>
 2026-09-22 · KR-6 · The re-asked intake sliders (acceptance criterion 4, section 5 of the question set) are removed · Taylor: "we already have that data". The `baseline` wire field stays, sent as null.
 2026-09-22 · KR-6 · Lane-name option reads "because I wanted to", not 03 §8's "because I had to" · Taylor: "had to" sounds wrong. The copy doc's fork is unchanged; this is the wording put to him.
 2026-09-22 · KR-6 · `layout.nav` added (which menu), beyond the overview's four forks · Taylor asked to capture his thoughts on the three layouts' navigation; the note box is open for it.
+2026-09-22 · KR-6 · `lib/review/client.ts` added and `REVIEW_INGEST_KEY` redefined as the shared sister-repo key (M-KR-5); REVIEW-LAYER §4's round setup, `.env.example`, the contract §1/§2/§5/§6 and KR-4's line in `00-build-order.md` updated · Taylor asked for a static client value and one key; taylor-aucoin's REV-4.
