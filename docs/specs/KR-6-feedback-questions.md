@@ -188,3 +188,13 @@ _You answered these before you'd seen anything. Answer again for the site you wa
 - **Wire:** optional `answers: { schema: "kryshan-2026-09", items[] }` (M-KR-4, contract §4a); the old six fields unchanged, with `preferred*` filled from the favourite pick. No migration.
 - **Verified:** `yarn verify` passes. Browser walk at 1440 and 390: partial fill, reload (progress kept), rank swap, keyboard slider, send. The outgoing POST was captured locally and passed taylor-aucoin's validator and email formatter (REV-2 PROGRESS). Not sent to taylor-aucoin itself: see DEVIATIONS.
 - **Next (KR-4):** apply taylor-aucoin `0017` to staging, mint the round, and send the form once against staging before sending Kryshan the link. The facts (02 §14 Q5, Q15–Q21) and social links (Q11) go in Taylor's own message.
+
+---
+
+## Amendment (Taylor, 2026-09-22, after the first walk)
+
+- **A thoughts box on every rank, scale and choice** ("so we get the real thoughts, not just a select value"). Behind "Add a thought" by default so the phone form stays short; the brand section's box is open ("What rings true, and what doesn't? Put it in your own words.", on `brand.fit`). `layout.lane-names` has none, because the next question is already his own words. Each note travels as a `text` item `<id>.note` straight after its answer, ≤ 1000 characters (contract §4a); taylor-aucoin folds it under the answer in the email and the admin page.
+- **Section 5 is "A few sliders", with no intro.** The "you answered these before" framing is gone. The baselines still reach Taylor.
+- **"Anything else" is "Anything else / general impressions".**
+- **An admin view in taylor-aucoin** (`/admin/design-reviews`, REV-3) shows each round's forms (every answer and note, the three boxes) and its comments grouped by page.
+- Timing: the notes are optional, so the structured estimate stands; each note written adds about half a minute.

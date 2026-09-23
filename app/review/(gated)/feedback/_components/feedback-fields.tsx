@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Input } from "@/components/primitives/input";
 import { Label } from "@/components/primitives/label";
 import { Textarea } from "@/components/primitives/textarea";
@@ -288,6 +289,60 @@ export function TextField({
           onChange={(e) => onChange(e.currentTarget.value)}
         />
       )}
+    </div>
+  );
+}
+
+/**
+ * The reviewer's own words beside an answer. Closed behind "Add a thought"
+ * unless the question asks for it open or it already holds text, so twenty
+ * questions do not become twenty empty boxes on a phone.
+ */
+export function NoteField({
+  id,
+  prompt,
+  open,
+  maxLength,
+  value,
+  onChange,
+}: {
+  id: string;
+  prompt: string;
+  open: boolean;
+  maxLength: number;
+  value: string | undefined;
+  onChange: (next: string | undefined) => void;
+}) {
+  const [shown, setShown] = useState(open);
+
+  if (!shown && !value) {
+    return (
+      <button
+        type="button"
+        onClick={() => setShown(true)}
+        className="-mt-4 self-start text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+      >
+        Add a thought
+      </button>
+    );
+  }
+
+  return (
+    <div className="-mt-3 flex flex-col gap-2">
+      <Label htmlFor={id} className="text-sm font-normal text-muted-foreground">
+        {prompt}
+      </Label>
+      <Textarea
+        id={id}
+        rows={3}
+        value={value ?? ""}
+        maxLength={maxLength}
+        autoFocus={!open && !value}
+        onChange={(e) => {
+          const next = e.currentTarget.value;
+          onChange(next === "" ? undefined : next);
+        }}
+      />
     </div>
   );
 }

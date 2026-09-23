@@ -122,6 +122,7 @@ All the shapes are validated with zod on both sides. The zod schemas live at `li
 
 - **Why a list.** `review_submissions.payload` is jsonb, and jsonb does not keep object key order. An array keeps the form's order in the stored row, and each item carries its own label, so neither the row nor the email needs the client site's code to read (M-KR-4, M-REV-5).
 - **Labels are a snapshot.** The client site's server writes `section`, `label`, option labels, `ends` and `baseline` from its own question set and registries at submit time. The browser sends only question ids and values, and the server rejects unknown ids and unknown option ids.
+- **Notes.** A reviewer's own words on a question travel as a separate `text` item with id `<question id>.note`, placed straight after that question's item (or alone, if the question was left unanswered), ≤ 1000 characters. Readers fold it into the answer; the shape needs nothing new.
 - **The scale is the intake's:** 0.0 to 7.0 in tenths, low end at 0. `baseline` is the intake answer to the same slider, or null.
 - **The backend checks shape, not identity.** Bounds, kinds and unique ids are validated; which questions a round asks is the client site's business.
 - **The old fields keep their meaning.** `flinch`, `fightFor` and `notes` are still the three free-text boxes and are not repeated in `items`. `preferredKit`, `preferredLayout` and `preferredMock` are filled from the reviewer's favourite combination.
@@ -138,6 +139,6 @@ Three tables, deny-all RLS like every other table there:
 ## 6. What is deliberately not here
 
 - No browser-side calls. If a future surface needs them, add CORS and a separate public token; do not expose the ingest key.
-- No admin UI for reading results. Taylor reads the email and, for now, the table. Roadmap.
+- No admin UI for writing. taylor-aucoin reads rounds, forms and comments at `/admin/design-reviews` (REV-3); nothing there replies, resolves or mints.
 - No rate limiting. The key is the gate; a leaked key is rotated by minting a new round.
 - No editing of comments. Delete and re-add.

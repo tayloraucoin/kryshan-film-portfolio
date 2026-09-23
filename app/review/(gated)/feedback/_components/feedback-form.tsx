@@ -10,10 +10,12 @@ import Link from "next/link";
 import { submitFeedback } from "@/app/review/(gated)/feedback/_actions/submit-feedback";
 import { Button } from "@/components/primitives/button";
 import { countPendingEverywhere } from "@/lib/review/pending-store";
-import type {
-  FeedbackQuestion,
-  FeedbackSection,
-  FeedbackValue,
+import {
+  FEEDBACK_NOTE_MAX,
+  FEEDBACK_NOTE_SUFFIX,
+  type FeedbackQuestion,
+  type FeedbackSection,
+  type FeedbackValue,
 } from "@/lib/review/types";
 import { reviewRoutes } from "@/lib/routes";
 import {
@@ -25,6 +27,7 @@ import {
 } from "./feedback-draft";
 import {
   ChoiceField,
+  NoteField,
   RankField,
   ScaleField,
   TextField,
@@ -50,7 +53,7 @@ const WORDS = [
     label: "Anything you would fight for?",
     hint: "Things you want kept whatever else changes.",
   },
-  { key: "notes", label: "Anything else" },
+  { key: "notes", label: "Anything else / general impressions" },
 ] as const;
 
 /**
@@ -186,14 +189,32 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
               </p>
             ) : null}
           </header>
-          {section.questions.map((q) => (
-            <Question
-              key={q.id}
-              question={q}
-              value={draft.answers[q.id]}
-              onChange={(v) => setAnswer(q.id, v)}
-            />
-          ))}
+          {section.questions.map((q) => {
+            const noteId = `${q.id}${FEEDBACK_NOTE_SUFFIX}`;
+            const note = draft.answers[noteId];
+            return (
+              <div key={q.id} className="flex flex-col gap-6">
+                <Question
+                  question={q}
+                  value={draft.answers[q.id]}
+                  onChange={(v) => setAnswer(q.id, v)}
+                />
+                {q.kind !== "text" && q.note !== false ? (
+                  <NoteField
+                    id={noteId}
+                    prompt={
+                      q.note?.prompt ??
+                      "Anything to add? Say it in your own words."
+                    }
+                    open={q.note?.open ?? false}
+                    maxLength={FEEDBACK_NOTE_MAX}
+                    value={typeof note === "string" ? note : undefined}
+                    onChange={(v) => setAnswer(noteId, v)}
+                  />
+                ) : null}
+              </div>
+            );
+          })}
         </section>
       ))}
 

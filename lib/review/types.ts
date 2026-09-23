@@ -98,6 +98,13 @@ type FeedbackQuestionBase = {
   label: string;
   /** One line on why it is asked, or how to answer. */
   hint?: string;
+  /**
+   * The free-text box beside the answer, so the reviewer can say why
+   * (KR-6). Every rank, scale and choice has one, behind "Add a thought"
+   * unless `open`; `false` removes it. It travels as its own `text` item
+   * with id `<question id>.note`, straight after the answer (contract §4a).
+   */
+  note?: { prompt?: string; open?: boolean } | false;
 };
 
 export type FeedbackQuestion =
@@ -117,6 +124,12 @@ export type FeedbackSection = {
   links?: ReadonlyArray<{ label: string; href: Route }>;
   questions: FeedbackQuestion[];
 };
+
+/** A question's free-text note travels as `<question id>` + this (contract §4a). */
+export const FEEDBACK_NOTE_SUFFIX = ".note";
+
+/** The longest note the form accepts, so twenty of them stay inside the 64 KB body limit. */
+export const FEEDBACK_NOTE_MAX = 1000;
 
 /** What the browser holds per question: a rank's ids in order, a number, an id, or text. */
 export type FeedbackValue = string | number | string[];

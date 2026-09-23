@@ -121,6 +121,11 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
         id: "brand.fit",
         label: "How much do these three sound like you?",
         ends: { low: "Not me", high: "Exactly me" },
+        note: {
+          prompt:
+            "What rings true, and what doesn’t? Put it in your own words.",
+          open: true,
+        },
       },
     ],
   },
@@ -231,6 +236,8 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
         kind: "choice",
         id: "layout.lane-names",
         label: "What should the two be called?",
+        // The next question is his own words for it; a second box would ask twice.
+        note: false,
         hint: "The third is Petros’s line, which you called brilliant.",
         options: [
           { id: "passion-for-hire", label: "Passion projects · For hire" },
@@ -269,9 +276,7 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
   },
   {
     id: "now",
-    title: "Now that you’ve seen them",
-    intro:
-      "You answered these before you’d seen anything. Answer again for the site you want now.",
+    title: "A few sliders",
     questions: [
       nowSlider("now.meet-first", "Who they meet first", "The work", "You"),
       nowSlider(

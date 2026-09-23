@@ -3,13 +3,15 @@
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { postSubmission } from "@/lib/review/backend";
-import type {
-  FeedbackOption,
-  FeedbackValue,
-  ReviewActionResult,
-  ReviewAnswer,
-  ReviewAnswers,
-  ReviewSubmission,
+import {
+  FEEDBACK_NOTE_MAX,
+  FEEDBACK_NOTE_SUFFIX,
+  type FeedbackOption,
+  type FeedbackValue,
+  type ReviewActionResult,
+  type ReviewAnswer,
+  type ReviewAnswers,
+  type ReviewSubmission,
 } from "@/lib/review/types";
 import {
   feedbackFormInput,
@@ -41,7 +43,13 @@ function buildAnswers(
   raw: Record<string, FeedbackValue>,
 ): { answers: ReviewAnswers | null; legacy: Partial<Legacy> } | null {
   const known = new Set(
-    FEEDBACK_SECTIONS.flatMap((s) => s.questions.map((q) => q.id)),
+    FEEDBACK_SECTIONS.flatMap((s) =>
+      s.questions.flatMap((q) =>
+        q.kind === "text" || q.note === false
+          ? [q.id]
+          : [q.id, `${q.id}${FEEDBACK_NOTE_SUFFIX}`],
+      ),
+    ),
   );
   if (Object.keys(raw).some((id) => !known.has(id))) return null;
 
@@ -53,64 +61,81 @@ function buildAnswers(
   for (const section of FEEDBACK_SECTIONS) {
     for (const q of section.questions) {
       const value = raw[q.id];
-      if (value === undefined) continue;
       const base = { id: q.id, section: section.title, label: q.label };
 
-      switch (q.kind) {
-        case "rank": {
-          if (!Array.isArray(value)) return null;
-          const ids = value.filter((id) => id !== "");
-          if (ids.length === 0) break;
-          if (new Set(ids).size !== ids.length) return null;
-          const ranked: FeedbackOption[] = [];
-          for (const id of ids) {
-            const found = option(q.options, id);
-            if (!found) return null;
-            ranked.push(found);
+      if (value !== undefined)
+        switch (q.kind) {
+          case "rank": {
+            if (!Array.isArray(value)) return null;
+            const ids = value.filter((id) => id !== "");
+            if (ids.length === 0) break;
+            if (new Set(ids).size !== ids.length) return null;
+            const ranked: FeedbackOption[] = [];
+            for (const id of ids) {
+              const found = option(q.options, id);
+              if (!found) return null;
+              ranked.push(found);
+            }
+            items.push({
+              ...base,
+              kind: "rank",
+              value: ranked.map((o) => ({ id: o.id, label: o.label })),
+            });
+            break;
           }
-          items.push({
-            ...base,
-            kind: "rank",
-            value: ranked.map((o) => ({ id: o.id, label: o.label })),
-          });
-          break;
-        }
-        case "scale": {
-          if (typeof value !== "number" || value < 0 || value > 7) return null;
-          items.push({
-            ...base,
-            kind: "scale",
-            value: Math.round(value * 10) / 10,
-            ends: q.ends,
-            baseline: INTAKE_BASELINES[q.id] ?? null,
-          });
-          break;
-        }
-        case "choice": {
-          if (typeof value !== "string") return null;
-          if (value === "") break;
-          const chosen = option(q.options, value);
-          if (!chosen) return null;
-          items.push({
-            ...base,
-            kind: "choice",
-            value: { id: chosen.id, label: chosen.label },
-          });
-          for (const [field, id] of Object.entries(chosen.sets ?? {})) {
-            const key = field as keyof Legacy;
-            if (legacy[key] === undefined) legacy[key] = id;
+          case "scale": {
+            if (typeof value !== "number" || value < 0 || value > 7)
+              return null;
+            items.push({
+              ...base,
+              kind: "scale",
+              value: Math.round(value * 10) / 10,
+              ends: q.ends,
+              baseline: INTAKE_BASELINES[q.id] ?? null,
+            });
+            break;
           }
-          break;
+          case "choice": {
+            if (typeof value !== "string") return null;
+            if (value === "") break;
+            const chosen = option(q.options, value);
+            if (!chosen) return null;
+            items.push({
+              ...base,
+              kind: "choice",
+              value: { id: chosen.id, label: chosen.label },
+            });
+            for (const [field, id] of Object.entries(chosen.sets ?? {})) {
+              const key = field as keyof Legacy;
+              if (legacy[key] === undefined) legacy[key] = id;
+            }
+            break;
+          }
+          case "text": {
+            if (typeof value !== "string") return null;
+            const text = value.trim();
+            if (!text) break;
+            if (text.length > q.maxLength) return null;
+            items.push({ ...base, kind: "text", value: text });
+            break;
+          }
         }
-        case "text": {
-          if (typeof value !== "string") return null;
-          const text = value.trim();
-          if (!text) break;
-          if (text.length > q.maxLength) return null;
-          items.push({ ...base, kind: "text", value: text });
-          break;
-        }
-      }
+
+      // The reviewer's own words on this question, straight after the
+      // answer (or on their own if the question was left unanswered).
+      const note = raw[`${q.id}${FEEDBACK_NOTE_SUFFIX}`];
+      if (note === undefined) continue;
+      if (typeof note !== "string") return null;
+      const noteText = note.trim();
+      if (!noteText) continue;
+      if (noteText.length > FEEDBACK_NOTE_MAX) return null;
+      items.push({
+        id: `${q.id}${FEEDBACK_NOTE_SUFFIX}`,
+        section: section.title,
+        label: `${q.label} (in your words)`,
+        kind: "text",
+        value: noteText,
+      });
     }
   }
 
