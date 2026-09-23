@@ -198,6 +198,35 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
       },
       {
         kind: "choice",
+        id: "layout.nav",
+        label: "Which menu works best?",
+        hint: "The strip with your name and the page links. Each layout does it differently.",
+        options: [
+          {
+            id: "top-bar",
+            label:
+              "A bar across the top: my name on the left, the pages on the right",
+            detail: asIn("kryshan-a"),
+          },
+          {
+            id: "side-column",
+            label:
+              "A column down the left: my name, the pages, three lines about me and my email, always there",
+            detail: asIn("kryshan-b"),
+          },
+          {
+            id: "top-bar-spaced",
+            label: "A bar across the top with the pages in spaced-out capitals",
+            detail: asIn("kryshan-c"),
+          },
+        ],
+        note: {
+          prompt: "What works or doesn’t about each one?",
+          open: true,
+        },
+      },
+      {
+        kind: "choice",
         id: "layout.split",
         label: "Passion projects and paid work: how should they sit?",
         options: [
@@ -228,8 +257,10 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
         options: [
           { id: "passion-for-hire", label: "Passion projects · For hire" },
           {
-            id: "had-to-hired",
-            label: "Films I made because I had to · Films I was hired to make",
+            // 03 §8 wrote "because I had to"; Taylor: "wanted to" reads truer.
+            id: "wanted-to-hired",
+            label:
+              "Films I made because I wanted to · Films I was hired to make",
           },
           { id: "art-paid", label: "Art · Art I got paid for" },
         ],

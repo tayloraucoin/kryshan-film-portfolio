@@ -204,3 +204,9 @@ _You answered these before you'd seen anything. Answer again for the site you wa
 - **Section 5 removed entirely** ("as we already have that data"). The nine intake sliders are no longer re-asked, and `INTAKE_BASELINES` is gone. The wire's `baseline` field stays in the contract (nullable) for a future round that re-asks something; this form sends it as null.
 - The form is now **13 structured questions** (2 favourite, 2 brand, 4 kits, 5 layouts) plus the optional lane-names text, a thoughts box on each, and the three free-text boxes. About four minutes of structured answers, eight to ten with writing.
 - Acceptance criterion 4's "intake sliders re-asked" is withdrawn by Taylor; see DEVIATIONS.
+
+## Amendment 3 (Taylor, 2026-09-22)
+
+- **Lane names:** the second pair reads "Films I made because I wanted to · Films I was hired to make" (03 §8 had "because I had to"; Taylor: "had to" sounds wrong). Option id `wanted-to-hired`.
+- **New `layout.nav` (choice, after `layout.first`):** "Which menu works best?" *The strip with your name and the page links. Each layout does it differently.* Options from 06 overview's Nav row: a bar across the top, name left, pages right (A) · a column down the left with name, pages, three lines and the email, always there (B) · a bar across the top with the pages in spaced-out capitals (C). Its thoughts box is open: "What works or doesn't about each one?" Serves: the build's site header (06 layouts A/B/C §3 nav; B's rail is also overview fork 4).
+- Now 14 structured questions.

@@ -54,3 +54,5 @@ YYYY-MM-DD · <ticket-id> · <what changed> · <why>
 2026-09-22 · KR-6 · Per-question notes travel as separate `text` items with id `<question id>.note` rather than a `note` field on each answer · a note on an unanswered question has no answer to hang on; the separate item needs no new wire shape, keeps form order, and taylor-aucoin folds it back (`lib/review/answers.ts`).
 2026-09-22 · KR-6 · Notes sit behind "Add a thought" except on the brand section · Taylor asked for a box on every question; twenty open boxes on a phone would break the ten-minute target and read as a survey.
 2026-09-22 · KR-6 · The re-asked intake sliders (acceptance criterion 4, section 5 of the question set) are removed · Taylor: "we already have that data". The `baseline` wire field stays, sent as null.
+2026-09-22 · KR-6 · Lane-name option reads "because I wanted to", not 03 §8's "because I had to" · Taylor: "had to" sounds wrong. The copy doc's fork is unchanged; this is the wording put to him.
+2026-09-22 · KR-6 · `layout.nav` added (which menu), beyond the overview's four forks · Taylor asked to capture his thoughts on the three layouts' navigation; the note box is open for it.
