@@ -3,3 +3,6 @@
 node_modules
 yarn.lock
 components/primitives
+# Client deliverables, kept byte-for-byte as delivered
+docs/client
+review/layouts/kryshan-*.md

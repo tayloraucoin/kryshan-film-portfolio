@@ -10,7 +10,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 ## Review round (KR)
 
 - [x] **KR-1** — Review trio A + shared content and posters (2026-09-22)
-- [ ] **KR-2** — Review trio B
+- [x] **KR-2** — Review trio B (2026-09-22)
 - [ ] **KR-3** — Review trio C
 - [ ] **KR-4** — Round setup and send
 

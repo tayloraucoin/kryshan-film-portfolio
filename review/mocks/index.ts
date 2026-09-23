@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import type { ReviewKit } from "@/review/kits/types";
 import { HomeA } from "@/review/mocks/home-a";
+import { HomeB } from "@/review/mocks/home-b";
 import { PlaceholderHome } from "@/review/mocks/placeholder-home";
 
 /**
@@ -33,13 +34,12 @@ export const REVIEW_MOCKS: ReadonlyArray<ReviewMock> = [
     Component: HomeA,
   },
   {
-    id: "mock-b",
+    id: "home-b",
     letter: "B",
-    name: "Kit B × Layout B",
-    kitId: "kit-b",
-    layoutId: "layout-b",
-    Component: PlaceholderHome,
-    placeholder: true,
+    name: "Home B · Kit B × The Study",
+    kitId: "kryshan-b",
+    layoutId: "kryshan-b",
+    Component: HomeB,
   },
   {
     id: "mock-c",

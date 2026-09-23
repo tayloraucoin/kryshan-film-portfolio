@@ -19,6 +19,8 @@ type VideoEmbedProps = {
    * asking for a second one would be friction, not restraint.
    */
   startPlaying?: boolean;
+  /** Called once when the visitor starts the player (not for `startPlaying`). */
+  onPlay?: () => void;
 };
 
 /**
@@ -34,6 +36,7 @@ export function VideoEmbed({
   priority = false,
   ratio = "16 / 9",
   startPlaying = false,
+  onPlay,
 }: VideoEmbedProps) {
   const [playing, setPlaying] = useState(startPlaying);
 
@@ -50,7 +53,10 @@ export function VideoEmbed({
       ) : (
         <button
           type="button"
-          onClick={() => setPlaying(true)}
+          onClick={() => {
+            setPlaying(true);
+            onPlay?.();
+          }}
           aria-label={`Play ${title}`}
           className="group absolute inset-0 h-full w-full cursor-pointer focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >

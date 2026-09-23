@@ -1,5 +1,5 @@
 import { KRYSHAN_KIT_A } from "@/review/kits/kryshan-a";
-import { PLACEHOLDER_KIT_B } from "@/review/kits/placeholder-b";
+import { KRYSHAN_KIT_B } from "@/review/kits/kryshan-b";
 import { PLACEHOLDER_KIT_C } from "@/review/kits/placeholder-c";
 import type { ReviewKit } from "@/review/kits/types";
 
@@ -12,7 +12,7 @@ import type { ReviewKit } from "@/review/kits/types";
  */
 export const REVIEW_KITS: ReadonlyArray<ReviewKit> = [
   KRYSHAN_KIT_A,
-  PLACEHOLDER_KIT_B,
+  KRYSHAN_KIT_B,
   PLACEHOLDER_KIT_C,
 ];
 

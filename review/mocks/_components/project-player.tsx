@@ -8,8 +8,8 @@ const PLAYER_SIZES = "(min-width: 1280px) 50vw, 100vw";
 
 /**
  * The media half of an opened project, for every provider a project can
- * have. Rendered only after a tap, so a YouTube or Vimeo piece mounts its
- * player already playing: the tap that opened it was the intent.
+ * have. Rendered only after a tap, so by default a YouTube or Vimeo piece
+ * mounts its player already playing: the tap that opened it was the intent.
  *
  * - `youtube` / `vimeo`: the poster-first player, started.
  * - `linkout`: the poster and a "Watch on the old site →" card; nothing is
@@ -19,12 +19,28 @@ const PLAYER_SIZES = "(min-width: 1280px) 50vw, 100vw";
  * A poster marked `posterStatus: "replace"` carries its ribbon wherever the
  * poster is still visible.
  */
-export function ProjectPlayer({ project }: Readonly<{ project: Project }>) {
+export function ProjectPlayer({
+  project,
+  posterFirst = false,
+}: Readonly<{
+  project: Project;
+  /**
+   * Show the poster and a play button instead of starting the player: for a
+   * container that opens on a tap but asks for a second one before any
+   * iframe exists (layout B's lightbox).
+   */
+  posterFirst?: boolean;
+}>) {
   const { embed, poster, title } = project;
 
   if (embed.provider === "youtube" || embed.provider === "vimeo") {
     return (
-      <VideoEmbed video={embed} title={title} poster={poster} startPlaying />
+      <VideoEmbed
+        video={embed}
+        title={title}
+        poster={poster}
+        startPlaying={!posterFirst}
+      />
     );
   }
 

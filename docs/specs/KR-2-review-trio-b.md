@@ -3,7 +3,7 @@
 **Epic:** KR — Kryshan Randel, Phase 1 review round · **Phase 1** · Size: L
 **Slice type:** review assets from approved deliverables; risks are invented facts, uncleared media, and a mock that drifts from its layout.
 
-**Status:** Not started
+**Status:** Complete (2026-09-22)
 
 ---
 
@@ -72,3 +72,15 @@ The prompt's "Acceptance criteria" section, verbatim, plus:
 > Build **KR-2 — Review trio B** (this spec). **The prompt in `docs/client/prompts/kryshan-07-cc-prompt-B.md` is the brief; the repo's types and docs win on conflict; log every divergence.**
 > Read first, in order: this spec · `docs/specs/README.md` · `docs/CONVENTIONS.md` · `docs/BRANDING.md` · `docs/REVIEW-LAYER.md` · `docs/PERFORMANCE.md` · the prompt · its attachments under `docs/client/` · `DEVIATIONS.md` + `TECHNICAL-DECISIONS.md`.
 > List every file path before writing code. Close in three places. Run `yarn verify`.
+
+---
+
+### Closing note (2026-09-22)
+
+Browser walk on `yarn dev:agent`, gate off. `/review` lists trio B beside A; no placeholder ribbon on the three routes.
+- **1440:** rail 260 px (name, nav, three lines, red-600 email, socials). Hero line above the strip; Just Watch Us fully in view, Directors Reel peeking. "Info" slid the panel in from the right; the next arrow advanced one film; 0 iframes. 5Rhythms → lightbox with kit B applied inside the portal, focus inside, 0 iframes; next → The Wolf of West Georgia Street; Escape closed it and focus returned to the 5Rhythms frame. Contact Club lightbox shows both award lines.
+- **1024:** rail at 220 px, strip one film wide.
+- **390:** header (name, nav, email icon), strip swipes with the next film peeking, featured frames on the dark band, fixed bottom bar (Email · Work), no horizontal scroll. 5Rhythms lightbox is a full-screen sheet (390 × 844).
+- Kit page contrast: ink on cream 14.5:1 AAA; secondary 4.5:1 AA; red 600 small accent 6.2:1 AA; red 500 4.1:1 AA large.
+- Reduced motion: checked in code only (the dialog's fades collapse under `globals.css`; the info slide is `motion-safe:`).
+
