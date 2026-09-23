@@ -116,7 +116,7 @@ export function ReelStrip({ projects, reviewPrefix }: ReelStripProps) {
                   aria-expanded={showInfo}
                   aria-controls={infoId}
                   onClick={() => setInfoOpen(showInfo ? null : project.slug)}
-                  className="cursor-pointer font-heading text-[0.8125rem] tracking-[0.08em] text-accent uppercase underline-offset-4 hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+                  className="cursor-pointer font-heading text-[0.8125rem] tracking-[0.08em] text-(--link) uppercase underline-offset-4 hover:underline focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
                 >
                   {showInfo ? "Close info" : "Info"}
                 </button>
@@ -130,7 +130,7 @@ export function ReelStrip({ projects, reviewPrefix }: ReelStripProps) {
           type="button"
           onClick={() => step(-1)}
           aria-label="Previous film"
-          className="flex size-10 cursor-pointer items-center justify-center rounded-(--radius) border border-border transition-colors hover:border-accent hover:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="flex size-10 cursor-pointer items-center justify-center rounded-(--radius) border border-border transition-colors hover:border-(--link) hover:text-(--link) focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <ChevronLeft className="size-5" aria-hidden="true" />
         </button>
@@ -138,7 +138,7 @@ export function ReelStrip({ projects, reviewPrefix }: ReelStripProps) {
           type="button"
           onClick={() => step(1)}
           aria-label="Next film"
-          className="flex size-10 cursor-pointer items-center justify-center rounded-(--radius) border border-border transition-colors hover:border-accent hover:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+          className="flex size-10 cursor-pointer items-center justify-center rounded-(--radius) border border-border transition-colors hover:border-(--link) hover:text-(--link) focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
         >
           <ChevronRight className="size-5" aria-hidden="true" />
         </button>

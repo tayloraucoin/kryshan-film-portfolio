@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PlaceholderRibbon } from "@/app/review/_components/placeholder-ribbon";
 import { KitScope } from "@/components/composed/brand/kit-scope";
 import { reviewRoutes } from "@/lib/routes";
+import { findKitLead, findPillar } from "@/review/brand";
 import { findReviewKit, REVIEW_KITS } from "@/review/kits";
 import { Palette } from "./_components/palette";
 import { TypeScale } from "./_components/type-scale";
@@ -28,6 +30,8 @@ export default async function ReviewKitPage({
   if (!kit) notFound();
 
   const others = REVIEW_KITS.filter((k) => k.id !== kit.id);
+  const lead = findKitLead(kit.id);
+  const pillar = lead ? findPillar(lead.leads) : undefined;
 
   return (
     <KitScope kit={kit} className="min-h-full">
@@ -44,6 +48,19 @@ export default async function ReviewKitPage({
             {kit.tagline}
           </h1>
           <p className="max-w-2xl text-muted-foreground">{kit.thesis}</p>
+          {lead && pillar ? (
+            <p className="max-w-2xl text-sm">
+              <span className="font-medium">
+                {pillar.name} leads: {lead.guardrail}
+              </span>{" "}
+              <Link
+                href={reviewRoutes.brand}
+                className="underline underline-offset-4"
+              >
+                What the pillars are
+              </Link>
+            </p>
+          ) : null}
         </header>
 
         <section

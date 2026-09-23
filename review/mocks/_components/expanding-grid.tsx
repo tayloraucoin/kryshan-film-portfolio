@@ -195,7 +195,7 @@ function GridCell({
         {project.lane === "passion" || project.client ? (
           <span className="absolute top-2 left-2 max-w-[70%] truncate bg-background/85 px-1.5 py-1 text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] uppercase">
             {project.lane === "passion" ? (
-              <span className="text-accent">Passion project</span>
+              <span className="text-(--link)">Passion project</span>
             ) : (
               <span className="text-muted-foreground">{project.client}</span>
             )}
@@ -264,13 +264,13 @@ function ExpandedMeta({
             href="#"
             aria-disabled="true"
             onClick={(event) => event.preventDefault()}
-            className="font-semibold text-accent underline-offset-4 hover:underline"
+            className="font-semibold text-(--link) underline-offset-4 hover:underline"
           >
             Full page →
           </a>
           <a
             href={`mailto:${email}`}
-            className="text-foreground transition-colors hover:text-accent"
+            className="text-foreground transition-colors hover:text-(--link)"
           >
             {email}
           </a>
@@ -278,7 +278,7 @@ function ExpandedMeta({
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="ml-auto cursor-pointer rounded-sm border border-border px-3 py-1.5 text-xs font-semibold tracking-[0.18em] uppercase transition-colors hover:border-accent hover:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+            className="ml-auto cursor-pointer rounded-sm border border-border px-3 py-1.5 text-xs font-semibold tracking-[0.18em] uppercase transition-colors hover:border-(--link) hover:text-(--link) focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             Close
           </button>

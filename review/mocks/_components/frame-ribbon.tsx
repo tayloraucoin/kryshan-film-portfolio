@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
  */
 export function FrameRibbon({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <span className="pointer-events-none absolute top-2 right-2 z-10 rounded-sm border border-amber-500/50 bg-background/85 px-2 py-1 text-[0.6875rem] leading-none font-semibold tracking-wide text-amber-300">
+    <span className="pointer-events-none absolute top-2 right-2 z-10 rounded-sm border border-amber-600/60 bg-background/90 px-2 py-1 text-[0.6875rem] leading-none font-semibold tracking-wide text-amber-800 dark:text-amber-300">
       {children}
     </span>
   );

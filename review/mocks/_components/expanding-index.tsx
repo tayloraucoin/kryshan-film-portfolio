@@ -312,13 +312,13 @@ function ExpandedRow({
             href="#"
             aria-disabled="true"
             onClick={(event) => event.preventDefault()}
-            className="font-semibold text-primary underline-offset-4 hover:underline"
+            className="font-semibold text-(--link) underline-offset-4 hover:underline"
           >
             Full page →
           </a>
           <a
             href={`mailto:${email}`}
-            className="transition-colors hover:text-primary"
+            className="transition-colors hover:text-(--link)"
           >
             {email}
           </a>
@@ -328,7 +328,7 @@ function ExpandedRow({
             onClick={onClose}
             className={cn(
               LABEL,
-              "ml-auto cursor-pointer border border-border px-3 py-1.5 transition-colors hover:border-primary hover:text-primary",
+              "ml-auto cursor-pointer border border-border px-3 py-1.5 transition-colors hover:border-(--link) hover:text-(--link)",
               "focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none",
             )}
           >

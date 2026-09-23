@@ -27,7 +27,15 @@ export const reviewRoutes = {
       : `${REVIEW_PREFIX}/access`) as Route,
   kit: (id: string): Route => `${REVIEW_PREFIX}/kits/${id}` as Route,
   layout: (id: string): Route => `${REVIEW_PREFIX}/layouts/${id}` as Route,
-  mock: (id: string): Route => `${REVIEW_PREFIX}/mocks/${id}` as Route,
+  /**
+   * A demo home page. With `kitId`, the same layout in any kit; the kit is a
+   * path segment (not a query) because comments are keyed by path.
+   */
+  mock: (id: string, kitId?: string): Route =>
+    (kitId
+      ? `${REVIEW_PREFIX}/mocks/${id}/${kitId}`
+      : `${REVIEW_PREFIX}/mocks/${id}`) as Route,
+  brand: `${REVIEW_PREFIX}/brand` as Route,
   feedback: `${REVIEW_PREFIX}/feedback` as Route,
 } as const;
 

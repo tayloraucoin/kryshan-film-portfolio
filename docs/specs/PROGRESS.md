@@ -12,6 +12,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-1** — Review trio A + shared content and posters (2026-09-22)
 - [x] **KR-2** — Review trio B (2026-09-22)
 - [x] **KR-3** — Review trio C (2026-09-22)
+- [x] **KR-5** — Review clarity: brand page, layout briefs, kit switcher (2026-09-22)
 - [ ] **KR-4** — Round setup and send
 
 ## Client build (Phase 2)

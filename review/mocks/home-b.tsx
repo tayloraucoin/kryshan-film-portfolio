@@ -63,7 +63,7 @@ const TEACHING_LINE =
 const inertLink = { href: "#", "aria-disabled": true } as const;
 
 const MONO_NAV =
-  "font-heading text-[0.8125rem] transition-colors hover:text-accent";
+  "font-heading text-[0.8125rem] transition-colors hover:text-(--link)";
 
 export function HomeB({ kit }: Readonly<{ kit: ReviewKit }>) {
   return (
@@ -135,7 +135,7 @@ export function HomeB({ kit }: Readonly<{ kit: ReviewKit }>) {
             <span>{TEACHING_LINE}</span>
             <a
               {...inertLink}
-              className="font-heading text-sm text-accent underline-offset-4 hover:underline"
+              className="font-heading text-sm text-(--link) underline-offset-4 hover:underline"
             >
               Teaching →
             </a>
@@ -179,7 +179,7 @@ function Rail() {
       <a
         href={`mailto:${SITE.email}`}
         data-review-id={`${R}.rail.email`}
-        className="text-sm font-medium break-all text-accent underline-offset-4 hover:underline"
+        className="text-sm font-medium break-all text-(--link) underline-offset-4 hover:underline"
       >
         {SITE.email}
       </a>
@@ -225,7 +225,7 @@ function SocialRow({
             target="_blank"
             rel="me noopener"
             data-review-id={`${R}.${where}.${item.label.toLowerCase()}`}
-            className="text-muted-foreground transition-colors hover:text-accent"
+            className="text-muted-foreground transition-colors hover:text-(--link)"
           >
             {item.label}
           </a>
@@ -264,7 +264,7 @@ function Header() {
           href={`mailto:${SITE.email}`}
           aria-label={`Email ${SITE.email}`}
           data-review-id={`${R}.header.email`}
-          className="flex size-9 items-center justify-center rounded-(--radius) text-accent transition-colors hover:bg-muted"
+          className="flex size-9 items-center justify-center rounded-(--radius) text-(--link) transition-colors hover:bg-muted"
         >
           <Mail className="size-5" aria-hidden="true" />
         </a>
@@ -285,7 +285,7 @@ function Footer() {
           <a
             href={`mailto:${SITE.email}`}
             data-review-id={`${R}.footer.email`}
-            className="font-medium text-accent underline-offset-4 hover:underline"
+            className="font-medium text-(--link) underline-offset-4 hover:underline"
           >
             {SITE.email}
           </a>
@@ -306,7 +306,7 @@ function BottomBar() {
     >
       <a
         href={`mailto:${SITE.email}`}
-        className="flex h-14 items-center justify-center font-bold text-accent"
+        className="flex h-14 items-center justify-center font-bold text-(--link)"
       >
         Email
       </a>

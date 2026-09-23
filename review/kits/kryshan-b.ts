@@ -18,6 +18,8 @@ import type { ReviewKit } from "@/review/kits/types";
  *   only; never UI. A fourth face, which PERFORMANCE.md §6 asks a reason
  *   for: the PDF's pairing makes the quotes the one serif moment. Not
  *   preloaded, because it only appears below the first screen.
+ * - The rest of `MockVars`: `--link` is red 600; role tags are the
+ *   secondary grey (kit B has no coloured tags, 04 card B).
  */
 const workSans = Work_Sans({
   subsets: ["latin"],
@@ -121,7 +123,12 @@ export const KRYSHAN_KIT_B: ReviewKit = {
     fraunces.variable,
   ].join(" "),
   extraVars: {
+    "--link": RED[600],
     "--surface-dark": NEUTRAL[900],
+    "--surface-dark-foreground": CREAM,
+    "--tag-directing": NEUTRAL[500],
+    "--tag-camera": NEUTRAL[500],
+    "--tag-editing": NEUTRAL[500],
     "--font-quote": "var(--font-fraunces), Georgia, serif",
   },
   ramps: {

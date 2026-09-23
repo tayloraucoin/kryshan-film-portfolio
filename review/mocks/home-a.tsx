@@ -61,7 +61,7 @@ export function HomeA({ kit }: Readonly<{ kit: ReviewKit }>) {
         <p data-review-id={`${R}.all-work`} className="px-3 md:px-6">
           <a
             {...inertLink}
-            className="font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-accent"
+            className="font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-(--link)"
           >
             All {PROJECTS.length} pieces →
           </a>
@@ -95,7 +95,7 @@ function Nav() {
               <a
                 {...inertLink}
                 data-review-id={`${R}.nav.${label.toLowerCase()}`}
-                className={cn(LABEL, "transition-colors hover:text-accent")}
+                className={cn(LABEL, "transition-colors hover:text-(--link)")}
               >
                 {label}
               </a>
@@ -125,7 +125,7 @@ function TitleCell() {
       </p>
       <a
         href={`#${R}-${HOME_SLUGS[0]}`}
-        className={cn(LABEL, "text-accent md:hidden")}
+        className={cn(LABEL, "text-(--link) md:hidden")}
       >
         Watch ↓
       </a>
@@ -153,7 +153,7 @@ function Strands() {
           </p>
           <a
             {...inertLink}
-            className="self-start text-sm font-semibold text-accent underline-offset-4 hover:underline"
+            className="self-start text-sm font-semibold text-(--link) underline-offset-4 hover:underline"
           >
             {strand.id === "teaching" ? "Teaching" : "Work"} →
           </a>
@@ -177,7 +177,7 @@ function Footer() {
           <a
             href={`mailto:${SITE.email}`}
             data-review-id={`${R}.footer.email`}
-            className="text-base text-foreground transition-colors hover:text-accent"
+            className="text-base text-foreground transition-colors hover:text-(--link)"
           >
             {SITE.email}
           </a>
@@ -206,7 +206,7 @@ function SocialList({
             target="_blank"
             rel="me noopener"
             data-review-id={`${R}.footer.${item.label.toLowerCase()}`}
-            className="text-muted-foreground transition-colors hover:text-accent"
+            className="text-muted-foreground transition-colors hover:text-(--link)"
           >
             {item.label}
           </a>

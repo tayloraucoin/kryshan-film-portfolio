@@ -15,8 +15,11 @@ import type { ReviewKit } from "@/review/kits/types";
  *   project" label, focus rings). Small red text is always this, never
  *   `primary`.
  * - Hairlines are `border` (neutral 700) at 40% opacity on frames, applied
- *   by the components (`border-border/40`), so the kit needs no extra
- *   variables.
+ *   by the components (`border-border/40`).
+ * - `extraVars` holds the shared mock variables (`MockVars`) so B's and C's
+ *   layouts can be tried in this kit: `--link` is red 300; the dark band is
+ *   neutral 900; quotes are Archivo's italic (PDF A); role tags are the
+ *   secondary grey because kit A has no coloured tags (04, card A).
  *
  * One family: Archivo, variable on width and weight. The display, body and
  * mono slots all point at it (the PDF: "No serif, no mono, no display
@@ -107,6 +110,15 @@ export const KRYSHAN_KIT_A: ReviewKit = {
     },
   },
   fontClassName: archivo.variable,
+  extraVars: {
+    "--link": RED[300],
+    "--surface-dark": NEUTRAL[900],
+    "--surface-dark-foreground": BONE,
+    "--font-quote": ARCHIVO,
+    "--tag-directing": NEUTRAL[300],
+    "--tag-camera": NEUTRAL[300],
+    "--tag-editing": NEUTRAL[300],
+  },
   ramps: {
     Red: RED,
     "Bone → Ink": NEUTRAL,

@@ -31,7 +31,7 @@ type FeaturedLightboxProps = {
 
 const FRAME_SIZES = "(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw";
 const BUTTON =
-  "flex cursor-pointer items-center gap-1 rounded-(--radius) border border-border px-3 py-1.5 transition-colors hover:border-accent hover:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
+  "flex cursor-pointer items-center gap-1 rounded-(--radius) border border-border px-3 py-1.5 transition-colors hover:border-(--link) hover:text-(--link) focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none";
 
 /**
  * Layout B's featured frames and their lightbox. The frames sit on the dark
@@ -147,7 +147,7 @@ export function FeaturedLightbox({
                       href="#"
                       aria-disabled="true"
                       onClick={(event) => event.preventDefault()}
-                      className="ml-auto font-semibold text-accent underline-offset-4 hover:underline"
+                      className="ml-auto font-semibold text-(--link) underline-offset-4 hover:underline"
                     >
                       Full page →
                     </a>
@@ -155,7 +155,7 @@ export function FeaturedLightbox({
                   <p className="border-t border-border pt-4 text-sm">
                     <a
                       href={`mailto:${email}`}
-                      className="font-semibold text-accent underline-offset-4 hover:underline"
+                      className="font-semibold text-(--link) underline-offset-4 hover:underline"
                     >
                       Email me about this kind of work
                     </a>
@@ -181,7 +181,7 @@ function FeaturedFrame({
       onClick={onOpen}
       aria-haspopup="dialog"
       aria-label={`Open ${project.title}, ${meta}`}
-      className="group block w-full cursor-pointer text-left focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-offset-2 focus-visible:ring-offset-(--surface-dark) focus-visible:outline-none"
+      className="group block w-full cursor-pointer text-left focus-visible:ring-2 focus-visible:ring-(--surface-dark-foreground) focus-visible:ring-offset-2 focus-visible:ring-offset-(--surface-dark) focus-visible:outline-none"
     >
       <Frame className="rounded-(--radius) shadow-md">
         <Image
@@ -197,14 +197,14 @@ function FeaturedFrame({
         {project.lane === "passion" || project.client ? (
           <span className="absolute top-2 left-2 max-w-[70%] truncate rounded-(--radius) bg-background px-1.5 py-1 font-heading text-[0.6875rem] leading-none tracking-[0.08em] uppercase">
             {project.lane === "passion" ? (
-              <span className="text-accent">Passion project</span>
+              <span className="text-(--link)">Passion project</span>
             ) : (
               <span className="text-muted-foreground">{project.client}</span>
             )}
           </span>
         ) : null}
         {/* Rest: title on the scrim. Hover/focus: the frame washes toward cream. */}
-        <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-(--surface-dark)/90 to-transparent px-3 pt-10 pb-3 font-heading text-base font-bold text-background">
+        <span className="absolute inset-x-0 bottom-0 bg-linear-to-t from-(--surface-dark)/90 to-transparent px-3 pt-10 pb-3 font-heading text-base font-bold text-(--surface-dark-foreground)">
           {project.title}
         </span>
         <span

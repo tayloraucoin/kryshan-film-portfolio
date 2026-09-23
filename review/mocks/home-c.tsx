@@ -70,7 +70,7 @@ export function HomeC({ kit }: Readonly<{ kit: ReviewKit }>) {
             {...inertLink}
             className={cn(
               LABEL,
-              "text-sm transition-colors hover:text-primary",
+              "text-sm transition-colors hover:text-(--link)",
             )}
           >
             All {PROJECTS.length} →
@@ -102,7 +102,7 @@ function Nav() {
               <a
                 {...inertLink}
                 data-review-id={`${R}.nav.${label.toLowerCase()}`}
-                className={cn(LABEL, "transition-colors hover:text-primary")}
+                className={cn(LABEL, "transition-colors hover:text-(--link)")}
               >
                 {label}
               </a>
@@ -165,7 +165,7 @@ function Strands() {
             {...inertLink}
             className={cn(
               LABEL,
-              "self-start text-foreground transition-colors hover:text-primary",
+              "self-start text-foreground transition-colors hover:text-(--link)",
             )}
           >
             {strand.id === "teaching" ? "About" : "Work"} →
@@ -190,7 +190,7 @@ function Footer() {
           <a
             href={`mailto:${SITE.email}`}
             data-review-id={`${R}.footer.email`}
-            className="text-base transition-colors hover:text-primary"
+            className="text-base transition-colors hover:text-(--link)"
           >
             {SITE.email}
           </a>
@@ -219,7 +219,7 @@ function SocialList({
             target="_blank"
             rel="me noopener"
             data-review-id={`${R}.footer.${item.label.toLowerCase()}`}
-            className="text-muted-foreground transition-colors hover:text-primary"
+            className="text-muted-foreground transition-colors hover:text-(--link)"
           >
             {item.label}
           </a>

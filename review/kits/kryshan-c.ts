@@ -17,6 +17,8 @@ import type { ReviewKit } from "@/review/kits/types";
  *   row's colour); nothing else may read them.
  * - `--font-quote`: Newsreader Italic (`opsz`), press quotes only. A fourth
  *   face, as in kit B; not preloaded, since no quote sits on a first screen.
+ * - The rest of `MockVars`: `--link` is green 300 (the PDF's "300 for
+ *   links"); the dark band is neutral 900.
  */
 const chivo = Chivo({
   subsets: ["latin"],
@@ -128,6 +130,9 @@ export const KRYSHAN_KIT_C: ReviewKit = {
   },
   fontClassName: [chivo.variable, newsreader.variable].join(" "),
   extraVars: {
+    "--link": GREEN[300],
+    "--surface-dark": NEUTRAL[900],
+    "--surface-dark-foreground": MIST,
     "--tag-directing": TAG.directing,
     "--tag-camera": TAG.camera,
     "--tag-editing": TAG.editing,

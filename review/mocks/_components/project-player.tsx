@@ -62,7 +62,7 @@ export function ProjectPlayer({
             href={embed.url}
             target="_blank"
             rel="noopener"
-            className="rounded-sm border border-border bg-background/90 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:text-accent focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+            className="rounded-sm border border-border bg-background/90 px-4 py-3 text-sm font-semibold text-foreground transition-colors hover:text-(--link) focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
           >
             Watch on the old site →
           </a>

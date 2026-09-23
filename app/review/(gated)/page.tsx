@@ -76,11 +76,23 @@ export default function ReviewIndexPage() {
           Three ways this site could be.
         </h1>
         <p className="text-muted-foreground">
-          Three branding kits, three layouts, and three home pages that pair one
-          of each. Open anything, turn on <strong>Comment</strong> in the bar,
-          and click the exact thing you want to talk about. When you have seen
-          all three, leave the feedback form.
+          Three branding kits, three layouts, and a real home page for each
+          layout that you can switch between the kits. Open anything, turn on{" "}
+          <strong>Comment</strong> in the bar, and click the exact thing you
+          want to talk about. When you have seen them, leave the feedback form.
         </p>
+        <Link
+          href={reviewRoutes.brand}
+          data-review-id="index-brand"
+          className="flex flex-col gap-1 rounded-lg border border-foreground/20 bg-muted/60 p-4 transition-colors hover:bg-muted"
+        >
+          <span className="text-xs tracking-widest text-muted-foreground uppercase">
+            Start here
+          </span>
+          <span className="font-medium">
+            Your brand in one page: the three pillars every option is built on →
+          </span>
+        </Link>
         {!reviewGateOn() ? (
           <p className="rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm">
             The review gate is off (<code>REVIEW_GATE=off</code>): anyone with
@@ -123,12 +135,12 @@ export default function ReviewIndexPage() {
         />
         <Column
           title="Demo home pages"
-          intro="A kit and a layout together, as a real page."
+          intro="Each layout as a real home page. On the page, switch between the three kits: nine combinations in all."
           items={REVIEW_MOCKS.map((mock) => ({
-            href: reviewRoutes.mock(mock.id),
+            href: reviewRoutes.mock(mock.id, mock.kitId),
             letter: mock.letter,
             name: mock.name,
-            line: `Kit ${kitName(mock.kitId)} in layout ${layoutName(mock.layoutId)}.`,
+            line: `Opens in kit ${kitName(mock.kitId)}, the kit layout ${layoutName(mock.layoutId)} was designed with.`,
             placeholder: mock.placeholder,
           }))}
         />

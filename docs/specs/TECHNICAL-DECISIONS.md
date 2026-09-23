@@ -73,3 +73,11 @@ One section per architectural choice with real alternatives. Never edit or delet
 **Decision:** C. A is invisible and would also open `yarn start:agent` walks unpredictably; B is a second credential path to audit. C is one line in `proxy.ts`, validated by zod (anything but `off` is rejected at build), and the review index prints a warning while it is off.
 **Consequences:** A deployed round must not carry `REVIEW_GATE=off`; KR-4's checklist should confirm it. `noindex` is stamped either way.
 **Revisit trigger:** A round deployed with the gate off by mistake (then refuse `off` when `VERCEL_ENV=production`).
+
+## 2026-09-22 · KR-5 · M-KR-3 · Any mock in any kit, through a typed shared-variable contract
+
+**Context:** Taylor wants each layout shown in all three kits. The mocks had been written against their own kit's meanings (`accent` was small red in A and B but amber in C; B's band and C's tags read variables only their kit defined).
+**Options weighed:** A) Nine hand-built mocks. B) Per-mock fallbacks (`var(--x, …)`) guessing a value when a kit lacks one. C) A `MockVars` type every `ReviewKit` must satisfy (`--link`, `--surface-dark`, `--surface-dark-foreground`, `--font-quote`, `--tag-*`), with mocks allowed to read only shadcn roles plus those.
+**Decision:** C. Each kit states its own value (A and B choose grey tags because they have none), the type system rejects a kit that omits one, and a mock written against the contract works in every kit. The kit is a URL segment so comments keep their combination.
+**Consequences:** Adding a kit means filling seven more values. Mocks must not use `accent` or `primary` for small text; `--link` is the small-text accent. The production kit (`brand/production.ts`) is unaffected; the contract lives in `review/kits/types.ts` and is deleted with the review layer.
+**Revisit trigger:** A fourth kit whose idea cannot be expressed in these seven variables.
