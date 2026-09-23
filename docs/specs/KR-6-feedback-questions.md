@@ -198,3 +198,9 @@ _You answered these before you'd seen anything. Answer again for the site you wa
 - **"Anything else" is "Anything else / general impressions".**
 - **An admin view in taylor-aucoin** (`/admin/design-reviews`, REV-3) shows each round's forms (every answer and note, the three boxes) and its comments grouped by page.
 - Timing: the notes are optional, so the structured estimate stands; each note written adds about half a minute.
+
+## Amendment 2 (Taylor, 2026-09-22)
+
+- **Section 5 removed entirely** ("as we already have that data"). The nine intake sliders are no longer re-asked, and `INTAKE_BASELINES` is gone. The wire's `baseline` field stays in the contract (nullable) for a future round that re-asks something; this form sends it as null.
+- The form is now **13 structured questions** (2 favourite, 2 brand, 4 kits, 5 layouts) plus the optional lane-names text, a thoughts box on each, and the three free-text boxes. About four minutes of structured answers, eight to ten with writing.
+- Acceptance criterion 4's "intake sliders re-asked" is withdrawn by Taylor; see DEVIATIONS.

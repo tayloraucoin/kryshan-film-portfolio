@@ -17,11 +17,7 @@ import {
   feedbackFormInput,
   reviewSubmissionInput,
 } from "@/lib/validators/review";
-import {
-  FEEDBACK_SCHEMA,
-  FEEDBACK_SECTIONS,
-  INTAKE_BASELINES,
-} from "@/review/feedback";
+import { FEEDBACK_SCHEMA, FEEDBACK_SECTIONS } from "@/review/feedback";
 
 const input = feedbackFormInput.extend({
   commentCount: z.number().int().min(0).default(0),
@@ -91,7 +87,9 @@ function buildAnswers(
               kind: "scale",
               value: Math.round(value * 10) / 10,
               ends: q.ends,
-              baseline: INTAKE_BASELINES[q.id] ?? null,
+              // Nothing on this form re-asks an intake slider (Taylor, KR-6
+              // amendment), so no scale has an intake answer to compare.
+              baseline: null,
             });
             break;
           }

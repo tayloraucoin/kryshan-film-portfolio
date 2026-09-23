@@ -1,8 +1,4 @@
-import type {
-  FeedbackOption,
-  FeedbackQuestion,
-  FeedbackSection,
-} from "@/lib/review/types";
+import type { FeedbackOption, FeedbackSection } from "@/lib/review/types";
 import { reviewRoutes } from "@/lib/routes";
 import { PILLARS } from "@/review/brand";
 import { REVIEW_KITS } from "@/review/kits";
@@ -65,16 +61,6 @@ function combinationOptions(withLegacy: boolean): FeedbackOption[] {
       };
     }),
   );
-}
-
-/** The intake's sliders, re-asked with the intake's own labels and ends. */
-function nowSlider(
-  id: string,
-  label: string,
-  low: string,
-  high: string,
-): FeedbackQuestion {
-  return { kind: "scale", id, label, ends: { low, high } };
 }
 
 export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
@@ -274,62 +260,4 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
       },
     ],
   },
-  {
-    id: "now",
-    title: "A few sliders",
-    questions: [
-      nowSlider("now.meet-first", "Who they meet first", "The work", "You"),
-      nowSlider(
-        "now.way-through",
-        "How they get through it",
-        "They roam",
-        "You lead",
-      ),
-      nowSlider(
-        "now.around-the-work",
-        "What sits around each piece",
-        "Just the piece",
-        "The whole story",
-      ),
-      nowSlider(
-        "now.where-the-look-lives",
-        "Where the personality lives",
-        "In the work",
-        "In the site",
-      ),
-      nowSlider(
-        "now.what-carries-it",
-        "What carries the work",
-        "Frames",
-        "Footage",
-      ),
-      nowSlider("now.temperature", "Cool or warm", "Cool", "Warm"),
-      nowSlider("now.presence", "Understated or bold", "Understated", "Bold"),
-      nowSlider("now.levity", "Serious or playful", "Serious", "Playful"),
-      nowSlider(
-        "now.era",
-        "Timeless or of its moment",
-        "Timeless",
-        "Of its moment",
-      ),
-    ],
-  },
 ];
-
-/**
- * His intake answers to the same sliders (docs/client/kryshan-02-success-
- * criteria.md §1.3, §2.2, §3.4, §12), on the 0.0–7.0 scale; 02's "6/7" is
- * 6.0. Attached by the server action for Taylor's email and never sent to
- * the browser, so they cannot anchor the new answer.
- */
-export const INTAKE_BASELINES: Readonly<Record<string, number>> = {
-  "now.meet-first": 6.0,
-  "now.way-through": 2.0,
-  "now.around-the-work": 5.0,
-  "now.where-the-look-lives": 5.0,
-  "now.what-carries-it": 5.0,
-  "now.temperature": 6.0,
-  "now.presence": 6.0,
-  "now.levity": 6.0,
-  "now.era": 3.0,
-};

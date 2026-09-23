@@ -53,3 +53,4 @@ YYYY-MM-DD · <ticket-id> · <what changed> · <why>
 2026-09-22 · KR-6 · `docs/REVIEW-LAYER.md`'s route table re-padded by prettier when the feedback row changed · formatting only.
 2026-09-22 · KR-6 · Per-question notes travel as separate `text` items with id `<question id>.note` rather than a `note` field on each answer · a note on an unanswered question has no answer to hang on; the separate item needs no new wire shape, keeps form order, and taylor-aucoin folds it back (`lib/review/answers.ts`).
 2026-09-22 · KR-6 · Notes sit behind "Add a thought" except on the brand section · Taylor asked for a box on every question; twenty open boxes on a phone would break the ten-minute target and read as a survey.
+2026-09-22 · KR-6 · The re-asked intake sliders (acceptance criterion 4, section 5 of the question set) are removed · Taylor: "we already have that data". The `baseline` wire field stays, sent as null.
