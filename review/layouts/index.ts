@@ -38,13 +38,13 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
     file: "kryshan-b.md",
   },
   {
-    id: "layout-c",
+    id: "kryshan-c",
     letter: "C",
-    name: "Placeholder C",
-    thesis: "The structural idea of layout C, in one line.",
-    kitId: "kit-c",
-    file: "placeholder-c.md",
-    placeholder: true,
+    name: "The Index",
+    thesis:
+      "The work as a list. A row expands into a player with the credits reflowing around it.",
+    kitId: "kryshan-c",
+    file: "kryshan-c.md",
   },
 ];
 

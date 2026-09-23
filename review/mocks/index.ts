@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 import type { ReviewKit } from "@/review/kits/types";
 import { HomeA } from "@/review/mocks/home-a";
 import { HomeB } from "@/review/mocks/home-b";
-import { PlaceholderHome } from "@/review/mocks/placeholder-home";
+import { HomeC } from "@/review/mocks/home-c";
 
 /**
  * The demo home pages: one kit paired with one layout, rendered live in the
@@ -10,9 +10,8 @@ import { PlaceholderHome } from "@/review/mocks/placeholder-home";
  * it should be a server component, and it must not import anything from
  * `app/`.
  *
- * Batch 7 replaces the three entries with one component per pairing
- * (`review/mocks/mock-a.tsx`, …), each built from the client's real titles,
- * posters and copy.
+ * Kryshan's three pairings (KR-1..3), each built from his real titles,
+ * posters and copy; shared leaves live in `review/mocks/_components/`.
  */
 export type ReviewMock = {
   id: string;
@@ -42,13 +41,12 @@ export const REVIEW_MOCKS: ReadonlyArray<ReviewMock> = [
     Component: HomeB,
   },
   {
-    id: "mock-c",
+    id: "home-c",
     letter: "C",
-    name: "Kit C × Layout C",
-    kitId: "kit-c",
-    layoutId: "layout-c",
-    Component: PlaceholderHome,
-    placeholder: true,
+    name: "Home C · Kit C × The Index",
+    kitId: "kryshan-c",
+    layoutId: "kryshan-c",
+    Component: HomeC,
   },
 ];
 

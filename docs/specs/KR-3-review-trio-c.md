@@ -3,7 +3,7 @@
 **Epic:** KR — Kryshan Randel, Phase 1 review round · **Phase 1** · Size: L
 **Slice type:** review assets from approved deliverables; risks are invented facts, uncleared media, and a mock that drifts from its layout.
 
-**Status:** Not started
+**Status:** Complete (2026-09-22)
 
 ---
 
@@ -72,3 +72,16 @@ The prompt's "Acceptance criteria" section, verbatim, plus:
 > Build **KR-3 — Review trio C** (this spec). **The prompt in `docs/client/prompts/kryshan-07-cc-prompt-C.md` is the brief; the repo's types and docs win on conflict; log every divergence.**
 > Read first, in order: this spec · `docs/specs/README.md` · `docs/CONVENTIONS.md` · `docs/BRANDING.md` · `docs/REVIEW-LAYER.md` · `docs/PERFORMANCE.md` · the prompt · its attachments under `docs/client/` · `DEVIATIONS.md` + `TECHNICAL-DECISIONS.md`.
 > List every file path before writing code. Close in three places. Run `yarn verify`.
+
+---
+
+### Closing note (2026-09-22)
+
+Browser walk on `yarn dev:agent`, gate off. `/review` lists all nine (three kits, three layouts, three demos), no placeholder badge; no placeholder ribbon on the three C routes.
+- **1440:** statement 277 px (60vh = 540); first three index rows on the first screen; semantic `<table>`; Chivo loaded; 0 iframes. Tapped Jack → expanded row beneath, Vimeo `dnt=1` iframe, focus on Close, column labels lit in the directing red; scrolled into view. Escape → collapsed, 0 iframes, focus back on Jack, labels back to secondary.
+- **1024:** statement 253 px (60vh = 461); lane moves into the title line.
+- **390:** rows are cards (frame full width, title over it, year · dots · client beneath); `thead` and the ghost word hidden (`display: none`, ghost `aria-hidden`); no horizontal scroll. Tapped Just Watch Us → player 358 px wide.
+- Kit page contrast: mist 16.7:1, green 8.4:1, amber 9.0:1, all AAA.
+- Home A re-checked after the view-transition helper moved: Jack opens and plays.
+- Reduced motion: checked in code only.
+

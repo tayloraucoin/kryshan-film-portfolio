@@ -9,12 +9,16 @@ import {
   type RefObject,
 } from "react";
 import Image from "next/image";
-import { flushSync } from "react-dom";
 import { Frame } from "@/components/composed/media/frame";
 import type { Project } from "@/content/projects";
 import { cn } from "@/lib/cn";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
 import { ProjectPlayer } from "@/review/mocks/_components/project-player";
+import {
+  changeWithTransition,
+  prefersReducedMotion,
+  VIEW_TRANSITION_CSS,
+} from "@/review/mocks/_components/view-transition";
 
 type ExpandingGridProps = {
   /** The first cell: server-rendered, never expands. */
@@ -33,10 +37,6 @@ function metaLine(project: Project): string {
   return [project.year, project.roleLabel, project.client]
     .filter(Boolean)
     .join(" · ");
-}
-
-function prefersReducedMotion(): boolean {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 /**
@@ -62,18 +62,10 @@ export function ExpandingGrid({
   const panel = useRef<HTMLDivElement>(null);
   const lastOpened = useRef<string | null>(null);
 
-  const change = useCallback((next: string | null) => {
-    if (!prefersReducedMotion() && document.startViewTransition) {
-      const transition = document.startViewTransition(() =>
-        flushSync(() => setOpenSlug(next)),
-      );
-      // A skipped transition (tab hidden, viewport resized mid-flight)
-      // rejects `ready`; the state change has still happened, so ignore it.
-      transition.ready.catch(() => {});
-    } else {
-      setOpenSlug(next);
-    }
-  }, []);
+  const change = useCallback(
+    (next: string | null) => changeWithTransition(() => setOpenSlug(next)),
+    [],
+  );
 
   // Move focus in on open, back to the cell on close.
   useEffect(() => {
@@ -104,7 +96,7 @@ export function ExpandingGrid({
   return (
     <>
       {/* The one deliberate moment (kit A, motion): 220 ms, out-eased. */}
-      <style>{`::view-transition-group(*){animation-duration:220ms;animation-timing-function:cubic-bezier(0.2,0.8,0.2,1)}`}</style>
+      <style>{VIEW_TRANSITION_CSS}</style>
       <ul
         className={cn(
           "grid grid-flow-row-dense grid-cols-1 gap-3 px-3",
