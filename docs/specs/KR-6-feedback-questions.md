@@ -3,7 +3,7 @@
 **Epic:** KR — Kryshan Randel, Phase 1 review round · **Phase 1** · Size: L
 **Slice type:** review-round instrument design, across two repos (this site's form and taylor-aucoin's ingest). Runs before KR-4 (send).
 
-**Status:** Not started
+**Status:** Complete (2026-09-22)
 
 ---
 
@@ -98,3 +98,93 @@ PROCESS
 
 Do not ask him facts (02 §14 Q5, Q15–Q21 go in Taylor's own message). Do not invent quotes; every line attributed to him is from 01–03. Do not touch the mocks, kits or public site.
 ```
+
+---
+
+## Question set (Vitrine, 2026-09-22)
+
+Written before any code. Order is deliberate: the gut answer first (which demo he would send a producer to), then the reasons, then the sliders he answered before seeing anything, then free text. Every structured answer is optional. Types: **rank** (put three in order; 1st/2nd/3rd per row, no drag), **scale** (0.0–7.0, one decimal, two named ends), **choice** (pick one), **text**.
+
+Sections 1 to 4 each link back to the pages they ask about. Kit, layout, pillar and demo names come from the live registries (`review/kits`, `review/layouts`, `review/brand.ts`, `review/mocks`); nothing below is typed twice.
+
+### 1 · Your favourite
+
+| id                 | Type       | Wording                                  | Serves                                                                                                                                                                    |
+| ------------------ | ---------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `favourite.first`  | choice (9) | Which demo would you send a producer to? | The build's layout × kit (KR-5's nine combinations). Also fills the old `preferredKit` / `preferredLayout` / `preferredMock` fields, so the email's top lines still read. |
+| `favourite.second` | choice (9) | And your second?                         | The fallback. 06 "Recommendation": A, with B as fallback; this tests it.                                                                                                  |
+
+### 2 · The brand
+
+| id           | Type  | Wording                                                              | Ends / options                                   | Serves                                                                                                 |
+| ------------ | ----- | -------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `brand.lead` | rank  | Which should lead? _Put them in order. First place decides the kit._ | Wicked · Generous · Resourceful (from `PILLARS`) | 04 Step 7 and "the real choice": which pillar card governs the build's tie-break rule.                 |
+| `brand.fit`  | scale | How much do these three sound like you?                              | Not me ↔ Exactly me                              | Whether 04's trunk holds. A low number means another brand pass before the build spec, not a kit pick. |
+
+### 3 · The kits
+
+_Rank each part on its own. You can love one kit's colours and another's type._
+
+| id                 | Type   | Wording                                                                                                                                                | Serves                                                                                  |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `kit.colour`       | rank   | Colour. _The background, and the one strong colour on your name._                                                                                      | 01 §4 and §7.2 (dark or light background is a real fork); the production kit's palette. |
+| `kit.type`         | rank   | Type. _Your name and the headings._                                                                                                                    | 01 §5 (condensed Archivo / Space Mono wordmark / Chivo); the production kit's fonts.    |
+| `kit.voice`        | rank   | How it sounds. _The sample lines: the headline, the About lines, the contact line._                                                                    | 03 §8 voice dials (A driest, B warmest, C most editorial) and the hero-line fork.       |
+| `kit.role-colours` | choice | Coloured dots for Directing, Camera and Editing? _Kit C gives each role its own colour. The others use words._ Yes, colour them · No, words are enough | 06 layout C §9: "the single biggest yes/no in this layout"; 04 Card C, UI row.          |
+
+### 4 · The layouts
+
+_Four things the layouts disagree on. Pick what you'd want, whichever layout it comes from._
+
+| id                      | Type         | Wording                                                                                                                                   | Ends / options                                                                                                                                                                                       | Serves                                                                                                              |
+| ----------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `layout.first`          | choice       | What should someone see first on Home? _You asked for "a 10–20 second highlight reel and/or a photo of me". Here are the ways it can go._ | My films, straight away, no banner (A) · One film big at the top, then the rest (A's fix, 06 "Recommendation") · A strip of films to swipe through (B) · One line about what I do, then the list (C) | 06 overview fork 1; 02 §14 Q3 (the hero).                                                                           |
+| `layout.split`          | choice       | Passion projects and paid work: how should they sit?                                                                                      | One grid, passion projects labelled (A) · Two sections, each with its own name (B) · A column in a list I can sort (C)                                                                               | 06 overview fork 2; 02 §3.1.                                                                                        |
+| `layout.lane-names`     | choice       | What should the two be called? _The third is Petros's line, which you called brilliant._                                                  | Passion projects · For hire / Films I made because I had to · Films I was hired to make / Art · Art I got paid for (03 §8, verbatim)                                                                 | 02 §14 Q8; 06 layout B §9: "the most important copy decision in this layout".                                       |
+| `layout.lane-names-own` | text (short) | Or in your own words                                                                                                                      | ≤ 200                                                                                                                                                                                                | Same.                                                                                                               |
+| `layout.fifth`          | choice       | The fifth page. _Teaching gets a page, or your full behind-the-scenes credits list does. The other goes on About._                        | Teaching · Credits · Neither: keep it to four pages                                                                                                                                                  | 06 overview fork 3; 02 §14 Q7; 02 §7. "Neither" is there because "too many pages" is one of his refusals (02 §1.2). |
+| `layout.me-on-home`     | scale        | How much of you should be on Home? _Layout A gives you one square; B, a column on every page._                                            | Just a line ↔ Always there                                                                                                                                                                           | 06 overview fork 4.                                                                                                 |
+
+### 5 · Now that you've seen them
+
+_You answered these before you'd seen anything. Answer again for the site you want now._ Same labels and ends as the intake (`taylor-aucoin/lib/intake/showcase-copy.ts` `tasteSpectrums`). His intake value is **not shown to him**, so it cannot anchor the new answer. It rides in the email beside the new one.
+
+| id                         | Label                       | Ends                             | Intake (02) | What a change would move                                                           |
+| -------------------------- | --------------------------- | -------------------------------- | ----------- | ---------------------------------------------------------------------------------- |
+| `now.meet-first`           | Who they meet first         | The work ↔ You                   | 6.0 (§2.2)  | How much of him sits in Home's first view.                                         |
+| `now.way-through`          | How they get through it     | They roam ↔ You lead             | 2.0 (§1.3)  | Nav and archive: everything in reach, or a guided order.                           |
+| `now.around-the-work`      | What sits around each piece | Just the piece ↔ The whole story | 5.0 (§3.4)  | How much story, awards and press the player carries (02 §3.4).                     |
+| `now.where-the-look-lives` | Where the personality lives | In the work ↔ In the site        | 5.0 (§12)   | How quiet the frame around the work is (01 thesis).                                |
+| `now.what-carries-it`      | What carries the work       | Frames ↔ Footage                 | 5.0 (§2.2)  | Poster frames or motion on landing, within PERFORMANCE.md (no video before a tap). |
+| `now.temperature`          | Cool or warm                | Cool ↔ Warm                      | 6.0 (§12)   | The kit choice; 01 §2.5 (what he says about himself vs what he picked).            |
+| `now.presence`             | Understated or bold         | Understated ↔ Bold               | 6.0 (§12)   | Same; where the aspiration gets spent.                                             |
+| `now.levity`               | Serious or playful          | Serious ↔ Playful                | 6.0 (§12)   | Same; how dry the voice is.                                                        |
+| `now.era`                  | Timeless or of its moment   | Timeless ↔ Of its moment         | 3.0 (§12)   | Type choice (04 Step 5, "timeless in type").                                       |
+
+02 writes the feel sliders as "6/7". They are carried as 6.0 on the 0.0–7.0 scale the structure sliders already use (2.0, 5.0, 6.0).
+
+### 6 · In your words (unchanged, last)
+
+`flinch` "What made you flinch?" · `fightFor` "Anything you would fight for?" · `notes` "Anything else". These keep their existing wire fields.
+
+### Count and time
+
+22 structured questions plus one optional short text and three free-text boxes. Estimate on a phone: choices about 15 s, ranks about 30 s, sliders about 10 s: roughly **five and a half minutes** of structured answers, plus whatever he writes. Nine to ten minutes with two or three sentences in each box.
+
+### Cut, with reasons
+
+- **Overall kit rank and overall layout rank.** `favourite.first` / `favourite.second` already name the top layout and the top kit, and the per-part ranks and forks carry the detail. A third ranking of the same things would change nothing.
+- **"Sounds like me" per pillar (three sliders).** The rank gives the order. One slider for the set (`brand.fit`) is enough to tell whether the trunk holds; three would triple the time and add nothing the build uses.
+- **The essence line (keep / change / drop).** It is "a line to steer by, not a tagline to print" (`review/brand.ts`), so his answer changes no page. The lines that do print are covered by `kit.voice`.
+- **A separate hero-line pick (03 §8's three H1s).** Layout A has no hero line, `layout.first` decides whether there is one, and `kit.voice` ranks the three headlines as rendered. If a hero survives, the line is a copy pass.
+- **Social links (02 §14 Q11).** A list preference, not a judgement that depends on seeing the designs; it goes in Taylor's message with the facts.
+- **02 §14 facts (Q5, Q15–Q21) and every rights question.** Out of scope by the ticket; Taylor's message.
+
+---
+
+## Closing note (2026-09-22)
+
+- **Shipped:** 22 structured questions (2 favourite picks, pillar rank and fit, 3 per-part kit ranks, role colours, 4 layout forks, lane names, 9 intake sliders re-asked), one optional short text, then the three free-text boxes. About five and a half minutes of structured answers, nine to ten with writing. Data in `review/feedback.ts`; renderer in `_components/feedback-{form,fields,draft}`; action snapshots labels and intake baselines on the server.
+- **Wire:** optional `answers: { schema: "kryshan-2026-09", items[] }` (M-KR-4, contract §4a); the old six fields unchanged, with `preferred*` filled from the favourite pick. No migration.
+- **Verified:** `yarn verify` passes. Browser walk at 1440 and 390: partial fill, reload (progress kept), rank swap, keyboard slider, send. The outgoing POST was captured locally and passed taylor-aucoin's validator and email formatter (REV-2 PROGRESS). Not sent to taylor-aucoin itself: see DEVIATIONS.
+- **Next (KR-4):** apply taylor-aucoin `0017` to staging, mint the round, and send the form once against staging before sending Kryshan the link. The facts (02 §14 Q5, Q15–Q21) and social links (Q11) go in Taylor's own message.

@@ -13,7 +13,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-2** — Review trio B (2026-09-22)
 - [x] **KR-3** — Review trio C (2026-09-22)
 - [x] **KR-5** — Review clarity: brand page, layout briefs, kit switcher (2026-09-22)
-- [ ] **KR-6** — Feedback questions: rankings, 0.0–7.0 sliders, the layout forks (both repos)
+- [x] **KR-6** — Feedback questions: rankings, 0.0–7.0 sliders, the layout forks (both repos) (2026-09-22)
 - [ ] **KR-4** — Round setup and send
 
 ## Client build (Phase 2)

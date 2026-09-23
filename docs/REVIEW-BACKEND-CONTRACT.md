@@ -60,7 +60,7 @@ Soft-deletes (sets `deleted_at`). An unknown id also returns `200 { "ok": true }
 
 ### `POST /api/review/submissions`
 
-Body: `ReviewSubmission`. Idempotent on `id`. On first receipt the backend stamps the round's `submitted_at` and emails Taylor a plain-text summary (existing `notifyOps` rail). A round stays open for comments after submission.
+Body: `ReviewSubmission`. Idempotent on `id`. On first receipt the backend stamps the round's `submitted_at` and emails Taylor a plain-text summary (existing `notifyOps` rail), which prints every item in `answers` with its label and value, and a scale's `baseline` beside the new value. A round stays open for comments after submission.
 
 ## 4. Shapes
 
@@ -89,10 +89,43 @@ type ReviewSubmission = {
   notes: string | null; // anything else, ≤ 5000
   commentCount: number; // integer; how many live comments the client site counted at submit time
   submittedAt: string; // ISO 8601
+  answers?: ReviewAnswers | null; // structured answers (§4a); absent or null before KR-6 / REV-2
 };
+
+type ReviewAnswers = {
+  schema: string; // names the question set, e.g. "kryshan-2026-09"; ≤ 64
+  items: ReviewAnswer[]; // in the order the form asked them; ≤ 80; ids unique; unanswered questions omitted
+};
+
+type ReviewAnswerOption = { id: string; label: string }; // id ≤ 100, label ≤ 200
+
+type ReviewAnswer = {
+  id: string; // stable question id; ≤ 64, [a-z0-9.-], starts with [a-z0-9]
+  section: string; // the heading it sat under; ≤ 100
+  label: string; // the question as the reviewer read it; ≤ 300
+} & (
+  | { kind: "rank"; value: ReviewAnswerOption[] } // first to last; 1..20, distinct ids
+  | {
+      kind: "scale";
+      value: number; // 0.0..7.0, at most one decimal
+      ends: { low: string; high: string }; // the labels at 0 and 7; each ≤ 100
+      baseline: number | null; // the same slider's intake answer, same scale
+    }
+  | { kind: "choice"; value: ReviewAnswerOption }
+  | { kind: "text"; value: string } // 1..5000, trimmed
+);
 ```
 
-Both shapes are validated with zod on both sides. The zod schemas live at `lib/validators/review.ts` in each repo and must agree field for field.
+All the shapes are validated with zod on both sides. The zod schemas live at `lib/validators/review.ts` in each repo and must agree field for field.
+
+### 4a. Answers (KR-6 / REV-2)
+
+- **Why a list.** `review_submissions.payload` is jsonb, and jsonb does not keep object key order. An array keeps the form's order in the stored row, and each item carries its own label, so neither the row nor the email needs the client site's code to read (M-KR-4, M-REV-5).
+- **Labels are a snapshot.** The client site's server writes `section`, `label`, option labels, `ends` and `baseline` from its own question set and registries at submit time. The browser sends only question ids and values, and the server rejects unknown ids and unknown option ids.
+- **The scale is the intake's:** 0.0 to 7.0 in tenths, low end at 0. `baseline` is the intake answer to the same slider, or null.
+- **The backend checks shape, not identity.** Bounds, kinds and unique ids are validated; which questions a round asks is the client site's business.
+- **The old fields keep their meaning.** `flinch`, `fightFor` and `notes` are still the three free-text boxes and are not repeated in `items`. `preferredKit`, `preferredLayout` and `preferredMock` are filled from the reviewer's favourite combination.
+- **Versioning.** `schema` names the question set. A new client's round changes the set and the string; the wire shape stays.
 
 ## 5. Storage (taylor-aucoin)
 
@@ -100,7 +133,7 @@ Three tables, deny-all RLS like every other table there:
 
 - `review_rounds` — one per client review round: `id`, `created_at`, `updated_at`, `client_name`, `label`, `engagement_id` (nullable, `on delete set null`), `key_hash` (unique), `site_url` (nullable), `submitted_at` (nullable).
 - `review_comments` — `id` (client-supplied uuid, primary key), `round_id` (cascade), `created_at`, `client_created_at`, `deleted_at`, `path`, `target` (jsonb), `body`, `viewport_width`, `viewport_height`.
-- `review_submissions` — `id` (client-supplied uuid, primary key), `round_id` (cascade), `created_at`, `payload` (jsonb: the full `ReviewSubmission`).
+- `review_submissions` — `id` (client-supplied uuid, primary key), `round_id` (cascade), `created_at`, `payload` (jsonb: the full `ReviewSubmission`, `answers` included; no migration was needed for it).
 
 ## 6. What is deliberately not here
 

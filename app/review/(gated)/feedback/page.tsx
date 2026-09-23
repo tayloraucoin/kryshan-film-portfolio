@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { REVIEW_KITS } from "@/review/kits";
-import { REVIEW_LAYOUTS } from "@/review/layouts";
-import { REVIEW_MOCKS } from "@/review/mocks";
+import { FEEDBACK_SECTIONS } from "@/review/feedback";
 import { FeedbackForm } from "./_components/feedback-form";
 
 export const metadata: Metadata = { title: "Feedback" };
@@ -14,24 +12,12 @@ export default function ReviewFeedbackPage() {
           What do you think?
         </h1>
         <p className="text-muted-foreground">
-          Comment on the feeling first and the details last. Which option would
-          you want a producer to land on, and which page made you flinch?
+          About ten minutes. Gut feeling first, details after, and your own
+          words last. Skip anything you don’t have an opinion on; your answers
+          are kept in this browser until you send.
         </p>
       </header>
-      <FeedbackForm
-        kits={REVIEW_KITS.map((k) => ({
-          id: k.id,
-          label: `Kit ${k.letter} · ${k.name}`,
-        }))}
-        layouts={REVIEW_LAYOUTS.map((l) => ({
-          id: l.id,
-          label: `Layout ${l.letter} · ${l.name}`,
-        }))}
-        mocks={REVIEW_MOCKS.map((m) => ({
-          id: m.id,
-          label: `Demo ${m.letter} · ${m.name}`,
-        }))}
-      />
+      <FeedbackForm sections={FEEDBACK_SECTIONS} />
     </main>
   );
 }

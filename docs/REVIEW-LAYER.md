@@ -6,16 +6,16 @@ Every client engagement has one feedback round before the real build: the client
 
 Routes, all under `/review`:
 
-| Route                      | What                                                                                                                        |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `/review/access`           | The code gate. The only page outside the gate.                                                                              |
-| `/review`                  | The index: three columns (kits, layouts, demos) and the feedback link.                                                      |
-| `/review/kits/[kit]`       | One kit as a live style page: palette with contrast, type scale, voice strings, the never list. One template for all three. |
-| `/review/layouts/[layout]` | A plain-language brief of the layout (five questions, why, what it gives up, the three side by side), then the deliverable's markdown folded underneath, in its paired kit's scope. |
-| `/review/mocks/[mock]`     | Redirects to the demo in the kit its layout was designed with.                                                              |
-| `/review/mocks/[mock]/[kit]` | A demo home page: one layout in any kit (a switcher above it), full width, real content. Kits share `MockVars` (M-KR-3).  |
-| `/review/brand`            | The brand in one page: essence, pillars, which pillar each kit leads with. Linked first from the index.                    |
-| `/review/feedback`         | The form: preferred kit, layout and demo; what made them flinch; what they would fight for; anything else.                  |
+| Route                        | What                                                                                                                                                                                |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/review/access`             | The code gate. The only page outside the gate.                                                                                                                                      |
+| `/review`                    | The index: three columns (kits, layouts, demos) and the feedback link.                                                                                                              |
+| `/review/kits/[kit]`         | One kit as a live style page: palette with contrast, type scale, voice strings, the never list. One template for all three.                                                         |
+| `/review/layouts/[layout]`   | A plain-language brief of the layout (five questions, why, what it gives up, the three side by side), then the deliverable's markdown folded underneath, in its paired kit's scope. |
+| `/review/mocks/[mock]`       | Redirects to the demo in the kit its layout was designed with.                                                                                                                      |
+| `/review/mocks/[mock]/[kit]` | A demo home page: one layout in any kit (a switcher above it), full width, real content. Kits share `MockVars` (M-KR-3).                                                            |
+| `/review/brand`              | The brand in one page: essence, pillars, which pillar each kit leads with. Linked first from the index.                                                                             |
+| `/review/feedback`           | The form, rendered from `review/feedback.ts`: rankings, 0.0–7.0 sliders and forks (KR-6), then the three free-text boxes.                                                           |
 
 On every gated page: a bar with **Comment** (click-to-comment), the comment count (opens the list), and **Leave feedback**.
 

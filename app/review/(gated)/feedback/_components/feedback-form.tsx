@@ -1,53 +1,117 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import {
+  useState,
+  useSyncExternalStore,
+  useTransition,
+  type FormEvent,
+} from "react";
 import Link from "next/link";
 import { submitFeedback } from "@/app/review/(gated)/feedback/_actions/submit-feedback";
 import { Button } from "@/components/primitives/button";
-import { Label } from "@/components/primitives/label";
-import { Textarea } from "@/components/primitives/textarea";
 import { countPendingEverywhere } from "@/lib/review/pending-store";
+import type {
+  FeedbackQuestion,
+  FeedbackSection,
+  FeedbackValue,
+} from "@/lib/review/types";
 import { reviewRoutes } from "@/lib/routes";
+import {
+  readDraft,
+  readDraftServer,
+  subscribeDraft,
+  writeDraft,
+  type FeedbackDraft,
+} from "./feedback-draft";
+import {
+  ChoiceField,
+  RankField,
+  ScaleField,
+  TextField,
+} from "./feedback-fields";
 
-type Option = { id: string; label: string };
+type FeedbackFormProps = { sections: ReadonlyArray<FeedbackSection> };
 
-type FeedbackFormProps = {
-  kits: Option[];
-  layouts: Option[];
-  mocks: Option[];
-};
+function answered(value: FeedbackValue | undefined): boolean {
+  if (value === undefined) return false;
+  if (Array.isArray(value)) return value.some(Boolean);
+  return typeof value === "number" || value.trim() !== "";
+}
+
+/** The three free-text boxes: the contract's own fields, always last. */
+const WORDS = [
+  {
+    key: "flinch",
+    label: "What made you flinch?",
+    hint: "Which page, in which option, and what on it.",
+  },
+  {
+    key: "fightFor",
+    label: "Anything you would fight for?",
+    hint: "Things you want kept whatever else changes.",
+  },
+  { key: "notes", label: "Anything else" },
+] as const;
 
 /**
- * The round's one form. Every field is optional; an empty form is refused
- * on the client so nobody submits three nulls by accident. The comment count
- * is read from the browser's own storage at submit time, so it reflects what
- * the reviewer actually left, sent or not.
+ * The round's one form, rendered from `review/feedback.ts` (KR-6). Every
+ * answer is optional and saved in this browser as it is given, so a reload
+ * keeps the reviewer's place; the draft survives sending so answers can be
+ * revised and sent again. An empty form is refused here so nobody submits
+ * nothing by accident. The comment count is read from the browser's own
+ * storage at submit time, so it reflects what the reviewer actually left.
  */
-export function FeedbackForm({ kits, layouts, mocks }: FeedbackFormProps) {
+export function FeedbackForm({ sections }: FeedbackFormProps) {
+  const draft = useSyncExternalStore(
+    subscribeDraft,
+    readDraft,
+    readDraftServer,
+  );
   const [pending, start] = useTransition();
-  const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [submissionId, setSubmissionId] = useState<string | undefined>();
 
-  const onSubmit = (formData: FormData) => {
+  const update = (patch: Partial<FeedbackDraft>) =>
+    writeDraft({ ...readDraft(), ...patch });
+
+  const setAnswer = (id: string, value: FeedbackValue | undefined) => {
+    const answers = { ...readDraft().answers };
+    if (value === undefined) delete answers[id];
+    else answers[id] = value;
+    update({ answers });
+  };
+
+  const questions = sections.flatMap((s) => s.questions);
+  const done = questions.filter((q) => answered(draft.answers[q.id])).length;
+  const wrote = WORDS.some((w) => draft[w.key].trim());
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setError(null);
-    const values = Object.fromEntries(formData.entries()) as Record<
-      string,
-      string
-    >;
-    const anything = Object.values(values).some((v) => v && v.trim());
-    if (!anything) {
-      setError("Pick something or write something before sending.");
+    if (done === 0 && !wrote) {
+      setError("Answer something or write something before sending.");
       return;
     }
+    const answers = Object.fromEntries(
+      Object.entries(draft.answers).filter(([, v]) => answered(v)),
+    );
+    // One id per send, kept until it lands, so a retry after a lost
+    // response is the same submission to the backend (contract §1).
+    const submissionId = draft.submissionId ?? crypto.randomUUID();
+    update({ submissionId });
     start(async () => {
       const result = await submitFeedback(
-        { ...values, commentCount: countPendingEverywhere() },
+        {
+          answers,
+          flinch: draft.flinch,
+          fightFor: draft.fightFor,
+          notes: draft.notes,
+          commentCount: countPendingEverywhere(),
+        },
         submissionId,
       );
       if (result.ok) {
-        setSubmissionId(result.data.id);
-        setDone(true);
+        update({ sentAt: new Date().toISOString(), submissionId: null });
+        window.scrollTo({ top: 0 });
         return;
       }
       setError(
@@ -60,7 +124,7 @@ export function FeedbackForm({ kits, layouts, mocks }: FeedbackFormProps) {
     });
   };
 
-  if (done) {
+  if (draft.sentAt) {
     return (
       <div className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold">Sent. Thank you.</h2>
@@ -68,99 +132,169 @@ export function FeedbackForm({ kits, layouts, mocks }: FeedbackFormProps) {
           Your comments and this form are on their way. You can keep commenting;
           anything new is picked up too.
         </p>
-        <p>
+        <div className="flex flex-wrap items-center gap-4">
           <Link
             href={reviewRoutes.index}
             className="underline underline-offset-4"
           >
             Back to the options
           </Link>
-        </p>
+          <button
+            type="button"
+            onClick={() => update({ sentAt: null })}
+            className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
+          >
+            Change an answer and send again
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <form action={onSubmit} className="flex flex-col gap-6">
-      <Choice name="preferredKit" label="Which branding kit?" options={kits} />
-      <Choice name="preferredLayout" label="Which layout?" options={layouts} />
-      <Choice
-        name="preferredMock"
-        label="Which demo home page?"
-        options={mocks}
-      />
+    <form onSubmit={onSubmit} className="flex flex-col gap-12">
+      {sections.map((section, i) => (
+        <section
+          key={section.id}
+          aria-labelledby={`section-${section.id}`}
+          className="flex flex-col gap-8"
+        >
+          <header className="flex flex-col gap-2 border-t border-border pt-6">
+            <p className="font-mono text-xs text-muted-foreground">
+              {i + 1} of {sections.length + 1}
+            </p>
+            <h2
+              id={`section-${section.id}`}
+              className="text-xl font-semibold tracking-tight"
+            >
+              {section.title}
+            </h2>
+            {section.intro ? (
+              <p className="text-muted-foreground">{section.intro}</p>
+            ) : null}
+            {section.links?.length ? (
+              <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                {section.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="underline underline-offset-4"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </p>
+            ) : null}
+          </header>
+          {section.questions.map((q) => (
+            <Question
+              key={q.id}
+              question={q}
+              value={draft.answers[q.id]}
+              onChange={(v) => setAnswer(q.id, v)}
+            />
+          ))}
+        </section>
+      ))}
 
-      <Field
-        name="flinch"
-        label="What made you flinch?"
-        hint="Which page, in which option, and what on it."
-      />
-      <Field
-        name="fightFor"
-        label="Anything you would fight for?"
-        hint="Things you want kept whatever else changes."
-      />
-      <Field name="notes" label="Anything else" />
+      <section aria-labelledby="section-words" className="flex flex-col gap-8">
+        <header className="flex flex-col gap-2 border-t border-border pt-6">
+          <p className="font-mono text-xs text-muted-foreground">
+            {sections.length + 1} of {sections.length + 1}
+          </p>
+          <h2
+            id="section-words"
+            className="text-xl font-semibold tracking-tight"
+          >
+            In your words
+          </h2>
+        </header>
+        {WORDS.map((w) => (
+          <TextField
+            key={w.key}
+            id={w.key}
+            label={w.label}
+            hint={"hint" in w ? w.hint : undefined}
+            maxLength={5000}
+            value={draft[w.key]}
+            onChange={(v) => update({ [w.key]: v })}
+          />
+        ))}
+      </section>
 
-      {error ? <p className="text-sm text-destructive">{error}</p> : null}
-      <div className="flex items-center gap-3">
-        <Button type="submit" disabled={pending}>
-          {pending ? "Sending…" : "Send feedback"}
-        </Button>
-        <span className="text-xs text-muted-foreground">
-          Every field is optional.
-        </span>
+      <div className="flex flex-col gap-3 border-t border-border pt-6">
+        {error ? (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
+          </p>
+        ) : null}
+        <div className="flex flex-wrap items-center gap-3">
+          <Button type="submit" size="lg" disabled={pending}>
+            {pending ? "Sending…" : "Send feedback"}
+          </Button>
+          <span className="text-sm text-muted-foreground" aria-live="polite">
+            {done} of {questions.length} answered. Every question is optional,
+            and your answers are saved in this browser until you send.
+          </span>
+        </div>
       </div>
     </form>
   );
 }
 
-function Choice({
-  name,
-  label,
-  options,
+function Question({
+  question: q,
+  value,
+  onChange,
 }: {
-  name: string;
-  label: string;
-  options: Option[];
+  question: FeedbackQuestion;
+  value: FeedbackValue | undefined;
+  onChange: (next: FeedbackValue | undefined) => void;
 }) {
-  return (
-    <fieldset className="flex flex-col gap-2">
-      <legend className="text-sm font-medium">{label}</legend>
-      <div className="flex flex-wrap gap-2">
-        {options.map((option) => (
-          <label
-            key={option.id}
-            className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm has-checked:border-primary has-checked:bg-muted"
-          >
-            <input
-              type="radio"
-              name={name}
-              value={option.id}
-              className="accent-primary"
-            />
-            {option.label}
-          </label>
-        ))}
-      </div>
-    </fieldset>
-  );
-}
-
-function Field({
-  name,
-  label,
-  hint,
-}: {
-  name: string;
-  label: string;
-  hint?: string;
-}) {
-  return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor={name}>{label}</Label>
-      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
-      <Textarea id={name} name={name} rows={4} maxLength={5000} />
-    </div>
-  );
+  switch (q.kind) {
+    case "rank":
+      return (
+        <RankField
+          id={q.id}
+          label={q.label}
+          hint={q.hint}
+          options={q.options}
+          value={Array.isArray(value) ? value : undefined}
+          onChange={onChange}
+        />
+      );
+    case "scale":
+      return (
+        <ScaleField
+          id={q.id}
+          label={q.label}
+          hint={q.hint}
+          ends={q.ends}
+          value={typeof value === "number" ? value : undefined}
+          onChange={onChange}
+        />
+      );
+    case "choice":
+      return (
+        <ChoiceField
+          id={q.id}
+          label={q.label}
+          hint={q.hint}
+          options={q.options}
+          value={typeof value === "string" && value ? value : undefined}
+          onChange={onChange}
+        />
+      );
+    case "text":
+      return (
+        <TextField
+          id={q.id}
+          label={q.label}
+          hint={q.hint}
+          maxLength={q.maxLength}
+          value={typeof value === "string" ? value : undefined}
+          onChange={(v) => onChange(v === "" ? undefined : v)}
+        />
+      );
+  }
 }
