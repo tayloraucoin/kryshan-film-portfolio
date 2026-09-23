@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "dev:agent"
+      ],
+      "port": 4500,
+      "autoPort": false
+    },
+    {
+      "name": "prod",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "start:agent"
+      ],
+      "port": 4510,
+      "autoPort": false
+    }
+  ]
+}

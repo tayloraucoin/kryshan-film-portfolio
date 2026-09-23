@@ -1,0 +1,26 @@
+# Deviations (append-only)
+
+One line per intentional divergence from a spec or a house convention. Never rewrite history. Format:
+
+```
+YYYY-MM-DD · <ticket-id> · <what changed> · <why>
+```
+
+2026-09-22 · CB-0 · shadcn is mandated here although taylor-aucoin's CLAUDE.md bans it · that ban protects one bespoke site; client sites are many and their chrome must be cheap and consistent. The look is the kit's, not shadcn's.
+2026-09-22 · CB-0 · `lib/cn.ts` exists although catch-all helper files are banned · shadcn's generated components import `cn` from one alias; the file does one thing and is named for it.
+2026-09-22 · CB-0 · Site identity (`SITE`) lives in `lib/config.ts`, not `content/` · matches both sibling repos and keeps `lib/metadata.ts` from importing upward.
+2026-09-22 · CB-1 · Three placeholder kits, layouts and mocks ship in the boilerplate · the machinery must be runnable before a client's deliverables exist; each placeholder renders a ribbon and Batch 7 replaces it (REVIEW-LAYER.md §5).
+2026-09-22 · CB-0 · `components/` split into `primitives/` (shadcn output) and `composed/` (ours), matching CC's `@cc/ui` tiers · Taylor's feedback after CB-1; the flat `ui/` folder hid which components carried decisions.
+2026-09-22 · KR-0 · Repo created as `kryshan-film-portfolio` from `client-boilerplate` per NEW-CLIENT.md; agent ports 4500/4510; Vitrine's deliverables filed under `docs/client/`; 27 posters converted into `public/media/posters/` ahead of KR-1 · so no build thread depends on chat attachments. Six poster mappings are marked *likely* in `docs/client/project-images/MANIFEST.md` and need confirmation.
+2026-09-22 · KR-1 · Site identity extended in `SITE` (`lib/config.ts`: `place`, six `social` entries with `secondary`), not `content/site.ts`; the prompt's `rolesLine` is the existing `SITE.tagline` (same string) · CB-0 put identity in `SITE` so metadata never imports upward. `content/site.ts` exists for shared copy only (`NAV_LABELS`, `STRANDS` from 03 §8) so KR-2/KR-3 find it.
+2026-09-22 · KR-1 · `Project.story` is optional and absent on all 27 entries · the prompt says "the Story text from 02, verbatim", but 02 §3.5 has no story column (03 says the 27 stories exist in the intake, which is not in the repo). The expanded cell renders story when present. Awards come from 02 §8.1, cut to one award and two festivals (03 §9); The Bully Solution carries festivals only (award list conflicts, 02 §13 #6).
+2026-09-22 · KR-1 · `Project.poster` is `{ src, width, height }`, not a path string; `embed` is a discriminated union (`youtube|vimeo` + id, `linkout` + url, `none`) · `VideoEmbed` needs real dimensions, and eight posters are not 16:9; the union makes a link-out without a URL unrepresentable.
+2026-09-22 · KR-1 · Kit A lives in `ReviewKit` (`review/kits/types.ts`), not `brand/kit.ts`: essence in `tagline`, PDF A-5 never-list in `never`, PDF thesis/roles/type scale/voice in their slots. No `extraVars`: hairlines are `border-border/40` · the repo's type, not the prompt's guess, is the contract. All three font slots point at Archivo (PDF: "No serif, no mono, no display face").
+2026-09-22 · KR-1 · Small red text ("Passion project" label, "Watch ↓", links, hovers) uses `accent` (red 300), not `primary` as Deliverable 4 says in places · the prompt's own acceptance criterion and the PDF (red 500 on black is 3.4:1, AA large only). `primary` is used only for the wordmark (20 px 800) and the display name.
+2026-09-22 · KR-1 · Ids are `kryshan-a` (kit, layout) and `home-a` (mock), replacing `kit-a`/`layout-a`/`mock-a` · the routes the ticket names. The mock component is `review/mocks/home-a.tsx`; the page, not the mock, applies `KitScope`.
+2026-09-22 · KR-1 · The frame-level "Frame to be replaced" / "Link pending" marker is a new `review/mocks/_components/frame-ribbon.tsx`, not the existing `PlaceholderRibbon` · that one lives in `app/review/` (review/ may not import it) and marks a whole page; same amber so the two read as one convention.
+2026-09-22 · KR-1 · `VideoEmbed` gained `startPlaying`; the kit page's contrast table gained "Small accent on ground" and renamed two rows ("Primary on ground", "Text on primary") · layout A §2 is one tap to play, so the player an opened cell creates starts playing; the prompt's contrast rule is about `accent`, which the table did not print.
+2026-09-22 · KR-1 · The Wolf of West Georgia Street renders on Home with `rights: "pending"` · layout A §4 places it and 02 §14 Q13 assumes it is cleared; layout A §7's "pending renders as names" is overridden by 02 (source of truth) until he answers.
+2026-09-22 · KR-1 · The expanded cell also carries his email beside "Full page →" · layout A §2 ("the expanded cell carries … his email link"); the prompt's panel list omits it.
+2026-09-22 · KR-1 · Posters were not converted in this ticket; KR-0 already placed 27 JPEGs · see the KR-0 line above. Link-out URLs are the old site's `/project/<slug>/` pages (02 §1.4), scheme https assumed.
+2026-09-22 · KR-1 · `REVIEW_GATE` (`on` default / `off`) added to `lib/env.ts`, honoured in `proxy.ts`; off admits every `/review` request and forwards `/review/access` to `next`; the index warns while off · Taylor's instruction, so local development and agent browser walks need no code. `.env.local` runs with it off. Not in the prompt or CB-1.

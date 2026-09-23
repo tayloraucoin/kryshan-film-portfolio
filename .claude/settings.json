@@ -1,0 +1,14 @@
+{
+  "$comment": "Repo-scoped Claude Code rules, tracked in git. Read-only and verify commands are allowed; there is no database in this repo, so nothing needs a deny list.",
+  "permissions": {
+    "allow": [
+      "Bash(yarn *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(npx prettier *)",
+      "Bash(npx shadcn *)",
+      "Bash(corepack *)",
+      "Bash(node scripts/*)"
+    ]
+  }
+}
