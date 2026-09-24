@@ -18,7 +18,9 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 
 ## Demo D (track `02-review-demo-d/`)
 
-<!-- KR-7..KR-9 are cut from 02-review-demo-d/demo-d-ux-handoff-v1.md §17. -->
+- [ ] **KR-7** — Demo D scaffold: kit D, layout D, a faithful copy of Demo A, rounds kept apart, contact email from env
+- [ ] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see
+- [ ] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across
 
 ## Client build (Phase 2)
 
