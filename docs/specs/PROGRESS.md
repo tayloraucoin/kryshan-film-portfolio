@@ -16,6 +16,10 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-6** — Feedback questions: rankings, 0.0–7.0 sliders, the layout forks (both repos) (2026-09-22)
 - [ ] **KR-4** — Round setup and send
 
+## Demo D (track `02-review-demo-d/`)
+
+<!-- KR-7..KR-9 are cut from 02-review-demo-d/demo-d-ux-handoff-v1.md §17. -->
+
 ## Client build (Phase 2)
 
 <!-- Cut tickets from the build spec after Kryshan's comments are triaged. -->

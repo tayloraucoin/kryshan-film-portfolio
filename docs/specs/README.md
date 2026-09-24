@@ -4,18 +4,25 @@
 
 ## Folder layout
 
-| Path                       | What                                                                               |
-| -------------------------- | ---------------------------------------------------------------------------------- |
-| `_templates/slice-spec.md` | The blank ticket.                                                                  |
-| `<EPIC>-<n>-<slug>.md`     | One implementable slice each. Epic prefix per client build, e.g. `SITE-1-home.md`. |
-| `00-build-order.md`        | The ordered, checkable queue (create it with the first ticket).                    |
-| `PROGRESS.md`              | The only source of truth for Complete.                                             |
-| `DEVIATIONS.md`            | One line per intentional divergence from a spec. Append-only.                      |
-| `TECHNICAL-DECISIONS.md`   | Fast-lane ADRs for choices with real alternatives. Append-only. IDs `M-<EPIC>-n`.  |
+Work is filed in numbered track folders, in the order it happened. The records, the template and this README stay at the root and serve every track.
+
+| Path                           | What                                                                                                                               |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `01-review-round/`             | Phase 1's review round (KR-1..KR-6), closed: its tickets and its `00-build-order.md`.                                              |
+| `02-review-demo-d/`            | Demo D: kit A + layout A revised after Kryshan's review, built beside A for a before/after comparison. Starts from its UX handoff. |
+| `<track>/<EPIC>-<n>-<slug>.md` | One implementable slice each, inside its track folder.                                                                             |
+| `<track>/00-build-order.md`    | The track's ordered, checkable queue (created with its first ticket).                                                              |
+| `<track>/*-ux-handoff-v<n>.md` | A track's governing UX handoff, when it has a surface. Its decision log is binding; tickets cite it by ID.                         |
+| `_templates/slice-spec.md`     | The blank ticket.                                                                                                                  |
+| `spec-system-guide.md`         | The house manual for the system (Conscious Connections', copied whole).                                                            |
+| `PROGRESS.md`                  | The only source of truth for Complete, across all tracks.                                                                          |
+| `DEVIATIONS.md`                | One line per intentional divergence from a spec. Append-only.                                                                      |
+| `TECHNICAL-DECISIONS.md`       | Fast-lane ADRs for choices with real alternatives. Append-only. IDs `M-<EPIC>-n`.                                                  |
 
 ## Source precedence (when documents disagree)
 
-1. The client's approved deliverables in `../client/` (02 success criteria is the source of truth; 05 tokens for colour; 06 layouts; 03 copy; the 07 prompts for the review round).
+1. The client's approved deliverables in `../client/` (02 success criteria is the source of truth; 04 Step 8 for the pillars; 05 tokens for colour; 06 layouts; 03 copy; the 07 prompts for the review round; 08 for what the round decided).
+   A track's UX handoff (for example `02-review-demo-d/demo-d-ux-handoff-v1.md`) governs product behaviour for that track; its decision log is binding and amends the deliverables where it says so.
 2. `../CONVENTIONS.md`, `../PERFORMANCE.md`, `../BRANDING.md` (site law).
 3. `../REVIEW-LAYER.md` and `../REVIEW-BACKEND-CONTRACT.md` for anything under `/review`.
 4. The sibling repos' conventions (`conscious-connections/docs/architecture/codebase-conventions.md`, taylor-aucoin `CLAUDE.md`) where 1–3 are silent.
@@ -33,7 +40,7 @@
 ## Kickoff contract (paste into a fresh build thread, verbatim)
 
 ```
-You are building ONE ticket from docs/specs/: <TICKET-ID>.
+You are building ONE ticket from docs/specs/<track>/: <TICKET-ID>.
 
 OBJECTIVE
 Ship the ticket's Acceptance criteria — nothing more, nothing less.
@@ -65,4 +72,4 @@ Do not start the next ticket.
 
 ## Completion protocol
 
-Three-place closure, every time: the ticket's `Status:` line → `PROGRESS.md` → `DEVIATIONS.md` (+ `TECHNICAL-DECISIONS.md` when applicable). Then tick `00-build-order.md`, which mirrors and never leads.
+Three-place closure, every time: the ticket's `Status:` line → `PROGRESS.md` → `DEVIATIONS.md` (+ `TECHNICAL-DECISIONS.md` when applicable). Then tick the track's `00-build-order.md`, which mirrors and never leads.

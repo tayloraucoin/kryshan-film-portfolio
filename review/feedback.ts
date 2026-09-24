@@ -1,6 +1,5 @@
 import type { FeedbackOption, FeedbackSection } from "@/lib/review/types";
 import { reviewRoutes } from "@/lib/routes";
-import { PILLARS } from "@/review/brand";
 import { REVIEW_KITS } from "@/review/kits";
 import { findReviewLayout, REVIEW_LAYOUTS } from "@/review/layouts";
 import { REVIEW_MOCKS } from "@/review/mocks";
@@ -13,7 +12,7 @@ import { REVIEW_MOCKS } from "@/review/mocks";
  *
  * The question-set document, with the build decision or source line each
  * question serves and what was cut and why, is in
- * docs/specs/KR-6-feedback-questions.md ("Question set"). Every wording
+ * docs/specs/01-review-round/KR-6-feedback-questions.md ("Question set"). Every wording
  * here traces to it. Kit, layout, pillar and demo names come from the live
  * registries, never typed twice.
  *
@@ -21,6 +20,33 @@ import { REVIEW_MOCKS } from "@/review/mocks";
  * `flinch` / `fightFor` / `notes` fields and the form renders them last.
  */
 export const FEEDBACK_SCHEMA = "kryshan-2026-09";
+
+/**
+ * The pillars exactly as the round asked about them (KR-6). Frozen here, not
+ * read from `review/brand.ts`: the brand was amended after he answered
+ * (04 Step 8, Generous replaced by Galvanizing), and a submitted form's
+ * options must not change underneath its schema.
+ */
+const ROUND_1_PILLARS: FeedbackOption[] = [
+  {
+    id: "wicked",
+    label: "Wicked",
+    detail:
+      "Funny and dark at once, and very good at it. The joke lands last and is never announced.",
+  },
+  {
+    id: "generous",
+    label: "Generous",
+    detail:
+      "You make the people around you their best selves, and you credit them by name.",
+  },
+  {
+    id: "resourceful",
+    label: "Resourceful",
+    detail:
+      "Any genre, any budget, and it still comes out slick. Fast is common; fast and slick at these numbers is yours.",
+  },
+];
 
 /** "Wicked leads · red on black", from "Kryshan A · Wicked leads · red on black". */
 function kitDescriptor(name: string): string {
@@ -96,11 +122,7 @@ export const FEEDBACK_SECTIONS: ReadonlyArray<FeedbackSection> = [
         id: "brand.lead",
         label: "Which should lead?",
         hint: "Put them in order. First place decides the kit.",
-        options: PILLARS.map((pillar) => ({
-          id: pillar.id,
-          label: pillar.name,
-          detail: pillar.meaning,
-        })),
+        options: ROUND_1_PILLARS,
       },
       {
         kind: "scale",
