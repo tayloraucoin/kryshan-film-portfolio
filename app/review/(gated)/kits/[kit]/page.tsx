@@ -6,6 +6,7 @@ import { KitScope } from "@/components/composed/brand/kit-scope";
 import { reviewRoutes } from "@/lib/routes";
 import { findKitLead, KIT_LEADS, type KitLead } from "@/review/brand";
 import { findReviewKit, REVIEW_KITS } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
 import { Palette } from "./_components/palette";
 import { TypeScale } from "./_components/type-scale";
 
@@ -44,8 +45,16 @@ export default async function ReviewKitPage({
   const kit = findReviewKit(id);
   if (!kit) notFound();
 
-  const others = REVIEW_KITS.filter((k) => k.id !== kit.id);
   const lead = findKitLead(kit.id);
+  // Same-round kits, plus the before/after partner across rounds (D-KRD-17).
+  const partners = KIT_LEADS.filter(
+    (other) => other.revises === kit.id || lead?.revises === other.kitId,
+  ).map((other) => other.kitId);
+  const others = REVIEW_KITS.filter(
+    (k) =>
+      k.id !== kit.id &&
+      (roundOf(k) === roundOf(kit) || partners.includes(k.id)),
+  );
 
   return (
     <KitScope kit={kit} className="min-h-full">

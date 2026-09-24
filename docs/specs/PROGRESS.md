@@ -19,7 +19,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 ## Demo D (track `02-review-demo-d/`)
 
 - [x] **KR-7** — Demo D scaffold: kit D, layout D, a faithful copy of Demo A, rounds kept apart, contact email from env (2026-09-24)
-- [ ] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see
+- [x] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see (2026-09-24)
 - [ ] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across
 
 ## Client build (Phase 2)

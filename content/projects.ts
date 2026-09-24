@@ -455,6 +455,15 @@ export const SHOWABLE_PROJECTS: ReadonlyArray<Project> = PROJECTS.filter(
   (project) => project.rights !== "nda",
 );
 
+/**
+ * The genre line: "Short · 2009 · Director". Kind first because a producer
+ * hires by kind (music video, PSA, trailer); the client, when there is one,
+ * is shown as the tile's label instead (demo-d-ux-handoff-v1.md D-KRD-9).
+ */
+export function projectMetaLine(project: Project): string {
+  return [project.kind, project.year, project.roleLabel].join(" · ");
+}
+
 export function findProject(slug: string): Project | undefined {
   return PROJECTS.find((project) => project.slug === slug);
 }

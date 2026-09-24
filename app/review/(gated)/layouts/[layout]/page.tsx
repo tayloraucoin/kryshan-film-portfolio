@@ -10,11 +10,13 @@ import { KitScope } from "@/components/composed/brand/kit-scope";
 import { cn } from "@/lib/cn";
 import { reviewRoutes } from "@/lib/routes";
 import { findReviewKit } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
 import {
   BRIEF_QUESTIONS,
   findReviewLayout,
   REVIEW_LAYOUTS,
 } from "@/review/layouts";
+import { findReviewMock } from "@/review/mocks";
 
 export async function generateMetadata({
   params,
@@ -42,6 +44,19 @@ export default async function ReviewLayoutPage({
   if (!layout) notFound();
   const kit = findReviewKit(layout.kitId);
   if (!kit) notFound();
+
+  // Compare within a round; a revision is compared with what it revises
+  // (D-KRD-17, 18).
+  const mock = findReviewMock(layout.mockId);
+  const partner = mock?.comparesWith
+    ? findReviewMock(mock.comparesWith)
+    : undefined;
+  const peers =
+    roundOf(layout) === 1
+      ? REVIEW_LAYOUTS.filter((other) => roundOf(other) === 1)
+      : REVIEW_LAYOUTS.filter(
+          (other) => other.id === layout.id || other.id === partner?.layoutId,
+        );
 
   const file = path.join(process.cwd(), "review", "layouts", layout.file);
   let markdown: string;
@@ -133,13 +148,17 @@ export default async function ReviewLayoutPage({
           className="flex flex-col gap-3"
           data-review-id={`layout-${layout.id}-compare`}
         >
-          <h2 className={LABEL}>The three side by side</h2>
+          <h2 className={LABEL}>
+            {roundOf(layout) === 1
+              ? "The three side by side"
+              : "Before and after"}
+          </h2>
           <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[40rem] border-collapse text-left text-sm">
               <thead>
                 <tr>
                   <th scope="col" className="w-40 pb-2 font-normal" />
-                  {REVIEW_LAYOUTS.map((other) => (
+                  {peers.map((other) => (
                     <th
                       key={other.id}
                       scope="col"
@@ -171,7 +190,7 @@ export default async function ReviewLayoutPage({
                     >
                       {question}
                     </th>
-                    {REVIEW_LAYOUTS.map((other) => (
+                    {peers.map((other) => (
                       <td
                         key={other.id}
                         className={cn(

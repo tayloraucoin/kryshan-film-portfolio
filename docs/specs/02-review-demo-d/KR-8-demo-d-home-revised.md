@@ -8,7 +8,7 @@
 - a dead link read as a live one
 - A changing by accident
 
-**Status:** Not started
+**Status:** Complete (2026-09-24)
 
 ---
 
@@ -208,3 +208,43 @@ Handoff §10, including:
 > 7. `DEVIATIONS.md`
 >
 > Close in three places. Run `yarn verify`.
+
+---
+
+## Closing note
+
+**What shipped:**
+- Home D rebuilt on new leaves in `review/mocks/_components/home-d/`:
+  - `featured-grid.tsx` (the jawbone, placed from the grid's computed columns)
+  - `film-tile.tsx`
+  - `film-panel.tsx`
+  - `open-film.ts` + `use-open-film.ts` (one open film per page; focus and scroll orchestration)
+  - `transition.ts`
+  - `unbuilt-link.tsx`
+  - `posters.ts` (six static imports for blur)
+- `projectMetaLine` in `content/projects.ts`.
+- Layout D's brief (Appendix A, KR-8 wording) and its markdown amendment block.
+- The layout pages' comparison table and the kit pages' links are scoped by round: layout D compares "Before and after" with A; kit D links to A; A links to B, C and D.
+- M-KR-6 logged.
+
+**Walk at 1440:**
+- The first screen is the bar, then his line (two columns) · Just Watch Us · Directors Reel, then Jack · 5Rhythms · Wolf · Just Up The Block.
+- Jack opens a panel after Just Up The Block (the second line), with focus on the panel and the page scrolled so the panel sits under both bars (review bar 45 px + demo bar 56 px).
+- 5Rhythms swaps in place. Just Watch Us moves the panel after Directors Reel. Tapping Just Watch Us again closes it.
+- ✕ closes, focus returns to the Jack tile, and the scroll position is restored. Esc closes.
+- Rendered text contains "Kryshan Randel" once. Tile names read "Play Jack, Short · 2009 · Director", and so on.
+
+**Walk at 390:**
+- Bar (name · Contact), the nav row, his line and the whole first poster are visible on load.
+- Tapping Just Watch Us hides its tile and opens the film with the ✕ visible at 44 × 44. ✕ restores the tile and returns focus to it.
+- "Work" shows the toast and leaves `scrollY` unchanged.
+
+**Cold load:**
+- No request to YouTube, Vimeo or ytimg.
+- Blur placeholder on all six tiles.
+- `html` `scroll-padding-top` is 105 px.
+- All 17 review routes return 200.
+
+**Verify:** `CONTACT_EMAIL=kryshanrandel@gmail.com yarn verify` passes. No diff to A's kit, layout, mock or shared leaves.
+
+**For the next ticket:** rows reuse `FilmTile`, `FilmPanel` and `openFilm`/`closeFilm` as they are. The panel element id is page-unique (`home-d-film`), and only one panel may exist.

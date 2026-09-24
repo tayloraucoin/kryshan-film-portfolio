@@ -1,6 +1,16 @@
-# Layout A — The Marquee
+# Layout D — The Marquee, revised
 
-Pairs with **Kit A** (Wicked leads · red on black · Archivo). Tokens in `kryshan-05-tokens.json` → `A`.
+Pairs with **Kit D** (Kit A's tokens · Wicked · Resourceful · Galvanizing · red on black · Archivo).
+
+> **Amended after Kryshan's review (2026-09-24).** This is Layout A with his changes. Everything below still holds except where this block says otherwise; the rulings are in `docs/specs/02-review-demo-d/demo-d-ux-handoff-v1.md` (D-KRD-n).
+>
+> - **His name once.** Set in the top bar only; the bar stays at the top (on phones: name and Contact stay, the other links scroll away). The title cell carries his first-person line and his roles, not his name, and spans two columns. (D-KRD-3, 4, 5)
+> - **Six featured films,** his top five and his lead flags; Contact Club and Born To Be open the Directing row. (D-KRD-5)
+> - **The open film** appears full width on the line below the tapped tile's row, and the tile stays, marked; on phones it replaces the tile. Close is an ✕ above the player. No "Full page" link; his email stays, alone, as the panel's last line. (D-KRD-6, 7, 8)
+> - **Genre line:** kind · year · role on every tile and in the panel; "Passion project" or the client's name as the only label; "For hire" nowhere. (D-KRD-9, 10)
+> - **Never a blank tile;** a play mark on hover. (D-KRD-11, 12)
+> - **Two rows you swipe across,** Directing and Camera and editing, replace those two text strands; Teaching stays as text. (D-KRD-13)
+> - **Left out on purpose:** previews that play by themselves, a banner, anything that loads before a tap. (D-KRD-14)
 
 **Thesis.** A director's site with no hero. The first thing on the page is the work, as a dark grid of poster frames with his name in the first cell. A cell expands in place to play; the others move aside. Everything else on the site exists to support that grid.
 
@@ -25,7 +35,7 @@ Land → the grid is already on screen → tap a frame → it expands and plays 
 
 ## 4. Pages, section by section
 
-### Home `/`
+### Home `/` *(amended: see the block at the top)*
 1. **Nav bar** (persistent): wordmark "Kryshan Randel" in red, condensed Archivo, left; Work · About · Teaching · Contact right; on phone a two-line stack, no hamburger.
 2. **The grid, first screen.** Four columns on desktop, two on tablet, one on phone. Cell 1 is the **title cell**: black, his name at display size in red, and the support line in bone ("Director, camera operator, editor, and film instructor. Vancouver, works anywhere."). Cells 2–9: Just Watch Us, Directors Reel, Jack, 5Rhythms, The Wolf of West Georgia Street, Just Up The Block, Contact Club, Born To Be. (His top five, the lead flags, and three that widen the range: a comedy trailer, a music video, a pandemic short.) Passion pieces carry a small red "Passion project" label in the top-left corner; for-hire pieces carry the client name in secondary text.
 3. **The three strands.** One row, three columns: Directing · Camera and editing · Teaching, two lines each (03 §8), each with a text link into Work filtered by that role (or into Teaching).
@@ -71,7 +81,7 @@ Nav · player at full width · title, year, role, for whom · story · awards an
 | Wordmark | display (title cell), nav, footer | — |
 | Grid | 4/2/1 columns; title cell present (Home) or absent (Work) | — |
 | Work cell | 16:9 frame; label variant (Passion) | default; hover/focus (title lifts, one-line meta fades in, hairline brightens); expanded; dimmed (filtered out, 30%) |
-| Expanded cell | spans 2 cols on desktop, full width on phone; player + meta panel | loading (poster stays, spinner in red); playing; closing |
+| Expanded cell *(amended: see the block at the top)* | spans 2 cols on desktop, full width on phone; player + meta panel | loading (poster stays, spinner in red); playing; closing |
 | Player | YouTube, Vimeo, link-out (Dailymotion/Bully Solution until Q9) | poster-only until tap; never autoplay with sound |
 | Filter tabs | role | default; active (red underline); focus |
 | Lane toggle | three-way | active red text |

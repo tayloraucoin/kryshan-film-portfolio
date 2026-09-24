@@ -3,65 +3,102 @@ import { NAV_LABELS, STRANDS } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
 import type { ReviewKit } from "@/review/kits/types";
-import { ExpandingGrid } from "@/review/mocks/_components/home-d/expanding-grid";
+import { FeaturedGrid } from "@/review/mocks/_components/home-d/featured-grid";
+import { UnbuiltLink } from "@/review/mocks/_components/home-d/unbuilt-link";
 
 /**
- * Home D: layout A revised after Kryshan's review, in kit D
- * (docs/specs/02-review-demo-d/demo-d-ux-handoff-v1.md). KR-7 made this a
- * faithful copy of Home A so that KR-8's diff is exactly the revision; the
- * review page wraps it in kit D's `KitScope`.
+ * Home D: Layout A revised after Kryshan's review, in kit D
+ * (docs/specs/02-review-demo-d/demo-d-ux-handoff-v1.md §6; KR-8).
+ *
+ * His name once, in a bar that stays at the top (on phones the name and
+ * Contact stay, the other links scroll away). His own line in a wider
+ * first cell. Six films; a tapped one opens full width on the line below
+ * its tile. Links to pages the demo doesn't have say so and never move the
+ * page. The review page wraps this in kit D's `KitScope`.
  */
 
 const R = "home-d";
 
-/** Cells 2–9, in the layout's order: his top five, the lead flags, and three for range. */
-const HOME_SLUGS = [
+/** His top five and his "lead with this" flags, in his order (D-KRD-5). */
+const FEATURED_SLUGS = [
   "just-watch-us",
   "directors-reel",
   "jack",
   "5rhythms",
   "the-wolf-of-west-georgia-street",
   "just-up-the-block",
-  "contact-club",
-  "born-to-be",
 ] as const;
 
-// Layout A §7: NDA'd work never renders. The Bully Solution is not in this list.
-const HOME_PROJECTS: ReadonlyArray<Project> = HOME_SLUGS.map((slug) =>
-  findProject(slug),
-).filter(
-  (project): project is Project =>
-    project !== undefined && project.rights !== "nda",
-);
+function showable(slugs: ReadonlyArray<string>): ReadonlyArray<Project> {
+  return slugs
+    .map((slug) => findProject(slug))
+    .filter(
+      (project): project is Project =>
+        project !== undefined && project.rights !== "nda",
+    );
+}
 
-const inertLink = {
-  href: "#",
-  "aria-disabled": true,
-} as const;
+const FEATURED = showable(FEATURED_SLUGS);
 
 /** Kit A's label voice: Archivo 600, width 88, tracking 18%, uppercase. */
 const LABEL =
   "text-xs font-semibold font-stretch-88% tracking-[0.18em] uppercase";
 
+/** Nav items, each at least 44 px tall. */
+const NAV_ITEM = cn(
+  LABEL,
+  "inline-flex min-h-11 items-center transition-colors hover:text-(--link)",
+);
+
+/**
+ * Page-level CSS while Home D is mounted:
+ * - the bar heights, and the focus offset that keeps a tabbed-to element
+ *   clear of both sticky bars (WCAG 2.4.11)
+ * - the player's width cap, so the whole frame fits under the bars
+ * - the bar's hairline, drawn once the page has scrolled 8 px (CSS scroll
+ *   timeline; always shown where that isn't supported)
+ * - the transition timing (handoff §9)
+ */
+const PAGE_CSS = [
+  ":root{--demo-bar-h:44px}",
+  "@media (min-width:768px){:root{--demo-bar-h:56px}}",
+  "html{scroll-padding-top:calc(var(--review-bar-h,0px) + var(--demo-bar-h) + 1rem)}",
+  "[data-demo-d]{--player-cap:calc((100svh - var(--review-bar-h,0px) - var(--demo-bar-h) - 76px) * 16 / 9)}",
+  "[data-demo-bar]{border-bottom:1px solid transparent}",
+  "@keyframes demo-bar-line{from{border-bottom-color:transparent}to{border-bottom-color:color-mix(in oklab,var(--border) 40%,transparent)}}",
+  "@supports (animation-timeline: scroll()){[data-demo-bar]{animation:demo-bar-line linear both;animation-timeline:scroll(root);animation-range:0 8px}}",
+  "@supports not (animation-timeline: scroll()){[data-demo-bar]{border-bottom-color:color-mix(in oklab,var(--border) 40%,transparent)}}",
+  // Transition timing (handoff §9): 220 ms out-eased for a move, 150 ms for
+  // a swap in place (`runTransition` sets `data-demo-vt`).
+  "::view-transition-group(*){animation-duration:220ms;animation-timing-function:cubic-bezier(0.2,0.8,0.2,1)}",
+  "html[data-demo-vt=swap]::view-transition-group(*){animation-duration:150ms}",
+].join("");
+
 export function HomeD({ kit }: Readonly<{ kit: ReviewKit }>) {
   return (
-    <div data-kit-mock={kit.id} className="flex min-h-full flex-col">
-      <Nav />
-      <main id="main" className="flex flex-col gap-16 pb-16 md:gap-20">
-        <ExpandingGrid
+    <div
+      id={`${R}-top`}
+      data-kit-mock={kit.id}
+      data-demo-d
+      className="flex min-h-full flex-col"
+    >
+      <style>{PAGE_CSS}</style>
+      <Bar />
+      <main
+        id="main"
+        className="flex flex-col gap-16 pt-3 pb-16 md:gap-20 md:pt-4"
+      >
+        <FeaturedGrid
           reviewPrefix={R}
           titleCell={<TitleCell />}
-          projects={HOME_PROJECTS}
+          projects={FEATURED}
           email={SITE.email}
         />
         <Strands />
         <p data-review-id={`${R}.all-work`} className="px-3 md:px-6">
-          <a
-            {...inertLink}
-            className="font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-(--link)"
-          >
+          <UnbuiltLink className="font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-(--link)">
             All {PROJECTS.length} pieces →
-          </a>
+          </UnbuiltLink>
         </p>
       </main>
       <Footer />
@@ -69,60 +106,82 @@ export function HomeD({ kit }: Readonly<{ kit: ReviewKit }>) {
   );
 }
 
-function Nav() {
+/**
+ * The one place his name is set (D-KRD-3, 4). Sticky under the review bar.
+ * At ≥768 one line: the name, then Work · About · Teaching · Contact. Below
+ * 768 the sticky line holds the name and Contact, and Work · About ·
+ * Teaching sit in a row beneath it that scrolls away.
+ */
+function Bar() {
+  const pages = NAV_LABELS.filter((label) => label !== "Contact");
+
   return (
-    <header
-      data-review-id={`${R}.nav`}
-      className={cn(
-        "flex flex-col gap-2 border-b border-border/40 px-3 py-3",
-        "md:flex-row md:items-center md:justify-between md:px-6 md:py-4",
-      )}
-    >
-      <a
-        {...inertLink}
-        data-review-id={`${R}.nav.wordmark`}
-        className="font-heading text-xl leading-none font-extrabold font-stretch-72% tracking-[0.01em] text-primary uppercase"
+    <>
+      <header
+        data-demo-bar
+        data-review-id={`${R}.bar`}
+        className="sticky top-[var(--review-bar-h,0px)] z-30 flex h-[var(--demo-bar-h)] items-center justify-between gap-4 bg-background px-3 md:px-6"
+        style={{ viewTransitionName: "demo-bar" }}
       >
-        {SITE.name}
-      </a>
-      <nav aria-label="Primary">
-        <ul className="flex flex-wrap gap-x-5 gap-y-1">
-          {NAV_LABELS.map((label) => (
+        <a
+          href={`#${R}-top`}
+          aria-label={`${SITE.name}, back to top`}
+          data-review-id={`${R}.bar.wordmark`}
+          className="font-heading text-xl leading-none font-extrabold font-stretch-72% tracking-[0.01em] text-primary uppercase"
+        >
+          {SITE.name}
+        </a>
+        <nav aria-label="Primary">
+          <ul className="flex items-center gap-x-5">
+            {pages.map((label) => (
+              <li key={label} className="max-md:hidden">
+                <UnbuiltLink
+                  reviewId={`${R}.nav.${label.toLowerCase()}`}
+                  className={NAV_ITEM}
+                >
+                  {label}
+                </UnbuiltLink>
+              </li>
+            ))}
+            <li>
+              <UnbuiltLink reviewId={`${R}.nav.contact`} className={NAV_ITEM}>
+                Contact
+              </UnbuiltLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <nav
+        aria-label="More pages"
+        data-review-id={`${R}.nav-row`}
+        className="border-b border-border/40 px-3 md:hidden"
+      >
+        <ul className="flex gap-x-5">
+          {pages.map((label) => (
             <li key={label}>
-              <a
-                {...inertLink}
-                data-review-id={`${R}.nav.${label.toLowerCase()}`}
-                className={cn(LABEL, "transition-colors hover:text-(--link)")}
-              >
-                {label}
-              </a>
+              <UnbuiltLink className={NAV_ITEM}>{label}</UnbuiltLink>
             </li>
           ))}
         </ul>
       </nav>
-    </header>
+    </>
   );
 }
 
+/** Him, in his voice, never his name (D-KRD-3, 5; handoff §6.3). */
 function TitleCell() {
   return (
-    <div
-      className={cn(
-        "flex h-full flex-col justify-end gap-3 py-2",
-        "max-md:min-h-[55svh] md:justify-between",
-      )}
-    >
-      <h1 className="font-heading text-[clamp(3rem,4.2vw,4rem)] leading-[0.9] font-extrabold font-stretch-72% tracking-[0.01em] text-primary uppercase">
-        Kryshan
-        <br />
-        Randel
+    <div className="flex h-full flex-col justify-end gap-3 pt-6 pb-4 md:py-6 xl:py-2">
+      <h1 className="font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] xl:text-[2.5rem]">
+        I direct, shoot and edit stories that are{" "}
+        <span className="text-primary">hard to look away from.</span>
       </h1>
-      <p className="max-w-[34ch] text-sm leading-snug text-foreground xl:text-[0.8125rem]">
+      <p className="max-w-[48ch] text-base leading-[1.4] md:text-xl">
         {SITE.tagline} {SITE.place}
       </p>
       <a
-        href={`#${R}-${HOME_SLUGS[0]}`}
-        className={cn(LABEL, "text-(--link) md:hidden")}
+        href={`#${R}-${FEATURED_SLUGS[0]}`}
+        className={cn(LABEL, "self-start py-2 text-(--link) md:hidden")}
       >
         Watch ↓
       </a>
@@ -148,12 +207,9 @@ function Strands() {
           <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
             {strand.body}
           </p>
-          <a
-            {...inertLink}
-            className="self-start text-sm font-semibold text-(--link) underline-offset-4 hover:underline"
-          >
+          <UnbuiltLink className="self-start text-sm font-semibold text-(--link) underline-offset-4 hover:underline">
             {strand.id === "teaching" ? "Teaching" : "Work"} →
-          </a>
+          </UnbuiltLink>
         </div>
       ))}
     </section>

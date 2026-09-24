@@ -52,8 +52,8 @@ export type ReviewLayout = {
 };
 
 /**
- * Layout A's brief, as the round showed it. Layout D starts from it (KR-7,
- * a faithful copy) until KR-8 gives D its own.
+ * Layout A's brief, as the round showed it. (KR-7 started layout D from it;
+ * KR-8 gave D its own, handoff Appendix A.)
  */
 const LAYOUT_A_BRIEF: LayoutBrief = {
   idea: "Your work is the first thing anyone sees. There is no big banner at the top: your films start on the first pixel, and your name sits in the first square of the grid.",
@@ -185,7 +185,35 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
     mockId: "home-d",
     file: "kryshan-d.md",
     round: 2,
-    brief: LAYOUT_A_BRIEF,
+    brief: {
+      idea: "Layout A after your review. Your films still come first, with no banner. Your name is set once, in the bar at the top, and stays there as you scroll. Tap a film and it opens across the whole page, right below where you tapped, and plays.",
+      answers: [
+        "Your name in the bar at the top, then the grid. The first, wider square is you, in your words: “I direct, shoot and edit stories that are hard to look away from.”",
+        "Tap it and it opens full width, just below the row you tapped, and plays. Its title, credits and your email sit beside or below it. The ✕ right above the film closes it; the player’s own button makes it full screen.",
+        "Your name, always, in the bar that stays at the top. Your line in the first square, and your photo there too once you send a current one.",
+        "One grid. Passion projects carry a small red “Passion project” label; everything else carries the client’s name. “For hire” appears nowhere.",
+        "Home · Work · About · Teaching · Contact. This demo is the home page; the other pages follow the same rules.",
+      ],
+      because: [
+        {
+          quote: "My name twice",
+          source: "your review",
+          so: "It’s set once now, and it never leaves the screen.",
+        },
+        {
+          quote: "maybe just an 'x' instead?",
+          source: "your review, on the Close button",
+          so: "An ✕ right above the film, where you look first.",
+        },
+        {
+          quote: "if videos go full screen it might not be needed",
+          source: "your review, on “Full page”",
+          so: "The film opens across the whole page, and “Full page” is gone.",
+        },
+      ],
+      givesUp:
+        "Your wider square takes the place of two films in the top grid. And your email stays under each film you open, on its own line: it’s the one thing a producer needs right after watching.",
+    },
   },
 ];
 
