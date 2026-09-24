@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { MessageSquarePlus, MessageSquareText } from "lucide-react";
 import { useReview } from "@/app/review/_components/review-context";
@@ -11,6 +12,10 @@ import { reviewRoutes } from "@/lib/routes";
  * only chrome: a way back to the index, the comment-mode switch, the count
  * of comments on this page, and the feedback form. Marked
  * `data-review-chrome` so comment mode ignores clicks on it.
+ *
+ * It publishes its own height as `--review-bar-h` on `<html>`, so a demo
+ * with a sticky bar of its own can stick directly beneath it (Demo D,
+ * D-KRD-4). The bar wraps on phones, so the height is measured, not assumed.
  */
 export function ReviewBar({ roundLabel }: { roundLabel: string | null }) {
   const {
@@ -22,8 +27,26 @@ export function ReviewBar({ roundLabel }: { roundLabel: string | null }) {
     setSheetOpen,
   } = useReview();
 
+  const bar = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = bar.current;
+    if (!node) return;
+    const root = document.documentElement;
+    const publish = () =>
+      root.style.setProperty("--review-bar-h", `${node.offsetHeight}px`);
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--review-bar-h");
+    };
+  }, []);
+
   return (
     <div
+      ref={bar}
       data-review-chrome
       className="dark sticky top-0 z-40 border-b border-border bg-background/95 text-foreground backdrop-blur"
       style={

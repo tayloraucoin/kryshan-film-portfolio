@@ -1,3 +1,5 @@
+import type { ReviewRound } from "@/review/kits/types";
+
 /**
  * The layouts the review round offers. Each layout page leads with a short
  * brief for the client (what to expect, why, what it costs), then the full
@@ -45,6 +47,42 @@ export type ReviewLayout = {
   file: string;
   brief: LayoutBrief;
   placeholder?: boolean;
+  /** Absent means round 1; layout D (A, revised) is round 2 (D-KRD-17). */
+  round?: ReviewRound;
+};
+
+/**
+ * Layout A's brief, as the round showed it. Layout D starts from it (KR-7,
+ * a faithful copy) until KR-8 gives D its own.
+ */
+const LAYOUT_A_BRIEF: LayoutBrief = {
+  idea: "Your work is the first thing anyone sees. There is no big banner at the top: your films start on the first pixel, and your name sits in the first square of the grid.",
+  answers: [
+    "A grid of your films. Your name and one line about you fill the first square.",
+    "Tap a frame and it grows right where it is and plays. The other frames move aside. Nobody leaves the page.",
+    "One square: your name and “Director, camera operator, editor, and film instructor. Vancouver, works anywhere.” Your photo and story are on About.",
+    "One grid for everything. Passion projects carry a small “Passion project” label; tabs let a producer see only Directing, Camera or Editing.",
+    "Home · Work · About · Teaching · Contact.",
+  ],
+  because: [
+    {
+      quote: "one or two clicks too many for people to actually watch",
+      source: "your goals, about the old site",
+      so: "Here it is one tap from landing to playing.",
+    },
+    {
+      quote: "my favorite way so far of seeing videos on pages",
+      source: "you, on Jacob McKee’s site",
+      so: "The frame grows in place, the way his does.",
+    },
+    {
+      quote: "Make clients want to hire me within 30 seconds",
+      source: "your goals",
+      so: "A producer sees your range before reading a word.",
+    },
+  ],
+  givesUp:
+    "You asked for a short highlight reel and/or a photo at the top. This layout leaves both out on purpose, so the work leads. If you miss them, we can add one featured video above the grid without changing anything else.",
 };
 
 export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
@@ -57,35 +95,7 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
     kitId: "kryshan-a",
     mockId: "home-a",
     file: "kryshan-a.md",
-    brief: {
-      idea: "Your work is the first thing anyone sees. There is no big banner at the top: your films start on the first pixel, and your name sits in the first square of the grid.",
-      answers: [
-        "A grid of your films. Your name and one line about you fill the first square.",
-        "Tap a frame and it grows right where it is and plays. The other frames move aside. Nobody leaves the page.",
-        "One square: your name and “Director, camera operator, editor, and film instructor. Vancouver, works anywhere.” Your photo and story are on About.",
-        "One grid for everything. Passion projects carry a small “Passion project” label; tabs let a producer see only Directing, Camera or Editing.",
-        "Home · Work · About · Teaching · Contact.",
-      ],
-      because: [
-        {
-          quote: "one or two clicks too many for people to actually watch",
-          source: "your goals, about the old site",
-          so: "Here it is one tap from landing to playing.",
-        },
-        {
-          quote: "my favorite way so far of seeing videos on pages",
-          source: "you, on Jacob McKee’s site",
-          so: "The frame grows in place, the way his does.",
-        },
-        {
-          quote: "Make clients want to hire me within 30 seconds",
-          source: "your goals",
-          so: "A producer sees your range before reading a word.",
-        },
-      ],
-      givesUp:
-        "You asked for a short highlight reel and/or a photo at the top. This layout leaves both out on purpose, so the work leads. If you miss them, we can add one featured video above the grid without changing anything else.",
-    },
+    brief: LAYOUT_A_BRIEF,
   },
   {
     id: "kryshan-b",
@@ -164,6 +174,18 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
       givesUp:
         "Small frames make the first impression less cinematic. A producer can scan your range fastest here, but each film has to earn a click from a thumbnail. Teaching loses its own page.",
     },
+  },
+  {
+    id: "kryshan-d",
+    letter: "D",
+    name: "The Marquee, revised",
+    thesis:
+      "Layout A after your review: your name once, your films first, and a film that opens across the page right where you tapped it.",
+    kitId: "kryshan-d",
+    mockId: "home-d",
+    file: "kryshan-d.md",
+    round: 2,
+    brief: LAYOUT_A_BRIEF,
   },
 ];
 

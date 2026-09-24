@@ -3,7 +3,7 @@
 **Epic:** KR — Kryshan Randel, review layer · **Track:** `02-review-demo-d/` · Size: M
 **Slice type:** registry and review-chrome plumbing. The risks are changing Demo A by accident, changing the submitted round-1 form, and mixing rounds in the kit switcher.
 
-**Status:** Not started
+**Status:** Complete (2026-09-24)
 
 ---
 
@@ -150,3 +150,27 @@ No change on the public site. `home-d` is a copy: same poster-first player, no v
 > 6. `DEVIATIONS.md` + `TECHNICAL-DECISIONS.md`
 >
 > Close in three places. Run `yarn verify`.
+
+---
+
+## Closing note
+
+**What shipped:**
+- Kit D (spread from A), layout D (A's markdown and brief), and Home D (a copy of Home A on new files under `review/mocks/_components/home-d/`).
+- `round` on the three registries: the switcher is scoped to the mock's round, cross-round URLs return 404, and the feedback form is built from round 1.
+- The index's "Revised after your review" section; the "Before: Demo A →" / "After: Demo D →" links; the brand page's "Your kit" is D; the kit-page lines.
+- `--review-bar-h` published by the review bar.
+- `CONTACT_EMAIL` → `SITE.email`.
+
+**Walk (800 px):**
+- The index shows the revised section above "The first round".
+- Demo D is identical to Demo A below the switcher, with "Before: Demo A →" and no kit buttons.
+- Demo A keeps Kit A/B/C plus "After: Demo D →".
+- `home-d/kryshan-a` and `home-a/kryshan-d` return 404; `home-d` redirects to its kit.
+- `/review/feedback` contains no Kit D or Layout D option and still shows the original three pillars.
+- The kit pages read "Your choice. Revised as Kit D after your review." (A), "Kit A, revised after your review." (D) and "Shown in the round; not chosen." (B).
+- No diff to A's kit, layout, mock, or `review/mocks/_components/*` outside `home-d/`.
+
+**Verify:** `CONTACT_EMAIL=kryshanrandel@gmail.com yarn verify` passes.
+
+**For the next ticket:** `CONTACT_EMAIL` is required. Every build (local `.env.local`, Vercel, CI without `SKIP_ENV_VALIDATION`) must set it, or the build fails.

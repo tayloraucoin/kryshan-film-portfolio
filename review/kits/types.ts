@@ -47,4 +47,18 @@ export type ReviewKit = Omit<BrandKit, "extraVars"> & {
   never: ReadonlyArray<string>;
   /** True for the boilerplate's own placeholders. Renders a ribbon; must be false before a client sees it. */
   placeholder?: boolean;
+  /**
+   * Which review round the kit belongs to. Absent means 1 (the round the
+   * client answered); 2 is a revision built after it (Demo D). Rounds never
+   * mix in the kit switcher or the feedback form (D-KRD-17).
+   */
+  round?: ReviewRound;
 };
+
+/** A review round. 1 = the first round; 2 = revisions after it. */
+export type ReviewRound = 1 | 2;
+
+/** The round of any registry entry; absent means the first round. */
+export function roundOf(entry: { round?: ReviewRound }): ReviewRound {
+  return entry.round ?? 1;
+}

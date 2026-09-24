@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PlaceholderRibbon } from "@/app/review/_components/placeholder-ribbon";
 import { KitScope } from "@/components/composed/brand/kit-scope";
 import { reviewRoutes } from "@/lib/routes";
-import { findKitLead } from "@/review/brand";
+import { findKitLead, KIT_LEADS, type KitLead } from "@/review/brand";
 import { findReviewKit, REVIEW_KITS } from "@/review/kits";
 import { Palette } from "./_components/palette";
 import { TypeScale } from "./_components/type-scale";
@@ -15,6 +15,21 @@ export async function generateMetadata({
   const { kit: id } = await params;
   const kit = findReviewKit(id);
   return { title: kit ? `Kit ${kit.letter}` : "Kit" };
+}
+
+/** Where this kit stands after the round (D-KRD-18). */
+function kitLeadNote(lead: KitLead): string {
+  if (lead.revises) {
+    const original = findKitLead(lead.revises);
+    return `Kit ${original?.letter ?? "A"}, revised after your review.`;
+  }
+  const revision = KIT_LEADS.find((other) => other.revises === lead.kitId);
+  if (lead.chosen) {
+    return revision
+      ? `Your choice. Revised as Kit ${revision.letter} after your review.`
+      : "Your choice.";
+  }
+  return "Shown in the round; not chosen.";
 }
 
 /**
@@ -52,13 +67,7 @@ export default async function ReviewKitPage({
               <span className="font-medium">
                 {lead.lead} leads: {lead.guardrail}
               </span>{" "}
-              {lead.chosen ? (
-                <span className="text-muted-foreground">Your choice.</span>
-              ) : (
-                <span className="text-muted-foreground">
-                  Shown in the round; not chosen.
-                </span>
-              )}{" "}
+              <span className="text-muted-foreground">{kitLeadNote(lead)}</span>{" "}
               <Link
                 href={reviewRoutes.brand}
                 className="underline underline-offset-4"

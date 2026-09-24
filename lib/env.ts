@@ -21,6 +21,14 @@ export const env = createEnv({
       .default("development"),
 
     /**
+     * The public contact address, rendered on every page (`SITE.email`).
+     * Required: a missing address fails the build rather than shipping a
+     * wrong one. Switch it by changing the variable, only after a test email
+     * from an outside account has arrived (demo-d-ux-handoff-v1.md D-KRD-16).
+     */
+    CONTACT_EMAIL: z.email(),
+
+    /**
      * The review gate. "on" (the default, and the only safe value for a
      * deployed round) requires the access code; "off" lets every `/review`
      * request through with no code, for local development only. Fails
@@ -57,6 +65,7 @@ export const env = createEnv({
   // Next inlines client variables only when referenced literally.
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    CONTACT_EMAIL: process.env.CONTACT_EMAIL,
     REVIEW_GATE: process.env.REVIEW_GATE,
     REVIEW_ACCESS_CODE: process.env.REVIEW_ACCESS_CODE,
     REVIEW_SESSION_SECRET: process.env.REVIEW_SESSION_SECRET,

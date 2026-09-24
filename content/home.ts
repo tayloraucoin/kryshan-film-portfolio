@@ -1,3 +1,5 @@
+import { SITE } from "@/lib/config";
+
 /**
  * Home page copy. Typed TS, no CMS: the client edits this file through the
  * self-edit guide, and a wrong shape fails the build rather than the page.
@@ -10,5 +12,5 @@ export const HOME = {
   support:
     "This is the home page slot. The client's own headline and one supporting line go here.",
   /** The one action the site exists to produce. */
-  action: { label: "Email", href: "mailto:kryshanrandel@gmail.com" },
+  action: { label: "Email", href: `mailto:${SITE.email}` },
 } as const;

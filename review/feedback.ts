@@ -1,8 +1,12 @@
 import type { FeedbackOption, FeedbackSection } from "@/lib/review/types";
 import { reviewRoutes } from "@/lib/routes";
-import { REVIEW_KITS } from "@/review/kits";
-import { findReviewLayout, REVIEW_LAYOUTS } from "@/review/layouts";
-import { REVIEW_MOCKS } from "@/review/mocks";
+import { REVIEW_KITS as ALL_KITS } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
+import {
+  REVIEW_LAYOUTS as ALL_LAYOUTS,
+  findReviewLayout,
+} from "@/review/layouts";
+import { REVIEW_MOCKS as ALL_MOCKS } from "@/review/mocks";
 
 /**
  * Kryshan's feedback questions (KR-6), as data. The form renders these in
@@ -20,6 +24,15 @@ import { REVIEW_MOCKS } from "@/review/mocks";
  * `flinch` / `fightFor` / `notes` fields and the form renders them last.
  */
 export const FEEDBACK_SCHEMA = "kryshan-2026-09";
+
+/**
+ * This form belongs to the first round. Its options are built from round-1
+ * entries only, so later revisions (Demo D, round 2) never change what he
+ * answered (D-KRD-17).
+ */
+const REVIEW_KITS = ALL_KITS.filter((kit) => roundOf(kit) === 1);
+const REVIEW_LAYOUTS = ALL_LAYOUTS.filter((layout) => roundOf(layout) === 1);
+const REVIEW_MOCKS = ALL_MOCKS.filter((mock) => roundOf(mock) === 1);
 
 /**
  * The pillars exactly as the round asked about them (KR-6). Frozen here, not

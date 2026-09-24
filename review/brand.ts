@@ -36,6 +36,10 @@ export type KitLead = {
   bestFor: string;
   /** The kit he chose in the round (kit A). */
   chosen: boolean;
+  /** The kit that stands for his brand now (kit D, A revised). */
+  current?: boolean;
+  /** The kit this one revises, by id. */
+  revises?: string;
 };
 
 export const BRAND = {
@@ -111,9 +115,9 @@ export const OVERLAPS: ReadonlyArray<{ pair: string; line: string }> = [
 ];
 
 /**
- * Which pillar each kit put first in the round. Kit A is his choice and
- * carries Card A v2; B and C are kept as they were shown, so their kit pages
- * still say what they were.
+ * Which pillar each kit put first. Kit A is his choice in the round; kit D
+ * is kit A revised after his review and carries Card A v2; B and C are kept
+ * as they were shown, so their kit pages still say what they were.
  */
 export const KIT_LEADS: ReadonlyArray<KitLead> = [
   {
@@ -149,6 +153,19 @@ export const KIT_LEADS: ReadonlyArray<KitLead> = [
       "The version that sells camera and editing first. The credits list and the Leo nomination lead.",
     chosen: false,
   },
+  {
+    kitId: "kryshan-d",
+    letter: "D",
+    lead: "Wicked",
+    guardrail: "Wicked, but not nasty.",
+    tieBreak:
+      "When the wicked choice and the safe choice conflict, wicked wins, and the design pays for it with precision. When a line could be read as a discount or a plea, it gets rewritten.",
+    bestFor:
+      "The version only you could have, with less around the work: your name once, and nothing beside a playing film but its credits and your email.",
+    chosen: false,
+    current: true,
+    revises: "kryshan-a",
+  },
 ];
 
 export function findKitLead(kitId: string): KitLead | undefined {
@@ -159,3 +176,7 @@ export function findKitLead(kitId: string): KitLead | undefined {
 export const CHOSEN_KIT_LEAD: KitLead | undefined = KIT_LEADS.find(
   (lead) => lead.chosen,
 );
+
+/** The kit that stands for his brand now: the current revision, else his choice. */
+export const CURRENT_KIT_LEAD: KitLead | undefined =
+  KIT_LEADS.find((lead) => lead.current) ?? CHOSEN_KIT_LEAD;
