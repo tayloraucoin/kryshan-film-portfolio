@@ -36,7 +36,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **SITE-5** — Detail pages, redirects, sitemap and structured data (2026-09-24)
 - [x] **SITE-6** — About: the person, then the proof (2026-09-24)
 - [x] **SITE-7** — Teaching: where he teaches, camps, coaching, and who vouches for him (2026-09-24)
-- [ ] **SITE-8** — Contact: the address, big and copyable
+- [x] **SITE-8** — Contact: the address, big and copyable (2026-09-24)
 
 ### Step 3 — His words
 

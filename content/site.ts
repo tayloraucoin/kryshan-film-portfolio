@@ -135,6 +135,25 @@ export const DETAIL_COPY = {
   handOff: "",
 } as const;
 
+/** Contact (spec §6.6, §7.6). */
+export const CONTACT = {
+  /** The page's name, in the tab and the bar. */
+  title: "Contact",
+  /** Locked; flagged to him (O-SITE-16): "No waiting" promises how fast he replies. Alternative offered: "No agent and no form. Email me." */
+  h1: "No agent, no form, no waiting.",
+  /** The meta description (Locked, Cantor). */
+  description:
+    "Email Kryshan Randel directly. Director, camera operator, editor and film instructor. Vancouver, works anywhere.",
+  /** One plain line for the teaching audience (≤12 words, no "also"). SITE-C writes it; empty: not rendered. */
+  teachingLine: "",
+  /** Copy: its label, the label after copying, and what the status says when it couldn't. */
+  copy: {
+    idle: "Copy",
+    done: "Copied",
+    failed: "Couldn't copy. The address is selected.",
+  },
+} as const;
+
 export type Strand = {
   /** Stable id for anchors and review comments. */
   id: "directing" | "camera-editing" | "teaching";

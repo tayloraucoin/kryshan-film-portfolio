@@ -6,7 +6,7 @@
 - the address overflowing a 320 px screen
 - a form or form-like element creeping in
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Vigil: light review, one induced failure.** Induce the copy failure twice and state both results:
 > - stub `navigator.clipboard.writeText` to reject
@@ -225,3 +225,39 @@ If the spec would force you to break one of these, **stop and ask**.
 > - If a non-negotiable would have to break, stop and ask.
 >
 > Close in three places: this ticket's `Status:`, `docs/specs/PROGRESS.md`, and `DEVIATIONS.md` (plus `TECHNICAL-DECISIONS.md` for real alternatives). Then tick `03-site-build/00-build-order.md`. Run `yarn verify` and report what it printed. Append a `## Closing note` here: what shipped, both failure-path results, deviations, and the one thing the next ticket must know.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 3 with SITE-6 and SITE-7).**
+
+**What shipped:** `/contact`, static, as one left-aligned 40rem block:
+- the h1 "No agent, no form, no waiting." (flagged to him, O-SITE-16)
+- his address as a `mailto:` with no subject, at Archivo 800, width 80, not uppercase, `clamp(2rem,7vw,4rem)`, breaking before the `@`
+- SITE-3's `CopyButton` in `"select"` mode, with its labels from `CONTACT` in `content/site.ts`
+- no form, and no teaching line until SITE-C writes one
+
+**Both failure paths:**
+- **Stubbed** (`writeText` rejects): the label stays "Copy" (never "Copied"), `getSelection()` is "hello@kryshanrandel.com", and the status reads "Couldn't copy. The address is selected."
+- **Insecure context** (the production server over `http://10.0.0.170:4510`): `isSecureContext` is false, `navigator.clipboard` is undefined, 0 clipboard calls are made, and the same failure path runs, with the address selected and the honest status. The dev server blocks LAN-origin assets, hence the production run.
+
+**Verified.**
+- **#1 Layout:** Contact is `aria-current="page"`; the order is h1 · address · Copy; left-aligned, max 640 px; no place line or socials in `main`.
+- **#2 No form:** 0 form, input, textarea, select or submit elements.
+- **#3 Address markup:** the static HTML has `hello<wbr/>@kryshanrandel.com`; the `href` is exactly `mailto:hello@kryshanrandel.com`.
+- **#4 Type:** weight 800, stretch 80%, no transform; 32 px at 390, 53.76 px at 768, 64 px at 1440.
+- **#5 320 px:** the alias breaks at the `@` only, with `scrollWidth` 320. A long `CONTACT_EMAIL` (inline build, never committed) wraps to three lines, `scrollWidth` 320.
+- **#6 Keyboard:** Tab from the address reaches Copy. A real Enter (with `writeText` stubbed to resolve, since the pane is unfocused) wrote exactly the address, showed "Copied" and the status, kept focus on the button, and was back to "Copy" after 2 s.
+- **#9 No JS:** Copy carries `data-needs-js` and is visible from first paint with JavaScript; CLS 0.
+- **#10 Teaching line:** a fixture rendered beneath Copy; reverted.
+- **#11 Metadata:** "Contact — Kryshan Randel"; the Locked description verbatim; canonical `/contact`.
+- **#12 Colour:** no `primary` in `main`.
+- **#13 Performance:** CLS 0. The LCP couldn't be measured in the hidden pane (logged).
+- **Walk:** 1440, 768, 390 and 320.
+- **`yarn verify`:** passed.
+
+**Deviations:** 5 SITE-8 lines.
+
+**The one thing the next ticket must know:** every page in spec §3 now exists. The old `/about/…` and `/contact-me/…` URLs from SITE-5 now land on 200s. SITE-C fills the `// SITE-C:` strings across About, Teaching, Work and the detail pages, plus `CONTACT.teachingLine`.
+
