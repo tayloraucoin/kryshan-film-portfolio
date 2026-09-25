@@ -100,10 +100,10 @@ No new route segment; D is new registry entries in the existing review routes.
 
 **Contact email (D-KRD-16).**
 - New server variable `CONTACT_EMAIL` in `lib/env.ts`: `z.string().email()`, required.
-- `SITE.email` in `lib/config.ts` reads it. `.env.example` documents it, with the value to use until Kryshan's new address is verified (`kryshanrandel@gmail.com`).
+- `SITE.email` in `lib/config.ts` reads it. `.env.example` documents it as `hello@kryshanrandel.com` *(amended 2026-09-24; was his Gmail until the alias was verified)*.
 - `content/home.ts` stops hardcoding the Gmail mailto and derives it from `SITE.email`.
 - The value reaches client components only as a prop from a server component, never by importing `lib/config` into a client leaf.
-- Taylor will advise him to create `hello@kryshanrandel.com`. It goes live by changing the variable, only after a test email sent from an outside account arrives.
+- The value is `hello@kryshanrandel.com`, a domain alias Taylor will advise him to create. The site shows the alias, never a personal inbox, so he can change where it delivers at his mail provider without touching the site.
 
 ---
 
@@ -516,7 +516,7 @@ Statuses: **Ruled** · `[PROVISIONAL]` · `[NEEDS DECISION]`. Tickets cite these
 | O-1 | **Pillar check:** ask him to *rank* Galvanizing, Emboldening and Captain, each with one line of proof (04 Step 8). A different winner changes `review/brand.ts` and 04 only. | Taylor → Kryshan | Nothing in D |
 | O-2 | **Current portrait** for the title cell (the only portrait supplied is with Ted Danson). | Kryshan | Nothing: the cell works without it (§6.3) |
 | O-3 | **Replacement poster frames** (02 §14 Q27): the Directors Reel is in D's featured six with a "Frame to be replaced" ribbon; Glimpse and The Bully Solution are kept out of the rows until theirs arrive. | Kryshan (or Vitrine pulls frames, with his OK) | D ships with the ribbon; the real site doesn't |
-| O-4 | **`CONTACT_EMAIL` per environment:** Gmail until `hello@kryshanrandel.com` exists and a test email from an outside account arrives. | Taylor | Nothing |
+| O-4 | **`hello@kryshanrandel.com` must exist before D is sent:** set up the alias and send a test email from an outside account. The site already shows it. | Taylor → Kryshan | Sending D |
 | O-5 | **KR-4 closure:** the round was evidently sent (he submitted on 2026-09-23), but KR-4 is unticked in PROGRESS and has no ticket file. Confirm it was deployed with `REVIEW_GATE=on`, then close it with a DEVIATIONS line. | Taylor | Nothing |
 | O-6 | **Old-site link-outs loop after DNS cutover:** The Bully Solution and Shotlister point at `kryshanrandel.com/project/…`, which the new site will redirect to itself. They need a Dailymotion URL (Q9) and the Shotlister spots or links (Q10) before cutover, or they are hidden at launch. | Kryshan; real-build launch gate | The real launch, not D |
 | O-7 | **Does D go to Kryshan as a second round?** If yes, with or without a short round-2 form? Not specified here. | Taylor | Sending D |
