@@ -27,7 +27,9 @@ import { FEATURED } from "./home";
  * file for the redirects (spec §8).
  */
 
-// Loglines: his intake words, cut mechanically in SITE-2. SITE-C refines every one (spec §6.3, §7).
+// Loglines, stories, awards and articles: his intake words, cut in SITE-C (spec §6.3, §7).
+// Each is a row in docs/client/kryshan-09-copy-for-approval.md, the one record of what he
+// has approved; change a string there and here together.
 
 export type ProjectRole = WorkRole;
 
@@ -101,7 +103,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "DGC BC",
     kind: "PSA",
     logline:
-      "90-second PSA promoting BC directors to be hired by Hollywood studio executives and showrunners.",
+      "Ninety seconds promoting BC directors to be hired by Hollywood studio executives and showrunners.",
+    story:
+      "I co-wrote and directed it for the Directors Guild of Canada’s BC District. More BC directors have been hired on American shows shot here since.",
     embed: { provider: "youtube", id: "CQUSAB2euBk" },
     rights: "public",
   },
@@ -115,7 +119,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "MPIAA, IATSE 669/891, DGC BC, Creative BC",
     kind: "PSA",
     logline:
-      "PSA celebrating the BC film and television’s industry’s big return to work during the Covid-19 pandemic.",
+      "Celebrating the BC film and television industry’s big return to work during the Covid-19 pandemic.",
+    story:
+      "It was shot with virtual production technology that projected most of the backgrounds on photorealistic LED screens.",
     embed: { provider: "youtube", id: "zsXt4ykR6EY" },
     rights: "public",
   },
@@ -128,7 +134,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     kind: "Demo reel",
     logline:
-      "Some of the directing highlights from various music videos, web series, short films, PSAs and other projects.",
+      "Directing highlights from music videos, web series, short films, PSAs and other projects.",
+    story: "A few highlights from the short form projects I’ve directed.",
     embed: { provider: "youtube", id: "UyVrm210Fc8" },
     // Held: its replacement frame isn't approved (O-SITE-13, 02 §14 Q27), so
     // spec §6.1's fallback is in force. To unhold: add its approved frame to
@@ -147,7 +154,16 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Wrecking Ball Society",
     kind: "PSA",
     logline:
-      "PSA shot in one day created to raise awareness of the BC government’s proposed arts funding cuts.",
+      "Shot in one day to raise awareness of the BC government’s proposed arts funding cuts.",
+    story:
+      "It screened at the Wrecking Ball Society gala and Vancity Theatre daily for a few months. The Orpheum Theatre, Fifth Avenue Cinemas and Waterfront Theatre were among the venues that provided their locations for the cause.\n\nAn elementary school children’s choir provided the soundtrack the day after their instructor saw the rough cut with Pan’s Labyrinth temp music.",
+    articles: [
+      {
+        outlet: "PLANK Magazine",
+        title: "ARTLESS: viral messaging",
+        url: "https://www.plankmagazine.com/thots/artless-viral-messaging",
+      },
+    ],
     embed: { provider: "youtube", id: "3DSlctLvQG4" },
     rights: "public",
   },
@@ -165,6 +181,14 @@ export const PROJECTS: ReadonlyArray<Project> = [
       "Grand Jury Prize and Best Death, Bloodshots Film Festival",
       "Screened at Fantasia and Sitges",
     ],
+    story:
+      "Jack was written, shot and edited in 48 hours for the Bloodshots Film Festival. Shorts International, the primary distributor of short films for iTunes, distributed it for seven years.\n\nDan O’Bannon (creator/writer of Alien and writer of Total Recall) judged the film, praising the effective mix of comedy and horror.",
+    awardsFull: [
+      "Won the Grand Jury Prize, the Audience Choice Award, Best Script and Best Death, Bloodshots Film Festival, judged by Dan O’Bannon",
+      "Won the Silver Audience Choice Award for Best Short Film, Fantasia Film Festival",
+      "Won the Jury Prize for best horror film, Sharpcuts Indie Film and Music Festival",
+      "Screened at Sitges, the CFC Worldwide Short Film Festival, imagineNATIVE Film + Media Arts Festival, Calgary Underground Film Festival, Weekend Of Fear, Mauvais Genre Festival, Fantastic Week, Moving Image Film Festival, MotelX and Strange Tales",
+    ],
     embed: { provider: "vimeo", id: "23552792" },
     rights: "public",
   },
@@ -179,8 +203,22 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "Following a devastating breakup, Mary acquires the ability to see the future of her relationships with every man she encounters.",
     awards: [
-      "A&E Short Filmmakers Award, NSI Online Film Festival (2008)",
+      "A&E Short Filmmakers Award, NSI Online Film Festival",
       "Premiered at VIFF 2007",
+    ],
+    story:
+      "Glimpse was produced in association with Kickstart, a program funded by the Directors Guild of Canada, BC District Council and BC Film. It had a sold-out premiere at the Vancouver International Film Festival and screened on the Sundance Channel.\n\nShot on 35mm film in four days, Glimpse was an attempt to tell a very personal story on an ambitiously large canvas.",
+    awardsFull: [
+      "Won the A&E Short Filmmakers Award, NSI Online Film Festival",
+      "Premiered at the Vancouver International Film Festival, 2007",
+      "Awarded the DGC BC Kickstart grant",
+    ],
+    articles: [
+      {
+        outlet: "The Province",
+        title: "Glimpse a winner",
+        url: "https://theprovince.com/entertainment/movies/glimpse-a-winner",
+      },
     ],
     embed: { provider: "youtube", id: "-MoaRA-QC8E" },
     // Held: its frame isn't approved (O-SITE-13); today's file is 720 × 480
@@ -197,7 +235,23 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Myk Gordon",
     kind: "Music video",
-    logline: "Music video for first single from new album.",
+    logline:
+      "Myk Gordon’s first single from his album Born To Be, with cameos from friends and strangers.",
+    story:
+      "Directed and shot during one of the windiest days of the year, it features cameos half from friends and half from strangers, often selected only minutes before appearing on camera.",
+    articles: [
+      {
+        outlet: "Roots Music Canada",
+        title:
+          "Myk Gordon delivers stirring Americana Roots-Rock with ‘Born To Be’",
+        url: "https://www.rootsmusic.ca/2023/11/14/myk-gordon-delivers-stirring-americana-roots-rock-with-born-to-be/",
+      },
+      {
+        outlet: "Tinnitist",
+        title: "Myk Gordon Asks: Aren’t We All Born To Be Free?",
+        url: "https://tinnitist.com/2023/10/19/myk-gordon-asks-arent-we-all-born-to-be-free/",
+      },
+    ],
     embed: { provider: "youtube", id: "BdDTZcIymG0" },
     rights: "public",
   },
@@ -210,9 +264,14 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "passion",
     kind: "Short",
     logline:
-      "Shy eight-year-old Timmy has been picked on his whole life, until school groundskeeper Jack Raddick gives Timmy some tools to deal with bullies.",
+      "Shy eight-year-old Timmy is picked on, until school groundskeeper Jack Raddick gives him some tools to deal with bullies. Power tools…",
     // Award list disagrees between sources (02 §13 #6); festivals only until Q18.
     awards: ["Screened at Fantastic Fest and Fantasia"],
+    story:
+      "The Bully Solution was written, shot and edited in 48 hours for the Bloodshots Film Festival. Judges included director Robert Rodriguez (Sin City, Spy Kids), who stated that the “kid revenge flick” was the standout film of the festival.",
+    awardsFull: [
+      "Screened at Fantasia Film Festival, Fantastic Fest, Screamfest LA, Horror Fest UK, Sharpcuts Indie Film and Music Festival and the Calgary International Film Festival",
+    ],
     // Held: no approved (non-gory) frame (O-SITE-13), and no Dailymotion URL
     // yet (O-SITE-7). Banned from YouTube and Vimeo, so it will link out:
     // embed: { provider: "linkout", host: "Dailymotion", url: "https://…" }.
@@ -229,7 +288,10 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Myk Gordon",
     kind: "Music video",
-    logline: "Music video from “Born To Be” album.",
+    logline:
+      "An intimate live concert by Myk Gordon, shot with three cameras, from his album Born To Be.",
+    story:
+      "Shot during an intimate live concert, with three cameras. Co-directed with the artist Myk Gordon, co-edited with Alex Barker.",
     embed: { provider: "youtube", id: "KNP-9hOFCR0" },
     rights: "public",
   },
@@ -243,7 +305,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Courtenay Cohousing",
     kind: "PSA",
     logline:
-      "PSA for Courtenay Cohousing, a multigenerational community in the Comox Valley.",
+      "For Courtenay Cohousing, a multigenerational community in the Comox Valley.",
     embed: { provider: "youtube", id: "czL8jlkT2jc" },
     rights: "public",
   },
@@ -258,6 +320,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     kind: "EPK",
     logline:
       "A day of b-roll shooting for Riverdale’s Entertainment Weekly cover story photo session.",
+    story:
+      "The photographer had the gift of making his subjects smile and laugh by reciting David Bowie musical numbers from the film Labyrinth.",
     embed: { provider: "youtube", id: "92ZF6lgw4us" },
     rights: "public",
   },
@@ -271,7 +335,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Crazy8s",
     kind: "Promo",
     logline:
-      "Twenty year anniversary video of Vancouver’s short film related event Crazy8s.",
+      "Crazy8s turns twenty: a love letter to Vancouver’s independent film scene.",
     embed: { provider: "youtube", id: "CBbDVwxeTaM" },
     rights: "public",
   },
@@ -284,7 +348,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Crazy8s",
     kind: "EPK / opening film",
-    logline: "Opening Film for the 2017 Crazy8s Gala.",
+    logline:
+      "Opening film for the 2017 Crazy8s gala: a behind-the-scenes look at that year’s six short films and their bold directors.",
     embed: { provider: "youtube", id: "AsjwQgkOCUo" },
     rights: "public",
   },
@@ -298,7 +363,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Sony Pictures",
     kind: "EPK",
     logline:
-      "Camera operator for a behind the scenes interview with star Ashley Judd.",
+      "A behind-the-scenes interview with Ashley Judd for Sony Pictures’ A Dog’s Way Home.",
     embed: { provider: "youtube", id: "6ijBBPwVdGY" },
     rights: "public",
   },
@@ -311,7 +376,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Shotlister / Zach Lipovsky",
     kind: "Instagram ads",
-    logline: "Series of ads for the filmmaker app.",
+    logline: "A series of ads for Zach Lipovsky’s filmmaker app.",
+    story: "Directed and co-wrote the series, shot in one day.",
     // Held: no video. The spots aren't on his YouTube yet (O-SITE-7), and the
     // old-site link-out is gone (D-SITE-9, handoff O-6). To unhold: a YouTube
     // id, or a link-out to where the spots really live, then rights "public".
@@ -326,10 +392,15 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "passion",
     kind: "Short",
     logline:
-      "In a world where human contact is illegal, a secret encounter between a touch-starved client and a contact provider becomes more dangerous.",
+      "Where human contact is illegal, a secret encounter between a touch-starved client and a contact provider becomes more dangerous than either expected.",
     awards: [
       "Best Actor (Riaan Smit), Vancouver Quarantine Performance Project",
-      "Nominated for Best Film and Best Writing",
+    ],
+    story:
+      "Made for $25 several weeks after the pandemic started, with a masked and distanced crew of five, this was art imitating life in a worst-case scenario setting.",
+    awardsFull: [
+      "Won Best Actor (Riaan Smit), Vancouver Quarantine Performance Project",
+      "Nominated for Best Film and Best Writing, Vancouver Quarantine Performance Project",
     ],
     embed: { provider: "youtube", id: "EMlAIDezFMs" },
     rights: "public",
@@ -342,7 +413,10 @@ export const PROJECTS: ReadonlyArray<Project> = [
     roleLabel: "Director / Co-editor",
     lane: "passion",
     kind: "Fake trailer",
-    logline: "Fake movie trailer created for a fortieth birthday party.",
+    logline:
+      "A man’s fortieth birthday present: a movie trailer that turns him into a superhero wolfman.",
+    story:
+      "The ‘star’ was filmed for what he thought was a work video, then re-edited out of context, with his friends, family and co-workers playing versions of themselves, to turn him into a superhero wolfman.\n\nI had never met him before I started filming him. One of the most unusual and rewarding challenges I’ve ever had.",
     embed: { provider: "youtube", id: "X272pj_iu7Y" },
     // A private person's birthday gift: shown on Q13's default, "shown"
     // (O-SITE-8). If he says no, set rights to "held".
@@ -357,7 +431,10 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "passion",
     client: "Crazy8s",
     kind: "Promo / satire",
-    logline: "Opening film for the Crazy8s gala event.",
+    logline:
+      "Crazy8s’ fifteen-year anniversary film takes its creator into a world where Crazy8s never happens.",
+    story:
+      "An opportunity to satirize the event, its creators and its host in a very irreverent South Park style.",
     embed: { provider: "vimeo", id: "88313657" },
     rights: "public",
   },
@@ -370,7 +447,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "passion",
     client: "Jennifer Lyons",
     kind: "Artist portrait",
-    logline: "A portrait of local visual artist Jennifer Lyons.",
+    logline: "A portrait of visual artist Jennifer Lyons.",
+    story:
+      "An experimental, emotion-driven approach to find an equivalent to her joyous, found-object collage style.",
     embed: { provider: "vimeo", id: "155338101" },
     rights: "public",
   },
@@ -384,7 +463,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "VANDU",
     kind: "PSA",
     logline:
-      "PSA for VANDU, an organization dedicated to improving the lives of drug users, their families, and our communities.",
+      "For VANDU, an organization dedicated to improving the lives of drug users, their families and our communities.",
+    story: "A look at a heartfelt community in the Downtown Eastside.",
     // Held: no link (O-SITE-7). When one arrives, check its frame shows no
     // identifiable participant (spec §6.3) before setting rights "public".
     rights: "held",
@@ -400,6 +480,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     kind: "Promo",
     logline:
       "A video summary of the day-long conference and trade show put on by IATSE 669, IATSE 891 and DGC BC.",
+    story:
+      "Shot and edited within a few days as a one-person crew, the first of many projects I’ve done for the union.",
     embed: { provider: "youtube", id: "NSTO9qq6SG8" },
     rights: "public",
   },
@@ -413,8 +495,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Creative BC / Reel Green",
     kind: "Promo",
     logline:
-      "The first in a series of videos I shot and directed for Creative BC, with the goal of reducing the BC film industry’s impact on climate change.",
+      "The first in a series of videos for Creative BC on reducing the BC film industry’s impact on climate change.",
     awards: ["Screened at VIFF 2018"],
+    awardsFull: ["Screened at the Vancouver International Film Festival, 2018"],
     embed: { provider: "youtube", id: "tHqDJ6Gcbr0" },
     rights: "public",
   },
@@ -428,7 +511,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Richmond Mental Health Consumer and Friends Society",
     kind: "Promo",
     logline:
-      "Profile of Richmond’s mental health community engagement organization.",
+      "A profile of the Richmond Mental Health Consumer and Friends Society and the work it does.",
+    story:
+      "Shot blocks away from where I grew up, this profile of Richmond’s mental health community engagement organization is a respectful look at the work they do.",
     embed: { provider: "vimeo", id: "166846735" },
     rights: "public",
   },
@@ -441,8 +526,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Bettina Rothe",
     kind: "Promo",
-    logline:
-      "Promotional video for a dance practice I’ve been a part of since 2013.",
+    logline: "For 5Rhythms, a dance practice I’ve been a part of since 2013.",
     embed: { provider: "youtube", id: "arSy1rmGMGU" },
     rights: "public",
   },
@@ -456,7 +540,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Carly Steiman",
     kind: "Promo",
     logline:
-      "An exhibit featuring portraits of several close friends and colleagues.",
+      "Highlights from an exhibit featuring portraits of several close friends and colleagues.",
     embed: { provider: "youtube", id: "BG0OpaU9rJo" },
     rights: "public",
   },
@@ -470,7 +554,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     client: "Theatre Under The Stars",
     kind: "Teaser",
     logline:
-      "I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots.",
+      "Slow-motion previews of the characters in Theatre Under The Stars’ 2025 season.",
+    story:
+      "I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots, to capture slow motion preview footage of their characters.",
     embed: { provider: "youtube", id: "HRwxGEJdris" },
     rights: "public",
   },
@@ -483,7 +569,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
     lane: "hire",
     client: "Theatre Under The Stars",
     kind: "Trailer",
-    logline:
+    logline: "The 2026 season trailer for Theatre Under The Stars.",
+    story:
       "Filmed the premieres of both The Little Mermaid and Sister Act, then cut them into trailers for their summer seasons.",
     embed: { provider: "youtube", id: "5Z6rq32MKyc" },
     rights: "public",

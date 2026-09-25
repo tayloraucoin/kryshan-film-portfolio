@@ -129,10 +129,11 @@ export const DETAIL_COPY = {
   },
   /**
    * The hand-off sentence that ends every detail page (≤12 words, one line
-   * for all films). A Write string: SITE-C writes it. Empty: the block isn't
-   * rendered (the email line under the title already carries the address).
+   * for all films). Empty: the block isn't rendered (the email line under
+   * the title already carries the address).
    */
-  handOff: "",
+  // Copy row D-0 (docs/client/kryshan-09-copy-for-approval.md)
+  handOff: "If you want something like this, email me.",
 } as const;
 
 /** Contact (spec §6.6, §7.6). */
@@ -144,8 +145,9 @@ export const CONTACT = {
   /** The meta description (Locked, Cantor). */
   description:
     "Email Kryshan Randel directly. Director, camera operator, editor and film instructor. Vancouver, works anywhere.",
-  /** One plain line for the teaching audience (≤12 words, no "also"). SITE-C writes it; empty: not rendered. */
-  teachingLine: "",
+  /** One plain line for the teaching audience (≤12 words, no "also"). Empty: not rendered. */
+  // Copy row C-1 (docs/client/kryshan-09-copy-for-approval.md)
+  teachingLine: "For teaching and coaching, email the same address.",
   /** Copy: its label, the label after copying, and what the status says when it couldn't. */
   copy: {
     idle: "Copy",
@@ -165,7 +167,7 @@ export type Strand = {
  * The three strands, cut to two lines each (03 §8, from his old home page).
  * The Directing and Camera and editing lines are spec §6.1's amended
  * defaults (D-SITE-27, [PROVISIONAL — his OK in the one message]); Teaching
- * drops Vancouver Film School until he confirms it (O-SITE-5).
+ * drops the second school until he confirms it (O-SITE-5).
  */
 export const STRANDS: ReadonlyArray<Strand> = [
   {

@@ -1,5 +1,4 @@
 import type { Photo } from "@/content/photo";
-import { STRANDS } from "@/content/site";
 
 /**
  * Teaching (spec §6.5): where he teaches, the programs and camps he has
@@ -12,13 +11,10 @@ import { STRANDS } from "@/content/site";
  * Never name a student, in a caption, alt text or anywhere else, and never
  * describe anyone as "at-risk".
  *
- * Strings marked "SITE-C" are interim: the spec's own default, or Locked
- * copy used by reference. SITE-C writes the final words; he approves them.
+ * A "Copy row" comment names the string's row in
+ * docs/client/kryshan-09-copy-for-approval.md, the one record of what he has
+ * approved; change a string there and here together.
  */
-
-/** The Home Teaching strand's body: Locked, with the O-SITE-5 fallback (no VFS). */
-const TEACHING_STRAND =
-  STRANDS.find((strand) => strand.id === "teaching")?.body ?? "";
 
 /** The opener photo (3:2), when he sends one and it is cleared. */
 const OPENER_PHOTO: Photo | undefined = undefined;
@@ -30,17 +26,19 @@ export const TEACHING = {
   /** The page's name, in the tab and the bar. */
   title: "Teaching",
   /** The h1: the spec's provisional default (D-SITE-17); no red phrase. */
-  // SITE-C: provisional default (spec §6.5); not approved
+  // Copy row T-1
   h1: "Bring a story. You’ll leave having directed, shot and cut it.",
   /** One or two sentences under the h1 (≤40 words). */
-  // SITE-C: interim, the Home Teaching strand by reference; not approved
-  opener: TEACHING_STRAND,
+  // Copy row T-2
+  opener:
+    "I teach directing, camera and editing at LaSalle College. I run film camps and programs for young people and coach filmmakers one on one.",
   // Widened on purpose: the slot holds a Photo once he sends one.
   openerPhoto: OPENER_PHOTO as Photo | undefined,
   blocks: {
     whereITeach: {
       heading: "Where I teach",
-      /** Vancouver Film School is left out until he confirms it (O-SITE-5). */
+      // Copy row T-3
+      /** The second school is left out until he confirms it (O-SITE-5). */
       items: [
         "LaSalle College (2023–present)",
         "InFocus Film School (2010–2022)",
@@ -49,6 +47,7 @@ export const TEACHING = {
     programs: {
       heading: "Programs and camps",
       /** Places as the places spell them. Frames' descriptor waits on his and Frog Hollow's wording (O-SITE-14). */
+      // Copy row T-3
       items: [
         "Frames Film Project (founder, with Frog Hollow Neighbourhood House, 2012–2015)",
         "Reel Youth: Whatì, NWT and Mississauga (2017–2018)",
@@ -57,13 +56,14 @@ export const TEACHING = {
         "Remote camps",
       ],
       /** One line of camp facts (ages, length, what they leave with, his check); empty until O-SITE-14. */
+      // Copy row T-4 (held)
       factsLine: "",
     },
     coaching: {
       heading: "One-on-one coaching",
       /** ≤50 words, from the first step; no price. */
-      // SITE-C: interim, the one sentence spec §6.5 gives; not approved
-      body: "Tell me what you’re making and where it’s stuck.",
+      // Copy row T-5
+      body: "Tell me what you’re making and where it’s stuck. For students and working filmmakers: one session on the script, the shoot or the edit, or a series of them.",
     },
   },
   roomPhotos: ROOM_PHOTOS,
@@ -71,7 +71,8 @@ export const TEACHING = {
   testimonialsHeading: "What people say",
   /** The page's closing sentence (Locked, 06-A §4). */
   handOff: "If you run a program or want coaching, email me.",
-  /** The meta description. */
-  // SITE-C: interim, the Home Teaching strand by reference; not approved
-  description: TEACHING_STRAND,
+  /** The meta description (≤155 characters). */
+  // Copy row T-7
+  description:
+    "Film teaching with Kryshan Randel: directing, camera and editing at LaSalle College, film camps and one-on-one coaching.",
 } as const;

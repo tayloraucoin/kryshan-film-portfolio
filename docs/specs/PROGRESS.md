@@ -40,7 +40,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 
 ### Step 3 — His words
 
-- [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string
+- [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string · _in progress: Stage A drafted and landed 2026-09-24; waiting on his approval and the press articles_
 
 ### Step 4 — Handover and launch
 
