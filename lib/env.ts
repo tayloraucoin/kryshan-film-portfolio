@@ -22,11 +22,12 @@ export const env = createEnv({
 
     /**
      * The public contact address, rendered on every page (`SITE.email`).
-     * Required: a missing address fails the build rather than shipping a
-     * wrong one. Switch it by changing the variable, only after a test email
-     * from an outside account has arrived (demo-d-ux-handoff-v1.md D-KRD-16).
+     * A domain alias, so where it delivers can change at the mail provider
+     * without touching the site (D-KRD-16). Set it in the environment to
+     * override; unset, the site falls back to the alias rather than failing
+     * the build.
      */
-    CONTACT_EMAIL: z.email(),
+    CONTACT_EMAIL: z.email().default("hello@kryshanrandel.com"),
 
     /**
      * The review gate. "on" (the default, and the only safe value for a
