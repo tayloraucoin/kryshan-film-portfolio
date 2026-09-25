@@ -64,6 +64,7 @@ export function FilmGrid({
   email,
   leading,
   isVisible = ALL_VISIBLE,
+  isNamed = isVisible,
   preloadFirst = false,
   id,
   className,
@@ -72,6 +73,12 @@ export function FilmGrid({
   email: string;
   leading?: ReactNode;
   isVisible?: (film: Film) => boolean;
+  /**
+   * Which tiles carry a view-transition name (default: the visible ones).
+   * Work names the tiles visible *after* a filter change just before it
+   * starts, so a leaving tile fades with the page instead of moving.
+   */
+  isNamed?: (film: Film) => boolean;
   preloadFirst?: boolean;
   /** Home and Work pass "work", the skip link's target (it is focusable). */
   id?: string;
@@ -143,7 +150,11 @@ export function FilmGrid({
               data-lane={film.passion ? "passion" : undefined}
               hidden={isOpen && columns === 1}
               className="scroll-mt-[calc(var(--bar-h)+1rem)]"
-              style={{ viewTransitionName: `film-${film.slug}` }}
+              style={
+                isNamed(film)
+                  ? { viewTransitionName: `film-${film.slug}` }
+                  : undefined
+              }
             >
               <FilmTile
                 film={film}

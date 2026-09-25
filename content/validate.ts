@@ -1,3 +1,4 @@
+import { CREDITS, type Credit } from "@/content/credits";
 import { CAMERA_ROW, DIRECTING_ROW, FEATURED, HOME_H1 } from "@/content/home";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
@@ -83,6 +84,12 @@ const MESSAGES = {
     `lib/routes.ts: the old address ${from} is listed twice. Keep one.`,
   atRisk: (file: string, entry: string) =>
     `${file}: "${entry}" uses the words "at-risk". Nobody on this site is described that way; name the role or the program instead.`,
+  creditMissing: (index: number, field: "title" | "network") =>
+    `content/credits.ts: credit number ${index} has no ${field}. Fill it in, or delete the entry.`,
+  creditYear: (c: Credit, latest: number) =>
+    `content/credits.ts: "${c.title}" has the year ${c.year}. Write the year it came out, as four digits between 1990 and ${latest}.`,
+  creditTwice: (c: Credit) =>
+    `content/credits.ts: "${c.title}" (${c.year}) is listed twice. Delete one of them.`,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -269,6 +276,35 @@ export function checkPhotos(
   return problems;
 }
 
+/** Credits (SITE-4): a title and a network, a sensible year, no duplicates. */
+export function checkCredits(credits: ReadonlyArray<Credit>): string[] {
+  const problems: string[] = [];
+  const latest = new Date().getFullYear() + 1;
+  const seen = new Set<string>();
+
+  credits.forEach((credit, index) => {
+    if (!credit.title.trim()) {
+      problems.push(MESSAGES.creditMissing(index + 1, "title"));
+      return;
+    }
+    if (!credit.network.trim()) {
+      problems.push(MESSAGES.creditMissing(index + 1, "network"));
+    }
+    if (
+      !Number.isInteger(credit.year) ||
+      credit.year < 1990 ||
+      credit.year > latest
+    ) {
+      problems.push(MESSAGES.creditYear(credit, latest));
+    }
+    const key = `${credit.title.trim().toLowerCase()}|${credit.year}`;
+    if (seen.has(key)) problems.push(MESSAGES.creditTwice(credit));
+    seen.add(key);
+  });
+
+  return problems;
+}
+
 /** Checks 15a, 15b. */
 export function checkLegacyPaths(): string[] {
   const problems: string[] = [];
@@ -296,6 +332,7 @@ const problems = [
   ...checkTestimonials(),
   ...PHOTO_SETS.flatMap(({ file, photos }) => checkPhotos(file, photos)),
   ...checkLegacyPaths(),
+  ...checkCredits(CREDITS),
 ];
 
 if (problems.length > 0) {

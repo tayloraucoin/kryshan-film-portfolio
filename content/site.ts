@@ -98,6 +98,24 @@ export const FILM_COPY = {
   ogAlt: (title: string) => `${title}, a still from the film`,
 } as const;
 
+/** Work's shared strings (spec §7.6; Locked). */
+export const WORK_COPY = {
+  status: {
+    filtered: (m: number, n: number) => `Showing ${m} of ${n}`,
+    all: (n: number) => `Showing all ${n}`,
+  },
+  /** `role` is the lowercase role; with no role, "No passion projects yet." */
+  empty: (role?: string) =>
+    role ? `No ${role} passion projects yet.` : "No passion projects yet.",
+  showAll: "Show all",
+  credits: {
+    /** The jump link under Work's header; the ↓ is drawn by the page. */
+    jump: "Behind-the-scenes credits",
+    all: (n: number) => `All ${n} credits`,
+    imdb: "Full credits on IMDb",
+  },
+} as const;
+
 export type Strand = {
   /** Stable id for anchors and review comments. */
   id: "directing" | "camera-editing" | "teaching";

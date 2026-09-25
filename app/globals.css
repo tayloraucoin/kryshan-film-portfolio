@@ -179,6 +179,86 @@ html:not([data-js]) [data-needs-js] {
 }
 
 /*
+ * Work's filter, drawn before first paint (SITE-4, M-SITE-5). The pre-paint
+ * script (lib/pre-paint-script.ts) sets `data-work-role` and
+ * `data-work-passion` on <html> from the URL; the filter leaf keeps them in
+ * step afterwards. Everything the filter changes on screen is styled from
+ * those two attributes, never from React state, so a filtered cold load is
+ * right at first paint. `display: none` takes a tile out of the layout, the
+ * accessibility tree and the tab order at once.
+ */
+html[data-work-role="directing"]
+  [data-work-grid]
+  li[data-roles]:not([data-roles~="directing"]),
+html[data-work-role="camera"]
+  [data-work-grid]
+  li[data-roles]:not([data-roles~="camera"]),
+html[data-work-role="editing"]
+  [data-work-grid]
+  li[data-roles]:not([data-roles~="editing"]),
+html[data-work-passion]
+  [data-work-grid]
+  li[data-roles]:not([data-lane="passion"]) {
+  display: none;
+}
+
+/* The count and the empty line: one variant per combination, one shown. */
+[data-work-count],
+[data-work-empty] {
+  display: none;
+}
+
+html:not([data-work-role]):not([data-work-passion]) [data-work-count="all"],
+html:not([data-work-role])[data-work-passion] [data-work-count="all+passion"],
+html[data-work-role="directing"]:not([data-work-passion])
+  [data-work-count="directing"],
+html[data-work-role="directing"][data-work-passion]
+  [data-work-count="directing+passion"],
+html[data-work-role="camera"]:not([data-work-passion])
+  [data-work-count="camera"],
+html[data-work-role="camera"][data-work-passion]
+  [data-work-count="camera+passion"],
+html[data-work-role="editing"]:not([data-work-passion])
+  [data-work-count="editing"],
+html[data-work-role="editing"][data-work-passion]
+  [data-work-count="editing+passion"] {
+  display: inline;
+}
+
+html:not([data-work-role]):not([data-work-passion]) [data-work-empty="all"],
+html:not([data-work-role])[data-work-passion] [data-work-empty="all+passion"],
+html[data-work-role="directing"]:not([data-work-passion])
+  [data-work-empty="directing"],
+html[data-work-role="directing"][data-work-passion]
+  [data-work-empty="directing+passion"],
+html[data-work-role="camera"]:not([data-work-passion])
+  [data-work-empty="camera"],
+html[data-work-role="camera"][data-work-passion]
+  [data-work-empty="camera+passion"],
+html[data-work-role="editing"]:not([data-work-passion])
+  [data-work-empty="editing"],
+html[data-work-role="editing"][data-work-passion]
+  [data-work-empty="editing+passion"] {
+  display: block;
+}
+
+/* The current role link and the chip's on-look. */
+html:not([data-work-role]) [data-work-link="all"],
+html[data-work-role="directing"] [data-work-link="directing"],
+html[data-work-role="camera"] [data-work-link="camera"],
+html[data-work-role="editing"] [data-work-link="editing"] {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-color: var(--link);
+  text-decoration-thickness: 2px;
+}
+
+html[data-work-passion] [data-work-chip] > span {
+  color: var(--link);
+  border-color: var(--link);
+}
+
+/*
  * Reduced motion is designed, not tolerated: transitions collapse to their
  * end state and nothing loops. Components that animate must read
  * `motion-safe:` / `motion-reduce:` rather than assume this rule exists.

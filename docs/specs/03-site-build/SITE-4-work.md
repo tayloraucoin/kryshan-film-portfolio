@@ -10,7 +10,7 @@
 
 **Vigil:** review by **inducing**: a throttled cold load of each filtered URL, recorded as a filmstrip; a filter change with a film playing (mouse in Chrome **and** Safari, and keyboard); a client-side navigation into `/work`, out of it and Back; no JavaScript; unknown query values; an empty combination; find-in-page into the collapsed credits. QA states which it exercised.
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Mason — one placement call is made here** (ruling 1): the before-paint filter attributes live on `<html>`, set by the `(site)` layout's pre-paint script that SITE-3 created, not on the grid wrapper as spec §6.2 words it. The scope sheet left the script's file open. Counter-propose in `TECHNICAL-DECISIONS.md` before the build if you disagree; otherwise the builder logs it as the next free `M-SITE-n`.
 
@@ -377,3 +377,72 @@ Real alternatives chosen here go to `TECHNICAL-DECISIONS.md`.
 > Constraints: routes only from `lib/routes.ts`; env only via `lib/env.ts`; no hex outside `brand/`; client leaves never import `@/lib/config`; no upward imports and nothing public imports `review/`; never read the query on the server; never copy the CV's address or phone; never run `yarn dev` or `yarn build` (use `dev:agent` / `build:agent`). If a non-negotiable would have to break, stop and ask.
 >
 > Close in three places: the ticket's `Status:` line, `docs/specs/PROGRESS.md`, and `DEVIATIONS.md` (+ `TECHNICAL-DECISIONS.md` for ruling 1). Then tick `docs/specs/03-site-build/00-build-order.md`. Report what `yarn verify` printed.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 2 with SITE-5).**
+
+**What shipped.**
+- **`/work`,** static (○): the h1 with the count beside it, the filters (All · Directing · Camera · Editing, and "Passion projects"), the jump link, the 22 films in `workOrder()` in SITE-3's `FilmGrid`, the Behind the scenes credits (35 released, 18 visible, then "All 35 credits"), "Full credits on IMDb" and one email hand-off.
+- **Filter code:** `lib/work-filter.ts`; `PRE_PAINT_SCRIPT` extended; an unlayered before-paint CSS block in `app/globals.css`; and in `app/(site)/work/_components/`: `work-filters.tsx`, `work-grid.tsx`, `work-filter-store.ts`, `change-work-filter.ts` and `credits-list.tsx`.
+- **Content:** `content/credits.ts`, `content/work.ts` and `WORK_COPY`.
+- **Validation:** three credit checks in `validate.ts`.
+- **Also:** `FilmGrid.isNamed`, and a fix to the site-wide `<title>` template in `lib/metadata.ts`.
+
+**Verified** (on `dev:agent` unless stated):
+- **#1 Layout at 1440:** "22 pieces", the filters on the same line, 4 columns, `FEATURED` first.
+- **#2 Static HTML** (`start:agent`, `/work?role=camera`): 22 tile hrefs; `data-roles` on all 22; `data-lane` only ever "passion"; no attribute value contains "hire".
+- **#3 and #5 Cold loads:**
+  - `?role=camera` shows 13 of 22 with Camera current; `?passion=1` shows 6 of 22 with the chip on; `?role=directing&passion=1` shows 6 of 22.
+  - `?role=Camera`, `?role=sound` and `?passion=true` all show All.
+  - On the production build, `/work?role=camera&passion=1` has CLS 0 with no layout-shift entries and no hydration warning.
+- **#4 From Home:** "All camera work →" is a full load that arrives filtered.
+- **#6 A change:**
+  - a real click on Directing: same document, no history entry, `/work?role=directing`, "Showing 14 of 22", focus on Directing
+  - the chip adds `passion=1` with `aria-pressed="true"`, and the role hrefs carry it
+  - All with the chip off returns `/work` and announces "Showing all 22"
+  - clicking the current link does nothing: no transition and no announcement
+- **#7 Order:** each role's visible tiles are `workOrder()` filtered.
+- **#9 Empty** (a temporary data change, reverted): the cold load and the change both paint "No camera passion projects yet." with no frames. "Show all" focuses All and announces "Showing all 22".
+- **#10 Film open, then a filter:** with Jack playing, Camera removes the panel and the iframe, focus is on Camera, and the scroll isn't restored.
+- **#11 Panel under a filter:**
+  - Camera at 1440: the fifth visible tile's panel lands after the eighth visible tile.
+  - At 900 (fresh load): after the sixth visible tile.
+- **#12 Client-side navigation:**
+  - the bar's Work link on `?role=camera` shows All at `/work`, same document
+  - leaving for Home removes both attributes
+  - Back returns filtered (13 of 22), same document
+- **#13 No JS** (server HTML): the filter nav is hidden (`data-needs-js`), the count is "22 pieces", `<details>` is present, and tiles are plain links.
+- **#14 Credits:**
+  - the jump link targets `#credits` (scroll margin 72 px); the h2 reads "Behind the scenes"
+  - the first entry is "Protectors of the Land (2025) · Feature · Potluck Stories Inc."; the 18th is "A Dog's Journey (2019)"
+  - the summary reads "All 35 credits" open and closed; the four unreleased titles are absent
+  - columns: 3 at 1440, 2 at 800, 1 at 390
+- **#16 Ending:** "Full credits on IMDb" opens a new tab and announces it. Exactly one hand-off is on the page.
+- **#17 Missing strings:** the committed state has no can't-show heading and no context line. Temporary strings rendered both (60ch; "35 released credits"); reverted.
+- **#18 No credits:** with empty `CREDITS` there's no section and no jump link, and the hand-off still ends the page; reverted.
+- **#19 Validation:** a duplicate "Love Me" (2024) fails `build:agent` with the `content/credits.ts` message; reverted.
+- **#20 Privacy:** the grep over `content/` and `.next-build/` is empty.
+- **#21 Metadata:** "Work — Kryshan Randel"; the canonical is `<origin>/work` with no query; the description is `SITE.description`.
+- **#22 Static:** `/work` is ○ and nothing reads the query on the server.
+- **#23 Widths:** 1440 is one line; 800 puts the filters on the next line; 390 and 320 keep the links on one line with the chip below and no horizontal scroll. Every control is 44 px.
+- **#24 Reduced motion** (`matchMedia` stubbed): the change is synchronous with no view transition.
+- **Home:** unchanged (its six grid tiles still named).
+- **`yarn verify`:** passed.
+
+**Runtime checks for Taylor** (the pane stopped compositing frames mid-walk):
+- the Performance filmstrip of a cold filtered load
+- re-placing an open panel on a live resize
+- find-in-page ("Dirk Gently") opening the `<details>`
+- the Safari mouse path for a filter change with a film playing
+
+**Deviations:** 16 SITE-4 lines, plus M-SITE-5.
+
+**The one thing SITE-5 must know:**
+- Next and previous use `workOrder()`, not the filter (D-SITE-26).
+- Detail pages link back to `siteRoutes.work()`; the filter isn't restored.
+- `Film`, `toFilm` and `FilmPlayer` (`startPlaying={false}`, `preload`) are ready for the poster-first player.
+- The page titles now get the "— Kryshan Randel" template.
+
