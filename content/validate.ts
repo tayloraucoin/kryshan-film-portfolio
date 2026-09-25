@@ -1,6 +1,7 @@
 import { ABOUT } from "@/content/about";
 import { CREDITS, type Credit } from "@/content/credits";
 import { FEATURED, HOME_H1 } from "@/content/home";
+import { NAME_LINKS } from "@/content/links";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
 import { PROJECTS, type Project } from "@/content/projects";
@@ -108,6 +109,12 @@ const MESSAGES = {
     `content/credits.ts: credit number ${index} has no ${field}. Fill it in, or delete the entry.`,
   creditYear: (c: Credit, latest: number) =>
     `content/credits.ts: "${c.title}" has the year ${c.year}. Write the year it came out, as four digits between 1990 and ${latest}.`,
+  creditImdb: (c: Credit) =>
+    `content/credits.ts: "${c.title}" has the IMDb address "${c.imdb}". Paste the title's page, written like https://www.imdb.com/title/tt1234567/, or remove the imdb line.`,
+  linkNotHttps: (phrase: string, href: string) =>
+    `content/links.ts: "${phrase}" goes to "${href}". Write the full address, starting with https://, or remove the line.`,
+  linkTwice: (phrase: string) =>
+    `content/links.ts: "${phrase}" is listed twice. Delete one of them.`,
   creditTwice: (c: Credit) =>
     `content/credits.ts: "${c.title}" (${c.year}) is listed twice. Delete one of them.`,
   tooManyRoomPhotos: (n: number) =>
@@ -367,6 +374,12 @@ export function checkCredits(credits: ReadonlyArray<Credit>): string[] {
     ) {
       problems.push(MESSAGES.creditYear(credit, latest));
     }
+    if (
+      credit.imdb !== undefined &&
+      !/^https:\/\/www\.imdb\.com\/title\/tt\d+\/$/.test(credit.imdb)
+    ) {
+      problems.push(MESSAGES.creditImdb(credit));
+    }
     const key = `${credit.title.trim().toLowerCase()}|${credit.year}`;
     if (seen.has(key)) problems.push(MESSAGES.creditTwice(credit));
     seen.add(key);
@@ -391,6 +404,20 @@ export function checkLegacyPaths(): string[] {
   return problems;
 }
 
+/** Names that link (content/links.ts): https only, each name once. */
+export function checkLinks(): string[] {
+  const problems: string[] = [];
+  const seen = new Set<string>();
+  for (const { phrase, href } of NAME_LINKS) {
+    if (!/^https:\/\/[^\s]+$/.test(href)) {
+      problems.push(MESSAGES.linkNotHttps(phrase, href));
+    }
+    if (seen.has(phrase)) problems.push(MESSAGES.linkTwice(phrase));
+    seen.add(phrase);
+  }
+  return problems;
+}
+
 // ---------------------------------------------------------------------------
 // Run at import
 // ---------------------------------------------------------------------------
@@ -405,6 +432,7 @@ const problems = [
   ...checkCredits(CREDITS),
   ...checkAbout(),
   ...checkTeaching(),
+  ...checkLinks(),
 ];
 
 if (problems.length > 0) {

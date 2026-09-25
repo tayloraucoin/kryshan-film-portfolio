@@ -594,3 +594,12 @@ Vitrine signed "Checked in place" (1440, 768, 390). Every one-message question i
 - Vitrine fixed About's opener at ≥1024: two equal columns, and the 24rem portrait shares Recognition's second-column line and matches the text's height.
 - Items 1 to 4 (footer baseline, credits chevron, Contact width, copy icon) remain with Mason.
 - Per-title credit links wait on Kryshan's answer (Taylor asked him).
+
+**Links (2026-09-25, after his OK):**
+- Names in the text link from `content/links.ts` (54 names).
+- All 35 released credits link to IMDb.
+- About's film titles link internally.
+- The approval document gains a Links ledger (every address, "[ ] OK") and an IMDb column in the credits ledger.
+- No string changed.
+- `yarn verify` exits 0.
+- The built pages carry, by count: Home 7, Work 42, About 40 (+3 internal), Teaching 6, Jack 4.

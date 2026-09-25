@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { PhotoFigure } from "@/components/composed/media/photo-figure";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
+import { createLinker } from "@/components/composed/site/linked-text";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { Testimonial } from "@/components/composed/site/testimonial";
+import { NAME_LINKS } from "@/content/links";
 import { TEACHING } from "@/content/teaching";
 import { TESTIMONIALS } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
@@ -34,6 +36,7 @@ const BLOCK =
  * consent; until then their sections don't exist (D-SITE-20). Static.
  */
 export default function TeachingPage() {
+  const linkText = createLinker(NAME_LINKS);
   const { blocks, openerPhoto, roomPhotos } = TEACHING;
   const testimonials = TESTIMONIALS.filter(
     (testimonial) => testimonial.page === "teaching",
@@ -54,7 +57,7 @@ export default function TeachingPage() {
               {TEACHING.h1}
             </h1>
             {TEACHING.opener ? (
-              <p className="leading-relaxed">{TEACHING.opener}</p>
+              <p className="leading-relaxed">{linkText(TEACHING.opener)}</p>
             ) : null}
           </div>
           {openerPhoto ? (
@@ -72,7 +75,7 @@ export default function TeachingPage() {
             </h2>
             <ul className="flex flex-col gap-2">
               {blocks.whereITeach.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>{linkText(item, { repeat: true })}</li>
               ))}
             </ul>
           </section>
@@ -82,7 +85,7 @@ export default function TeachingPage() {
             </h2>
             <ul className="flex flex-col gap-2">
               {blocks.programs.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>{linkText(item, { repeat: true })}</li>
               ))}
             </ul>
             {blocks.programs.factsLine ? (

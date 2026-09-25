@@ -10,6 +10,7 @@
 > - Stage A is everything above "Stage B". It goes with the first-look link.
 > - Stage B is drafted from his intake but waits on the ~24 press articles (`docs/client/press/`, `[PENDING — Taylor supplies]`). Send it once press is verified (ruling 1), or earlier without press if you prefer two short sends.
 > - Round 2 (2026-09-25, Taylor's walkthrough): H-2 to H-4 lose their semicolons; four stories cut where they repeated their one-line description or leaned on "very" (Dare, TUTS 2025, RFFC, It's A Crazier Life); "MPIAA" corrected to MPPIA (A-6, A-8.1, the A Very B.C. Production card); the bio's serial comma fixed; About gains a portrait (A-8.3) and a heading over the Glimpse story (A-12); the Home place line turns grey, as in the footer (layout only, no words changed); Teaching gains two photos (T-6.1, T-6.2) and one Held (T-6.3). Every row stays Draft.
+> - Links (2026-09-25, his OK to Taylor): names in the site's text now link — people to IMDb, a musician to his own site, organisations, festivals and schools to their own sites, and each behind-the-scenes credit to its IMDb page. The words don't change; the Links ledger at the end lists every address for him to check.
 > - Rows marked "held: not shown yet" belong to films that aren't on the site yet. Approving them now means unholding a film is a one-field change.
 
 ## How to use this
@@ -1150,47 +1151,47 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 **Articles checked (not press quotes):** PLANK Magazine, Artless (200) · Roots Music Canada, Born To Be (200) · Tinnitist, Born To Be (200) · The Province, Glimpse (200) · The Uncarved Blog, Artless: only a month-archive page resolves (200), not the post; left out · Vancouver Is Awesome, Bloodshots contestants: 403 and no archive capture; left out · Vancouver Is Awesome, Frames: 403 live, archive capture exists; Teaching has no articles slot (spec out of scope), so not used.
 
 ### Credits ledger
-| Title | Year | Format | Network | released | Source (EPK CV · IMDb · his answer) | Note |
-|---|---|---|---|---|---|---|
-| Freaks: Underground | 2025 | Feature | Chloe Pictures Inc. | false | EPK CV (IMDb: no rating) | may be IMDb's unrated "Freaks Part II" (2026). Not shown until released |
-| Protectors of the Land | 2025 | Feature | Potluck Stories Inc. | true | EPK CV · IMDb (rated) | — |
-| So Help Me Todd | 2023 | TV series | CBS | true | EPK CV · IMDb (rated) | — |
-| Farming for Love | 2024 | TV series | CTV | true | EPK CV · IMDb (rated) | — |
-| Festival of the Living Dead | 2024 | Feature | Living Dead Productions | true | EPK CV · IMDb (rated) | — |
-| Calamity Jane | 2024 | Feature | Calamity Productions Ltd. | true | EPK CV · IMDb (rated) | — |
-| Fire Country | 2023 | TV series | CBS | true | EPK CV · IMDb (rated) | — |
-| Real Love | 2022 | TV series | Lifetime | false | EPK CV (IMDb: no rating) | likely out; no IMDb rating in the paste. Not shown until confirmed |
-| Balestra | 2024 | Feature | Automatik | true | EPK CV · IMDb (rated) | — |
-| Love Me | 2024 | Feature | Love Me Productions | true | EPK CV · IMDb (rated) | — |
-| The Bad Seed Returns | 2021 | TV movie | Lifetime | false | EPK CV (IMDb: no rating) | likely out; no IMDb rating in the paste. Not shown until confirmed |
-| Monster High: The Movie | 2022 | TV movie | Paramount Plus / Nickelodeon | true | EPK CV · IMDb (rated) | — |
-| Batwoman | 2021 | TV series | CW | true | EPK CV · IMDb (rated) | — |
-| The Hardy Boys | 2020 | TV series | Hulu | true | EPK CV · IMDb (rated) | — |
-| The Good Doctor | 2019 | TV series | CTV | true | EPK CV · IMDb (rated) | — |
-| Zoey's Extraordinary Playlist | 2020 | TV series | NBC | true | EPK CV · IMDb (rated) | — |
-| A Babysitter's Guide to Monster Hunting | 2020 | Feature | Netflix | true | EPK CV · IMDb (rated) | — |
-| The Baby-Sitters Club | 2020 | TV series | Netflix | true | EPK CV · IMDb (rated) | — |
-| The Right One | 2021 | Feature | 10 x 10 Entertainment | true | EPK CV · IMDb (rated) | CV "Godfrey"; matched to IMDb by cast and company. Confirm (Q12) |
-| A Christmas Detour | 2015 | TV movie | Hallmark | true | EPK CV · IMDb (rated) | CV 2019, IMDb 2015; IMDb used. Confirm (Q12) |
-| The Republic of Sarah | 2021 | TV series | CBS | true | EPK CV · IMDb (rated) | — |
-| Child's Play | 2018 | Feature | Orion Pictures | false | EPK CV (IMDb: no rating) | likely out; no IMDb rating in the paste. Not shown until confirmed |
-| Sonic the Hedgehog | 2020 | Feature | Paramount Pictures | true | EPK CV · IMDb (rated) | — |
-| A Million Little Things | 2018 | TV series | ABC | true | EPK CV · IMDb (rated) | — |
-| Good Boys | 2019 | Feature | Good Universe | true | EPK CV · IMDb (rated) | — |
-| Legends of Tomorrow | 2018 | TV series | Warner Bros. Television | true | EPK CV · IMDb (rated) | — |
-| A Dog's Journey | 2019 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | — |
-| The Art of Racing in the Rain | 2019 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | — |
-| I Am Somebody's Child: The Regina Louise Story | 2019 | TV movie | Lifetime | true | EPK CV · IMDb (rated) | CV "Somebody's Someone"; matched to IMDb by cast. Confirm (Q12) |
-| Skyscraper | 2018 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | — |
-| A Dog's Way Home | 2019 | Feature | Sony Pictures | true | EPK CV · IMDb (rated) | — |
-| Riverdale | 2017 | TV series | Warner / The CW Network | true | EPK CV · IMDb (rated) | — |
-| Supernatural | 2017 | TV series | Warner / The CW Network | true | EPK CV · IMDb (rated) | — |
-| A Series of Unfortunate Events | 2018 | TV series | Netflix | true | EPK CV · IMDb (rated) | — |
-| Freaks | 2018 | Feature | Freaks Productions | true | EPK CV · IMDb (rated) | — |
-| Mech-X4 | 2018 | TV series | Disney | true | EPK CV · IMDb (rated) | — |
-| The Miracle Season | 2018 | Feature | LD Entertainment | true | EPK CV · IMDb (rated) | — |
-| Descendants 2 | 2017 | TV movie | ABC/Disney | true | EPK CV · IMDb (rated) | — |
-| Dirk Gently's Holistic Detective Agency | 2016 | TV series | BBC America | true | EPK CV · IMDb (rated) | — |
+| Title | Year | Format | Network | released | Source (EPK CV · IMDb · his answer) | Links to | Note |
+|---|---|---|---|---|---|---|---|
+| Freaks: Underground | 2025 | Feature | Chloe Pictures Inc. | false | EPK CV (IMDb: no rating) | — | may be IMDb's unrated "Freaks Part II" (2026). Not shown until released |
+| Protectors of the Land | 2025 | Feature | Potluck Stories Inc. | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt25581766/ | — |
+| So Help Me Todd | 2023 | TV series | CBS | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt18573724/ | — |
+| Farming for Love | 2024 | TV series | CTV | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt21072046/ | — |
+| Festival of the Living Dead | 2024 | Feature | Living Dead Productions | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt27739396/ | — |
+| Calamity Jane | 2024 | Feature | Calamity Productions Ltd. | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt28015371/ | — |
+| Fire Country | 2023 | TV series | CBS | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt16098700/ | — |
+| Real Love | 2022 | TV series | Lifetime | false | EPK CV (IMDb: no rating) | — | likely out; no IMDb rating in the paste. Not shown until confirmed |
+| Balestra | 2024 | Feature | Automatik | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt12497296/ | — |
+| Love Me | 2024 | Feature | Love Me Productions | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt21375602/ | — |
+| The Bad Seed Returns | 2021 | TV movie | Lifetime | false | EPK CV (IMDb: no rating) | — | likely out; no IMDb rating in the paste. Not shown until confirmed |
+| Monster High: The Movie | 2022 | TV movie | Paramount Plus / Nickelodeon | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt1447981/ | — |
+| Batwoman | 2021 | TV series | CW | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt8712204/ | — |
+| The Hardy Boys | 2020 | TV series | Hulu | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt11252090/ | — |
+| The Good Doctor | 2019 | TV series | CTV | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt6470478/ | — |
+| Zoey's Extraordinary Playlist | 2020 | TV series | NBC | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt10314462/ | — |
+| A Babysitter's Guide to Monster Hunting | 2020 | Feature | Netflix | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt4844150/ | — |
+| The Baby-Sitters Club | 2020 | TV series | Netflix | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt8690518/ | — |
+| The Right One | 2021 | Feature | 10 x 10 Entertainment | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt6820128/ | CV "Godfrey"; matched to IMDb by cast and company. Confirm (Q12) |
+| A Christmas Detour | 2015 | TV movie | Hallmark | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt4767950/ | CV 2019, IMDb 2015; IMDb used. Confirm (Q12) |
+| The Republic of Sarah | 2021 | TV series | CBS | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt11815244/ | — |
+| Child's Play | 2018 | Feature | Orion Pictures | false | EPK CV (IMDb: no rating) | — | likely out; no IMDb rating in the paste. Not shown until confirmed |
+| Sonic the Hedgehog | 2020 | Feature | Paramount Pictures | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt3794354/ | — |
+| A Million Little Things | 2018 | TV series | ABC | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt7608248/ | — |
+| Good Boys | 2019 | Feature | Good Universe | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt6977338/ | — |
+| Legends of Tomorrow | 2018 | TV series | Warner Bros. Television | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt4532368/ | — |
+| A Dog's Journey | 2019 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt8385474/ | — |
+| The Art of Racing in the Rain | 2019 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt1478839/ | — |
+| I Am Somebody's Child: The Regina Louise Story | 2019 | TV movie | Lifetime | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt9053916/ | CV "Somebody's Someone"; matched to IMDb by cast. Confirm (Q12) |
+| Skyscraper | 2018 | Feature | Universal Studios | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt5758778/ | — |
+| A Dog's Way Home | 2019 | Feature | Sony Pictures | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt7616798/ | — |
+| Riverdale | 2017 | TV series | Warner / The CW Network | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt5420376/ | — |
+| Supernatural | 2017 | TV series | Warner / The CW Network | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt0460681/ | — |
+| A Series of Unfortunate Events | 2018 | TV series | Netflix | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt4834206/ | — |
+| Freaks | 2018 | Feature | Freaks Productions | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt8781414/ | — |
+| Mech-X4 | 2018 | TV series | Disney | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt5568740/ | — |
+| The Miracle Season | 2018 | Feature | LD Entertainment | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt5427194/ | — |
+| Descendants 2 | 2017 | TV movie | ABC/Disney | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt5117876/ | — |
+| Dirk Gently's Holistic Detective Agency | 2016 | TV series | BBC America | true | EPK CV · IMDb (rated) | https://www.imdb.com/title/tt4047038/ | — |
 
 35 of 39 are shown. IMDb-only EPK credits not on your CV aren't added (Q12).
 
@@ -1211,6 +1212,64 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 | 12 | Dan O'Bannon judged Jack "a few weeks before his passing" | said less: the timing is cut | D-jack-S |
 | 13 (found in SITE-C) | Glimpse's A&E award year: 2008 (old site, SITE-2) vs 2009 (The Province, 16 Sep 2009) | said less: no year | D-glimpse-A, -AF |
 | 14 (found in round 2) | "MPIAA" in your intake and CV; the association that produced A Very B.C. Production styles itself MPPIA (mppia.com; BC Creates, Creative Industries Week 2021) | corrected to MPPIA: a spelling, not a disputed fact | A-6, A-8.1, the A Very B.C. Production card |
+
+### Links ledger
+Where each name in the site's text goes (`content/links.ts`), each opened and checked 2026-09-25. A name links at its first mention on a page, and every time in a list. Film titles on About (Jack, Contact Club) link to their own pages here. Left unlinked on purpose: Bloodshots Film Festival (the festival's site is gone), Jennifer Lyons, Riaan Smit and Alex Barker (no page we could be sure is theirs), SFU Creative Studios and the Richmond society (no page of their own), and Frames Film Project.
+
+| Name, as written | Links to | Your call |
+|---|---|---|
+| Ted Danson | https://www.imdb.com/name/nm0001101/ | [ ] OK |
+| Mary Steenburgen | https://www.imdb.com/name/nm0005460/ | [ ] OK |
+| Peter Gallagher | https://www.imdb.com/name/nm0001251/ | [ ] OK |
+| Kevin Smith | https://www.imdb.com/name/nm0003620/ | [ ] OK |
+| Tom Green | https://www.imdb.com/name/nm0338381/ | [ ] OK |
+| Justine Warrington | https://www.imdb.com/name/nm1787635/ | [ ] OK |
+| Dan O’Bannon | https://www.imdb.com/name/nm0639321/ | [ ] OK |
+| Robert Rodriguez | https://www.imdb.com/name/nm0001675/ | [ ] OK |
+| Zach Lipovsky | https://www.imdb.com/name/nm0513554/ | [ ] OK |
+| Myk Gordon | https://www.mykgordon.com/ | [ ] OK |
+| Gregor Robertson | https://en.wikipedia.org/wiki/Gregor_Robertson | [ ] OK |
+| Sitges | https://sitgesfilmfestival.com/en | [ ] OK |
+| Fantasia | https://fantasiafestival.com/en/ | [ ] OK |
+| Fantastic Fest | https://fantasticfest.com/ | [ ] OK |
+| VIFF | https://viff.org/ | [ ] OK |
+| National Screen Institute | https://nsi-canada.ca/ | [ ] OK |
+| Vancouver Quarantine Performance Project | https://sites.google.com/view/vqpp/home | [ ] OK |
+| Leo-nominated | https://www.leoawards.com/ | [ ] OK |
+| Sundance Channel | https://www.sundancetv.com/ | [ ] OK |
+| Disney | https://thewaltdisneycompany.com/ | [ ] OK |
+| Netflix | https://about.netflix.com/ | [ ] OK |
+| Paramount Pictures | https://www.paramountpictures.com/ | [ ] OK |
+| Universal Studios | https://www.universalpictures.com/ | [ ] OK |
+| Sony Pictures | https://www.sonypictures.com/ | [ ] OK |
+| The CW | https://www.cwtv.com/ | [ ] OK |
+| BBC America | https://www.bbcamerica.com/ | [ ] OK |
+| CBS | https://www.cbs.com/ | [ ] OK |
+| CTV | https://www.ctv.ca/ | [ ] OK |
+| Hallmark | https://www.hallmarkchannel.com/ | [ ] OK |
+| VanCity | https://www.vancity.com/ | [ ] OK |
+| Vancouver Symphony Orchestra | https://www.vancouversymphony.ca/ | [ ] OK |
+| Creative BC | https://creativebc.com/ | [ ] OK |
+| Theatre Under the Stars | https://www.tuts.ca/ | [ ] OK |
+| Bard on the Beach | https://bardonthebeach.org/ | [ ] OK |
+| The Rio Theatre | https://riotheatre.ca/ | [ ] OK |
+| IATSE 669 | https://icg669.com/ | [ ] OK |
+| Pulling Together Canoe Journey | https://www.pullingtogether.ca/ | [ ] OK |
+| Directors Guild of Canada | https://www.dgc.ca/ | [ ] OK |
+| DGC BC | https://www.dgc.ca/en/british-columbia/ | [ ] OK |
+| Shotlister | https://www.shotlister.com/ | [ ] OK |
+| Richmond City Hall | https://www.richmond.ca/ | [ ] OK |
+| MPPIA | https://mppia.com/ | [ ] OK |
+| Crazy8s | https://www.crazy8s.net/ | [ ] OK |
+| Entertainment Weekly | https://ew.com/ | [ ] OK |
+| LaSalle College | https://www.lasallecollegevancouver.com/ | [ ] OK |
+| InFocus Film School | https://www.infocusfilmschool.com/ | [ ] OK |
+| Frog Hollow Neighbourhood House | https://www.froghollow.bc.ca/ | [ ] OK |
+| Reel Youth | https://www.reelyouth.ca/ | [ ] OK |
+| CEDIM | https://www.cedim.edu.mx/ | [ ] OK |
+| Capilano College | https://www.capilanou.ca/ | [ ] OK |
+| American Academy of Dramatic Arts | https://www.aada.edu/ | [ ] OK |
+| ActSafe | https://actsafe.ca/ | [ ] OK |
 
 ### Change rounds
 | Date | Row | Asked by | Defect or change round | Note |

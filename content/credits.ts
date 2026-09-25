@@ -8,7 +8,8 @@
  *
  * To add a credit: copy an entry and change it. Write the title as it was
  * released (IMDb's spelling) and the year it came out (for a series, the
- * year of his episode). Keep `released: false` until the title is out:
+ * year of his episode), and paste its IMDb page as `imdb` so the title
+ * links there. Keep `released: false` until the title is out:
  * unreleased titles are often under embargo, and only `released: true`
  * entries appear on the site.
  *
@@ -26,6 +27,11 @@ export type Credit = Readonly<{
   network: string;
   /** Only `true` appears on the site. */
   released: boolean;
+  /**
+   * The title's IMDb page ("https://www.imdb.com/title/tt…/"); the title
+   * links there on Work. Leave it out and the title shows unlinked.
+   */
+  imdb?: string;
 }>;
 
 export const CREDITS: ReadonlyArray<Credit> = [
@@ -42,6 +48,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Potluck Stories Inc.",
     released: true,
+    imdb: "https://www.imdb.com/title/tt25581766/",
   },
   {
     title: "So Help Me Todd",
@@ -49,6 +56,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CBS",
     released: true,
+    imdb: "https://www.imdb.com/title/tt18573724/",
   },
   {
     title: "Farming for Love",
@@ -56,6 +64,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CTV",
     released: true,
+    imdb: "https://www.imdb.com/title/tt21072046/",
   },
   {
     title: "Festival of the Living Dead",
@@ -63,6 +72,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Living Dead Productions",
     released: true,
+    imdb: "https://www.imdb.com/title/tt27739396/",
   },
   {
     title: "Calamity Jane",
@@ -70,6 +80,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Calamity Productions Ltd.",
     released: true,
+    imdb: "https://www.imdb.com/title/tt28015371/",
   },
   {
     title: "Fire Country",
@@ -77,6 +88,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CBS",
     released: true,
+    imdb: "https://www.imdb.com/title/tt16098700/",
   },
   {
     title: "Real Love",
@@ -91,6 +103,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Automatik",
     released: true,
+    imdb: "https://www.imdb.com/title/tt12497296/",
   },
   {
     title: "Love Me",
@@ -98,6 +111,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Love Me Productions",
     released: true,
+    imdb: "https://www.imdb.com/title/tt21375602/",
   },
   {
     title: "The Bad Seed Returns",
@@ -112,6 +126,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV movie",
     network: "Paramount Plus / Nickelodeon",
     released: true,
+    imdb: "https://www.imdb.com/title/tt1447981/",
   },
   {
     title: "Batwoman",
@@ -119,6 +134,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CW",
     released: true,
+    imdb: "https://www.imdb.com/title/tt8712204/",
   },
   {
     title: "The Hardy Boys",
@@ -126,6 +142,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Hulu",
     released: true,
+    imdb: "https://www.imdb.com/title/tt11252090/",
   },
   {
     title: "The Good Doctor",
@@ -133,6 +150,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CTV",
     released: true,
+    imdb: "https://www.imdb.com/title/tt6470478/",
   },
   {
     title: "Zoey's Extraordinary Playlist",
@@ -140,6 +158,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "NBC",
     released: true,
+    imdb: "https://www.imdb.com/title/tt10314462/",
   },
   {
     title: "A Babysitter's Guide to Monster Hunting",
@@ -147,6 +166,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Netflix",
     released: true,
+    imdb: "https://www.imdb.com/title/tt4844150/",
   },
   {
     title: "The Baby-Sitters Club",
@@ -154,6 +174,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Netflix",
     released: true,
+    imdb: "https://www.imdb.com/title/tt8690518/",
   },
   {
     title: "The Right One",
@@ -161,6 +182,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "10 x 10 Entertainment",
     released: true,
+    imdb: "https://www.imdb.com/title/tt6820128/",
   },
   {
     title: "A Christmas Detour",
@@ -168,6 +190,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV movie",
     network: "Hallmark",
     released: true,
+    imdb: "https://www.imdb.com/title/tt4767950/",
   },
   {
     title: "The Republic of Sarah",
@@ -175,6 +198,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "CBS",
     released: true,
+    imdb: "https://www.imdb.com/title/tt11815244/",
   },
   {
     title: "Child's Play",
@@ -189,6 +213,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Paramount Pictures",
     released: true,
+    imdb: "https://www.imdb.com/title/tt3794354/",
   },
   {
     title: "A Million Little Things",
@@ -196,6 +221,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "ABC",
     released: true,
+    imdb: "https://www.imdb.com/title/tt7608248/",
   },
   {
     title: "Good Boys",
@@ -203,6 +229,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Good Universe",
     released: true,
+    imdb: "https://www.imdb.com/title/tt6977338/",
   },
   {
     title: "Legends of Tomorrow",
@@ -210,6 +237,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Warner Bros. Television",
     released: true,
+    imdb: "https://www.imdb.com/title/tt4532368/",
   },
   {
     title: "A Dog's Journey",
@@ -217,6 +245,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Universal Studios",
     released: true,
+    imdb: "https://www.imdb.com/title/tt8385474/",
   },
   {
     title: "The Art of Racing in the Rain",
@@ -224,6 +253,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Universal Studios",
     released: true,
+    imdb: "https://www.imdb.com/title/tt1478839/",
   },
   {
     title: "I Am Somebody's Child: The Regina Louise Story",
@@ -231,6 +261,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV movie",
     network: "Lifetime",
     released: true,
+    imdb: "https://www.imdb.com/title/tt9053916/",
   },
   {
     title: "Skyscraper",
@@ -238,6 +269,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Universal Studios",
     released: true,
+    imdb: "https://www.imdb.com/title/tt5758778/",
   },
   {
     title: "A Dog's Way Home",
@@ -245,6 +277,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Sony Pictures",
     released: true,
+    imdb: "https://www.imdb.com/title/tt7616798/",
   },
   {
     title: "Riverdale",
@@ -252,6 +285,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Warner / The CW Network",
     released: true,
+    imdb: "https://www.imdb.com/title/tt5420376/",
   },
   {
     title: "Supernatural",
@@ -259,6 +293,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Warner / The CW Network",
     released: true,
+    imdb: "https://www.imdb.com/title/tt0460681/",
   },
   {
     title: "A Series of Unfortunate Events",
@@ -266,6 +301,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Netflix",
     released: true,
+    imdb: "https://www.imdb.com/title/tt4834206/",
   },
   {
     title: "Freaks",
@@ -273,6 +309,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "Freaks Productions",
     released: true,
+    imdb: "https://www.imdb.com/title/tt8781414/",
   },
   {
     title: "Mech-X4",
@@ -280,6 +317,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "Disney",
     released: true,
+    imdb: "https://www.imdb.com/title/tt5568740/",
   },
   {
     title: "The Miracle Season",
@@ -287,6 +325,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "Feature",
     network: "LD Entertainment",
     released: true,
+    imdb: "https://www.imdb.com/title/tt5427194/",
   },
   {
     title: "Descendants 2",
@@ -294,6 +333,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV movie",
     network: "ABC/Disney",
     released: true,
+    imdb: "https://www.imdb.com/title/tt5117876/",
   },
   {
     title: "Dirk Gently's Holistic Detective Agency",
@@ -301,6 +341,7 @@ export const CREDITS: ReadonlyArray<Credit> = [
     format: "TV series",
     network: "BBC America",
     released: true,
+    imdb: "https://www.imdb.com/title/tt4047038/",
   },
 ];
 

@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import { CopyButton } from "@/components/composed/site/copy-button";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { JsonLd } from "@/components/composed/site/json-ld";
+import { createLinker } from "@/components/composed/site/linked-text";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { toFilm } from "@/components/composed/work/film";
 import { FilmPlayer } from "@/components/composed/work/film-player";
+import { NAME_LINKS } from "@/content/links";
 import { posterFor } from "@/content/posters";
 import {
   findShowableProject,
@@ -101,6 +103,7 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
   const awards = project.awardsFull ?? [];
   const press = project.press ?? [];
   const articles = project.articles ?? [];
+  const linkText = createLinker(NAME_LINKS);
   const hasFacts = awards.length + press.length + articles.length > 0;
 
   return (
@@ -175,7 +178,7 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
             {paragraphs.length > 0 ? (
               <div className="flex max-w-[68ch] flex-col gap-4 leading-relaxed">
                 {paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <p key={paragraph}>{linkText(paragraph)}</p>
                 ))}
               </div>
             ) : null}
@@ -188,7 +191,7 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
                     </h2>
                     <ul className="flex flex-col gap-1.5">
                       {awards.map((line) => (
-                        <li key={line}>{line}</li>
+                        <li key={line}>{linkText(line, { repeat: true })}</li>
                       ))}
                     </ul>
                   </section>

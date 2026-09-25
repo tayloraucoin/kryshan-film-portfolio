@@ -1,11 +1,13 @@
 import type { Metadata, Route } from "next";
 import Link from "next/link";
 import { TitleCell } from "@/app/(site)/_components/title-cell";
+import { createLinker } from "@/components/composed/site/linked-text";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { filmsFor } from "@/components/composed/work/film";
 import { FilmGrid } from "@/components/composed/work/film-grid";
 import { FEATURED, HOME_LINKS, HOME_META } from "@/content/home";
+import { NAME_LINKS } from "@/content/links";
 import { posterFor } from "@/content/posters";
 import { findShowableProject, SHOWABLE_PROJECTS } from "@/content/projects";
 import { FILM_COPY, STRANDS, type Strand } from "@/content/site";
@@ -55,6 +57,7 @@ const STRAND_LINKS: Record<Strand["id"], { label: string; href: Route }> = {
  * to its page. Static: nothing here reads a request.
  */
 export default function HomePage() {
+  const linkText = createLinker(NAME_LINKS);
   const featured = filmsFor(FEATURED);
   const firstFilmId = featured[0] ? `film-${featured[0].slug}` : "work";
 
@@ -94,7 +97,7 @@ export default function HomePage() {
                   {strand.title}
                 </h2>
                 <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
-                  {strand.body}
+                  {linkText(strand.body)}
                 </p>
                 <Link
                   href={link.href}

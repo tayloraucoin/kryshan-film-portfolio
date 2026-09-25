@@ -1,5 +1,7 @@
 import { ChevronRight } from "lucide-react";
+import { INLINE_LINK } from "@/components/composed/site/linked-text";
 import type { Credit } from "@/content/credits";
+import { CHROME } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 /** How many credits show before "All {n} credits" (D-SITE-7). */
@@ -58,7 +60,20 @@ function CreditColumns({
           key={`${credit.title}-${credit.year}`}
           className="break-inside-avoid pb-2 leading-snug"
         >
-          {credit.title} ({credit.year}){" "}
+          {credit.imdb ? (
+            <a
+              href={credit.imdb}
+              target="_blank"
+              rel="noopener"
+              className={INLINE_LINK}
+            >
+              {credit.title}
+              <span className="sr-only">{CHROME.newTab}</span>
+            </a>
+          ) : (
+            credit.title
+          )}{" "}
+          ({credit.year}){" "}
           <span className="text-muted-foreground">
             · {credit.format} · {credit.network}
           </span>

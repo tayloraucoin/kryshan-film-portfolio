@@ -1,13 +1,16 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Frame } from "@/components/composed/media/frame";
 import { PhotoFigure } from "@/components/composed/media/photo-figure";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
+import { createLinker } from "@/components/composed/site/linked-text";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { Testimonial } from "@/components/composed/site/testimonial";
 import { ABOUT, CLIENTS } from "@/content/about";
-import { PROJECTS } from "@/content/projects";
+import { NAME_LINKS } from "@/content/links";
+import { PROJECTS, SHOWABLE_PROJECTS } from "@/content/projects";
 import { CHROME } from "@/content/site";
 import { TESTIMONIALS } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
@@ -51,6 +54,14 @@ function resolvedPress() {
  * JavaScript beyond the chrome's.
  */
 export default function AboutPage() {
+  // Film titles (Jack, Contact Club) link to their pages on this site.
+  const linkText = createLinker(
+    NAME_LINKS,
+    SHOWABLE_PROJECTS.map((project) => ({
+      phrase: project.title,
+      href: siteRoutes.project(project.slug),
+    })),
+  );
   const press = resolvedPress();
   const testimonials = TESTIMONIALS.filter(
     (testimonial) => testimonial.page === "about",
@@ -95,7 +106,7 @@ export default function AboutPage() {
           ) : null}
           <div className="flex max-w-[68ch] flex-col gap-4 leading-relaxed lg:col-start-1 lg:row-start-2">
             {ABOUT.bio.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph}>{linkText(paragraph)}</p>
             ))}
           </div>
         </section>
@@ -115,7 +126,7 @@ export default function AboutPage() {
                     <h3 className={H3}>{ABOUT.headings.awards}</h3>
                     <ul className="flex max-w-[68ch] flex-col gap-2">
                       {ABOUT.awards.map((line) => (
-                        <li key={line}>{line}</li>
+                        <li key={line}>{linkText(line, { repeat: true })}</li>
                       ))}
                     </ul>
                   </div>
@@ -125,7 +136,7 @@ export default function AboutPage() {
                     <h3 className={H3}>{ABOUT.headings.directed}</h3>
                     {ABOUT.namesLine ? (
                       <p className="max-w-[68ch] leading-relaxed">
-                        {ABOUT.namesLine}
+                        {linkText(ABOUT.namesLine)}
                       </p>
                     ) : null}
                     {CLIENTS.length > 0 ? (
@@ -133,7 +144,12 @@ export default function AboutPage() {
                         <span className="text-muted-foreground">
                           {ABOUT.clientsLead}{" "}
                         </span>
-                        {CLIENTS.join(" · ")}
+                        {CLIENTS.map((client, index) => (
+                          <Fragment key={client}>
+                            {index > 0 ? " · " : null}
+                            {linkText(client, { repeat: true })}
+                          </Fragment>
+                        ))}
                       </p>
                     ) : null}
                   </div>
@@ -180,7 +196,7 @@ export default function AboutPage() {
               {ABOUT.headings.glimpse}
             </h2>
             <p className="max-w-[52ch] border-y border-border/40 py-6 text-xl leading-[1.4]">
-              {ABOUT.glimpse}
+              {linkText(ABOUT.glimpse)}
             </p>
           </section>
         ) : null}
@@ -218,7 +234,7 @@ export default function AboutPage() {
 
         <div className="flex flex-col gap-10">
           <p className="max-w-[68ch] text-sm text-muted-foreground">
-            {ABOUT.credentials}
+            {linkText(ABOUT.credentials)}
           </p>
           <EmailHandOff email={SITE.email} sentence={ABOUT.handOff} />
         </div>

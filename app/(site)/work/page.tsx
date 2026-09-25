@@ -3,9 +3,11 @@ import { CreditsList } from "@/app/(site)/work/_components/credits-list";
 import { WorkFilters } from "@/app/(site)/work/_components/work-filters";
 import { WorkGrid } from "@/app/(site)/work/_components/work-grid";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
+import { createLinker } from "@/components/composed/site/linked-text";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { toFilm } from "@/components/composed/work/film";
 import { RELEASED_CREDITS } from "@/content/credits";
+import { NAME_LINKS } from "@/content/links";
 import { workOrder } from "@/content/projects";
 import { CHROME, SOCIALS, WORK_COPY } from "@/content/site";
 import { WORK } from "@/content/work";
@@ -36,6 +38,7 @@ const H2 =
  * attributes the pre-paint script sets (SITE-4, M-SITE-5, M-SITE-8).
  */
 export default function WorkPage() {
+  const linkText = createLinker(NAME_LINKS);
   const films = workOrder().map(toFilm);
   const total = films.length;
   const counts = Object.fromEntries(
@@ -104,7 +107,9 @@ export default function WorkPage() {
             <h2 id="cant-show" className={H2}>
               {WORK.cantShow.heading}
             </h2>
-            <p className="max-w-[60ch] leading-relaxed">{WORK.cantShow.body}</p>
+            <p className="max-w-[60ch] leading-relaxed">
+              {linkText(WORK.cantShow.body)}
+            </p>
           </section>
         ) : null}
 
@@ -120,7 +125,7 @@ export default function WorkPage() {
               </h2>
               {context ? (
                 <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
-                  {context}
+                  {linkText(context)}
                 </p>
               ) : null}
               <CreditsList
