@@ -116,6 +116,25 @@ export const WORK_COPY = {
   },
 } as const;
 
+/** A film's detail page (spec §6.3, §7.6; Locked unless marked). */
+export const DETAIL_COPY = {
+  /** Back to Work; filters aren't restored. The arrow is drawn by the page. */
+  back: "Work",
+  previous: "Previous",
+  next: "Next",
+  facts: {
+    awards: "Awards and selections",
+    press: "Press",
+    articles: "Articles",
+  },
+  /**
+   * The hand-off sentence that ends every detail page (≤12 words, one line
+   * for all films). A Write string: SITE-C writes it. Empty: the block isn't
+   * rendered (the email line under the title already carries the address).
+   */
+  handOff: "",
+} as const;
+
 export type Strand = {
   /** Stable id for anchors and review comments. */
   id: "directing" | "camera-editing" | "teaching";

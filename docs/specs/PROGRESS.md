@@ -33,7 +33,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 ### Step 2 — The rest of the site
 
 - [x] **SITE-4** — Work: every film, role and passion filters with no flash, the credits he can't show as films (2026-09-24)
-- [ ] **SITE-5** — Detail pages, redirects, sitemap and structured data
+- [x] **SITE-5** — Detail pages, redirects, sitemap and structured data (2026-09-24)
 - [ ] **SITE-6** — About: the person, then the proof
 - [ ] **SITE-7** — Teaching: where he teaches, camps, coaching, and who vouches for him
 - [ ] **SITE-8** — Contact: the address, big and copyable

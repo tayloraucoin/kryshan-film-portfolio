@@ -4,6 +4,7 @@ import { VideoEmbed } from "@/components/composed/media/video-embed";
 import type { Film } from "@/components/composed/work/film";
 import { CHROME, FILM_COPY } from "@/content/site";
 import { cn } from "@/lib/cn";
+import { watchUrl } from "@/lib/media/embed-url";
 
 const PLAYER_SIZES = "(min-width: 1280px) 50vw, 100vw";
 
@@ -16,7 +17,9 @@ const PLAYER_SIZES = "(min-width: 1280px) 50vw, 100vw";
  *
  * In the panel the player mounts already playing (`startPlaying`, the
  * default): the tap that opened it was the intent. The detail page (SITE-5)
- * passes `startPlaying={false}` for a poster-first player.
+ * passes `startPlaying={false}` for a poster-first player whose play circle
+ * is a link to the host's watch page: one tap plays here, and without
+ * JavaScript (or with a modifier click) it opens the host.
  */
 export function FilmPlayer({
   film,
@@ -41,6 +44,7 @@ export function FilmPlayer({
           poster={poster}
           priority={preload}
           startPlaying={startPlaying}
+          watchHref={startPlaying ? undefined : watchUrl(embed)}
         />
       </div>
     );

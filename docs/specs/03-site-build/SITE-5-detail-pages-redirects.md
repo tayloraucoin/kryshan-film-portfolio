@@ -9,7 +9,7 @@
 
 **Vigil:** redirects and the held/NDA boundary. Review by **inducing** the failures, not by reading the config.
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Vigil: verification depth.**
 > 1. Run every `LEGACY_PATHS` entry through `curl -sIL` against `yarn build:agent && yarn start:agent` (:4510). Report a table: source · hops · each status · final path · final status.
@@ -358,3 +358,158 @@ Anything here with real alternatives goes to `TECHNICAL-DECISIONS.md` at closure
 > - If a non-negotiable would have to break, stop and ask.
 >
 > Close in three places: this ticket's `Status:`, `docs/specs/PROGRESS.md`, and `DEVIATIONS.md` (plus `TECHNICAL-DECISIONS.md` for real alternatives), then tick `03-site-build/00-build-order.md`. Run `yarn verify` and report what it printed. Append a `## Closing note` here: what shipped, the redirect table, deviations, and the one thing the next ticket must know.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 2 with SITE-4).**
+
+**What shipped.**
+- **Detail pages:** `app/(site)/work/[slug]/page.tsx` (● for the 22 showable films, `dynamicParams = false`). Each has "← Work", a poster-first player (one tap plays; the play circle is a link to the host's watch page), the title, genre line, lane, logline, "Copy link", the email line titled with the film, the story and facts only where they exist, Previous/Next through `workOrder()` wrapping at both ends, and the `VideoObject` JSON-LD.
+- **Redirects:** `redirects()` in `next.config.ts`, built from `LEGACY_PATHS` and `SHOWABLE_PROJECTS`, with refusals written for him (M-SITE-6).
+- **Sitemap:** `app/sitemap.ts`, the five pages plus 22 films.
+- **Shared code:** `videoObjectJsonLd` in `lib/structured-data.ts`; `embedUrl(…, { autoplay })`; `VideoEmbed.watchHref`; `DETAIL_COPY`.
+
+**Verified** (`build:agent` + `start:agent` unless stated):
+- **#1 Built pages:** exactly the 22 showable slugs are prerendered. The five without a page are the held ones.
+- **#2 Held, NDA, unknown:** all five held slugs and `/work/not-a-film` return 404 with the chrome. NDA was tested on a fixture (Twenty8s): 404, not in the sitemap, and its old URL goes to `/work`. No held slug is in the sitemap, a redirect destination or any JSON-LD.
+- **#3 Order:** bar (Work `aria-current="true"`) · "← Work" · player · heading block · email line · Previous/Next.
+- **#4 One tap:** a cold load makes 0 video-host requests. One click mounts the iframe, and its `src` has `autoplay=1`.
+- **#5 No JS:** the play control is `<a href="https://vimeo.com/23552792">`, and Copy link carries `data-needs-js`.
+- **#6 Link-out** (fixture): "Watch on Dailymotion ↗" (new tab, hidden text, ↗ `aria-hidden`), no iframe, and a JSON-LD `url` with no `embedUrl`.
+- **#7 Mailto:** `subject=A%20Very%20B.C.%20Production`.
+- **#8 Copy link:** the stubbed failure shows the URL selected with "Couldn't copy. The link is selected."; the stubbed success reads "Link copied" and writes the absolute URL.
+- **#9 Empty sections:** 0 h2 on films with no facts. With a fixture of `awardsFull` only, only "Awards and selections" shows. The story (two paragraphs), Press and Articles render on a fixture.
+- **#10 Wrap:** Just Watch Us → Previous: Artless; Artless → Next: Just Watch Us.
+- **#11 Metadata:** "Jack (2009) — Kryshan Randel"; canonical `/work/jack`; og alt "Jack, a still from the film". Titles are unique across the 25 built pages; descriptions are unique on every detail page (Work and the 404 share `SITE.description`, logged).
+- **#12 JSON-LD:** parses on every page; `embedUrl` has no autoplay; `uploadDate` only with `videoPublished` (fixture); no raw `<`.
+- **#13 Redirects:** 105 rows, at most 2 hops, every one a 308, and 0 rows landing anywhere other than their data says (table below).
+- **#14 Build-time refusals** (each reverted), each failing `build:agent` in words:
+  - (a) an unknown slug
+  - (b) a `/work/` source pointing elsewhere
+  - (c) a chain `/zz-chain/` → `/about` → `/contact`
+- **#15 Sitemap:** 27 URLs, absolute. `robots.ts` is unchanged.
+- **#16 One list:** no `PROJECTS` filter and no `rights ===` test in this slice.
+- **#17 Cold load** of `/work/just-watch-us`: CLS 0, and the LCP element is the poster.
+- **#18 Walk:** 1440, 768 (Previous/Next side by side, the player under the bar) and 390 (stacked, no overflow) on `/work/jack`, `/work/digital-days` and `/work/just-watch-us`, plus `/work/glimpse` (404). `yarn verify` passed.
+
+**Query-string legacy URLs** (`[NEEDS VALUE AT BUILD]`): SITE-1 recorded none (its two `/?attachment_id=…` were skipped by rule), so no `has` redirects are needed.
+
+**The redirect table** (`curl -sIL` against :4510, 2026-09-24). `/about` and `/contact` are 404 until SITE-6 and SITE-8 land.
+
+| source | hops | statuses | final | final status |
+|---|---|---|---|---|
+| `/` | 0 | 200 | `/` | 200 |
+| `/about/` | 1 | 308>404 | `/about` | 404 |
+| `/about/cameraman_leatherface/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/kryshan-directing-read-through/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/kryshan-randel-teaching/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/kryshan-ted/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/mpiaa-bts-3/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/mpiaa-psa-bts-1/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/mpiaa-psa-bts-2/` | 2 | 308>308>404 | `/about` | 404 |
+| `/about/screen-shot-2025-09-29-at-1-36-11-pm/` | 2 | 308>308>404 | `/about` | 404 |
+| `/author/nrmadmin/` | 2 | 308>308>200 | `/work` | 200 |
+| `/averybcproduction/` | 2 | 308>308>200 | `/work/a-very-bc-production` | 200 |
+| `/cdn-cgi/l/email-protection` | 1 | 308>200 | `/work` | 200 |
+| `/contact-me/` | 2 | 308>308>404 | `/contact` | 404 |
+| `/contact-me/contactuspage/` | 2 | 308>308>404 | `/contact` | 404 |
+| `/contact-me/kryshan-directing/` | 2 | 308>308>404 | `/contact` | 404 |
+| `/contactclub/` | 2 | 308>308>200 | `/work/contact-club` | 200 |
+| `/contactclub/contact-club-screenshot/` | 2 | 308>308>200 | `/work/contact-club` | 200 |
+| `/project/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/a-dogs-way-home-epk/` | 2 | 308>308>200 | `/work/a-dogs-way-home-epk` | 200 |
+| `/project/a-dogs-way-home-epk/ashley-judd/` | 2 | 308>308>200 | `/work/a-dogs-way-home-epk` | 200 |
+| `/project/a-dogs-way-home-epk/imperative-education/` | 2 | 308>308>200 | `/work/a-dogs-way-home-epk` | 200 |
+| `/project/a-very-bc-production/` | 2 | 308>308>200 | `/work/a-very-bc-production` | 200 |
+| `/project/artless/` | 2 | 308>308>200 | `/work/artless` | 200 |
+| `/project/artless/artless-header/` | 2 | 308>308>200 | `/work/artless` | 200 |
+| `/project/be-reel-green/` | 2 | 308>308>200 | `/work/be-reel-green` | 200 |
+| `/project/born-to-be/` | 2 | 308>308>200 | `/work/born-to-be` | 200 |
+| `/project/born-to-be/screen-shot-2025-09-29-at-1-47-10-pm/` | 2 | 308>308>200 | `/work/born-to-be` | 200 |
+| `/project/born-to-be/screen-shot-2025-09-29-at-2-01-37-pm/` | 2 | 308>308>200 | `/work/born-to-be` | 200 |
+| `/project/contact-club/` | 2 | 308>308>200 | `/work/contact-club` | 200 |
+| `/project/dare/` | 2 | 308>308>200 | `/work/dare` | 200 |
+| `/project/dare/screen-shot-2025-10-01-at-3-59-13-pm/` | 2 | 308>308>200 | `/work/dare` | 200 |
+| `/project/dead-rising-watchtower/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/dead-rising-watchtower/dead-rising-header/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/digital-days/` | 2 | 308>308>200 | `/work/digital-days` | 200 |
+| `/project/digital-days/digital-days-2/` | 2 | 308>308>200 | `/work/digital-days` | 200 |
+| `/project/directors-reel/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/directors-reel/directorsreel/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/glimpse/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/glimpse/glimpse-2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/glimpse/glimpse1/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/glimpse/glimpse2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/home-is-where-the-art-is/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/home-is-where-the-art-is/1080-place-holder-image/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/human-resources/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/human-resources/humanresources/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/its-a-crazier-life/` | 2 | 308>308>200 | `/work/its-a-crazier-life` | 200 |
+| `/project/jack/` | 2 | 308>308>200 | `/work/jack` | 200 |
+| `/project/just-up-the-block/` | 2 | 308>308>200 | `/work/just-up-the-block` | 200 |
+| `/project/just-up-the-block/screen-shot-2025-10-01-at-4-51-38-pm/` | 2 | 308>308>200 | `/work/just-up-the-block` | 200 |
+| `/project/just-watch-us/` | 2 | 308>308>200 | `/work/just-watch-us` | 200 |
+| `/project/just-watch-us/screen-shot-2020-07-27-at-10-17-41-pm/` | 2 | 308>308>200 | `/work/just-watch-us` | 200 |
+| `/project/lyons-heart/` | 2 | 308>308>200 | `/work/lyons-heart` | 200 |
+| `/project/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/page/3/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/page/4/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/page/5/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/page/6/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/rain-hair-salon-the-chelsea/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/rcfc-were-in-this-together/` | 2 | 308>308>200 | `/work/rffc-were-in-this-together` | 200 |
+| `/project/riverdale-epk/` | 2 | 308>308>200 | `/work/riverdale-ew-bts` | 200 |
+| `/project/riverdale-epk/riverdale/` | 2 | 308>308>200 | `/work/riverdale-ew-bts` | 200 |
+| `/project/shotlister/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/simon-fraser-university-short-documentaries/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/the-bully-solution/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/the-bully-solution/bully-header/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/the-wolf-of-west-georgia-street/` | 2 | 308>308>200 | `/work/the-wolf-of-west-georgia-street` | 200 |
+| `/project/twenty8s/` | 2 | 308>308>200 | `/work/twenty8s` | 200 |
+| `/project/twenty8s/screen-shot-2019-04-25-at-3-17-31-pm/` | 2 | 308>308>200 | `/work/twenty8s` | 200 |
+| `/project/united-8s/` | 2 | 308>308>200 | `/work/united8s` | 200 |
+| `/project/vandu/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/vandu/vandu-screenshot/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project/where-the-canoe-takes-us-the-story-of-pulling-together/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/behind-the-scenes/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/behind-the-scenes/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/camera/` | 2 | 308>308>200 | `/work?role=camera` | 200 |
+| `/project_category/camera/page/2/` | 2 | 308>308>200 | `/work?role=camera` | 200 |
+| `/project_category/camera/page/3/` | 2 | 308>308>200 | `/work?role=camera` | 200 |
+| `/project_category/corporate/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/directing/` | 2 | 308>308>200 | `/work?role=directing` | 200 |
+| `/project_category/directing/page/2/` | 2 | 308>308>200 | `/work?role=directing` | 200 |
+| `/project_category/directing/page/3/` | 2 | 308>308>200 | `/work?role=directing` | 200 |
+| `/project_category/directing/page/4/` | 2 | 308>308>200 | `/work?role=directing` | 200 |
+| `/project_category/editing/` | 2 | 308>308>200 | `/work?role=editing` | 200 |
+| `/project_category/editing/page/2/` | 2 | 308>308>200 | `/work?role=editing` | 200 |
+| `/project_category/editing/page/3/` | 2 | 308>308>200 | `/work?role=editing` | 200 |
+| `/project_category/featured/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/fiction/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/fiction/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/non-fiction/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/non-fiction/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/non-fiction/page/3/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/non-profit/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/non-profit/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/promotional/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/promotional/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/promotional/page/3/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/psa/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/short-film/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/short-film/page/2/` | 2 | 308>308>200 | `/work` | 200 |
+| `/project_category/writing/` | 2 | 308>308>200 | `/work` | 200 |
+| `/reel/` | 2 | 308>308>200 | `/work` | 200 |
+| `/terminal-cinema-review/` | 2 | 308>308>200 | `/work` | 200 |
+| `/test/homepage/` | 2 | 308>308>200 | `/work` | 200 |
+| `/test/kryshan-directing-read-through-2/` | 2 | 308>308>200 | `/work` | 200 |
+
+**Deviations:** 13 SITE-5 lines, plus M-SITE-6.
+
+**The one thing SITE-6 must know:**
+- About ends with `EmailHandOff` (its sentence is in the spec's text table as a default); reuse `JsonLd` and `personJsonLd` for its `Person`.
+- The `/about/…` redirects already land on `/about`, so the page just has to exist.
+- Register About's photos in `PHOTO_SETS` (`content/validate.ts`).
+

@@ -26,3 +26,30 @@ export function personJsonLd(input: PersonJsonLdInput) {
     address: { "@type": "PostalAddress", addressLocality: input.locality },
   } as const;
 }
+
+export type VideoObjectJsonLdInput = Readonly<{
+  name: string;
+  description: string;
+  /** Absolute URL of the poster. */
+  thumbnailUrl: string;
+  /** The plain embed (no autoplay), for YouTube and Vimeo. */
+  embedUrl?: string;
+  /** The real host's page, for a link-out (which has no embed). */
+  url?: string;
+  /** Only when he has entered it (`videoPublished`); never invented. */
+  uploadDate?: string;
+}>;
+
+/** `VideoObject`, for a film's detail page (spec §6.3). Absent values are omitted, never guessed. */
+export function videoObjectJsonLd(input: VideoObjectJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: input.name,
+    description: input.description,
+    thumbnailUrl: input.thumbnailUrl,
+    ...(input.embedUrl ? { embedUrl: input.embedUrl } : {}),
+    ...(input.url ? { url: input.url } : {}),
+    ...(input.uploadDate ? { uploadDate: input.uploadDate } : {}),
+  } as const;
+}
