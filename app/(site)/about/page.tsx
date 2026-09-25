@@ -68,22 +68,25 @@ export default function AboutPage() {
           className={cn(
             "grid gap-6",
             portrait
-              ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-x-12"
+              ? "lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12"
               : "max-w-[60ch]",
           )}
         >
           <h1 className="max-w-[24ch] font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] lg:col-start-1 lg:row-start-1 xl:text-[2.5rem]">
             {ABOUT.opener}
           </h1>
+          {/* At ≥1024 the portrait starts on the same line as Recognition's
+              second column and is sized to the H1 and bio beside it (24rem,
+              4:5 ≈ the text's height), so the opener reads as one block. */}
           {portrait ? (
-            <div className="w-full max-w-80 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-none">
+            <div className="w-full max-w-80 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:max-w-[24rem]">
               <Frame ratio="4 / 5">
                 <Image
                   src={portrait.src}
                   alt={SITE.name}
                   fill
                   loading="eager"
-                  sizes="(min-width: 1024px) 33vw, 20rem"
+                  sizes="(min-width: 1024px) 24rem, 20rem"
                   placeholder="blur"
                   className="object-cover"
                 />
@@ -172,9 +175,14 @@ export default function AboutPage() {
         ) : null}
 
         {ABOUT.glimpse ? (
-          <p className="max-w-[52ch] border-y border-border/40 py-6 text-xl leading-[1.4]">
-            {ABOUT.glimpse}
-          </p>
+          <section aria-labelledby="glimpse" className="flex flex-col gap-6">
+            <h2 id="glimpse" className={H2}>
+              {ABOUT.headings.glimpse}
+            </h2>
+            <p className="max-w-[52ch] border-y border-border/40 py-6 text-xl leading-[1.4]">
+              {ABOUT.glimpse}
+            </p>
+          </section>
         ) : null}
 
         {ABOUT.photos.length > 0 ? (

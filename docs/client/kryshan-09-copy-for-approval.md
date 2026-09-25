@@ -9,7 +9,7 @@
 > - Generated from `content/` by a throwaway script, so every count below is the data's own (SITE-C acceptance 2 and 12).
 > - Stage A is everything above "Stage B". It goes with the first-look link.
 > - Stage B is drafted from his intake but waits on the ~24 press articles (`docs/client/press/`, `[PENDING — Taylor supplies]`). Send it once press is verified (ruling 1), or earlier without press if you prefer two short sends.
-> - Round 2 (2026-09-25, Taylor's walkthrough): H-2 to H-4 lose their semicolons; four stories cut where they repeated their one-line description or leaned on "very" (Dare, TUTS 2025, RFFC, It's A Crazier Life); "MPIAA" corrected to MPPIA (A-6, A-8.1, the A Very B.C. Production card); the bio's serial comma fixed; About gains a portrait (A-8.3) and a Held heading for the Glimpse story (A-12); Teaching gains two photos (T-6.1, T-6.2) and one Held (T-6.3). Every row stays Draft.
+> - Round 2 (2026-09-25, Taylor's walkthrough): H-2 to H-4 lose their semicolons; four stories cut where they repeated their one-line description or leaned on "very" (Dare, TUTS 2025, RFFC, It's A Crazier Life); "MPIAA" corrected to MPPIA (A-6, A-8.1, the A Very B.C. Production card); the bio's serial comma fixed; About gains a portrait (A-8.3) and a heading over the Glimpse story (A-12); the Home place line turns grey, as in the footer (layout only, no words changed); Teaching gains two photos (T-6.1, T-6.2) and one Held (T-6.3). Every row stays Draft.
 > - Rows marked "held: not shown yet" belong to films that aren't on the site yet. Approving them now means unholding a film is a one-field change.
 
 ## How to use this
@@ -511,7 +511,7 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **Result:** Draft
 
 ### A-3 · About: the Glimpse story
-- **Where it shows:** About, between two thin lines (a heading is proposed in A-12)
+- **Where it shows:** About, between two thin lines, under "Working with actors" (A-12)
 - **Kind:** Your words, cut · limit ≤70 words · this one: 315 characters, 54 words
 - **Text:** My lead actress Justine Warrington was so strong in her casting sessions for my short film Glimpse that I rewrote the script around the character she portrayed. She included all the layers implied in my previous draft, and then some, so the script had to rise to the level of her more multi-dimensional performance.
 - **From:** your 2017 talent-lab essay (`docs/client/writing/4605f881-….rtf`)
@@ -612,12 +612,12 @@ One heading per film, in the order Work shows them, then the films not shown yet
 
 ### A-12 · About: heading over the Glimpse story
 - **Where it shows:** About, above the Glimpse story
-- **Kind:** Write · 2–4 words
+- **Kind:** Write · limit 2–4 words · this one: 3 words
 - **Text:** Working with actors
-- **From:** new (Taylor's walkthrough: the paragraph reads as floating)
+- **From:** new (Taylor's walkthrough: without it the paragraph reads as a stray quote)
 - **What changed from your words:** —
 - **Your call:** [ ] OK · Change to: ______
-- **Result:** Held — the page has no heading slot there yet (a layout change, not a copy one); the text is here so you can OK it now
+- **Result:** Draft
 
 ### A-11 · About: search description
 - **Where it shows:** under About in search results

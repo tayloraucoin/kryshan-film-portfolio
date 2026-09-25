@@ -64,6 +64,9 @@ export const ABOUT = {
     press: "Press",
     onSet: "On set",
     testimonials: "What people say",
+    /** Over the Glimpse paragraph, so it reads as how he works, not a stray quote. */
+    // Copy row A-12
+    glimpse: "Working with actors",
   },
   /** Before the client names under "Directed and shot". */
   clientsLead: "Clients include",

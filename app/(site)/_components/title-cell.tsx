@@ -23,7 +23,8 @@ export function TitleCell({ firstFilmId }: Readonly<{ firstFilmId: string }>) {
         {after}
       </h1>
       <p className="max-w-[48ch] text-base leading-[1.4] md:text-xl">
-        {SITE.tagline} {SITE.place}
+        {SITE.tagline}{" "}
+        <span className="text-muted-foreground">{SITE.place}</span>
       </p>
       <a
         href={`#${firstFilmId}`}
