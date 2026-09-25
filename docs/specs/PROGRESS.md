@@ -27,7 +27,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 ### Step 1 — Demo D goes live
 
 - [x] **SITE-1** — Foundation: production kit, the live chrome, routes, lint walls, the old-URL inventory (2026-09-24)
-- [ ] **SITE-2** — Content model: showable data, posters, home lists, consent types, build-time validation
+- [x] **SITE-2** — Content model: showable data, posters, home lists, consent types, build-time validation (2026-09-24)
 - [ ] **SITE-3** — The film components go live, and Demo D becomes the home page
 
 ### Step 2 — The rest of the site

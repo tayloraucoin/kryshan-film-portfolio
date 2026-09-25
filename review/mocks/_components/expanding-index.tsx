@@ -16,6 +16,10 @@ import { cn } from "@/lib/cn";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
 import { ProjectPlayer } from "@/review/mocks/_components/project-player";
 import {
+  FRAME_TO_REPLACE,
+  reviewPoster,
+} from "@/review/mocks/_components/review-posters";
+import {
   changeWithTransition,
   prefersReducedMotion,
   VIEW_TRANSITION_CSS,
@@ -156,7 +160,7 @@ export function ExpandingIndex({
                   <td className="py-3 pr-4 max-md:w-full max-md:p-0">
                     <Frame className="w-40 border border-border/30 max-md:w-full">
                       <Image
-                        src={project.poster.src}
+                        src={reviewPoster(project.slug).src}
                         alt=""
                         fill
                         sizes="(min-width: 768px) 160px, 100vw"
@@ -164,7 +168,7 @@ export function ExpandingIndex({
                         loading={index === 1 ? "eager" : undefined}
                         className="object-cover opacity-75 transition-opacity duration-(--dur-fast) group-hover:opacity-100 group-focus-within:opacity-100"
                       />
-                      {project.posterStatus === "replace" ? (
+                      {FRAME_TO_REPLACE.has(project.slug) ? (
                         <FrameRibbon>Frame to be replaced</FrameRibbon>
                       ) : null}
                     </Frame>

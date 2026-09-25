@@ -24,7 +24,7 @@ The edge cases *are* the ticket.
 - "at-risk" in an attribution
 - two problems at once (both are reported)
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Mason — data-shape review (routed to you; recommendations inline, counter-propose as M-SITE-2 in `TECHNICAL-DECISIONS.md`).**
 > 1. **One flat `Project` type.**
@@ -627,4 +627,37 @@ A cheaper model tends to:
 
 ## Closing note
 
-_(Written by the builder at closure: what shipped · ruling 2's branch (fallback or approved frame) · the induced failures run · deviations · the one thing SITE-3 must know.)_
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 1 with SITE-3).**
+
+**What shipped.**
+- **`content/projects.ts`,** reshaped per spec §5:
+  - `rights: "public" | "held" | "nda"`
+  - `embed?` with the real-host link-out variant
+  - `logline` on all 27
+  - `awardsFull`, `press` (with `verifiedOn`), `articles` and `videoPublished` typed and empty
+  - `isShowable`, `SHOWABLE_PROJECTS`, `findShowableProject` and `workOrder()` defined once
+  - `projectMetaLine` unchanged; `findProject` kept for the review layer
+- **`content/posters.ts`:** 22 static imports and `posterFor`.
+- **`content/home.ts`:** `FEATURED`, `DIRECTING_ROW`, `CAMERA_ROW` and `HOME_H1`; `HOME` trimmed.
+- **New:** `content/testimonials.ts` (empty, consent typed), `content/photo.ts` and `lib/iso-date.ts`.
+- **`content/validate.ts`:** checks 1–16, every problem numbered and thrown once, registered in `app/(site)/layout.tsx`.
+- **Review layer:** adapted per the list (one new file, six edits).
+
+**Ruling 2's branch:** the **fallback**. `[NEEDS VALUE AT BUILD]` read on 2026-09-24: no approved Directors Reel frame exists (no DEVIATIONS line, MANIFEST row or Taylor note). So there are 22 public films and 5 held (`directors-reel`, `glimpse`, `the-bully-solution`, `shotlister`, `vandu`). Contact Club is `FEATURED` #2, and Born To Be leads the Directing row.
+
+**Verified.**
+- **Data:** `SHOWABLE_PROJECTS` has 22; `findShowableProject("glimpse")` is `undefined`; `workOrder()` equals the ticket's expected list exactly; all 27 loglines equal the table character for character (parsed from this file; the longest is 144 characters); no embed points at kryshanrandel.com.
+- **Types:** `relationship: "student"` and a `Photo` without `people` both fail `tsc` (a probe file, removed).
+- **Next config:** a probe import in `next.config.ts` printed `SHOWABLE_PROJECTS.length = 22` (removed; no diff).
+- **Grep:** the acceptance #1 grep is clean outside `app/review/`, where it hits the pillar `lead.lead` (logged).
+- **Build and overlay:** `yarn verify` passed (lint zero warnings, check-types, build:agent) with no validation output. The dev overlay on `/` shows the plain-words list when a check fails.
+
+**Induced failures run** (each on `yarn build:agent`, each failed with its own message and named the entry, each reverted): (a) 2 · (b) 3b · (c) 3a · (d) 4 · (e) 5 · (f) 6 · (g) 8 · (h) 9 · (i) 10 · (j) 11 · (k) 12 · (l) 13 · (m) 14 · (n) 15a · (o) 16. For (g), the forced cast needed `as unknown as` to get past TypeScript, which is itself proof the type blocks it. (a)+(e) together failed one build listing both, numbered 1 and 2 (criterion 10). The dev overlay on `/` showed (e)'s message (criterion 11). Not induced separately: 1 (duplicate slug), 7 (a photo without `people` forced past the type) and 15b (a duplicate `from`); their code paths are the same shape as the induced ones.
+
+**Review layer:** Demos A, B, C and D compared against baselines taken before this ticket. The comparison is a per-element fingerprint: computed colour, font, border, box, link, label, leaf text, and which poster each image shows. Result: **0 differences at 1440 and 390 on all four.** The Directors Reel's "Frame to be replaced" ribbon is on A and D. Opening Jack in Demo D mounts Vimeo 23552792. `git diff --stat review/` lists only the adaptation files. `/` still renders inside `SiteShell`, and its Email link is `mailto:hello@kryshanrandel.com`.
+
+**Deviations:** 16 SITE-2 lines in DEVIATIONS.md. They cover the fallback outcome, the Contact Club slot, the logline rule, the Wolf's inserted "a", the extra checks, the removed old-site link-outs, `findProject`, the new review file and each of the six review edits, the M-SITE-3 renumbering, and the grep false positive.
+
+**Found in passing (not applied):** the old site's VANDU page embeds Vimeo 325057243 (SITE-1's crawl). Unholding VANDU needs Kryshan to confirm it's the right video, plus a frame check (spec §6.3).
+
+**The one thing SITE-3 must know:** render from `SHOWABLE_PROJECTS`, `FEATURED` / `DIRECTING_ROW` / `CAMERA_ROW` (map slugs with `findShowableProject`) and `posterFor(slug)`, never from `PROJECTS`. `embed` is guaranteed on showable films by validation, not by `PROJECTS`' type. Split the h1 with `HOME_H1.text.split(HOME_H1.red)`, and delete the `HOME` placeholder when Home replaces it.

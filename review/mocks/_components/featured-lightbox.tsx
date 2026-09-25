@@ -16,6 +16,10 @@ import { cn } from "@/lib/cn";
 import type { ReviewKit } from "@/review/kits/types";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
 import { ProjectPlayer } from "@/review/mocks/_components/project-player";
+import {
+  FRAME_TO_REPLACE,
+  reviewPoster,
+} from "@/review/mocks/_components/review-posters";
 
 type FeaturedLightboxProps = {
   projects: ReadonlyArray<Project>;
@@ -185,13 +189,13 @@ function FeaturedFrame({
     >
       <Frame className="rounded-(--radius) shadow-md">
         <Image
-          src={project.poster.src}
+          src={reviewPoster(project.slug).src}
           alt=""
           fill
           sizes={FRAME_SIZES}
           className="object-cover"
         />
-        {project.posterStatus === "replace" ? (
+        {FRAME_TO_REPLACE.has(project.slug) ? (
           <FrameRibbon>Frame to be replaced</FrameRibbon>
         ) : null}
         {project.lane === "passion" || project.client ? (
