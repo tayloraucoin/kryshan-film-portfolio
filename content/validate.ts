@@ -4,6 +4,7 @@ import { CAMERA_ROW, DIRECTING_ROW, FEATURED, HOME_H1 } from "@/content/home";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
 import { PROJECTS, type Project } from "@/content/projects";
+import { TEACHING } from "@/content/teaching";
 import { TESTIMONIALS } from "@/content/testimonials";
 import { isIsoDate } from "@/lib/iso-date";
 import { LEGACY_PATHS } from "@/lib/routes";
@@ -28,7 +29,17 @@ export const PHOTO_SETS: ReadonlyArray<{
     file: "content/about.ts",
     photos: [...ABOUT.photos, ...(ABOUT.portrait ? [ABOUT.portrait] : [])],
   },
+  {
+    file: "content/teaching.ts",
+    photos: [
+      ...(TEACHING.openerPhoto ? [TEACHING.openerPhoto] : []),
+      ...TEACHING.roomPhotos,
+    ],
+  },
 ];
+
+/** How many photos Teaching's "In the room" shows (spec §6.5). */
+const ROOM_PHOTO_LIMIT = 3;
 
 /** How many photos About's "On set" shows (spec §6.4). */
 const ABOUT_PHOTO_LIMIT = 3;
@@ -102,6 +113,10 @@ const MESSAGES = {
     `content/credits.ts: "${c.title}" has the year ${c.year}. Write the year it came out, as four digits between 1990 and ${latest}.`,
   creditTwice: (c: Credit) =>
     `content/credits.ts: "${c.title}" (${c.year}) is listed twice. Delete one of them.`,
+  tooManyRoomPhotos: (n: number) =>
+    `content/teaching.ts: the Teaching page shows at most ${ROOM_PHOTO_LIMIT} photos in the room, and ${n} are listed. Remove one.`,
+  firstNameHasSpace: (name: string) =>
+    `content/testimonials.ts: the quote from "${name}" is set to show a first name and role, but "${name}" is more than one word. Write only the first name they asked for, or set attribution to "full" if they agreed to their full name.`,
   tooManyAboutPhotos: (n: number) =>
     `content/about.ts: the About page shows at most ${ABOUT_PHOTO_LIMIT} photos under "On set", and ${n} are listed. Remove one.`,
   tooManyPressPicks: (n: number) =>
@@ -232,6 +247,12 @@ export function checkTestimonials(): string[] {
     if (t.page === "about" && t.consent.attribution !== "full") {
       problems.push(MESSAGES.aboutNotFull(t.name));
     }
+    if (
+      t.consent.attribution === "first-name-role" &&
+      /\s/.test(t.name.trim())
+    ) {
+      problems.push(MESSAGES.firstNameHasSpace(t.name));
+    }
     if (AT_RISK.test(t.role)) problems.push(MESSAGES.atRisk(file, t.name));
   }
 
@@ -321,6 +342,13 @@ export function checkAbout(): string[] {
   return problems;
 }
 
+/** Teaching (SITE-7): the room-photo limit. Its photos go through checkPhotos via PHOTO_SETS. */
+export function checkTeaching(): string[] {
+  return TEACHING.roomPhotos.length > ROOM_PHOTO_LIMIT
+    ? [MESSAGES.tooManyRoomPhotos(TEACHING.roomPhotos.length)]
+    : [];
+}
+
 /** Credits (SITE-4): a title and a network, a sensible year, no duplicates. */
 export function checkCredits(credits: ReadonlyArray<Credit>): string[] {
   const problems: string[] = [];
@@ -379,6 +407,7 @@ const problems = [
   ...checkLegacyPaths(),
   ...checkCredits(CREDITS),
   ...checkAbout(),
+  ...checkTeaching(),
 ];
 
 if (problems.length > 0) {

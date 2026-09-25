@@ -4,7 +4,7 @@
 **Slice type:** a static content page on a trust surface (minors). There are two ways this goes wrong. The worse one is a consent breach that still builds green: a photo of a minor without its consent dates, a student named, or "at-risk" printed. The other is invented copy filling a slot the spec marks Write or Waiting.
 **Vigil:** review by *inducing* the failures with temporary fixtures, not by reading the happy page: a minors photo with a bad or missing consent date, a Whatì photo without community consent, a photo with no `people`, a fifth teaching testimonial, a first-name testimonial carrying a full name. Every fixture must fail `yarn verify` with a message he could act on. Revert every fixture before closing.
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Vigil: consent review.** The builder runs and reports each induction below (acceptance 10–12). For each fixture, QA states what it added, which command failed (`check-types` or `build:agent`), and the first line of the error:
 > 1. `people: { minors: true, … }` with an invalid date
@@ -335,3 +335,53 @@ Anything with real alternatives goes to `TECHNICAL-DECISIONS.md`.
 > Run every induction in acceptance 10–11, quote the errors, and revert every fixture.
 >
 > Close in three places: this ticket's Status, `docs/specs/PROGRESS.md`, `DEVIATIONS.md` (and `TECHNICAL-DECISIONS.md` for real-alternative choices). Then tick `03-site-build/00-build-order.md`. Report what `yarn verify` printed.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 3 with SITE-6 and SITE-8).**
+
+**What shipped.**
+- **`/teaching`** (static, no client code): the h1 (provisional default), the interim opener, three blocks on a subgrid, the email hand-off.
+- **Absent until content arrives:** "In the room" and "What people say".
+- **Content:** `content/teaching.ts`.
+- **Shared:** `components/composed/site/testimonial.tsx`, now also used by About.
+- **Validation:** Teaching's checks in `content/validate.ts`.
+- **Shipped by default:** no photos and no testimonials.
+
+**Verified.**
+- **#1 Metadata:** 200 and ○; "Teaching — Kryshan Randel"; with `NEXT_PUBLIC_SITE_URL` unset, the canonical is `https://kryshanrandel.com/teaching`; the description is the Teaching strand and unique.
+- **#2 Outline:** h1 · h2 Where I teach · h2 Programs and camps · h2 One-on-one coaching. No "What people say".
+- **#3 Subgrid:**
+  - at 1440 and 1024, the h2 tops are equal and the body tops are equal
+  - with one heading forced onto three lines at 1024, the bodies still share one top (430 px)
+  - 768, 390 and 320 stack in DOM order with no overflow
+- **#4 No VFS:** 0 matches.
+- **#5 Programs:** five items verbatim, including "Whatì" and "Frog Hollow Neighbourhood House"; "at-risk" appears 0 times across the built HTML.
+- **#6 Facts line:** with none, the Programs block ends on its `<ul>`. A fixture rendered as the last row with the columns aligned; reverted.
+- **#7 Coaching:** the coaching sentence; the visible text has no `$`, "rate" or "price".
+- **#8 Default media:** no `<img>` in `main`, no preload, the opener at 60ch.
+- **#9 Photo fixtures** (MPIAA copies, reverted): the opener sits beside the text at 1440 and after it at 390; the room photo is in its row at 1440 and full width at 390. Both are 3:2 with a caption and alt text.
+- **#10 and #11 Consent inductions** (each reverted; no fixture file remains), with first error lines:
+  - (a) `build:agent`: "content/teaching.ts: "Fixture room caption." has the date "2026-13-40" in guardianConsent. Write dates as year-month-day, like 2026-03-02."
+  - (b) `check-types`: "Type '{ minors: true; programConsent: "2026-01-02"; }' is not assignable to type 'PhotoPeople'."
+  - (c) `build:agent`: "…the photo "Reel Youth, Whatì, 2017." is from Reel Youth in Whatì and needs communityConsent…"
+  - (d) `check-types`: "Property 'people' is missing … but required in type 'Photo'."
+  - (e) `build:agent`: "content/testimonials.ts: the Teaching page shows at most 4 quotes, and 5 are marked for it. Remove one."
+  - (f) `build:agent`: "…the quote from "Sam Lee" is set to show a first name and role, but "Sam Lee" is more than one word…"
+- **Testimonial display fixtures:**
+  - the full, first-name and anonymous forms render "{name}, {role}", "{name}, {role}" and "{role}", roman
+  - two columns at ≥1024 (each 476 px, under 52ch), stacked at 390
+  - an About-only fixture doesn't appear
+  - the anonymous name was found in the HTML (through the list key), fixed, then confirmed absent
+- **#12 No student named:** every fixture caption, alt and attribution was placeholder text, reviewed against §7.6. The shipped default names no one but him.
+- **#13 Hand-off:** last before the footer, `mailto:` with no subject; at 320 the address is a 44 px target inside the viewport; the bar's Contact stays.
+- **#14 Links in:** Teaching `aria-current="page"`; Home's "Teaching →" and the bar's link now land with 200.
+- **#15 Negative checks:** no "use client", no review imports, no hex, no inline route.
+- **`yarn verify`:** passed.
+
+**Deviations:** 9 SITE-7 lines.
+
+**The one thing SITE-8 must know:** Contact reuses `CopyButton` in `"select"` mode, with the address element's id as `selectTargetId`. Its strings (Copy / Copied / "Couldn't copy. The address is selected.") belong in `content/site.ts` beside `FILM_COPY`, and the page has no form.
+

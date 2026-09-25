@@ -5,6 +5,7 @@ import { PhotoFigure } from "@/components/composed/media/photo-figure";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
+import { Testimonial } from "@/components/composed/site/testimonial";
 import { ABOUT, CLIENTS } from "@/content/about";
 import { PROJECTS } from "@/content/projects";
 import { CHROME } from "@/content/site";
@@ -199,15 +200,8 @@ export default function AboutPage() {
             </h2>
             <ul className="flex flex-col gap-8">
               {testimonials.map((testimonial) => (
-                <li key={testimonial.name}>
-                  <figure className="flex max-w-[68ch] flex-col gap-2">
-                    <blockquote className="text-lg leading-relaxed">
-                      {testimonial.quote}
-                    </blockquote>
-                    <figcaption className="text-sm text-muted-foreground">
-                      {testimonial.name}, {testimonial.role}
-                    </figcaption>
-                  </figure>
+                <li key={testimonial.quote}>
+                  <Testimonial testimonial={testimonial} />
                 </li>
               ))}
             </ul>
