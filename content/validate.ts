@@ -1,6 +1,6 @@
 import { ABOUT } from "@/content/about";
 import { CREDITS, type Credit } from "@/content/credits";
-import { CAMERA_ROW, DIRECTING_ROW, FEATURED, HOME_H1 } from "@/content/home";
+import { FEATURED, HOME_H1 } from "@/content/home";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
 import { PROJECTS, type Project } from "@/content/projects";
@@ -58,11 +58,8 @@ const WHATI = /wh?at[iì]|reel youth/i;
 /** "at-risk", however it's spaced. */
 const AT_RISK = /at[-\s]?risk/i;
 
-const HOME_LISTS = [
-  ["FEATURED", FEATURED],
-  ["DIRECTING_ROW", DIRECTING_ROW],
-  ["CAMERA_ROW", CAMERA_ROW],
-] as const;
+/** Home's one list of films (SITE-3a took out the two role rows). */
+const HOME_LISTS = [["FEATURED", FEATURED]] as const;
 
 // ---------------------------------------------------------------------------
 // Messages (one per check; numbers match SITE-2's table)

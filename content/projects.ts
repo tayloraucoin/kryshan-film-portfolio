@@ -140,8 +140,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     // Held: its replacement frame isn't approved (O-SITE-13, 02 §14 Q27), so
     // spec §6.1's fallback is in force. To unhold: add its approved frame to
     // content/posters.ts, set rights to "public", and put it back at
-    // FEATURED position 2 and Born To Be back in DIRECTING_ROW
-    // (content/home.ts).
+    // FEATURED position 2 (content/home.ts).
     rights: "held",
   },
   {

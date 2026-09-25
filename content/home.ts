@@ -11,10 +11,9 @@
  * The featured grid, in order: his top five and his "lead with this" flags.
  *
  * The Directors Reel fallback is in force (spec §6.1): its replacement frame
- * isn't approved, so it is held, Contact Club takes its place (position 2)
- * and Born To Be leads the Directing row. To undo it once the frame is
- * approved: put "directors-reel" back at position 2 here, move
- * "contact-club" to the front of DIRECTING_ROW and "born-to-be" second.
+ * isn't approved, so it is held and Contact Club takes its place
+ * (position 2). To undo it once the frame is approved: put
+ * "directors-reel" back at position 2 here.
  *
  * Portrait rule: with a current portrait, the title cell becomes 2 × 2 at
  * ≥1280 and this list grows to eight (Contact Club, Born To Be), per §6.1.
@@ -26,32 +25,6 @@ export const FEATURED: ReadonlyArray<string> = [
   "5rhythms",
   "the-wolf-of-west-georgia-street",
   "just-up-the-block",
-];
-
-/**
- * The two rows (handoff §6.6). The rules that produced them govern edits:
- * nothing already featured; each film in one row only, by its first role;
- * no poster awaiting replacement, no baked-in title card, no link-out, no
- * held film; at most eight; passion and paid work mixed for range.
- */
-export const DIRECTING_ROW: ReadonlyArray<string> = [
-  "born-to-be",
-  "a-very-bc-production",
-  "dare",
-  "its-a-crazier-life",
-  "be-reel-green",
-  "artless",
-  "united8s",
-];
-
-export const CAMERA_ROW: ReadonlyArray<string> = [
-  "riverdale-ew-bts",
-  "a-dogs-way-home-epk",
-  "tuts-2026-trailer",
-  "tuts-2025-season-teaser",
-  "tradeswoman-exhibit",
-  "digital-days",
-  "rffc-were-in-this-together",
 ];
 
 /**
@@ -74,6 +47,7 @@ export const HOME_META = {
 export const HOME_LINKS = {
   /** Phones only: jumps to the first film. */
   watch: "Watch",
+  /** The Directing and Camera strands' links (to Work, arranged by that role). */
   allDirecting: "All directing",
   allCamera: "All camera work",
   teaching: "Teaching",
