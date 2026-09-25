@@ -31,8 +31,8 @@ export default function ContactPage() {
 
   return (
     <SiteShell current="contact">
-      <section className="flex max-w-[40rem] flex-col gap-6 px-3 pt-8 pb-16 md:px-6 md:pt-12 md:pb-20">
-        <h1 className="font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] xl:text-[2.5rem]">
+      <section className="flex flex-col gap-6 px-3 pt-8 pb-16 md:px-6 md:pt-12 md:pb-20">
+        <h1 className="max-w-[40rem] font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] xl:text-[2.5rem]">
           {CONTACT.h1}
         </h1>
         <p>
@@ -56,7 +56,9 @@ export default function ContactPage() {
           />
         </div>
         {CONTACT.teachingLine ? (
-          <p className="text-muted-foreground">{CONTACT.teachingLine}</p>
+          <p className="max-w-[40rem] text-muted-foreground">
+            {CONTACT.teachingLine}
+          </p>
         ) : null}
       </section>
     </SiteShell>

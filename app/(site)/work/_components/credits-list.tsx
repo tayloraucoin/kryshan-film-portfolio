@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import type { Credit } from "@/content/credits";
 import { cn } from "@/lib/cn";
 
@@ -31,8 +32,12 @@ export function CreditsList({
     <div className={cn("flex flex-col gap-2", className)}>
       <CreditColumns credits={first} />
       {rest.length > 0 ? (
-        <details>
+        <details className="group">
           <summary className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-(--radius) text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] text-(--link) uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+            <ChevronRight
+              aria-hidden="true"
+              className="size-4 shrink-0 transition-transform group-open:rotate-90"
+            />
             {summary}
           </summary>
           <CreditColumns credits={rest} className="pt-2" />

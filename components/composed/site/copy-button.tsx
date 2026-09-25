@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { markJsReady } from "@/lib/pre-paint-script";
 
@@ -114,13 +115,18 @@ export function CopyButton({
         onClick={copy}
         aria-describedby={showValue ? fallbackId : undefined}
         className={cn(
-          "inline-flex min-h-11 cursor-pointer items-center rounded-(--radius) text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] text-muted-foreground uppercase transition-colors",
+          "inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-(--radius) text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] text-muted-foreground uppercase transition-colors",
           "hover:text-foreground",
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
           classes?.button,
           className,
         )}
       >
+        {copied ? (
+          <CheckIcon aria-hidden="true" className="size-4 shrink-0" />
+        ) : (
+          <CopyIcon aria-hidden="true" className="size-4 shrink-0" />
+        )}
         {copied ? labels.done : labels.idle}
       </button>
       <span role="status" aria-live="polite" className="sr-only">

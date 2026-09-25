@@ -28,7 +28,7 @@ export function SiteFooter() {
         <a
           href={`mailto:${SITE.email}`}
           className={cn(
-            "self-start text-base text-foreground transition-colors hover:text-(--link)",
+            "self-start text-base text-foreground transition-colors hover:text-(--link) md:self-baseline",
             FOCUS,
           )}
         >
