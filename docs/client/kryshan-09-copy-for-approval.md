@@ -2,13 +2,14 @@
 
 **Status:** Draft · Stage A sent — · Stage B sent — · Approved in full —
 **Approval record:** — (his reply's date, medium and where it is kept go here)
-**Checked in place by:** — (Vitrine, at 1440 and 390, before sending)
-**Answers used:** the one message is unanswered as of 2026-09-24, so every question takes its §13 default (reply-by date: Taylor to fill) · O-SITE-1 → Galvanizing · O-SITE-2 → no portrait · O-SITE-3 → About opener A · O-SITE-4 → "Leo-nominated as an editor", no title · O-SITE-5 → the second school removed everywhere · O-SITE-6 (Q12) → names per 03 §8 with their roles and productions, Aubrey Plaza omitted (SITE-C ruling 6), credits per the EPK CV, hello@ · O-SITE-7 → The Bully Solution, Shotlister and VANDU held · O-SITE-8 → the Wolf shown (Q13); The Bully Solution festivals only (Q18); Glimpse "screened on the Sundance Channel" alone (Q19); no career-start year (Q21) · O-SITE-14 → camp facts line omitted, Frames wording as it stands · O-SITE-16 → the amended Directing and Camera captions; the Contact H1 as is
+**Checked in place by:** Vitrine · 2026-09-25 (1440, 768 and 390; round 2: no horizontal overflow on any page, no H1 or tile title changed, photos sharp at 1x)
+**Answers used:** the one message is unanswered as of 2026-09-25, so every question takes its §13 default (reply-by date: Taylor to fill) · O-SITE-1 → Galvanizing · O-SITE-2 → no head-and-shoulders portrait yet, so About shows the music-video street shoot at 4:5 (row A-8.3) · O-SITE-3 → About opener A · O-SITE-4 → "Leo-nominated as an editor", no title · O-SITE-5 → the second school removed everywhere · O-SITE-6 (Q12) → names per 03 §8 with their roles and productions, Aubrey Plaza omitted (SITE-C ruling 6), credits per the EPK CV, hello@ · O-SITE-7 → The Bully Solution, Shotlister and VANDU held · O-SITE-8 → the Wolf shown (Q13); The Bully Solution festivals only (Q18); Glimpse "screened on the Sundance Channel" alone (Q19); no career-start year (Q21) · O-SITE-14 → camp facts line omitted, Frames wording as it stands · O-SITE-16 → the amended Directing and Camera captions; the Contact H1 as is
 
 > Working notes for Taylor and Vitrine (remove this block before sending):
 > - Generated from `content/` by a throwaway script, so every count below is the data's own (SITE-C acceptance 2 and 12).
 > - Stage A is everything above "Stage B". It goes with the first-look link.
 > - Stage B is drafted from his intake but waits on the ~24 press articles (`docs/client/press/`, `[PENDING — Taylor supplies]`). Send it once press is verified (ruling 1), or earlier without press if you prefer two short sends.
+> - Round 2 (2026-09-25, Taylor's walkthrough): H-2 to H-4 lose their semicolons; four stories cut where they repeated their one-line description or leaned on "very" (Dare, TUTS 2025, RFFC, It's A Crazier Life); "MPIAA" corrected to MPPIA (A-6, A-8.1, the A Very B.C. Production card); the bio's serial comma fixed; About gains a portrait (A-8.3) and a Held heading for the Glimpse story (A-12); Teaching gains two photos (T-6.1, T-6.2) and one Held (T-6.3). Every row stays Draft.
 > - Rows marked "held: not shown yet" belong to films that aren't on the site yet. Approving them now means unholding a film is a one-field change.
 
 ## How to use this
@@ -29,27 +30,27 @@ Once you've approved a line, changing it later is a change round.
 ### H-2 · Home: Directing paragraph
 - **Where it shows:** the bottom of the home page, under "Directing" (moved there after your Demo D note)
 - **Kind:** Proposed (O-SITE-16) · this one: 152 characters, 25 words
-- **Text:** Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia; PSAs, music videos, web series and sizzle reels for clients.
+- **Text:** Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia. PSAs, music videos, web series and sizzle reels for clients.
 - **From:** 03 §8, amended (spec §6.1)
-- **What changed from your words:** "for hire" removed; the checkable festivals lead
+- **What changed from your words:** "for hire" removed; the checkable festivals lead; a full stop instead of a semicolon between your own films and the client work
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
 ### H-3 · Home: Camera and editing paragraph
 - **Where it shows:** the bottom of the home page, under "Camera and editing"
 - **Kind:** Proposed (O-SITE-16) · this one: 165 characters, 24 words
-- **Text:** IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly; docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.
+- **Text:** IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly. Docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.
 - **From:** 03 §8, amended (spec §6.1)
-- **What changed from your words:** "Canon C70" removed; the Leo line has no film title until you confirm it (O-SITE-4)
+- **What changed from your words:** "Canon C70" removed; the Leo line has no film title until you confirm it (O-SITE-4); a full stop instead of a semicolon before "Docs"
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
 ### H-4 · Home: Teaching paragraph
 - **Where it shows:** the bottom of the home page, under "Teaching"
-- **Kind:** Locked, with its fallback · this one: 84 characters, 11 words
-- **Text:** Directing, shooting and editing at LaSalle College; film camps; one-on-one coaching.
+- **Kind:** Proposed: the spec's fallback, repunctuated · this one: 87 characters, 12 words
+- **Text:** Directing, shooting and editing at LaSalle College. Film camps and one-on-one coaching.
 - **From:** 03 §8; spec §6.1 fallback
-- **What changed from your words:** the second school is left out until you confirm it (O-SITE-5)
+- **What changed from your words:** the second school is left out until you confirm it (O-SITE-5); full stops instead of two semicolons, so the three paragraphs don't all read as one pattern
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -499,18 +500,18 @@ One heading per film, in the order Work shows them, then the films not shown yet
 
 ### A-2 · About: bio
 - **Where it shows:** About, under the headline
-- **Kind:** Your words, cut · limit ≤200 words, ≤3 paragraphs, the first ≤60 · this one: 126 words (49, 58, 19)
+- **Kind:** Your words, cut · limit ≤200 words, ≤3 paragraphs, the first ≤60 · this one: 124 words (47, 58, 19)
 - **Text:**
-  - I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind the scenes work, and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.
+  - I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind-the-scenes work and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.
   - My career started with producing two fast film contests, The 24 Hour Film Contest and The Great Canadian Commercial Contest. Through these events, I met many of my favourite collaborators and started making short films on weekends with them. Outside of the industry, I practise transcendental meditation, ski and play beach volleyball, DJ, and host large-scale immersive events.
   - As a film instructor I teach directing, shooting and editing at LaSalle College, and do individual coaching and mentorship.
 - **From:** your bio (intake, "Your words")
-- **What changed from your words:** cut only: no word added; "one-person crew" and Canadian spelling; no start year, no Crazy8s count, no awards or festival lists (they're in Recognition)
+- **What changed from your words:** cut only: no word added; "one-person crew" and Canadian spelling; "behind-the-scenes" hyphenated and the comma before "and other" dropped (the site's style); no start year, no Crazy8s count, no awards or festival lists (they're in Recognition). The comma before "and host" stays: that sentence is yours word for word
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
 ### A-3 · About: the Glimpse story
-- **Where it shows:** About, between two thin lines
+- **Where it shows:** About, between two thin lines (a heading is proposed in A-12)
 - **Kind:** Your words, cut · limit ≤70 words · this one: 315 characters, 54 words
 - **Text:** My lead actress Justine Warrington was so strong in her casting sessions for my short film Glimpse that I rewrote the script around the character she portrayed. She included all the layers implied in my previous draft, and then some, so the script had to rise to the level of her more multi-dimensional performance.
 - **From:** your 2017 talent-lab essay (`docs/client/writing/4605f881-….rtf`)
@@ -543,9 +544,9 @@ One heading per film, in the order Work shows them, then the films not shown yet
 ### A-6 · About: clients
 - **Where it shows:** About › Recognition › Directed and shot
 - **Kind:** Your words (data) · this one: 26 names
-- **Text:** Disney · Netflix · Paramount Pictures · Universal Studios · Sony Pictures · The CW · BBC America · CBS · CTV · Hallmark · VanCity · Vancouver Symphony Orchestra · VIFF · Creative BC · Theatre Under the Stars · Bard on the Beach · The Rio Theatre · SFU Creative Studios · former Mayor Gregor Robertson · IATSE 669 · Pulling Together Canoe Journey · DGC BC · Shotlister / Zach Lipovsky · Richmond City Hall · MPIAA · Crazy8s
+- **Text:** Disney · Netflix · Paramount Pictures · Universal Studios · Sony Pictures · The CW · BBC America · CBS · CTV · Hallmark · VanCity · Vancouver Symphony Orchestra · VIFF · Creative BC · Theatre Under the Stars · Bard on the Beach · The Rio Theatre · SFU Creative Studios · former Mayor Gregor Robertson · IATSE 669 · Pulling Together Canoe Journey · DGC BC · Shotlister / Zach Lipovsky · Richmond City Hall · MPPIA · Crazy8s
 - **From:** your affiliations list (02 §4)
-- **What changed from your words:** studios and networks first; Legendary Pictures left out (it's in one list, not the other)
+- **What changed from your words:** studios and networks first; Legendary Pictures left out (it's in one list, not the other); "MPIAA" corrected to MPPIA, as the Motion Picture Production Industry Association of BC spells itself (mppia.com)
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -560,12 +561,12 @@ One heading per film, in the order Work shows them, then the films not shown yet
 
 ### A-8.1 · About: photo 1 caption and description
 - **Where it shows:** About › On set (the description is read aloud by screen readers)
-- **Kind:** Write · caption ≤12 words · this one: caption 8 words, description 17 words
+- **Kind:** Write · caption ≤12 words · this one: caption 9 words, description 17 words
 - **Text:**
-  - Caption: Directing the MPIAA PSA on an LED-wall stage.
+  - Caption: Directing A Very B.C. Production on an LED-wall stage.
   - Description: Kryshan Randel, masked, directing an actor on an LED-wall stage, with a camera crew in the foreground.
 - **From:** your photos
-- **What changed from your words:** —
+- **What changed from your words:** the caption names the film instead of "the MPIAA PSA": MPPIA produced A Very B.C. Production, and the LED wall is that shoot
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -580,14 +581,14 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-### A-8.3 · About: photo 3 caption and description
-- **Where it shows:** About › On set (the description is read aloud by screen readers)
-- **Kind:** Write · caption ≤12 words · this one: caption 8 words, description 19 words
+### A-8.3 · About: your portrait
+- **Where it shows:** About, beside the headline and bio (on phones, between them)
+- **Kind:** Write · the page shows no caption and reads your name aloud · in the file: caption 8 words, description 19 words
 - **Text:**
-  - Caption: Shooting a music video on a city street.
-  - Description: Kryshan Randel holding a handheld camera rig overhead on a city street while a crew member lights the shot.
-- **From:** your photos
-- **What changed from your words:** —
+  - Caption (kept in the file, not shown): Shooting a music video on a city street.
+  - Description (kept in the file; the page reads "Kryshan Randel"): Kryshan Randel holding a handheld camera rig overhead on a city street while a crew member lights the shot.
+- **From:** your music-video shoot photo, uncropped at 4:5
+- **What changed from your words:** moved from On set to the portrait spot, because no head-and-shoulders portrait has come in yet. The one in the shared folder is the photo with Ted Danson, which stays off the site. Send a portrait and it replaces this one
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -608,6 +609,15 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **What changed from your words:** plain, because the names line already has the page's one dry turn (the spec's default was "If it's hard to look away from, email me.")
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
+
+### A-12 · About: heading over the Glimpse story
+- **Where it shows:** About, above the Glimpse story
+- **Kind:** Write · 2–4 words
+- **Text:** Working with actors
+- **From:** new (Taylor's walkthrough: the paragraph reads as floating)
+- **What changed from your words:** —
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Held — the page has no heading slot there yet (a layout change, not a copy one); the text is here so you can OK it now
 
 ### A-11 · About: search description
 - **Where it shows:** under About in search results
@@ -671,14 +681,36 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-### T-6 · Teaching: photo captions
-- **Where it shows:** Teaching › In the room
-- **Kind:** Write
-- **Text:** — (no photos yet)
-- **From:** —
+### T-6.1 · Teaching: photo 1 caption and description
+- **Where it shows:** Teaching, after the three blocks (the description is read aloud by screen readers)
+- **Kind:** Write · caption ≤12 words · this one: caption 7 words, description 18 words
+- **Text:**
+  - Caption: Visiting professor at CEDIM in Mexico, 2010.
+  - Description: Kryshan Randel laughing with a group of students as they look at the screen of a video camera.
+- **From:** your photo from the CEDIM feature; CEDIM and the year from your CV
+- **What changed from your words:** — (one question: who took it? It ran in a feature about you, so if the photographer wants a credit, it goes in the caption)
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
+
+### T-6.2 · Teaching: photo 2 caption and description
+- **Where it shows:** Teaching, after the three blocks (the description is read aloud by screen readers)
+- **Kind:** Write · caption ≤12 words · this one: caption 7 words, description 13 words
+- **Text:**
+  - Caption: With graduating students at LaSalle College, 2025.
+  - Description: Kryshan Randel standing behind five students in front of an LCI Education banner.
+- **From:** your photo "LaSalle_grad" (dated March 2025)
 - **What changed from your words:** —
 - **Your call:** [ ] OK · Change to: ______
-- **Result:** Held — no teaching photos have been sent and cleared (O-SITE-14)
+- **Result:** Draft
+
+### T-6.3 · Teaching: photo 3 (the group on the stage with the Fatal Attraction slate)
+- **Where it shows:** Teaching, beside the headline
+- **Kind:** Write
+- **Text:** — (absent)
+- **From:** your photo dated 23 August 2026
+- **What changed from your words:** —
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Held — which class or program was this, and where? With that it becomes the photo beside the headline. The Kaleidoscope photo is too small to use, and the CEDIM image with the title printed on it repeats T-6.1
 
 ### T-7 · Teaching: search description
 - **Where it shows:** under Teaching in search results
@@ -821,10 +853,10 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 
 ### D-dare-S · Dare: story
 - **Where it shows:** the film's page, under the video
-- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 19 words, 1 paragraph
-- **Text:** Shot during an intimate live concert, with three cameras. Co-directed with the artist Myk Gordon, co-edited with Alex Barker.
+- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 10 words, 1 paragraph
+- **Text:** Co-directed with the artist Myk Gordon, co-edited with Alex Barker.
 - **From:** your intake "Story"
-- **What changed from your words:** —
+- **What changed from your words:** "Shot during an intimate live concert, with three cameras." cut: the description above it already says it
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -840,10 +872,10 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 
 ### D-tuts-2025-season-teaser-S · TUTS 2025 Season Teaser: story
 - **Where it shows:** the film's page, under the video
-- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 28 words, 1 paragraph
-- **Text:** I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots, to capture slow motion preview footage of their characters.
+- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 19 words, 1 paragraph
+- **Text:** I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots.
 - **From:** your intake "Story"
-- **What changed from your words:** —
+- **What changed from your words:** "to capture slow motion preview footage of their characters" cut: the description above it already says it
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -963,10 +995,10 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 
 ### D-rffc-were-in-this-together-S · RFFC: We’re In This Together: story
 - **Where it shows:** the film's page, under the video
-- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 26 words, 1 paragraph
-- **Text:** Shot blocks away from where I grew up, this profile of Richmond’s mental health community engagement organization is a respectful look at the work they do.
+- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 8 words, 1 paragraph
+- **Text:** Shot blocks away from where I grew up.
 - **From:** your intake "Story"
-- **What changed from your words:** "premiere", "tribute" and "incredible" cut
+- **What changed from your words:** "premiere", "tribute" and "incredible" cut; everything after "grew up" cut, because the description above it already says it's a profile of the society's work
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -976,10 +1008,10 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 
 ### D-its-a-crazier-life-S · It’s A Crazier Life: story
 - **Where it shows:** the film's page, under the video
-- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 18 words, 1 paragraph
-- **Text:** An opportunity to satirize the event, its creators and its host in a very irreverent South Park style.
+- **Kind:** Your words, cut · limit ≤90 words, ≤3 paragraphs · this one: 17 words, 1 paragraph
+- **Text:** An opportunity to satirize the event, its creators and its host in an irreverent South Park style.
 - **From:** your intake "Story"
-- **What changed from your words:** "fun", "playfully" and "most successful alumni" cut
+- **What changed from your words:** "fun", "playfully", "most successful alumni" and "very" cut
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
@@ -1178,6 +1210,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 | 11 | IMDb credits one title "as Kryshan Randal" | not a site issue; for his information | — |
 | 12 | Dan O'Bannon judged Jack "a few weeks before his passing" | said less: the timing is cut | D-jack-S |
 | 13 (found in SITE-C) | Glimpse's A&E award year: 2008 (old site, SITE-2) vs 2009 (The Province, 16 Sep 2009) | said less: no year | D-glimpse-A, -AF |
+| 14 (found in round 2) | "MPIAA" in your intake and CV; the association that produced A Very B.C. Production styles itself MPPIA (mppia.com; BC Creates, Creative Industries Week 2021) | corrected to MPPIA: a spelling, not a disputed fact | A-6, A-8.1, the A Very B.C. Production card |
 
 ### Change rounds
 | Date | Row | Asked by | Defect or change round | Note |

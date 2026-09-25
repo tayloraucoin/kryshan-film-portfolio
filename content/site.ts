@@ -167,22 +167,24 @@ export type Strand = {
  * The three strands, cut to two lines each (03 §8, from his old home page).
  * The Directing and Camera and editing lines are spec §6.1's amended
  * defaults (D-SITE-27, [PROVISIONAL — his OK in the one message]); Teaching
- * drops the second school until he confirms it (O-SITE-5).
+ * drops the second school until he confirms it (O-SITE-5). Full stops, not
+ * semicolons, between each strand's groups (SITE-C round 2): three
+ * semicolon lists in a row read as a template.
  */
 export const STRANDS: ReadonlyArray<Strand> = [
   {
     id: "directing",
     title: "Directing",
-    body: "Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia; PSAs, music videos, web series and sizzle reels for clients.",
+    body: "Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia. PSAs, music videos, web series and sizzle reels for clients.",
   },
   {
     id: "camera-editing",
     title: "Camera and editing",
-    body: "IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly; docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.",
+    body: "IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly. Docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.",
   },
   {
     id: "teaching",
     title: "Teaching",
-    body: "Directing, shooting and editing at LaSalle College; film camps; one-on-one coaching.",
+    body: "Directing, shooting and editing at LaSalle College. Film camps and one-on-one coaching.",
   },
 ];

@@ -1,4 +1,6 @@
 import type { Photo } from "@/content/photo";
+import cedim2010 from "@/public/media/photos/cedim-2010.jpg";
+import lasalleGrads2025 from "@/public/media/photos/lasalle-grads-2025.jpg";
 
 /**
  * Teaching (spec §6.5): where he teaches, the programs and camps he has
@@ -19,8 +21,26 @@ import type { Photo } from "@/content/photo";
 /** The opener photo (3:2), when he sends one and it is cleared. */
 const OPENER_PHOTO: Photo | undefined = undefined;
 
-/** In the room: up to three photos he has sent and cleared (3:2, captioned). */
-const ROOM_PHOTOS: ReadonlyArray<Photo> = [];
+/**
+ * In the room: up to three photos he has sent and cleared (3:2, captioned).
+ * All adults: CEDIM's university students and LaSalle's graduates.
+ */
+const ROOM_PHOTOS: ReadonlyArray<Photo> = [
+  {
+    src: cedim2010,
+    // Copy row T-6.1
+    alt: "Kryshan Randel laughing with a group of students as they look at the screen of a video camera.",
+    caption: "Visiting professor at CEDIM in Mexico, 2010.",
+    people: "adults",
+  },
+  {
+    src: lasalleGrads2025,
+    // Copy row T-6.2
+    alt: "Kryshan Randel standing behind five students in front of an LCI Education banner.",
+    caption: "With graduating students at LaSalle College, 2025.",
+    people: "adults",
+  },
+];
 
 export const TEACHING = {
   /** The page's name, in the tab and the bar. */

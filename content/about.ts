@@ -1,7 +1,7 @@
 import type { Photo } from "@/content/photo";
 import adIngYukon from "@/public/media/photos/ad-ing-yukon.jpg";
 import mpiaaPsaShoot from "@/public/media/photos/mpiaa-psa-shoot.jpg";
-import musicVideoShoot from "@/public/media/photos/music-video-shoot.jpg";
+import portrait from "@/public/media/photos/portrait.jpg";
 
 /**
  * About (spec §6.4): the person, then the proof. His own words, cut.
@@ -24,7 +24,7 @@ const ON_SET: ReadonlyArray<Photo> = [
     src: mpiaaPsaShoot,
     // Copy row A-8 (alt 1)
     alt: "Kryshan Randel, masked, directing an actor on an LED-wall stage, with a camera crew in the foreground.",
-    caption: "Directing the MPIAA PSA on an LED-wall stage.",
+    caption: "Directing A Very B.C. Production on an LED-wall stage.",
     people: "adults",
   },
   {
@@ -34,17 +34,21 @@ const ON_SET: ReadonlyArray<Photo> = [
     caption: "Assistant directing in the Yukon.",
     people: "adults",
   },
-  {
-    src: musicVideoShoot,
-    // Copy row A-8 (alt 3)
-    alt: "Kryshan Randel holding a handheld camera rig overhead on a city street while a crew member lights the shot.",
-    caption: "Shooting a music video on a city street.",
-    people: "adults",
-  },
 ];
 
-/** His portrait (4:5), when he supplies one (O-SITE-2). */
-const PORTRAIT: Photo | undefined = undefined;
+/**
+ * His portrait (4:5). Until he sends a head-and-shoulders one (O-SITE-2),
+ * this is the music-video street shoot at its own 4:5, uncropped: him at
+ * work (Vitrine, SITE-C round 2). The page reads his name as its alt text
+ * and shows no caption; these two are kept for anywhere else it's used.
+ */
+// Copy row A-8.3
+const PORTRAIT: Photo | undefined = {
+  src: portrait,
+  alt: "Kryshan Randel holding a handheld camera rig overhead on a city street while a crew member lights the shot.",
+  caption: "Shooting a music video on a city street.",
+  people: "adults",
+};
 
 /** Press quotes for Recognition: picks of verified quotes in content/projects.ts (≤4). */
 const PRESS_PICKS: ReadonlyArray<{ slug: string; source: string }> = [];
@@ -71,7 +75,7 @@ export const ABOUT = {
   /** ≤3 paragraphs, ≤200 words, the first ≤60. The person before the résumé. */
   // Copy row A-2
   bio: [
-    "I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind the scenes work, and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.",
+    "I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind-the-scenes work and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.",
     "My career started with producing two fast film contests, The 24 Hour Film Contest and The Great Canadian Commercial Contest. Through these events, I met many of my favourite collaborators and started making short films on weekends with them. Outside of the industry, I practise transcendental meditation, ski and play beach volleyball, DJ, and host large-scale immersive events.",
     "As a film instructor I teach directing, shooting and editing at LaSalle College, and do individual coaching and mentorship.",
   ],
@@ -153,6 +157,6 @@ export const CLIENTS: ReadonlyArray<string> = [
   "DGC BC",
   "Shotlister / Zach Lipovsky",
   "Richmond City Hall",
-  "MPIAA",
+  "MPPIA",
   "Crazy8s",
 ];

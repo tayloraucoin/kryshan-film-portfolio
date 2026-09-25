@@ -8,7 +8,7 @@
 - a private detail (the Wolf, Ashley Judd, a VANDU or RFFC participant)
 - a string he never saw
 
-**Status:** In progress · Stage A drafted and landed 2026-09-24; Stage B drafted except press. Waiting on Vitrine's in-place check, Taylor's send, his approval, and the ~24 press articles. (authored 2026-09-24)
+**Status:** In progress · Stage A drafted and landed 2026-09-24, round 2 (Taylor's walkthrough) landed 2026-09-25; Stage B drafted except press. Vitrine signed the in-place check 2026-09-25. Waiting on Taylor's send, his approval, and the ~24 press articles. (authored 2026-09-24)
 
 > **⚠ CONTENT FLAGS: what is provisional in the output, not just the process.**
 > - **Press:** only quotes read in their source ship. The rest are dropped, not softened. The ~24 articles are `[PENDING — Taylor supplies]`.
@@ -523,3 +523,68 @@ Each of those is a false sentence on a page he's approving under his own name.
 - Reduced motion: no code changed.
 
 **Left for Stage B / close:** the press ledger from the articles, About's press picks (A-7), his approval of both stages, Vitrine's header check, and then the closing note.
+
+---
+
+### Progress note — Stage A, round 2 (2026-09-25, Cantor with Vitrine; Taylor's walkthrough notes; not a closing note)
+
+**State:** the approval document now has 98 rows, all `Draft` except five `Held` rows:
+- A-7 About press
+- A-12 the Glimpse heading, which needs a slot
+- T-4 camp facts
+- T-6.3 the stage photo, waiting on the program's name
+- the held films' rows
+
+Vitrine signed "Checked in place" (1440, 768, 390). Every one-message question is still on its §13 default. The ticket stays open until he approves both stages.
+
+**What changed (every edit is a cut or a correction; DEVIATIONS has one line each):**
+- **H-2, H-3, H-4:** full stops instead of semicolons. H-4 goes to him as Proposed.
+- **Stories:** four are cut where they repeated the logline above them: Dare, TUTS 2025 Season Teaser, RFFC, and It's A Crazier Life ("very").
+- **MPPIA:** "MPIAA" is corrected to MPPIA in A-6, A-8.1 (the caption now names A Very B.C. Production) and the film's card (facts ledger #14).
+- **A-2:** the bio's serial comma goes; "behind-the-scenes" is hyphenated.
+- **About portrait (A-8.3):** the music-video street shoot at 4:5, moved from On set. The Drive "portrait" is the held Ted Danson photo.
+- **Teaching photos:** T-6.1 CEDIM 2010 and T-6.2 LaSalle graduates 2025. T-6.3 is held.
+
+**Taylor's notes answered without a copy change (reasons in the thread report):**
+- W-1 is kept.
+- The credits stay unlinked: the IMDb profile link is the proof. Per-title links need a `credits.ts` field and add 35 exits.
+- There is no Work filter menu: 22 films, and it contradicts his "arrange, never hide" note.
+- About and Teaching names stay unlinked: §11 "names… as text only"; clients in type until Q2; link rot on defunct festivals; `string[]` fields.
+- About's voice is checked against the intake: it holds.
+- Teaching's H1 is kept.
+
+**Routed to Mason (layout or component, not this ticket), each with Vitrine's or Vesper's call:**
+1. **Footer alignment (defect):** in `components/composed/site/site-footer.tsx`, the email link's `self-start` overrides the row's `md:items-baseline`, so the 16 px address and the 14 px place line sit on different baselines. Fix: `self-start md:self-baseline`.
+2. **"All {n} credits" state (defect):** in `app/(site)/work/_components/credits-list.tsx`, the `summary` is `inline-flex`, which removes the native disclosure marker, so nothing shows open or closed. Add an `aria-hidden` chevron that turns on `[open]` (`group-open:`). The Locked text stays as spec §6.2 rules.
+3. **Contact address width (Should-fix):** the section's `max-w-[40rem]` forces `hello` / `@kryshanrandel.com` onto two lines at desktop sizes. Let the address run the full measure; keep the `<wbr>` and `overflow-wrap:anywhere` for phones. The H1 and teaching line keep 40rem.
+4. **Copy button icon (Should-fix):** a 16 px copy glyph beside "Copy", swapping to a check on "Copied" and `aria-hidden`, with the label kept. Do the same for "Copy link", so one control looks like one thing.
+5. **Home place line (Consider):** the roles line and "Vancouver, works anywhere." share one `<p>` in bone. Wrap `SITE.place` in `text-muted-foreground` so it matches the footer. Not red: red 500 is large-only (3.4:1); red 300 is the link colour and would make the place line read as the link beside the footer's mailto; the Home H1 already spends the page's one red phrase.
+6. **About A-12 slot:** an h2 "Working with actors" over the Glimpse paragraph. The string is drafted and Held.
+
+**Greps (acceptance 3 to 14), rerun on `content/` and a fresh `build:agent`:**
+- **3:** the same allowed hits as Stage A, plus the MPPIA line (Creative BC is a proper noun). Phrases: only the at-risk comments and validator. Exclamation marks: 0.
+- **4:**
+  - Steenbergen, Whati, Pans Labyrinth, 5 Rythms, Neighborhood, and the styling set: all 0.
+  - US spellings: 0.
+  - Steenburgen: 2.
+  - "B.C.": the title, and the A-8.1 caption quoting the title.
+- **5:** "$25" appears once (`contact-club` story), and its only HTML is `work/contact-club.html`. "For hire", "any budget" and "affordable": 0.
+- **6:** 27 of 27 within the limits (the longest is Contact Club, 149 characters and 22 words). No duplicates, no prefixes, and every detail page's meta equals its logline.
+- **7a–k:** all pass. The longest story is Glimpse (61 words).
+- **8:** Leo appears only as "Leo-nominated as an editor". VFS: 0.
+- **11:** 0.
+- **13:** 27 descriptions, 27 distinct.
+- **14:**
+  - The intake phone number and personal emails: 0 across 306 build, content and document files.
+  - Phone, street and postcode patterns: only a binary woff2 matched.
+  - Events words: only the interests sentence.
+- **MPIAA:** 0 left.
+
+**`yarn verify`:** exit 0 (lint with zero warnings, check-types, build:agent: 32 static pages).
+
+**Walk:** on :4500 (the running `dev:agent` from this checkout), at 1440, 768 and 390, over `/`, `/work`, `/about`, `/teaching`, `/contact`, and Dare, RFFC, TUTS 2025, It's A Crazier Life, A Very B.C. Production and Contact Club.
+- No horizontal overflow anywhere.
+- No H1 or tile title text changed.
+- The portrait is 443×554 at 1440 (1280 px source). The Teaching photos are 443×295 (840 and 793 px sources).
+
+**Doc and data (acceptance 2):** regenerated by the throwaway script from the landed values, so they agree by construction.

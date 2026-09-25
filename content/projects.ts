@@ -116,7 +116,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     roles: ["directing"],
     roleLabel: "Director / Co-writer",
     lane: "hire",
-    client: "MPIAA, IATSE 669/891, DGC BC, Creative BC",
+    client: "MPPIA, IATSE 669/891, DGC BC, Creative BC",
     kind: "PSA",
     logline:
       "Celebrating the BC film and television industry’s big return to work during the Covid-19 pandemic.",
@@ -290,7 +290,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "An intimate live concert by Myk Gordon, shot with three cameras, from his album Born To Be.",
     story:
-      "Shot during an intimate live concert, with three cameras. Co-directed with the artist Myk Gordon, co-edited with Alex Barker.",
+      "Co-directed with the artist Myk Gordon, co-edited with Alex Barker.",
     embed: { provider: "youtube", id: "KNP-9hOFCR0" },
     rights: "public",
   },
@@ -433,7 +433,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "Crazy8s’ fifteen-year anniversary film takes its creator into a world where Crazy8s never happens.",
     story:
-      "An opportunity to satirize the event, its creators and its host in a very irreverent South Park style.",
+      "An opportunity to satirize the event, its creators and its host in an irreverent South Park style.",
     embed: { provider: "vimeo", id: "88313657" },
     rights: "public",
   },
@@ -511,8 +511,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     kind: "Promo",
     logline:
       "A profile of the Richmond Mental Health Consumer and Friends Society and the work it does.",
-    story:
-      "Shot blocks away from where I grew up, this profile of Richmond’s mental health community engagement organization is a respectful look at the work they do.",
+    story: "Shot blocks away from where I grew up.",
     embed: { provider: "vimeo", id: "166846735" },
     rights: "public",
   },
@@ -555,7 +554,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "Slow-motion previews of the characters in Theatre Under The Stars’ 2025 season.",
     story:
-      "I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots, to capture slow motion preview footage of their characters.",
+      "I had an hour with the casts of Legally Blonde and Charlie and The Chocolate Factory between photo shoots.",
     embed: { provider: "youtube", id: "HRwxGEJdris" },
     rights: "public",
   },
