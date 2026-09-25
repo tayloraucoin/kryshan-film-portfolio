@@ -55,12 +55,16 @@ export const env = createEnv({
   },
 
   client: {
-    /** The canonical origin, used for absolute URLs in metadata and sitemaps. */
+    /**
+     * The canonical origin, used for absolute URLs in metadata and sitemaps.
+     * Optional: unset, it falls back to the live domain, so a missing
+     * variable never points canonicals at localhost (D-SITE-24).
+     */
     NEXT_PUBLIC_SITE_URL: z
       .string()
       .url()
       .transform((value) => value.replace(/\/$/, ""))
-      .default("http://localhost:3000"),
+      .default("https://kryshanrandel.com"),
   },
 
   // Next inlines client variables only when referenced literally.

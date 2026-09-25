@@ -1,4 +1,3 @@
-import type { Route } from "next";
 import { env } from "@/lib/env";
 
 /**
@@ -7,7 +6,8 @@ import { env } from "@/lib/env";
  * live here, as they do in the sibling repos (`lib/config.ts` there too).
  *
  * Everything in `SITE` is a slot. docs/NEW-CLIENT.md is the checklist that
- * fills it.
+ * fills it. Navigation and socials are things he edits, so they live in
+ * `content/site.ts` (D-SITE-28), not here.
  */
 export const SITE = {
   /** The client's name as it should read in a browser tab. */
@@ -33,31 +33,6 @@ export const SITE = {
     height: number;
     alt: string;
   },
-  /** Primary navigation. Paths come from `lib/routes.ts`, never inline. */
-  nav: [] as ReadonlyArray<{ label: string; href: Route }>,
-  /**
-   * Outbound profiles, in the order they should appear. `secondary` ones sit
-   * on a quieter second line (02 §14 Q11: assumed until he confirms).
-   */
-  social: [
-    { label: "IMDb", href: "https://www.imdb.com/name/nm1451064/" },
-    { label: "Vimeo", href: "https://vimeo.com/kryshanrandel" },
-    {
-      label: "YouTube",
-      href: "https://www.youtube.com/user/kryshanrandelfilms",
-    },
-    { label: "LinkedIn", href: "https://linkedin.com/in/kryshanrandel" },
-    {
-      label: "Instagram",
-      href: "https://instagram.com/kryshanrandel",
-      secondary: true,
-    },
-    {
-      label: "Facebook",
-      href: "https://facebook.com/kryshanrandel",
-      secondary: true,
-    },
-  ] as ReadonlyArray<{ label: string; href: string; secondary?: boolean }>,
 } as const;
 
 /** The canonical origin, no trailing slash. */

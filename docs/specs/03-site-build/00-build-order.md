@@ -40,7 +40,7 @@ SITE-1 → SITE-2 → SITE-3 → SITE-4 → SITE-5 → SITE-9 → SITE-10
 
 ### Step 1 — Demo D goes live
 
-- [ ] **SITE-1** · Foundation: production kit, the live chrome, routes, lint walls, the old-URL inventory · M · (Demo D approved)
+- [x] **SITE-1** · Foundation: production kit, the live chrome, routes, lint walls, the old-URL inventory · M · (Demo D approved)
 - [ ] **SITE-2** · Content model: showable data, posters, home lists, consent types, build-time validation · L · Mason review · (SITE-1)
 - [ ] **SITE-3** · The film components go live, and Demo D becomes the home page · L · (SITE-2)
 

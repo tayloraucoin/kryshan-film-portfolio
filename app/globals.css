@@ -10,7 +10,13 @@
  * the fallbacks here are the neutral kit, repeated only so the stylesheet is
  * complete before hydration. Do not add hex values here. See docs/BRANDING.md.
  */
-@custom-variant dark (&:is(.dark *));
+/*
+ * `dark:` applies inside a dark scope, unless a light scope sits between
+ * (`kitClassName()` emits `light` for a light kit). The production kit is
+ * dark on `<html>`; review kits B and C are light `KitScope`s inside it and
+ * must not pick up `dark:` styles until the review layer is deleted.
+ */
+@custom-variant dark (&:is(.dark *):not(.light, .light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -96,6 +102,54 @@
   }
   p {
     text-wrap: pretty;
+  }
+}
+
+/*
+ * Site chrome (spec §4.2, §9). `--bar-h` is the bar's height; the focus
+ * offset keeps a tabbed-to element clear of it (WCAG 2.4.11). The bar's
+ * hairline appears once the page has scrolled 8 px, through a scroll
+ * timeline; where that isn't supported it shows all the time. No JS, and no
+ * colour of its own: the hairline is `--border` at 40%.
+ */
+:root {
+  --bar-h: 44px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --bar-h: 56px;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--bar-h) + 1rem);
+}
+
+[data-site-bar] {
+  border-bottom: 1px solid transparent;
+}
+
+@keyframes site-bar-line {
+  from {
+    border-bottom-color: transparent;
+  }
+  to {
+    border-bottom-color: color-mix(in oklab, var(--border) 40%, transparent);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  [data-site-bar] {
+    animation: site-bar-line linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 8px;
+  }
+}
+
+@supports not (animation-timeline: scroll()) {
+  [data-site-bar] {
+    border-bottom-color: color-mix(in oklab, var(--border) 40%, transparent);
   }
 }
 

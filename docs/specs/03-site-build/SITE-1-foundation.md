@@ -12,7 +12,7 @@
 - confirm every sitemap URL has exactly one row, or appears in the exclusion list
 - state which crawl source was used: `live`, `wayback` or `known-slugs`
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Mason — placement review (two calls made here, routed to you).**
 > 1. **The chrome is rendered per page through a server `SiteShell`, not by `app/(site)/layout.tsx`.**
@@ -586,4 +586,70 @@ A cheaper model tends to append a second lint block, see `yarn lint` pass, and s
 
 ## Closing note
 
-_(Written by the builder at closure: what shipped · the crawl source and counts by kind · rows listed for Taylor · deviations · the one thing SITE-2 must know.)_
+**Closed 2026-09-24 by Mason (Claude Code, one thread for the SITE tickets; see DEVIATIONS).**
+
+**What shipped.**
+- **Production kit:** `brand/kits/kryshan.ts`, Kit D as literals, with a roman Archivo loader plus an italic loader (`preload: false`) behind `--font-quote`; `PRODUCTION_KIT` set.
+- **Nested grounds (M-SITE-2):** `kitClassName()` emits `light`, and `dark:` stops at `.light`.
+- **Environment:** `NEXT_PUBLIC_SITE_URL` falls back to `https://kryshanrandel.com`.
+- **Routes:** `siteRoutes` (`work({ role, passion })`, `project`, `about`, `teaching`, `contact`), `WORK_ROLES`, `LEGACY_CRAWL` and `LEGACY_PATHS` in `lib/routes.ts`. No `@/` import.
+- **Content:** `NAV`, `SOCIALS`, `CHROME` and `NOT_FOUND` in `content/site.ts`; `SITE.nav` and `SITE.social` removed.
+- **Chrome (M-SITE-1):** a server `SiteShell` (skip link → bar → `main#main` → footer). The bar has a CSS-only phone split, `--bar-h` 44/56 and a scroll-timeline hairline. The 404 carries the chrome and the spec §6.7 copy; `lang="en-CA"`.
+- **Lint:** the D-SITE-19 wall is merged into each existing `forbid()` call, plus a new block for `app/(site)/**` and `app/*.{ts,tsx}`.
+- **Docs:** PERFORMANCE §4 and specs/README say `preload`; CONVENTIONS §2 updated; M-SITE-1 and M-SITE-2 logged.
+- **No client component was added.**
+
+**The crawl.**
+- **Source:** `live`, 2026-09-24. robots.txt → `/sitemap.xml` (301 to Yoast's `/sitemap_index.xml`) → page, attachment, project and project_category sitemaps (84 `<loc>`s), then an HTML link harvest of every page (113 fetches, cap not hit; 131 distinct link targets).
+- **105 rows by kind:**
+  - page 5
+  - project 25
+  - project-not-kept 6
+  - category 28 (13 from the sitemap, plus 15 paginated)
+  - attachment 33
+  - other 8
+- **Query-only URLs skipped:** 2 (`/?attachment_id=26316`, `/?attachment_id=26319`).
+- **How films were matched:** by page title, then confirmed by each old page's embedded video ID against `content/projects.ts`. The confirmations include `rcfc-were-in-this-together` → `rffc-were-in-this-together` (Vimeo 166846735), `riverdale-epk` → `riverdale-ew-bts` (YouTube 92ZF6lgw4us) and `united-8s` → `united8s`. `/averybcproduction/` and `/contactclub/` map to their projects.
+- **No old page:** 5Rhythms, Tradeswoman Exhibit and both TUTS films.
+- **Vigil spot-check:** three random rows (`/project_category/psa/`, `/project/glimpse/`, `/project/a-dogs-way-home-epk/ashley-judd/`) were re-fetched live, and each matches its target.
+- **Raw output (not committed):** `crawl/raw.json` and `crawl/rows.json` in this session's scratchpad (`/private/tmp/claude-501/…/scratchpad/crawl/`).
+
+**Rows listed for Taylor** (all follow the table; each is a one-row change if wrong):
+- `/cdn-cgi/l/email-protection` → Work (other). A Cloudflare email-obfuscation link on the old Contact page. It is 404 on the old site.
+- `/terminal-cinema-review/` → Work (other). A standalone press page for The Bully Solution, linked from its old page. The title doesn't name a film, so it isn't guessed onto one.
+- `/author/nrmadmin/` → Work (other). The old site 301s it to `/`.
+- `/test/homepage/` and `/test/kryshan-directing-read-through-2/` → Work (attachment; `/test/` itself isn't a page).
+- The 15 paginated category URLs, mapped as their category (logged).
+
+**Found in passing, for SITE-2 / Taylor (not changed here):** the old VANDU page embeds **Vimeo 325057243**, while spec O-SITE-7 lists VANDU's link as missing.
+
+**Verification.**
+- **`yarn verify`:** passed (lint with zero warnings, `check-types`, `build:agent`). `/`, `/_not-found`, `/robots.txt` and `/sitemap.xml` are static.
+- **Fallback build** (`NEXT_PUBLIC_SITE_URL=` + `build:agent` + `start:agent`):
+  - canonical and `og:url` are `https://kryshanrandel.com`
+  - `robots.txt` names `https://kryshanrandel.com/sitemap.xml`
+  - `curl -sI /nope` → 404
+  - a cold load of `/` requests only the roman Archivo woff2
+  - `--font-quote` is defined on `<html>`
+- **Lint walls:** all seven induced violations fired (#4 a–e with the D-SITE-19 message; (c) with both messages; #5 with "Upward import") and were reverted.
+- **Temporary props on the placeholder Home**, reverted (the file is back to a bare `<SiteShell>`):
+  - `current="about"` gave `aria-current="page"` on About only, with a 2 px red 300 underline
+  - `current="work" currentKind="true" skipTo="work"` gave `aria-current="true"` on Work and "Skip to the work" → `#work`
+
+**Browser walk** (`yarn dev:agent`, :4500):
+- **1440 and 768:** one 56 px line; no hairline at 0, and a hairline (`--border` at 40%) after scrolling; the bar stays pinned and solid; `scroll-padding-top` is 72 px.
+- **390:** a 44 px sticky line (wordmark · Contact), with the More pages row scrolling out while Contact stays; `scroll-padding-top` is 60 px; every nav target is 44 px.
+- **320:** no horizontal scroll.
+- **`/nope`:** a real Tab focuses a visible "Skip to content", and Enter moves focus to `main`.
+- **Footer:** email, place, Social nav with six links, each named "…, opens in a new tab"; no ©; no X/Twitter link.
+- **Reduced motion** (the `globals.css` rule forced on): nothing in the chrome transitions, and the hairline still resolves.
+- **Review layer:**
+  - Demos A and D are identical to their pre-ticket state at 1440 and 390, by a per-element fingerprint of computed colour, font, border and box: 0 diffs across 126 and 331 elements.
+  - Kit B's ribbon is amber 800 inside its `light` scope under `html.dark`.
+  - Kit C is a dark kit, and its ribbon is amber 300, as before (logged).
+  - `/review`, `/review/brand`, `/review/feedback` and the kit, layout and mock pages return 200.
+- **Hidden-pane caveat:** the pane's document is hidden, so the scroll timeline only resamples when a frame renders. The hairline was read after screenshots forced frames.
+
+**Deviations:** twelve SITE-1 lines in DEVIATIONS.md (four are also listed as contradictions at kickoff: the kit roles' stale text, `.env.example`, kit C's ground, and the `cn()` decoration trap).
+
+**The one thing SITE-2 must know:** `lib/routes.ts` must stay free of `@/` imports (SITE-5 imports it from `next.config.ts`). Alias `ProjectRole` to `WorkRole` there rather than redefining it. `LEGACY_PATHS` targets new slugs, including the five held films, so the held set lives only in `content/projects.ts`.

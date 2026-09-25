@@ -34,7 +34,7 @@ Work is filed in numbered track folders, in the order it happened. The records, 
 - No upward imports; `yarn lint` passes with zero warnings.
 - Routes from `lib/routes.ts`; env from `lib/env.ts`; tokens by name.
 - Nothing dynamic on the public site.
-- No video element before a tap; images sized; the first poster `priority`.
+- No video element before a tap; images sized; the first poster `preload`.
 - Real content only in anything a client sees.
 - Nothing false on the page.
 

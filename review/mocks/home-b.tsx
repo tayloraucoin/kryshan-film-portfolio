@@ -1,6 +1,6 @@
 import { Mail } from "lucide-react";
 import { findProject, type Project } from "@/content/projects";
-import { NAV_LABELS } from "@/content/site";
+import { NAV_LABELS, SOCIALS } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
 import type { ReviewKit } from "@/review/kits/types";
@@ -197,8 +197,8 @@ function SelfDescription({ className }: Readonly<{ className?: string }>) {
 }
 
 function Socials({ where }: Readonly<{ where: "rail" | "footer" }>) {
-  const primary = SITE.social.filter((item) => !item.secondary);
-  const secondary = SITE.social.filter((item) => item.secondary);
+  const primary = SOCIALS.filter((item) => !item.secondary);
+  const secondary = SOCIALS.filter((item) => item.secondary);
   return (
     <div className="flex flex-col gap-1.5 font-heading">
       <SocialRow items={primary} where={where} className="text-xs" />

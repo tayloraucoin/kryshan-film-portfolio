@@ -10,8 +10,9 @@ export const metadata: Metadata = rootMetadata();
 
 /**
  * The root layout does three things and no more: loads the stylesheet, applies
- * the active brand kit to `<html>`, and renders children. Site chrome lives in
- * `app/(site)/layout.tsx` so the review layer can carry its own.
+ * the active brand kit to `<html>`, and renders children. Each public page
+ * renders its own chrome through `SiteShell` (M-SITE-1), so the review layer
+ * can carry its own.
  *
  * `next/font` loaders belong to the kit that uses them (`brand/production.ts`
  * supplies `fontClassName`); this file never names a typeface.
@@ -21,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
   return (
     <html
-      lang="en"
+      lang="en-CA"
       data-kit={kit.id}
       className={cn("h-full", kitClassName(kit))}
       style={kitVars(kit) as CSSProperties}
