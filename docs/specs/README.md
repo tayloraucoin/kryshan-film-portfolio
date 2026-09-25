@@ -10,6 +10,7 @@ Work is filed in numbered track folders, in the order it happened. The records, 
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | `01-review-round/`             | Phase 1's review round (KR-1..KR-6), closed: its tickets and its `00-build-order.md`.                                              |
 | `02-review-demo-d/`            | Demo D: kit A + layout A revised after Kryshan's review, built beside A for a before/after comparison. Starts from its UX handoff. |
+| `03-site-build/`               | The live site (epic SITE): `site-ux-spec-v1.0.md` (the source of truth), `00-build-order.md`, and the SITE tickets.                |
 | `<track>/<EPIC>-<n>-<slug>.md` | One implementable slice each, inside its track folder.                                                                             |
 | `<track>/00-build-order.md`    | The track's ordered, checkable queue (created with its first ticket).                                                              |
 | `<track>/*-ux-handoff-v<n>.md` | A track's governing UX handoff, when it has a surface. Its decision log is binding; tickets cite it by ID.                         |

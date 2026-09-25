@@ -22,6 +22,27 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see (2026-09-24)
 - [x] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across (2026-09-24)
 
-## Client build (Phase 2)
+## The live site (track `03-site-build/`, epic SITE)
 
-<!-- Cut tickets from the build spec after Kryshan's comments are triaged. -->
+### Step 1 — Demo D goes live
+
+- [ ] **SITE-1** — Foundation: production kit, the live chrome, routes, lint walls, the old-URL inventory
+- [ ] **SITE-2** — Content model: showable data, posters, home lists, consent types, build-time validation
+- [ ] **SITE-3** — The film components go live, and Demo D becomes the home page
+
+### Step 2 — The rest of the site
+
+- [ ] **SITE-4** — Work: every film, role and passion filters with no flash, the credits he can't show as films
+- [ ] **SITE-5** — Detail pages, redirects, sitemap and structured data
+- [ ] **SITE-6** — About: the person, then the proof
+- [ ] **SITE-7** — Teaching: where he teaches, camps, coaching, and who vouches for him
+- [ ] **SITE-8** — Contact: the address, big and copyable
+
+### Step 3 — His words
+
+- [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string
+
+### Step 4 — Handover and launch
+
+- [ ] **SITE-9** — Style guide exported, then the review layer deleted
+- [ ] **SITE-10** — Launch: gates, launch-tier validation, Lighthouse, EDITING.md, DNS cutover, ownership
