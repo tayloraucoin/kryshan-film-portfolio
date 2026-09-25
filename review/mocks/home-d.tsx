@@ -4,6 +4,7 @@ import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
 import type { ReviewKit } from "@/review/kits/types";
 import { FeaturedGrid } from "@/review/mocks/_components/home-d/featured-grid";
+import { FilmRow } from "@/review/mocks/_components/home-d/film-row";
 import { UnbuiltLink } from "@/review/mocks/_components/home-d/unbuilt-link";
 
 /**
@@ -39,6 +40,41 @@ function showable(slugs: ReadonlyArray<string>): ReadonlyArray<Project> {
 }
 
 const FEATURED = showable(FEATURED_SLUGS);
+
+/**
+ * The two rows (D-KRD-13; handoff §6.6), curated and explicit. The rules
+ * that produced them govern edits: nothing already featured; each piece in
+ * one row, by its first role; no poster marked "replace", no baked-in title
+ * card, no link-out, no pending link; at most eight; passion and paid work
+ * mixed for range.
+ */
+const DIRECTING_ROW = showable([
+  "contact-club",
+  "born-to-be",
+  "a-very-bc-production",
+  "dare",
+  "its-a-crazier-life",
+  "be-reel-green",
+  "artless",
+  "united8s",
+]);
+
+const CAMERA_ROW = showable([
+  "riverdale-ew-bts",
+  "a-dogs-way-home-epk",
+  "tuts-2026-trailer",
+  "tuts-2025-season-teaser",
+  "tradeswoman-exhibit",
+  "digital-days",
+  "rffc-were-in-this-together",
+]);
+
+/** A strand's words, by id; the rows are captioned with them. */
+function strand(id: (typeof STRANDS)[number]["id"]) {
+  const found = STRANDS.find((item) => item.id === id);
+  if (!found) throw new Error(`Unknown strand: ${id}`);
+  return found;
+}
 
 /** Kit A's label voice: Archivo 600, width 88, tracking 18%, uppercase. */
 const LABEL =
@@ -94,7 +130,23 @@ export function HomeD({ kit }: Readonly<{ kit: ReviewKit }>) {
           projects={FEATURED}
           email={SITE.email}
         />
-        <Strands />
+        <FilmRow
+          id="directing"
+          title={strand("directing").title}
+          caption={strand("directing").body}
+          projects={DIRECTING_ROW}
+          email={SITE.email}
+          reviewPrefix={R}
+        />
+        <FilmRow
+          id="camera-editing"
+          title={strand("camera-editing").title}
+          caption={strand("camera-editing").body}
+          projects={CAMERA_ROW}
+          email={SITE.email}
+          reviewPrefix={R}
+        />
+        <TeachingStrand />
         <p data-review-id={`${R}.all-work`} className="px-3 md:px-6">
           <UnbuiltLink className="font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-(--link)">
             All {PROJECTS.length} pieces →
@@ -189,29 +241,23 @@ function TitleCell() {
   );
 }
 
-function Strands() {
+/** Teaching stays as text: it has no films to put in a row (handoff §6.7). */
+function TeachingStrand() {
+  const teaching = strand("teaching");
   return (
     <section
-      data-review-id={`${R}.strands`}
-      className="grid gap-10 px-3 md:px-6 xl:grid-cols-3 xl:gap-8"
+      data-review-id={`${R}.strand.teaching`}
+      className="mx-3 flex flex-col gap-3 border-t border-border/40 pt-4 md:mx-6"
     >
-      {STRANDS.map((strand) => (
-        <div
-          key={strand.id}
-          data-review-id={`${R}.strand.${strand.id}`}
-          className="flex flex-col gap-3 border-t border-border/40 pt-4"
-        >
-          <h2 className="font-heading text-[1.75rem] leading-[1.15] font-semibold font-stretch-88%">
-            {strand.title}
-          </h2>
-          <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
-            {strand.body}
-          </p>
-          <UnbuiltLink className="self-start text-sm font-semibold text-(--link) underline-offset-4 hover:underline">
-            {strand.id === "teaching" ? "Teaching" : "Work"} →
-          </UnbuiltLink>
-        </div>
-      ))}
+      <h2 className="font-heading text-[1.75rem] leading-[1.15] font-semibold font-stretch-88%">
+        {teaching.title}
+      </h2>
+      <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
+        {teaching.body}
+      </p>
+      <UnbuiltLink className="self-start text-sm font-semibold text-(--link) underline-offset-4 hover:underline">
+        Teaching →
+      </UnbuiltLink>
     </section>
   );
 }

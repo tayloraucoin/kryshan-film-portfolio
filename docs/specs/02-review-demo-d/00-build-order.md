@@ -19,7 +19,7 @@ The ordered queue for `02-review-demo-d/`. `PROGRESS.md` (at `docs/specs/`) is t
 
 - [x] **KR-7** — Demo D scaffold: kit D, layout D, a faithful copy of Demo A, rounds kept apart, contact email from env · M · (KR-6)
 - [x] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see · L · (KR-7)
-- [ ] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across · M · (KR-8) · **can be cut**
+- [x] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across · M · (KR-8) · **can be cut**
 
 ## Ordering constraints
 

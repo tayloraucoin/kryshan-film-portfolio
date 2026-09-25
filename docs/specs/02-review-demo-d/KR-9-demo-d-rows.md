@@ -6,7 +6,7 @@
 - keyboard focus lost inside a clipped track
 - Home turning into the archive
 
-**Status:** Not started
+**Status:** Complete (2026-09-24)
 
 ---
 
@@ -123,3 +123,31 @@ A film in a row opens exactly as in the grid: full width, directly beneath that 
 > 4. `DEVIATIONS.md` + `TECHNICAL-DECISIONS.md`
 >
 > Close in three places. Run `yarn verify`.
+
+---
+
+## Closing note
+
+**What shipped:**
+- `review/mocks/_components/home-d/film-row.tsx`: header with arrows, scroll-snap track, and the same `FilmTile`, `FilmPanel` and open-film store as the grid.
+- Fifteen more static poster imports.
+- The two curated rows in `home-d.tsx`, and the Teaching strand on its own.
+- Layout D's brief gains the Netflix `because` line and the KR-9 `givesUp`.
+
+**Walk at 1440:**
+- The rows hold 8 and 7 films in the listed order, 4.5 tiles visible.
+- ← is hidden at the start; → scrolls 1081 px and ← appears.
+- Dare opens beneath the Directing row, and the row keeps its scroll position. Contact Club swaps in place.
+- Digital Days moves the panel beneath the Camera and editing row. Jack moves it back into the grid (after its line).
+- ✕ closes. Exactly one panel is open at any time.
+- All 15 row tiles are fully visible when focused, walking forwards and backwards.
+
+**Walk at 390:**
+- Tile 311 px in a 390 px track (a peek of the next tile), no arrows.
+- No request to a video host on a cold load.
+
+**Verify:** `CONTACT_EMAIL=kryshanrandel@gmail.com yarn verify` passes. No diff to A's files.
+
+**For the next thread:** Demo D is complete behind the gate. Before it is sent:
+- `CONTACT_EMAIL` must be set in Vercel.
+- Taylor decides on a round 2 (handoff O-7).

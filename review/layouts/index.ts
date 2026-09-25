@@ -210,9 +210,14 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
           source: "your review, on “Full page”",
           so: "The film opens across the whole page, and “Full page” is gone.",
         },
+        {
+          quote: "a few more elements to borrow from what Netflix does so well",
+          source: "your review",
+          so: "Rows you swipe across, a bar that stays put, a genre line on every film. Nothing that plays or moves by itself.",
+        },
       ],
       givesUp:
-        "Your wider square takes the place of two films in the top grid. And your email stays under each film you open, on its own line: it’s the one thing a producer needs right after watching.",
+        "Your wider square takes the place of two films in the top grid; Contact Club and Born To Be now start the Directing row below. Your email stays under each film you open, on its own line: it’s the one thing a producer needs right after watching. And some Netflix habits are left out on purpose: previews that play by themselves, a big banner, anything that loads before someone asks.",
     },
   },
 ];
