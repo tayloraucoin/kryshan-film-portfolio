@@ -25,7 +25,7 @@ export function EmailHandOff({
       {sentence ? (
         <p className="max-w-[68ch] text-xl leading-[1.4]">{sentence}</p>
       ) : null}
-      <p>
+      <p className="max-w-[68ch]">
         <a
           href={mailtoHref(email, subject)}
           className="inline-flex min-h-11 items-center rounded-(--radius) text-xl leading-[1.4] text-(--link) underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"

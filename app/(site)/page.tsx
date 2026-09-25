@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TitleCell } from "@/app/(site)/_components/title-cell";
-import { JsonLd } from "@/components/composed/site/json-ld";
+import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { filmsFor } from "@/components/composed/work/film";
 import { FilmGrid } from "@/components/composed/work/film-grid";
@@ -15,11 +15,10 @@ import {
 } from "@/content/home";
 import { posterFor } from "@/content/posters";
 import { findShowableProject, SHOWABLE_PROJECTS } from "@/content/projects";
-import { FILM_COPY, SOCIALS, STRANDS, type Strand } from "@/content/site";
+import { FILM_COPY, STRANDS, type Strand } from "@/content/site";
 import { SITE } from "@/lib/config";
-import { absoluteUrl, createPageMetadata } from "@/lib/metadata";
+import { createPageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
-import { personJsonLd } from "@/lib/structured-data";
 
 /** The share image until his social card exists (O-SITE-11): Just Watch Us's poster. */
 const OG_SLUG = "just-watch-us";
@@ -63,15 +62,7 @@ export default function HomePage() {
 
   return (
     <SiteShell skipTo="work">
-      <JsonLd
-        data={personJsonLd({
-          name: SITE.name,
-          jobTitle: SITE.tagline.replace(/\.$/, ""),
-          url: absoluteUrl(siteRoutes.home),
-          sameAs: SOCIALS.map((social) => social.href),
-          locality: SITE.place.split(",")[0] ?? SITE.place,
-        })}
-      />
+      <PersonJsonLd />
       <div className="flex flex-col gap-16 pt-3 pb-16 md:gap-20 md:pt-4">
         <FilmGrid
           id="work"

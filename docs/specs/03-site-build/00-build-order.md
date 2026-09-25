@@ -48,7 +48,7 @@ SITE-1 → SITE-2 → SITE-3 → SITE-4 → SITE-5 → SITE-9 → SITE-10
 
 - [x] **SITE-4** · Work: every film, role and passion filters with no flash, the credits he can't show as films · L · (SITE-3)
 - [x] **SITE-5** · Detail pages, redirects, sitemap and structured data · M · (SITE-3)
-- [ ] **SITE-6** · About: the person, then the proof · M · Trust surface · (SITE-2, SITE-3)
+- [x] **SITE-6** · About: the person, then the proof · M · Trust surface · (SITE-2, SITE-3)
 - [ ] **SITE-7** · Teaching: where he teaches, camps, coaching, and who vouches for him · M · Trust surface (minors) · (SITE-2, SITE-3)
 - [ ] **SITE-8** · Contact: the address, big and copyable · S · (SITE-1, SITE-3)
 

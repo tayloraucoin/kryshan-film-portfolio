@@ -9,7 +9,7 @@
 
 **Vigil:** privacy and consent. Review the **build output and `public/`**, not just the rendered page.
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Vigil: trust-surface review.**
 > 1. List every file under `public/media/photos/`. Confirm each is one of the cleared files named below, and that no held photo exists anywhere under `public/` (a file in `public/` is fetchable even if no page links it).
@@ -378,3 +378,64 @@ Anything here with real alternatives goes to `TECHNICAL-DECISIONS.md` at closure
 > - If a non-negotiable would have to break, stop and ask.
 >
 > Close in three places: this ticket's `Status:`, `docs/specs/PROGRESS.md`, and `DEVIATIONS.md` (the provisional captions, alt text and meta description; the photo exclusions), plus `TECHNICAL-DECISIONS.md` for real alternatives. Then tick `03-site-build/00-build-order.md`. Run `yarn verify` and report what it printed. Append a `## Closing note` here: what shipped, the cut-to-source mapping, the photos used, and the one thing SITE-C must know.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 3 with SITE-7 and SITE-8).**
+
+**What shipped.**
+- **`/about`** (static): the opener (default A), a 3-paragraph bio, Recognition (Awards; Directed and shot with "Clients include"), the Glimpse paragraph, On set (3 photos), the credentials line, the email hand-off and `Person` JSON-LD.
+- **Content:** `content/about.ts` (`ABOUT`, `CLIENTS`); `public/media/photos/` (3 JPEGs).
+- **Shared:** `components/composed/media/photo-figure.tsx` and `components/composed/site/person-json-ld.tsx`.
+- **Validation:** About's checks in `content/validate.ts`, with its photos registered in `PHOTO_SETS`.
+
+**Cut-to-source mapping** (every prose sentence verified as an ordered subsequence of its source after the listed substitutions):
+- **H1:** the About Me block's first sentence, verbatim.
+- **Bio ¶1** (49 words), from the About Me block:
+  - "I directed two horror shorts … Jack and The Bully Solution." (the award clause deleted)
+  - "I’ve shot and edited hundreds of news segments, behind the scenes work, and other non-fiction projects, often as a one-person crew." ("also" and "corporate and" deleted; "one-man" substituted)
+  - "I’m a member of the IATSE 669 camera union in the EPK category." (verbatim)
+- **Bio ¶2** (58 words):
+  - "My career started with producing two fast film contests…"
+  - "Through these events, I met many of my favourite collaborators…"
+  - the interests sentence verbatim, with "practise" (Canadian verb spelling)
+- **Bio ¶3** (19 words): "As a film instructor I teach directing, shooting and editing at LaSalle College, and do individual coaching and mentorship." ("Vancouver Film School and" deleted)
+- **Total:** 126 words. None of "acclaimed", "Legendary", "Vancouver Film School", "1999", "for hire" or "one-man" appears, and the h1 sentence isn't repeated.
+- **Glimpse** (54 words): from the RTF's collaboration answer. "For example," is deleted and "My" capitalised; it names Justine Warrington and ends on "her more multi-dimensional performance".
+- **Names line:** 03 §8, with "Steenburgen", ending at "…I’m not allowed to show you." (the "more than sixty" clause and "Ask me about them." deleted). No production count appears on the page.
+
+**Unmet by deletion, for SITE-C:**
+- the directing-for-clients sentence can't be cut without "for hire" or new words
+- each name's production (Q12)
+
+**Photos used:**
+- `mpiaa-psa-shoot.jpg` (from `e986099a…`, full frame)
+- `ad-ing-yukon.jpg` (`7964aecd…`, 3:2 band from 100 px)
+- `music-video-shoot.jpg` (`7a66c94f…`, 3:2 band from 60 px; his head and the camera kept)
+
+All are 1600 px, JPEG q82, with no EXIF, XMP or ICC, and all `people: "adults"`. Excluded: the concert and multicam photos (`[NEEDS DECISION]`) and everything held (none is under `public/`, checked by hash).
+
+**Verified.**
+- **#1 and #2 Order and outline:** h1 · h2 Recognition (h3 Awards, h3 Directed and shot) · Glimpse · h2 On set · credentials · hand-off. No Press h3 and no "What people say".
+- **#8 Photos:** 3:2 with blur placeholders; a row at ≥768, stacked at 390.
+- **#9 Private data:** the phone and postcode, read from the CV and never printed, give 0 matches in `.next-build/`, `public/` and `content/`, as does the street name.
+- **#10 Portrait fixture** (reverted): at 1440 it sits beside the text at 0.32 of the width, eager; at 390 it's between the h1 and the bio at 320 px.
+- **#11 Testimonials** (reverted): the full-attribution fixture renders "Temp Person, Producer, Temp Co", not italic. A `first-name-role` testimonial and a fourth testimonial each fail `build:agent` in words.
+- **#12 Press pick:** an unresolvable pick fails the build, naming it; picks ship empty.
+- **Missing `people`:** fails the build, and now fails `tsc` too.
+- **#13 Measure:** the h1 is 24.0ch, the Glimpse paragraph 52ch, and nothing is wider than 68ch.
+- **#14 Metadata:** "About — Kryshan Randel"; the description is the h1 and unique; canonical `/about`; the `Person` JSON-LD is byte-identical to Home's.
+- **#15 Italic:** none.
+- **#16 Performance:** CLS 0 (the LCP is the bio paragraph; logged).
+- **Walk:** 1440, 768 and 390.
+- **`yarn verify`:** passed.
+
+**Deviations:** 14 SITE-6 lines, plus M-SITE-7.
+
+**The one thing SITE-C must know:**
+- Every About string marked `// SITE-C: … not approved` is a mechanical cut or provisional default, awaiting refinement and his approval.
+- Press picks go in `ABOUT.pressPicks` only after the quote is in `content/projects.ts` with `verifiedOn`.
+- The hand-off's dry callback versus the names line's dry turn is SITE-C's call.
+

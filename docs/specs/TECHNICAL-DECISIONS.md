@@ -155,3 +155,11 @@ One section per architectural choice with real alternatives. Never edit or delet
 **Decision:** C. Next's slash hop plus one custom 308 is exactly the two-hop budget. All 105 rows verified with `curl -sIL` (maximum 2 hops, every one a 308, every row landing where its data says). A row that shadows a live page still takes part in the chain check, so a chain through it is reported too.
 **Consequences:** Rows whose destination is a page not built yet (`/about`, `/contact` until SITE-6 and SITE-8) land on the site's 404 in the meantime. Host-level redirects (http → https, www → apex) stay with Vercel's domain settings (SITE-10). A re-crawl before cutover only edits `LEGACY_PATHS`.
 **Revisit trigger:** A crawled path Next's matcher can't express literally (the builder escapes path-to-regexp's special characters today), or a query-string legacy URL (SITE-1 recorded none; it would need `has`).
+
+## 2026-09-24 · SITE-6 · M-SITE-7 · About's press quotes are picks that resolve to a film's verified quote, not copies
+
+**Context:** Spec §6.4 puts up to four press quotes on About; spec §6.3 puts each film's press on its detail page. A quote has to be verified (`verifiedOn`, §11) before it appears anywhere, and he edits these files himself after handover.
+**Options weighed:** A) Copy the chosen quotes into `content/about.ts`: two homes for one quote, and a correction on one page silently misses the other. B) A flag on `PressQuote` ("show on About"): puts About's layout decision inside the film data. C) `pressPicks: { slug; source }[]` in `content/about.ts`, resolved at render to the one quote with that source on that film, and validated at build (at most four; each resolves to exactly one quote on a film that isn't NDA).
+**Decision:** C. One home per quote, and verification carries over automatically; a pick that stops resolving (a quote removed, a source renamed) fails the build in words rather than vanishing. A held film's quote may still appear on About, since it is about him; an NDA'd film's never does.
+**Consequences:** Picks ship empty until SITE-C verifies press. Two quotes on one film from the same source need distinct source names to be pickable.
+**Revisit trigger:** A press quote that isn't about a film (a profile of him), which would need a home of its own.

@@ -1,0 +1,158 @@
+import type { Photo } from "@/content/photo";
+import adIngYukon from "@/public/media/photos/ad-ing-yukon.jpg";
+import mpiaaPsaShoot from "@/public/media/photos/mpiaa-psa-shoot.jpg";
+import musicVideoShoot from "@/public/media/photos/music-video-shoot.jpg";
+
+/**
+ * About (spec §6.4): the person, then the proof. His own words, cut.
+ *
+ * Every string marked "SITE-C: cut by rule" was cut from his own text by
+ * deletion only (SITE-6's rule): no word added or reworded, except Canadian
+ * spelling, "Steenburgen", "one-person crew" and one capital letter where a
+ * cut left a sentence starting lower-case. SITE-C refines them; he approves
+ * the final words.
+ *
+ * To change a photo: put a 3:2 JPEG (at most 1600 px wide, with its
+ * metadata stripped) in public/media/photos/, import it here, and give it
+ * alt text, a caption and who is in it. Only cleared photos go here
+ * (spec §11): no studio sets, no Ted Danson, nothing from the events life.
+ */
+/**
+ * On set: two or three cleared photos (spec §11). Typed as `Photo`, so a
+ * photo without `people` doesn't compile; content/validate.ts checks again.
+ */
+const ON_SET: ReadonlyArray<Photo> = [
+  {
+    src: mpiaaPsaShoot,
+    // SITE-C: alt by the §7.6 rule; not approved
+    alt: "Kryshan Randel, masked, directing an actor on an LED-wall stage, with a camera crew in the foreground.",
+    // SITE-C: provisional caption (spec §11's label); not approved
+    caption: "The MPIAA PSA shoot.",
+    people: "adults",
+  },
+  {
+    src: adIngYukon,
+    // SITE-C: alt by the §7.6 rule; not approved
+    alt: "Kryshan Randel on a walkie-talkie by a lake while two actors kneel for a take, with boom and camera beside them.",
+    // SITE-C: provisional caption (spec §11's label); not approved
+    caption: "AD-ing in the Yukon.",
+    people: "adults",
+  },
+  {
+    src: musicVideoShoot,
+    // SITE-C: alt by the §7.6 rule; not approved
+    alt: "Kryshan Randel holding a handheld camera rig overhead on a city street while a crew member lights the shot.",
+    // SITE-C: provisional caption (spec §11's label); not approved
+    caption: "The music-video shoot.",
+    people: "adults",
+  },
+];
+
+/** His portrait (4:5), when he supplies one (O-SITE-2). */
+const PORTRAIT: Photo | undefined = undefined;
+
+/** Press quotes for Recognition: picks of verified quotes in content/projects.ts (≤4). */
+const PRESS_PICKS: ReadonlyArray<{ slug: string; source: string }> = [];
+
+export const ABOUT = {
+  /** The page's name, in the tab and the bar. */
+  title: "About",
+  /** The section headings (spec §3). */
+  headings: {
+    recognition: "Recognition",
+    awards: "Awards",
+    directed: "Directed and shot",
+    press: "Press",
+    onSet: "On set",
+    testimonials: "What people say",
+  },
+  /** Before the client names under "Directed and shot". */
+  clientsLead: "Clients include",
+  /** The h1. Default A (O-SITE-3); B is offered to him. */
+  // SITE-C: his own bio line (03 §8, option A); not approved
+  opener:
+    "Born and raised in BC, I’ve been making films for as long as I can remember.",
+
+  /** ≤3 paragraphs, ≤200 words, the first ≤60. The person before the résumé. */
+  // SITE-C: cut by rule (SITE-6); not approved
+  bio: [
+    "I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind the scenes work, and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.",
+    "My career started with producing two fast film contests, The 24 Hour Film Contest and The Great Canadian Commercial Contest. Through these events, I met many of my favourite collaborators and started making short films on weekends with them. Outside of the industry, I practise transcendental meditation, ski and play beach volleyball, DJ, and host large-scale immersive events.",
+    "As a film instructor I teach directing, shooting and editing at LaSalle College, and do individual coaching and mentorship.",
+  ],
+
+  /** Between hairlines, no heading: how an audition rewrote Glimpse. ≤70 words. */
+  // SITE-C: cut by rule (SITE-6) from his 2017 talent-lab application; not approved
+  glimpse:
+    "My lead actress Justine Warrington was so strong in her casting sessions for my short film Glimpse that I rewrote the script around the character she portrayed. She included all the layers implied in my previous draft, and then some, so the script had to rise to the level of her more multi-dimensional performance.",
+
+  /** Recognition › Directed and shot: the people he may name but not show (02 §8.3). */
+  // SITE-C: cut by rule (SITE-6) from 03 §8; each name's production waits on Q12; not approved
+  namesLine:
+    "I’ve directed Ted Danson, Mary Steenburgen, Peter Gallagher, Kevin Smith, Tom Green and Aubrey Plaza for spots I’m not allowed to show you.",
+
+  /** Recognition › Awards: award, film, festival. Only facts his sources agree on (02 §8.1, §13). */
+  // SITE-C: by rule (SITE-6); The Bully Solution waits on Q18, the Leo's film on O-SITE-4
+  awards: [
+    "Grand Jury Prize and Best Death, Jack, Bloodshots Film Festival",
+    "A&E Short Filmmakers Award, Glimpse, National Screen Institute",
+    "Best Actor (Riaan Smit), Contact Club, Vancouver Quarantine Performance Project",
+    "Leo-nominated as an editor",
+  ],
+
+  /** Recognition › Press: picks of verified quotes in content/projects.ts. Empty until SITE-C verifies them (§11). */
+  pressPicks: PRESS_PICKS,
+
+  /** One quiet line (spec §6.4). */
+  credentials:
+    "IATSE 669 (EPK) · Capilano College · American Academy of Dramatic Arts · Motion Picture Orientation, WHMIS, ActSafe",
+
+  /** On set: two or three cleared photos (spec §11). */
+  photos: ON_SET,
+
+  /** His portrait (4:5), when he supplies one (O-SITE-2). None: no frame anywhere. */
+  // Widened on purpose: the slot holds a Photo once he supplies one.
+  portrait: PORTRAIT as Photo | undefined,
+
+  /** The page's closing sentence (spec §6.4's default). */
+  handOff: "If it’s hard to look away from, email me.",
+
+  /** The meta description: the h1 until SITE-C writes one. */
+  // SITE-C: provisional (the h1); not approved
+  description:
+    "Born and raised in BC, I’ve been making films for as long as I can remember.",
+} as const;
+
+/**
+ * Clients, named in type (no logos until cleared, Q2). Studios and networks
+ * first, then the rest in 02 §4's order. Not Legendary Pictures (02 §13 #10).
+ */
+// SITE-C: from 02 §4; may be shortened
+export const CLIENTS: ReadonlyArray<string> = [
+  "Disney",
+  "Netflix",
+  "Paramount Pictures",
+  "Universal Studios",
+  "Sony Pictures",
+  "The CW",
+  "BBC America",
+  "CBS",
+  "CTV",
+  "Hallmark",
+  "VanCity",
+  "Vancouver Symphony Orchestra",
+  "VIFF",
+  "Creative BC",
+  "Theatre Under the Stars",
+  "Bard on the Beach",
+  "The Rio Theatre",
+  "SFU Creative Studios",
+  "former Mayor Gregor Robertson",
+  "IATSE 669",
+  "Pulling Together Canoe Journey",
+  "DGC BC",
+  "Shotlister / Zach Lipovsky",
+  "Richmond City Hall",
+  "MPIAA",
+  "Crazy8s",
+];

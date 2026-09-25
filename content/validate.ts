@@ -1,3 +1,4 @@
+import { ABOUT } from "@/content/about";
 import { CREDITS, type Credit } from "@/content/credits";
 import { CAMERA_ROW, DIRECTING_ROW, FEATURED, HOME_H1 } from "@/content/home";
 import type { Photo } from "@/content/photo";
@@ -22,7 +23,18 @@ import { LEGACY_PATHS } from "@/lib/routes";
 export const PHOTO_SETS: ReadonlyArray<{
   file: string;
   photos: ReadonlyArray<Photo>;
-}> = [];
+}> = [
+  {
+    file: "content/about.ts",
+    photos: [...ABOUT.photos, ...(ABOUT.portrait ? [ABOUT.portrait] : [])],
+  },
+];
+
+/** How many photos About's "On set" shows (spec §6.4). */
+const ABOUT_PHOTO_LIMIT = 3;
+
+/** How many press quotes About shows (spec §6.4). */
+const ABOUT_PRESS_LIMIT = 4;
 
 const HEADER = "The site can't be built until these are fixed:";
 
@@ -90,6 +102,14 @@ const MESSAGES = {
     `content/credits.ts: "${c.title}" has the year ${c.year}. Write the year it came out, as four digits between 1990 and ${latest}.`,
   creditTwice: (c: Credit) =>
     `content/credits.ts: "${c.title}" (${c.year}) is listed twice. Delete one of them.`,
+  tooManyAboutPhotos: (n: number) =>
+    `content/about.ts: the About page shows at most ${ABOUT_PHOTO_LIMIT} photos under "On set", and ${n} are listed. Remove one.`,
+  tooManyPressPicks: (n: number) =>
+    `content/about.ts: the About page shows at most ${ABOUT_PRESS_LIMIT} press quotes, and ${n} are picked. Remove one from pressPicks.`,
+  unresolvedPressPick: (slug: string, source: string, found: number) =>
+    found === 0
+      ? `content/about.ts: the press pick "${source}" for "${slug}" doesn't match a verified quote. Add the quote (with verifiedOn) to that film in content/projects.ts, check the spelling of the film and the source, or remove the pick.`
+      : `content/about.ts: the press pick "${source}" for "${slug}" matches ${found} quotes on that film. Make each source name on that film unique, or remove the pick.`,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -276,6 +296,31 @@ export function checkPhotos(
   return problems;
 }
 
+/** About (SITE-6): photo and press-pick limits; each pick is one verified quote on a film that isn't NDA. */
+export function checkAbout(): string[] {
+  const problems: string[] = [];
+  if (ABOUT.photos.length > ABOUT_PHOTO_LIMIT) {
+    problems.push(MESSAGES.tooManyAboutPhotos(ABOUT.photos.length));
+  }
+  if (ABOUT.pressPicks.length > ABOUT_PRESS_LIMIT) {
+    problems.push(MESSAGES.tooManyPressPicks(ABOUT.pressPicks.length));
+  }
+  for (const pick of ABOUT.pressPicks) {
+    const project = bySlug(pick.slug);
+    const found =
+      project && project.rights !== "nda"
+        ? (project.press ?? []).filter((quote) => quote.source === pick.source)
+            .length
+        : 0;
+    if (found !== 1) {
+      problems.push(
+        MESSAGES.unresolvedPressPick(pick.slug, pick.source, found),
+      );
+    }
+  }
+  return problems;
+}
+
 /** Credits (SITE-4): a title and a network, a sensible year, no duplicates. */
 export function checkCredits(credits: ReadonlyArray<Credit>): string[] {
   const problems: string[] = [];
@@ -333,6 +378,7 @@ const problems = [
   ...PHOTO_SETS.flatMap(({ file, photos }) => checkPhotos(file, photos)),
   ...checkLegacyPaths(),
   ...checkCredits(CREDITS),
+  ...checkAbout(),
 ];
 
 if (problems.length > 0) {
