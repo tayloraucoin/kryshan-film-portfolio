@@ -10,7 +10,7 @@
 
 **Vigil:** the film path is the product's one action ("watch something, then email", spec §1). Review by **inducing**: a modifier click, a middle click and a no-JS click on a tile; a clipboard failure (insecure origin, denied permission) and a cancelled share sheet; Esc with focus inside the player; a resize and a rotate with a film open; a client-side navigation away and Back with a film playing; a throttled cold load and a poster that fails to load. QA states which of these it exercised.
 
-**Status:** Draft → ready for execution (authored 2026-09-24)
+**Status:** Complete (2026-09-24)
 
 > **Mason — placement is already ruled** (build order, scope sheet, SITE-3). One contract is decided here because SITE-4 and SITE-5 consume it: the server-built `Film` view model (ruling 1). Counter-propose in `TECHNICAL-DECISIONS.md` before the build starts if you disagree; otherwise the builder logs it as the next free `M-SITE-n`.
 
@@ -349,3 +349,69 @@ Real alternatives chosen here go to `TECHNICAL-DECISIONS.md`.
 > Constraints: routes only from `lib/routes.ts`; env only via `lib/env.ts`; no hex outside `brand/`; client leaves never import `@/lib/config` (the email and URLs arrive as props); no upward imports, and nothing public imports `review/`; never run `yarn dev` or `yarn build` (use `dev:agent` / `build:agent`). If a non-negotiable would have to break, stop and ask.
 >
 > Close in three places: the ticket's `Status:` line, `docs/specs/PROGRESS.md`, and `DEVIATIONS.md` (+ `TECHNICAL-DECISIONS.md` for ruling 1). Then tick `docs/specs/03-site-build/00-build-order.md`. Report what `yarn verify` printed.
+
+---
+
+## Closing note
+
+**Closed 2026-09-24 by Mason (Claude Code, the one SITE thread; Batch 1 with SITE-2).**
+
+**What shipped.**
+- **`/` is Demo D, live:**
+  - the bar
+  - his line in the two-column first cell, then the `FEATURED` films (the SITE-2 fallback: Just Watch Us · Contact Club · Jack · 5Rhythms · Wolf · Just Up The Block)
+  - the Directing row (7 films, then "All directing →") and the Camera and editing row (7, then "All camera work →")
+  - the Teaching strand, "All 22 pieces →" and the footer
+  - `Person` JSON-LD
+- **`components/composed/work/`** (the film grammar): `film.ts` (the `Film` view model, `server-only`, M-SITE-4), `film-tile`, `film-panel`, `film-grid`, `film-row`, `film-player`, `open-film`, `use-open-film` and `transition`.
+- **`components/composed/site/`:** `copy-button`, `email-hand-off` and `json-ld`.
+- **`lib/`:** `mailto.ts`, `pre-paint-script.ts` and `structured-data.ts`.
+- **Content:** amended `STRANDS`, plus `FILM_COPY`, `HOME_META` and `HOME_LINKS`.
+- **Untouched:** nothing under `review/` changed.
+
+**Verified** (on `dev:agent` unless stated):
+- **#1 Layout at 1440:** title cell plus two films, then four; rows of 7 and 7 with their end tiles.
+- **#2 Opening films:** a plain click on Jack opens below line 2 with the URL unchanged and Vimeo playing. 5Rhythms swaps in place with 0 px of scroll. Just Watch Us moves the panel to line 1. Dare opens under the Directing row. One panel at a time.
+- **#3 Tiles are links:** the static HTML has 20 `<a href="/work/<slug>" aria-expanded="false">`. Cmd, Ctrl, Shift and Alt clicks and a middle click are not intercepted and open no panel.
+- **#4 No prefetch:** no `/work/*` request on load or hover (the tiles are plain anchors).
+- **#5 Panel contents:** Copy link, then ✕, then the iframe, then the mailto last, with `subject=The%20Wolf%20of%20West%20Georgia%20Street`. No "Full page" anywhere. `Film` has no story field.
+- **#6 and #7 Copy link:**
+  - the real click in the unfocused pane was refused by the browser, so it took the failure path: the URL shown and selected, the status "Couldn't copy. The link is selected.", and the label never "Link copied"
+  - a stubbed success: "Link copied" for 2 s, announced, then back to the idle label, with the absolute URL written
+  - a stubbed share sheet: cancelled leaves the label unchanged with no announcement; any other error falls through to the selected URL
+  - the swap reset the fallback (keyed by slug)
+- **#8 Keyboard:** a real Enter opens with focus on the panel. A real Space scrolls 808 px and opens nothing. Esc closes and returns focus to the tile. The ✕ sits just before the iframe in DOM order.
+- **#9 Phone (375 × 667):** the bar, the nav row, his line and the whole first poster (bottom at 561 px) are visible on load. A tap replaces the tile with the playing film, with the 44 × 44 ✕ at 365 px and no scroll. ✕ restores the tile and its focus. No arrows.
+- **#10 End tiles:** `card` plates at the tiles' size (295 × 166), linking to `/work?role=directing` and `/work?role=camera`.
+- **#11 Text:** the captions are exactly the amended strings. None of "For hire", "Canon C70", "one-person unit" or "Vancouver Film School" appears. His name appears once, and the only `text-primary` text is the wordmark and the H1 phrase.
+- **#12 Metadata:** the title, the description, og:image (the Just Watch Us poster) and its alt are correct. The canonical is the bare origin (logged).
+- **#13 JSON-LD:** exactly one tag, parsing to the `Person` with six `sameAs` and no raw `<`.
+- **#14 Loading (production build):** no video-host request on a cold load; one poster preloaded (Just Watch Us); all 20 tile images have their blur placeholder in the server HTML; CLS 0 (buffered layout-shift observer).
+- **#15 Poster failure:** a broken poster URL gives a `card` frame with the title.
+- **#16 Store reset (ruling 2):** a client-side round trip (`/` → `/review` → Back, same document) left no panel and no iframe. A nav into the 404 is a hard load in Next, so it resets trivially.
+- **#17 Reduced motion** (`matchMedia` stubbed): open, swap and close apply synchronously with zero view transitions. With motion allowed, the same open runs one.
+- **#18 No JS** (server HTML): no arrows, no copy button, no panel; the tracks scroll natively.
+- **#19 Boundaries:** the greps are clean, `film.ts` imports `server-only`, and no client file imports `lib/config`, `lib/metadata` or `lib/env`.
+- **#20 Static:** `/` is ○.
+- **#21 Review layer:** all review routes return 200. A and D differ only by the amended captions (A: two strings; D: those strings plus a one-line wrap moving what's below).
+- **`yarn verify`:** passed.
+
+**Walk:** 1440, 768 (two columns, 5Rhythms' panel after its own line, arrows for a pointer), 390/375 and 320 via SITE-1's chrome, plus reduced motion as above.
+
+**Runtime checks for Taylor** (the agent pane is unfocused):
+- a real Copy link in a focused window, and "Link copied" announced by VoiceOver
+- the share sheet on a phone
+- Tab walking every tile and end tile in a focused window
+
+**Deviations:** 15 SITE-3 lines in DEVIATIONS.md, plus M-SITE-4.
+
+**The one thing SITE-4 must know:**
+- Build Work from `workOrder()` mapped through `toFilm`.
+- Pass `isVisible` to `FilmGrid` so the jawbone walks visible tiles only.
+- Filter on the `<li>`'s `data-roles` and `data-lane` (already rendered).
+- Extend `PRE_PAINT_SCRIPT` for the filters.
+- Close an open film with `dismissFilm()` inside the filter's own transition.
+- Pass `id="work"` to `FilmGrid` for the skip link.
+- Use `EmailHandOff`'s first consumer: Work itself.
+- Mind the `cn()` trap with `decoration-*` colour plus thickness (SITE-1 DEVIATIONS).
+

@@ -63,12 +63,20 @@ export const HOME_H1 = {
   red: "hard to look away from.",
 } as const;
 
-/**
- * The boilerplate placeholder that `app/(site)/page.tsx` renders until
- * SITE-3 replaces it with Demo D. Structural copy; deleted with it.
- */
-export const HOME = {
-  headline: "The work, first.",
-  support:
-    "This is the home page slot. The client's own headline and one supporting line go here.",
+/** Home's title and description (spec §6.1). The title is absolute: no " — Kryshan Randel" suffix. */
+export const HOME_META = {
+  title: "Kryshan Randel — Director, camera operator, editor",
+  description:
+    "Director, camera operator and editor in Vancouver. Dark comedies that won at Bloodshots, PSAs for the Directors Guild of Canada, IATSE 669 camera.",
+} as const;
+
+/** Home's link labels (Locked). The arrows are drawn by the page, hidden from screen readers. */
+export const HOME_LINKS = {
+  /** Phones only: jumps to the first film. */
+  watch: "Watch",
+  allDirecting: "All directing",
+  allCamera: "All camera work",
+  teaching: "Teaching",
+  /** "Pieces", not "films" or "projects"; the count is the number of public films. */
+  allPieces: (n: number) => `All ${n} pieces`,
 } as const;

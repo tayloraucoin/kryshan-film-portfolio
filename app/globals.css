@@ -154,6 +154,31 @@ html {
 }
 
 /*
+ * Film components (M-KR-1, M-KR-6; SITE-3 ruling 3). The panel and Work's
+ * filter are the site's only view transitions (D-SITE-21): 220 ms,
+ * out-eased, and 150 ms for a swap in place (`runTransition` sets
+ * `html[data-film-vt=swap]`). Under reduced motion no transition starts.
+ * `--player-cap` keeps the whole player frame under the bar.
+ */
+:root {
+  --player-cap: calc((100svh - var(--bar-h) - 76px) * 16 / 9);
+}
+
+::view-transition-group(*) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-film-vt="swap"]::view-transition-group(*) {
+  animation-duration: 150ms;
+}
+
+/* JavaScript-only controls: shown once the pre-paint script marks <html>. */
+html:not([data-js]) [data-needs-js] {
+  display: none;
+}
+
+/*
  * Reduced motion is designed, not tolerated: transitions collapse to their
  * end state and nothing loops. Components that animate must read
  * `motion-safe:` / `motion-reduce:` rather than assume this rule exists.

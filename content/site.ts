@@ -1,5 +1,4 @@
 import type { Route } from "next";
-import { SITE } from "@/lib/config";
 import { siteRoutes } from "@/lib/routes";
 
 /**
@@ -7,6 +6,9 @@ import { siteRoutes } from "@/lib/routes";
  * he edits himself (nav, socials; D-SITE-28, CONVENTIONS §10a). Identity
  * (name, roles line, place line, email) lives in `SITE` in `lib/config.ts`,
  * where metadata can read it without importing upward (DEVIATIONS.md, CB-0).
+ *
+ * Client components import this file, so it never imports `lib/config` or
+ * anything else that reads the environment.
  *
  * The chrome strings are the site UX spec's §7.6 (Locked). `STRANDS` is from
  * docs/client/kryshan-03-copy-and-voice.md §8, which is marked [draft]:
@@ -65,7 +67,7 @@ export const SOCIALS: ReadonlyArray<{
 export const CHROME = {
   skip: { work: "Skip to the work", content: "Skip to content" },
   /** The wordmark's accessible name; it links home and is never a heading. */
-  wordmarkName: `${SITE.name}, home`,
+  wordmarkName: (name: string) => `${name}, home`,
   /** Landmark names. "More pages" is the phone row that scrolls away. */
   landmarks: { primary: "Primary", morePages: "More pages", social: "Social" },
   /** Hidden text after any link that opens a new tab. */
@@ -78,6 +80,24 @@ export const NOT_FOUND = {
   link: "Go to the work →",
 } as const;
 
+/** The film components' words (spec §4.3, §7.6; Locked). */
+export const FILM_COPY = {
+  /** A tile's accessible name. */
+  tileName: (title: string, genreLine: string) => `${title}, ${genreLine}`,
+  /** The one lane label; paid work shows its client instead (D-KRD-10). */
+  passion: "Passion project",
+  close: (title: string) => `Close ${title}`,
+  copyLink: {
+    idle: "Copy link",
+    done: "Link copied",
+    failed: "Couldn't copy. The link is selected.",
+  },
+  /** A link-out film's button; the ↗ is rendered separately, hidden from screen readers. */
+  linkOut: (host: string) => `Watch on ${host}`,
+  /** Share-image alt text. */
+  ogAlt: (title: string) => `${title}, a still from the film`,
+} as const;
+
 export type Strand = {
   /** Stable id for anchors and review comments. */
   id: "directing" | "camera-editing" | "teaching";
@@ -85,21 +105,26 @@ export type Strand = {
   body: string;
 };
 
-/** The three strands, cut to two lines each (03 §8, from his old home page). */
+/**
+ * The three strands, cut to two lines each (03 §8, from his old home page).
+ * The Directing and Camera and editing lines are spec §6.1's amended
+ * defaults (D-SITE-27, [PROVISIONAL — his OK in the one message]); Teaching
+ * drops Vancouver Film School until he confirms it (O-SITE-5).
+ */
 export const STRANDS: ReadonlyArray<Strand> = [
   {
     id: "directing",
     title: "Directing",
-    body: "Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia; PSAs, music videos, web series and sizzle reels for hire.",
+    body: "Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia; PSAs, music videos, web series and sizzle reels for clients.",
   },
   {
     id: "camera-editing",
     title: "Camera and editing",
-    body: "IATSE 669. Docs, behind-the-scenes, and non-fiction with a Canon C70, often as a one-person unit. Leo-nominated as an editor.",
+    body: "IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly; docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.",
   },
   {
     id: "teaching",
     title: "Teaching",
-    body: "Directing, shooting and editing at Vancouver Film School and LaSalle College; film camps; one-on-one coaching.",
+    body: "Directing, shooting and editing at LaSalle College; film camps; one-on-one coaching.",
   },
 ];

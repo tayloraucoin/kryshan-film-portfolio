@@ -75,7 +75,7 @@ export function SiteHeader({
       >
         <Link
           href={siteRoutes.home}
-          aria-label={CHROME.wordmarkName}
+          aria-label={CHROME.wordmarkName(SITE.name)}
           className={cn(
             "inline-flex min-h-11 items-center font-heading text-xl leading-none font-extrabold font-stretch-72% tracking-[0.01em] text-primary uppercase",
             FOCUS,
