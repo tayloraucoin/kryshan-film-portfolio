@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PlaceholderRibbon } from "@/app/review/_components/placeholder-ribbon";
 import { KitScope } from "@/components/composed/brand/kit-scope";
-import { findReviewKit } from "@/review/kits";
+import { reviewRoutes } from "@/lib/routes";
+import { findReviewKit, REVIEW_KITS } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
 import { findReviewLayout } from "@/review/layouts";
 import { findReviewMock } from "@/review/mocks";
 import { KitSwitcher } from "./_components/kit-switcher";
@@ -32,7 +34,13 @@ export default async function ReviewMockPage({
   if (!mock) notFound();
   const kit = findReviewKit(kitId);
   if (!kit) notFound();
+  // Rounds never mix: Demo D only in kit D, the first three only in A–C.
+  if (roundOf(kit) !== roundOf(mock)) notFound();
   const layout = findReviewLayout(mock.layoutId);
+  const kits = REVIEW_KITS.filter((k) => roundOf(k) === roundOf(mock));
+  const compared = mock.comparesWith
+    ? findReviewMock(mock.comparesWith)
+    : undefined;
 
   const Mock = mock.Component;
 
@@ -43,6 +51,15 @@ export default async function ReviewMockPage({
         layoutName={layout ? `Layout ${layout.letter} · ${layout.name}` : ""}
         activeKitId={kit.id}
         pairedKitId={mock.kitId}
+        kits={kits}
+        compare={
+          compared
+            ? {
+                href: reviewRoutes.mock(compared.id, compared.kitId),
+                label: `${roundOf(compared) > roundOf(mock) ? "After" : "Before"}: Demo ${compared.letter}`,
+              }
+            : undefined
+        }
       />
       <KitScope kit={kit} className="min-h-full">
         <PlaceholderRibbon placeholder={mock.placeholder} />

@@ -2,6 +2,8 @@
 
 Vitrine · batch 4 · 2026-09-22 · method: Brand Pillars — Three-Circle protocol · inputs: 01 taste read, 02 success criteria, 03 copy and voice, and his own words throughout.
 
+> **v2 · amended 2026-09-24 after the review round.** Kryshan chose Card A and ranked the pillars Wicked · Resourceful · Generous, and he rejected *Generous* as a word to promote. **Generous is retired and replaced by *Galvanizing*; Resourceful is re-guarded "but never cheap".** The operative card is **Card A v2 in Step 8**. Steps 0–7 are kept as written, the reasoning that produced the round; lines that the amendment overrides are marked *[→ Step 8]*. Cards B and C are the record of what was presented, not live options.
+
 This is the trunk. Three pillar cards follow, one per kit. They share roots and the same three pillars; what changes is which pillar is dominant, how each is guardrailed, and therefore where the identity spends its energy. Read this before batch 5.
 
 ---
@@ -31,7 +33,7 @@ storyteller · cinematic · riveting · a tale well told · fun · fast · colla
 *Storyteller* and *cinematic* are cut as pillars and kept as the essence: every director says them, and his version of them is only distinct because of what the pillars add.
 
 **Survive with an ownable meaning:**
-- *Collaborative* → survives as **Generous**, meaning specifically "makes collaborators their best selves": rewrote Glimpse around an actor's audition; directed actors to Best Actor wins; founded a program for at-risk youth; credits everyone by name. A competitor can say "collaborative"; none of them can say that.
+- *Collaborative* → survives as **Generous** *[→ Step 8: now **Galvanizing**]*, meaning specifically "makes collaborators their best selves": rewrote Glimpse around an actor's audition; directed actors to Best Actor wins; founded a program for at-risk youth; credits everyone by name. A competitor can say "collaborative"; none of them can say that.
 - *Fast* → survives inside **Resourceful**, meaning "delivers something slick inside a constraint": 48 hours, $25, one-person unit, four days on 35mm, three cameras at a live show, sixty productions as a BTS crew of one. "Fast" alone is a freelancer cliché; fast *and* slick under those numbers is his.
 - *Fun / playful* → survives inside **Wicked**, because his fun has a specific flavour the press already named.
 
@@ -41,7 +43,7 @@ storyteller · cinematic · riveting · a tale well told · fun · fast · colla
 
 **WICKED** — wonderfully wrong, hysterically mean, subversive, campy, gallows humour, deadpan, the joke is the last word, dark comedy as a cry for help, surreal, extreme, red, night, the dance floor. *The word does double duty: funny-and-scary, and (colloquially) very good at it.*
 
-**GENEROUS** — makes collaborators their best selves, credits everyone, safe and trusted, teacher, mentor, coach, community, second family, church of cinema, empathy machine, vulnerable characters treated with respect, warm.
+**GENEROUS** *[→ Step 8: retired; the circle's substance is carried by GALVANIZING]* — makes collaborators their best selves, credits everyone, safe and trusted, teacher, mentor, coach, community, second family, church of cinema, empathy machine, vulnerable characters treated with respect, warm.
 
 **RESOURCEFUL** — any genre, any budget, one-person unit, 48 hours, $25, four days, three cameras, IATSE 669, twenty-seven years, encyclopedic, adaptable, initiative, quick, slick, specific, one tap to watch.
 
@@ -51,12 +53,12 @@ The three are independent: a wicked filmmaker can be stingy; a generous one can 
 
 ## Step 4 — Overlaps and essence
 
-- **Wicked ∩ Generous → *Safe enough to go dark.*** The set where an actor wins Best Acting in a kid-revenge flick; the mentor who teaches you to be wrong on purpose; the crew of five in masks making a short for $25 because he asked.
-- **Generous ∩ Resourceful → *Makes the most of everyone.*** The theatre archivals, the community PSAs, the cohousing film, the dance-practice promo: small budgets given the same craft as Sony's EPK, and the client's people made to look their best.
-- **Wicked ∩ Resourceful → *Slick on a shoestring.*** Gore gags on schedule; a pumpkin revenge fantasy shot and cut in 48 hours that ends up on iTunes; a birthday trailer that fools its own star.
+- **Wicked ∩ Generous → *Safe enough to go dark.*** *[→ Step 8: Wicked ∩ Galvanizing, same line]* The set where an actor wins Best Acting in a kid-revenge flick; the mentor who teaches you to be wrong on purpose; the crew of five in masks making a short for $25 because he asked.
+- **Generous ∩ Resourceful → *Makes the most of everyone.*** *[→ Step 8: Resourceful ∩ Galvanizing, same line]* The theatre archivals, the community PSAs, the cohousing film, the dance-practice promo: small budgets given the same craft as Sony's EPK, and the client's people made to look their best.
+- **Wicked ∩ Resourceful → *Slick on a shoestring.*** *[→ Step 8: now *Slick under pressure*; a shoestring is a price]* Gore gags on schedule; a pumpkin revenge fantasy shot and cut in 48 hours that ends up on iTunes; a birthday trailer that fools its own star.
 
 **Essence (the centre):** ***A tale well told, and a good time telling it.***
-"A tale well told" is his own phrase and holds Resourceful. "A good time" holds Wicked (the audience's) and Generous (the crew's). It seeds a tagline without being one.
+"A tale well told" is his own phrase and holds Resourceful. "A good time" holds Wicked (the audience's) and Generous (the crew's) *[→ Step 8: Galvanizing (the crew's)]*. It seeds a tagline without being one.
 
 ---
 
@@ -80,6 +82,8 @@ The empty space, and where he sits: **friendly, reserved in presentation, expres
 Shared: roots, the three pillars, the overlaps, the essence. Varied: dominant pillar, guardrails, and the translation. Each card maps to one kit in batch 5 and one layout in batch 6.
 
 ### Card A — Wicked leads (→ Kit A, red on black)
+
+*[→ Step 8. Chosen in the review round. The card below is the version he reviewed; Card A v2 in Step 8 supersedes it.]*
 
 ```
 # Kryshan Randel — Pillar Card A
@@ -200,8 +204,144 @@ When craft and charm conflict, craft wins; charm is proven by the credits list, 
 
 ## Step 7 — Recommendation and governance
 
-**Recommendation: Card A, Wicked leading.** It is the only one of the three that passes the swap test outright, it is how the world already describes him in print, it agrees with eight of his sixteen images and with the work he wants more of, and its one real risk (the corporate visitor) is handled by the guardrail and by chrome that is quieter and more precise than anything on his old site. B is the safe second: if he reads A and flinches, B is the same brand with the edge moved from the chrome into the work, and it should be presented as exactly that, not as a different brand. C is the right card if, in the review, he says the site should sell camera and editing first; it is the card the Leo nomination and the EPK list want.
+**Recommendation: Card A, Wicked leading.** *[He chose it, 2026-09-23. → Step 8.]* It is the only one of the three that passes the swap test outright, it is how the world already describes him in print, it agrees with eight of his sixteen images and with the work he wants more of, and its one real risk (the corporate visitor) is handled by the guardrail and by chrome that is quieter and more precise than anything on his old site. B is the safe second: if he reads A and flinches, B is the same brand with the edge moved from the chrome into the work, and it should be presented as exactly that, not as a different brand. C is the right card if, in the review, he says the site should sell camera and editing first; it is the card the Leo nomination and the EPK list want.
 
 **Tie-break rule for the build, whichever card he picks:** every design and copy decision asks "which pillar does this express?" and "does it break a 'but not'?" Anything that expresses none of the three is decoration and is cut. Anything that breaks a guardrail is a defect.
 
 **What batch 5 does with this.** One PDF, three kits, identical structure: pillar card; palette with 50–900 ramps per brand colour (500 as base) and named roles; type pairing rendered with his real strings; voice samples (the same three demo strings in each, plus hero H1, support line, work header, About opener, contact line, one thumbnail caption); media treatment with one of his real frames on the kit's ground; motion stance; the "never" list. Each kit's translation table above is its spec.
+
+---
+
+## Step 8 — Amendment after the review round (2026-09-24)
+
+Consulted: Sage (behavioural evidence), Tribune (the client and the visitor), Drummer (hiring and price). The full review triage is `kryshan-08-review-synthesis.md`.
+
+### What he said
+
+He ranked the pillars **Wicked · Resourceful · Generous** and gave the three together 5.0 of 7 for sounding like him. In his words: *"I certainly am wicked and resourceful. Generous sometimes, but sounds soft, people pleasing, under charging and not as assertive. Which may also be true but I don't want to promote that."* He chose Card A (Kit A) for colour, type and voice, and ranked Kit B's voice, the warmest of the three, last.
+
+### The reading
+
+He did not reject the behaviour. He conceded it "may also be true". He rejected the word as something to promote, and his reason is precise. When a producer compares shortlisted hires, a warmth word gets traded against competence ("nice, probably cheaper"). Sage grades the evidence:
+- **Replicated core:** people judge others on warmth and on competence or agency.
+- **Real, size contested:** the trade-off between the two appears when people compare. Our visitors are comparing shortlisted hires.
+- **Honest effect size:** near zero at the level of the word. A pillar reaches visitors only through the proof it chooses and the lines it shapes.
+
+His objection is still the right one to act on, because the pillar governs exactly those choices.
+
+### What had to survive (his, not ours)
+
+- **Throughline 2:** *"an environment where all my collaborators can be their best creative selves. Where they feel safe and trusted enough to deliver their best performance, film their best shot … learn from me as a teacher to discover their voice."*
+- His intake answers: *"works with / can come with great teams"*, and *"I'm not passive"* (he refused to be seen as someone without *"initiative"*).
+
+The new word has to carry all of that, pass his four-word flinch test (soft · people-pleasing · under-charging · not assertive), and stay independent of Wicked and Resourceful.
+
+### The candidates, tested
+
+| Candidate | Flinch test | Keeps throughline 2 | Swap / opposite test | Producer · org · student | Verdict |
+|---|---|---|---|---|---|
+| **Galvanizing** | Passes all four | Casts, crews, classes doing their best; "not passive" and "great teams" head-on. The "safe" half needs the guardrail | Passes: a lone auteur and a hired hand are real alternative positions | "A set that moves" · strong · strong if proof leads, pressure if copy hypes | **Chosen** |
+| Emboldening | Passes three; can read as coaching, near "soft" | Best of all: *safe and trusted enough … discover their voice* | Passes | Coach talk to a camera hire · strongest · strongest | Runner-up |
+| Captain | Passes | Crew-up yes; teacher weak | Fails: any director could claim it | Department-head pricing · top-down for peer-run orgs · hierarchy | Third |
+| Ringleader | Passes | Gathering yes; safety no | Passes strongly | Pulls toward the events life he keeps off the site; reads as "trouble" to a program director placing young people | Internal wink only |
+| Magnetic | Passes | About him, not them | Weak | Self-flattery if it ever leaks | Out |
+| Catalyst · Assured | Passes | About him, or table stakes | Fails | Résumé words | Out |
+| Demanding · Instigator | Passes | Kills "safe and trusted" | Passes | The first thing a producer screens out | Out |
+| Champion | Passes | Both senses are true | Weak | Self-congratulatory | Out |
+
+The consultants did not agree on first place:
+
+| | 1st | 2nd | 3rd |
+|---|---|---|---|
+| Sage | Emboldening | Galvanizing | Ringleader |
+| Tribune | Galvanizing | Emboldening | Captain |
+| Drummer | Captain | Galvanizing | Magnetic |
+
+Galvanizing is the only word in every top two.
+
+### Decision: **Galvanizing**
+
+**Meaning.** You get a room moving (a cast, a crew, a class), and people do their best work in it because they trust where you're taking them.
+
+**Guardrail.** *Galvanizing, but not domineering.* Energy by trust, never by force. This line now carries the "safe and trusted" half of throughline 2, so it binds as hard as "wicked, but not nasty".
+
+**Why it's the most correct replacement:**
+- It passes all four of his flinch words outright. Nobody galvanizes by people-pleasing, and nobody hires the person who galvanizes the set as the cheap option.
+- It is traceable to his own refusals ("not passive", "initiative") and his own value ("can come with great teams"), not to our vocabulary.
+- It is independent: a galvanizing filmmaker can be wholesome (so it is not Wicked) or lavish (so it is not Resourceful).
+- The proof it steers the site toward is checkable in thirty seconds:
+  - He founded and produced two fast-film contests, where he met most of the people he still makes films with.
+  - Actors in his shorts won Best Actor (Riaan Smit, *Contact Club*) and Best Acting (David Lewis, *The Bully Solution*).
+  - He founded the Frames Film Project with Frog Hollow.
+  - He taught at InFocus for twelve years.
+  - Collaborators are named on every credit.
+
+**What it costs.** It is a less intimate word than Generous, and it can read as hype if copy uses it. It must never appear in copy, and its warmth has to be shown by proof: testimonials in other people's words, crews named, the Glimpse rewrite built around an actor's audition. Sage and Tribune agree this is where warmth was more believable anyway.
+
+### Resourceful, re-guarded: *but never cheap*
+
+Drummer's flag: Resourceful's proof ($25, "any budget", "on a shoestring") carries more of the under-charging risk he named than Generous ever did. The guardrail moves from *"not scrappy"* to ***"but never cheap"***:
+- Numbers are stories about craft, never price signals.
+- "Any budget" never appears in a headline.
+- "$25" lives only in Contact Club's own project line, as a detail of how it was made.
+
+### Overlaps, amended
+
+- **Wicked ∩ Galvanizing → *Safe enough to go dark.*** The set where an actor wins Best Acting in a kid-revenge flick. Unchanged, and now the guardrail's promise.
+- **Resourceful ∩ Galvanizing → *Makes the most of everyone.*** A masked crew of five weeks into the pandemic; the theatre archivals; the community PSAs with non-actors made to look their best. Unchanged.
+- **Wicked ∩ Resourceful → *Slick under pressure.*** Written, shot and edited in 48 hours, and it went to Sitges. The old line was *"Slick on a shoestring"*, and a shoestring is a price.
+
+**Essence, unchanged:** *A tale well told, and a good time telling it.* "A good time" now holds Wicked (the audience's) and Galvanizing (the crew's).
+
+### Card A v2 (operative)
+
+```
+# Kryshan Randel — Pillar Card A v2 (2026-09-24)
+
+Essence: A tale well told, and a good time telling it.
+Purpose: Make any story land on screen; get the people around it doing their best work.
+Primary audience: producers hiring a director, camera, or editor; second, students and program directors.
+Main alternatives: rep roster · union list · corporate shop · template DP · last hire.
+
+## Pillars (ranked, his order)
+1. WICKED (dominant) — wicked but not nasty. Supporting: wonderfully wrong, deadpan, subversive, cinematic-dark.
+2. RESOURCEFUL — resourceful but never cheap. Supporting: any genre, slick under constraint, one-person unit, precise.
+3. GALVANIZING — galvanizing but not domineering. Supporting: gets a room moving, can come with the crew, actors win, students find their voice, credits everyone.
+
+## Overlaps
+- Wicked ∩ Galvanizing: safe enough to go dark
+- Resourceful ∩ Galvanizing: makes the most of everyone
+- Wicked ∩ Resourceful: slick under pressure
+
+## Sliders
+Classic ──●──── Modern · Expressive ●───── Reserved (chrome) / ────●─ (work) · Friend ●───── Authority · Mass ──●── Elite
+
+## Tie-breaks
+When the wicked choice and the safe choice conflict, wicked wins, and the chrome pays for it with precision.
+When a line could be read as a discount or a plea, rewrite it.
+```
+
+### Translation A v2
+
+| System | Wicked | Resourceful | Galvanizing |
+|---|---|---|---|
+| Colour | Black ground; one saturated red, used as punctuation only | No third colour; ramps built for contrast, not decoration | Bone text, never pure white: the lit set, warm but never clinical |
+| Typography | Condensed Archivo wordmark in red; tight tracking at display size | A strict scale; credits in a small, precise caption style; no second face | The first-person line on Home set large in sentence case; active verbs do the lifting |
+| Imagery | Poster frames chosen for tone (night, colour, the grin), never gore | Native 16:9, hairline frame, uniform title treatment; nothing cropped; never a blank tile | On-set photos of him running crews and classes; collaborators named in captions; no identifiable minors |
+| Voice | The joke is the last word; "Best Death" stays | Numbers and props instead of adjectives, told as craft and never as price; roles literal; one award, two festivals | Active verbs (directed, founded, ran, taught, rewrote); what people did with him, not how he made them feel; testimonials only in their own words |
+| UI | Red on hover, on the active tab and on one phrase per page | The film opens in place on one tap; nothing loads until asked | Contact one tap from anywhere (the top bar stays); no forms in the way |
+| Motion | The film opening is the one deliberate moment | Reduced-motion equivalent designed | Things respond at once; nothing loops, begs or counts down |
+| Behaviour | Passion work shown proudly: "Passion project" in red, never apologised for | Paid work named by its client, never "For hire" | Teaching gets its own page; testimonials only with written consent; NDA'd names stated, never shown |
+
+### The cheap check
+
+The next message to him asks him to **rank** Galvanizing, Emboldening and Captain, each with one line of proof. Ranking, not rating: he already gave the original three a polite 5.0. If he puts another word first, only `review/brand.ts` and this step change. Nothing downstream is built on the word itself, only on the proof it selects, and that proof is the same for all three.
+
+### What this amendment touched
+
+- `review/brand.ts` and `/review/brand`: pillars, overlaps and Kit A's guardrails; a note to him saying what changed and why.
+- `branding/kryshan-05-brand-kits-source.py`: the Kit A card data, for any re-render.
+- The rendered PDF stays as the record of the round.
+- `kryshan-08-review-synthesis.md` §5.
+- Demo D's handoff (`docs/specs/02-review-demo-d/demo-d-ux-handoff-v1.md`), which builds Kit D from Kit A with this card.
+- **Unchanged, deliberately:** Cards B and C, Kits B and C, and Layouts B and C. They are the record of what he was shown.

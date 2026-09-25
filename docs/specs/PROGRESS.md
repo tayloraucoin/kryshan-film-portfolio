@@ -16,6 +16,12 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-6** — Feedback questions: rankings, 0.0–7.0 sliders, the layout forks (both repos) (2026-09-22)
 - [ ] **KR-4** — Round setup and send
 
+## Demo D (track `02-review-demo-d/`)
+
+- [x] **KR-7** — Demo D scaffold: kit D, layout D, a faithful copy of Demo A, rounds kept apart, contact email from env (2026-09-24)
+- [x] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see (2026-09-24)
+- [x] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across (2026-09-24)
+
 ## Client build (Phase 2)
 
 <!-- Cut tickets from the build spec after Kryshan's comments are triaged. -->

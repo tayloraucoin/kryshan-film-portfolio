@@ -21,6 +21,15 @@ export const env = createEnv({
       .default("development"),
 
     /**
+     * The public contact address, rendered on every page (`SITE.email`).
+     * A domain alias, so where it delivers can change at the mail provider
+     * without touching the site (D-KRD-16). Set it in the environment to
+     * override; unset, the site falls back to the alias rather than failing
+     * the build.
+     */
+    CONTACT_EMAIL: z.email().default("hello@kryshanrandel.com"),
+
+    /**
      * The review gate. "on" (the default, and the only safe value for a
      * deployed round) requires the access code; "off" lets every `/review`
      * request through with no code, for local development only. Fails
@@ -57,6 +66,7 @@ export const env = createEnv({
   // Next inlines client variables only when referenced literally.
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    CONTACT_EMAIL: process.env.CONTACT_EMAIL,
     REVIEW_GATE: process.env.REVIEW_GATE,
     REVIEW_ACCESS_CODE: process.env.REVIEW_ACCESS_CODE,
     REVIEW_SESSION_SECRET: process.env.REVIEW_SESSION_SECRET,

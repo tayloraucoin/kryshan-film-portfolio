@@ -20,8 +20,12 @@ export const SITE = {
   description:
     "Kryshan Randel. Director, camera operator, editor, and film instructor. Vancouver, works anywhere.",
   locale: "en_CA",
-  /** Public contact. Rendered on every page (docs/CONVENTIONS.md §7). */
-  email: "kryshanrandel@gmail.com", // 02 §14 Q5: gmail assumed until he answers
+  /**
+   * Public contact. Rendered on every page (docs/CONVENTIONS.md §7). From
+   * `CONTACT_EMAIL` (lib/env.ts); read at build, server-side only, so client
+   * leaves receive it as a prop.
+   */
+  email: env.CONTACT_EMAIL,
   /** Set to the client's social card once one exists (1200×630). */
   ogImage: null as null | {
     url: string;

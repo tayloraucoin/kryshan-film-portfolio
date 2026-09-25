@@ -4,8 +4,9 @@ import { Badge } from "@/components/primitives/badge";
 import { reviewBackendConfigured, reviewGateOn } from "@/lib/env";
 import { reviewRoutes } from "@/lib/routes";
 import { REVIEW_KITS } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
 import { REVIEW_LAYOUTS } from "@/review/layouts";
-import { REVIEW_MOCKS } from "@/review/mocks";
+import { findReviewMock, REVIEW_MOCKS } from "@/review/mocks";
 
 export const metadata: Metadata = { title: "Options" };
 
@@ -59,9 +60,11 @@ function Column({
 }
 
 /**
- * The round's front page: three kits, three layouts, three demo home pages,
- * and the feedback form. Same order everywhere so the client compares like
- * with like.
+ * The review layer's front page. First the revision built after his review
+ * (round 2: Demo D, with a before/after link to Demo A; D-KRD-18), then the
+ * first round as he saw it: three kits, three layouts, three demo home
+ * pages, and the feedback form. Same order everywhere so the client
+ * compares like with like.
  */
 export default function ReviewIndexPage() {
   const kitName = (id: string) =>
@@ -69,18 +72,59 @@ export default function ReviewIndexPage() {
   const layoutName = (id: string) =>
     REVIEW_LAYOUTS.find((l) => l.id === id)?.letter ?? "?";
 
+  const firstKits = REVIEW_KITS.filter((kit) => roundOf(kit) === 1);
+  const firstLayouts = REVIEW_LAYOUTS.filter((l) => roundOf(l) === 1);
+  const firstMocks = REVIEW_MOCKS.filter((mock) => roundOf(mock) === 1);
+
+  const revisedMock = REVIEW_MOCKS.find((mock) => roundOf(mock) === 2);
+  const revisedKit = revisedMock
+    ? REVIEW_KITS.find((kit) => kit.id === revisedMock.kitId)
+    : undefined;
+  const revisedLayout = revisedMock
+    ? REVIEW_LAYOUTS.find((l) => l.id === revisedMock.layoutId)
+    : undefined;
+  const before = revisedMock?.comparesWith
+    ? findReviewMock(revisedMock.comparesWith)
+    : undefined;
+  const revisedItems: Item[] = [
+    ...(revisedKit
+      ? [
+          {
+            href: reviewRoutes.kit(revisedKit.id),
+            letter: revisedKit.letter,
+            name: `Kit ${revisedKit.letter}`,
+            line: "The colours, type and voice you chose, with your pillars in your order.",
+          },
+        ]
+      : []),
+    ...(revisedLayout
+      ? [
+          {
+            href: reviewRoutes.layout(revisedLayout.id),
+            letter: revisedLayout.letter,
+            name: `Layout ${revisedLayout.letter} · ${revisedLayout.name}`,
+            line: revisedLayout.thesis,
+          },
+        ]
+      : []),
+    ...(revisedMock
+      ? [
+          {
+            href: reviewRoutes.mock(revisedMock.id, revisedMock.kitId),
+            letter: revisedMock.letter,
+            name: `Demo ${revisedMock.letter}`,
+            line: "The home page, revised. Tap a film.",
+          },
+        ]
+      : []),
+  ];
+
   return (
     <main className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-10 sm:px-6">
       <header className="flex max-w-2xl flex-col gap-3">
         <h1 className="text-3xl font-semibold tracking-tight">
-          Three ways this site could be.
+          Your site, in review.
         </h1>
-        <p className="text-muted-foreground">
-          Three branding kits, three layouts, and a real home page for each
-          layout that you can switch between the kits. Open anything, turn on{" "}
-          <strong>Comment</strong> in the bar, and click the exact thing you
-          want to talk about. When you have seen them, leave the feedback form.
-        </p>
         <Link
           href={reviewRoutes.brand}
           data-review-id="index-brand"
@@ -110,41 +154,103 @@ export default function ReviewIndexPage() {
         ) : null}
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <Column
-          title="Branding"
-          intro="The colours, the type, the voice. Same structure per kit."
-          items={REVIEW_KITS.map((kit) => ({
-            href: reviewRoutes.kit(kit.id),
-            letter: kit.letter,
-            name: kit.name,
-            line: kit.tagline,
-            placeholder: kit.placeholder,
-          }))}
-        />
-        <Column
-          title="Layouts"
-          intro="How the pages are structured. Each pairs with one kit."
-          items={REVIEW_LAYOUTS.map((layout) => ({
-            href: reviewRoutes.layout(layout.id),
-            letter: layout.letter,
-            name: layout.name,
-            line: `${layout.thesis} Pairs with kit ${kitName(layout.kitId)}.`,
-            placeholder: layout.placeholder,
-          }))}
-        />
-        <Column
-          title="Demo home pages"
-          intro="Each layout as a real home page. On the page, switch between the three kits: nine combinations in all."
-          items={REVIEW_MOCKS.map((mock) => ({
-            href: reviewRoutes.mock(mock.id, mock.kitId),
-            letter: mock.letter,
-            name: mock.name,
-            line: `Opens in kit ${kitName(mock.kitId)}, the kit layout ${layoutName(mock.layoutId)} was designed with.`,
-            placeholder: mock.placeholder,
-          }))}
-        />
-      </div>
+      {revisedItems.length > 0 ? (
+        <section className="flex flex-col gap-4" data-review-id="index-revised">
+          <div className="flex max-w-2xl flex-col gap-1">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Revised after your review
+            </h2>
+            <p className="text-muted-foreground">
+              Kit A and Layout A with your changes. Open it beside Demo A to
+              compare.
+            </p>
+          </div>
+          <ul className="grid gap-3 lg:grid-cols-3">
+            {revisedItems.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="flex h-full flex-col gap-1 rounded-lg border border-foreground/20 p-4 transition-colors hover:bg-muted"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="font-heading text-xl font-semibold">
+                      {item.letter}
+                    </span>
+                    <span className="font-medium">{item.name}</span>
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    {item.line}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {before ? (
+            <p className="text-sm">
+              <Link
+                href={reviewRoutes.mock(before.id, before.kitId)}
+                className="font-medium underline underline-offset-4"
+              >
+                Compare with Demo {before.letter} →
+              </Link>
+            </p>
+          ) : null}
+        </section>
+      ) : null}
+
+      <section
+        className="flex flex-col gap-6"
+        data-review-id="index-first-round"
+      >
+        <div className="flex max-w-2xl flex-col gap-1">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            The first round
+          </h2>
+          <p className="font-medium">Three ways this site could be.</p>
+          <p className="text-muted-foreground">
+            Three branding kits, three layouts, and a real home page for each
+            layout that you can switch between the kits. Open anything, turn on{" "}
+            <strong>Comment</strong> in the bar, and click the exact thing you
+            want to talk about. When you have seen them, leave the feedback
+            form.
+          </p>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-3">
+          <Column
+            title="Branding"
+            intro="The colours, the type, the voice. Same structure per kit."
+            items={firstKits.map((kit) => ({
+              href: reviewRoutes.kit(kit.id),
+              letter: kit.letter,
+              name: kit.name,
+              line: kit.tagline,
+              placeholder: kit.placeholder,
+            }))}
+          />
+          <Column
+            title="Layouts"
+            intro="How the pages are structured. Each pairs with one kit."
+            items={firstLayouts.map((layout) => ({
+              href: reviewRoutes.layout(layout.id),
+              letter: layout.letter,
+              name: layout.name,
+              line: `${layout.thesis} Pairs with kit ${kitName(layout.kitId)}.`,
+              placeholder: layout.placeholder,
+            }))}
+          />
+          <Column
+            title="Demo home pages"
+            intro="Each layout as a real home page. On the page, switch between the three kits: nine combinations in all."
+            items={firstMocks.map((mock) => ({
+              href: reviewRoutes.mock(mock.id, mock.kitId),
+              letter: mock.letter,
+              name: mock.name,
+              line: `Opens in kit ${kitName(mock.kitId)}, the kit layout ${layoutName(mock.layoutId)} was designed with.`,
+              placeholder: mock.placeholder,
+            }))}
+          />
+        </div>
+      </section>
 
       <p>
         <Link

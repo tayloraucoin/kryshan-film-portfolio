@@ -1,3 +1,5 @@
+import type { ReviewRound } from "@/review/kits/types";
+
 /**
  * The layouts the review round offers. Each layout page leads with a short
  * brief for the client (what to expect, why, what it costs), then the full
@@ -45,6 +47,42 @@ export type ReviewLayout = {
   file: string;
   brief: LayoutBrief;
   placeholder?: boolean;
+  /** Absent means round 1; layout D (A, revised) is round 2 (D-KRD-17). */
+  round?: ReviewRound;
+};
+
+/**
+ * Layout A's brief, as the round showed it. (KR-7 started layout D from it;
+ * KR-8 gave D its own, handoff Appendix A.)
+ */
+const LAYOUT_A_BRIEF: LayoutBrief = {
+  idea: "Your work is the first thing anyone sees. There is no big banner at the top: your films start on the first pixel, and your name sits in the first square of the grid.",
+  answers: [
+    "A grid of your films. Your name and one line about you fill the first square.",
+    "Tap a frame and it grows right where it is and plays. The other frames move aside. Nobody leaves the page.",
+    "One square: your name and “Director, camera operator, editor, and film instructor. Vancouver, works anywhere.” Your photo and story are on About.",
+    "One grid for everything. Passion projects carry a small “Passion project” label; tabs let a producer see only Directing, Camera or Editing.",
+    "Home · Work · About · Teaching · Contact.",
+  ],
+  because: [
+    {
+      quote: "one or two clicks too many for people to actually watch",
+      source: "your goals, about the old site",
+      so: "Here it is one tap from landing to playing.",
+    },
+    {
+      quote: "my favorite way so far of seeing videos on pages",
+      source: "you, on Jacob McKee’s site",
+      so: "The frame grows in place, the way his does.",
+    },
+    {
+      quote: "Make clients want to hire me within 30 seconds",
+      source: "your goals",
+      so: "A producer sees your range before reading a word.",
+    },
+  ],
+  givesUp:
+    "You asked for a short highlight reel and/or a photo at the top. This layout leaves both out on purpose, so the work leads. If you miss them, we can add one featured video above the grid without changing anything else.",
 };
 
 export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
@@ -57,35 +95,7 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
     kitId: "kryshan-a",
     mockId: "home-a",
     file: "kryshan-a.md",
-    brief: {
-      idea: "Your work is the first thing anyone sees. There is no big banner at the top: your films start on the first pixel, and your name sits in the first square of the grid.",
-      answers: [
-        "A grid of your films. Your name and one line about you fill the first square.",
-        "Tap a frame and it grows right where it is and plays. The other frames move aside. Nobody leaves the page.",
-        "One square: your name and “Director, camera operator, editor, and film instructor. Vancouver, works anywhere.” Your photo and story are on About.",
-        "One grid for everything. Passion projects carry a small “Passion project” label; tabs let a producer see only Directing, Camera or Editing.",
-        "Home · Work · About · Teaching · Contact.",
-      ],
-      because: [
-        {
-          quote: "one or two clicks too many for people to actually watch",
-          source: "your goals, about the old site",
-          so: "Here it is one tap from landing to playing.",
-        },
-        {
-          quote: "my favorite way so far of seeing videos on pages",
-          source: "you, on Jacob McKee’s site",
-          so: "The frame grows in place, the way his does.",
-        },
-        {
-          quote: "Make clients want to hire me within 30 seconds",
-          source: "your goals",
-          so: "A producer sees your range before reading a word.",
-        },
-      ],
-      givesUp:
-        "You asked for a short highlight reel and/or a photo at the top. This layout leaves both out on purpose, so the work leads. If you miss them, we can add one featured video above the grid without changing anything else.",
-    },
+    brief: LAYOUT_A_BRIEF,
   },
   {
     id: "kryshan-b",
@@ -163,6 +173,51 @@ export const REVIEW_LAYOUTS: ReadonlyArray<ReviewLayout> = [
       ],
       givesUp:
         "Small frames make the first impression less cinematic. A producer can scan your range fastest here, but each film has to earn a click from a thumbnail. Teaching loses its own page.",
+    },
+  },
+  {
+    id: "kryshan-d",
+    letter: "D",
+    name: "The Marquee, revised",
+    thesis:
+      "Layout A after your review: your name once, your films first, and a film that opens across the page right where you tapped it.",
+    kitId: "kryshan-d",
+    mockId: "home-d",
+    file: "kryshan-d.md",
+    round: 2,
+    brief: {
+      idea: "Layout A after your review. Your films still come first, with no banner. Your name is set once, in the bar at the top, and stays there as you scroll. Tap a film and it opens across the whole page, right below where you tapped, and plays.",
+      answers: [
+        "Your name in the bar at the top, then the grid. The first, wider square is you, in your words: “I direct, shoot and edit stories that are hard to look away from.”",
+        "Tap it and it opens full width, just below the row you tapped, and plays. Its title, credits and your email sit beside or below it. The ✕ right above the film closes it; the player’s own button makes it full screen.",
+        "Your name, always, in the bar that stays at the top. Your line in the first square, and your photo there too once you send a current one.",
+        "One grid. Passion projects carry a small red “Passion project” label; everything else carries the client’s name. “For hire” appears nowhere.",
+        "Home · Work · About · Teaching · Contact. This demo is the home page; the other pages follow the same rules.",
+      ],
+      because: [
+        {
+          quote: "My name twice",
+          source: "your review",
+          so: "It’s set once now, and it never leaves the screen.",
+        },
+        {
+          quote: "maybe just an 'x' instead?",
+          source: "your review, on the Close button",
+          so: "An ✕ right above the film, where you look first.",
+        },
+        {
+          quote: "if videos go full screen it might not be needed",
+          source: "your review, on “Full page”",
+          so: "The film opens across the whole page, and “Full page” is gone.",
+        },
+        {
+          quote: "a few more elements to borrow from what Netflix does so well",
+          source: "your review",
+          so: "Rows you swipe across, a bar that stays put, a genre line on every film. Nothing that plays or moves by itself.",
+        },
+      ],
+      givesUp:
+        "Your wider square takes the place of two films in the top grid; Contact Club and Born To Be now start the Directing row below. Your email stays under each film you open, on its own line: it’s the one thing a producer needs right after watching. And some Netflix habits are left out on purpose: previews that play by themselves, a big banner, anything that loads before someone asks.",
     },
   },
 ];

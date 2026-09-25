@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { PlaceholderRibbon } from "@/app/review/_components/placeholder-ribbon";
 import { KitScope } from "@/components/composed/brand/kit-scope";
 import { reviewRoutes } from "@/lib/routes";
-import { findKitLead, findPillar } from "@/review/brand";
+import { findKitLead, KIT_LEADS, type KitLead } from "@/review/brand";
 import { findReviewKit, REVIEW_KITS } from "@/review/kits";
+import { roundOf } from "@/review/kits/types";
 import { Palette } from "./_components/palette";
 import { TypeScale } from "./_components/type-scale";
 
@@ -15,6 +16,21 @@ export async function generateMetadata({
   const { kit: id } = await params;
   const kit = findReviewKit(id);
   return { title: kit ? `Kit ${kit.letter}` : "Kit" };
+}
+
+/** Where this kit stands after the round (D-KRD-18). */
+function kitLeadNote(lead: KitLead): string {
+  if (lead.revises) {
+    const original = findKitLead(lead.revises);
+    return `Kit ${original?.letter ?? "A"}, revised after your review.`;
+  }
+  const revision = KIT_LEADS.find((other) => other.revises === lead.kitId);
+  if (lead.chosen) {
+    return revision
+      ? `Your choice. Revised as Kit ${revision.letter} after your review.`
+      : "Your choice.";
+  }
+  return "Shown in the round; not chosen.";
 }
 
 /**
@@ -29,9 +45,16 @@ export default async function ReviewKitPage({
   const kit = findReviewKit(id);
   if (!kit) notFound();
 
-  const others = REVIEW_KITS.filter((k) => k.id !== kit.id);
   const lead = findKitLead(kit.id);
-  const pillar = lead ? findPillar(lead.leads) : undefined;
+  // Same-round kits, plus the before/after partner across rounds (D-KRD-17).
+  const partners = KIT_LEADS.filter(
+    (other) => other.revises === kit.id || lead?.revises === other.kitId,
+  ).map((other) => other.kitId);
+  const others = REVIEW_KITS.filter(
+    (k) =>
+      k.id !== kit.id &&
+      (roundOf(k) === roundOf(kit) || partners.includes(k.id)),
+  );
 
   return (
     <KitScope kit={kit} className="min-h-full">
@@ -48,11 +71,12 @@ export default async function ReviewKitPage({
             {kit.tagline}
           </h1>
           <p className="max-w-2xl text-muted-foreground">{kit.thesis}</p>
-          {lead && pillar ? (
+          {lead ? (
             <p className="max-w-2xl text-sm">
               <span className="font-medium">
-                {pillar.name} leads: {lead.guardrail}
+                {lead.lead} leads: {lead.guardrail}
               </span>{" "}
+              <span className="text-muted-foreground">{kitLeadNote(lead)}</span>{" "}
               <Link
                 href={reviewRoutes.brand}
                 className="underline underline-offset-4"
