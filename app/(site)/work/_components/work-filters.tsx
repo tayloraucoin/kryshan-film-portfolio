@@ -48,8 +48,10 @@ function syncFromUrl(): void {
 }
 
 /**
- * Work's filters (spec §6.2, D-SITE-5): the role links All · Directing ·
- * Camera · Editing, and one "Passion projects" chip, carried in the URL.
+ * Work's controls (spec §6.2, D-SITE-5 as amended by SITE-4a): "Arrange
+ * by" and the role links Featured · Directing · Camera · Editing, which
+ * reorder and never hide, and one "Passion projects" chip, which filters.
+ * Both are carried in the URL.
  * The decision it carries: what the visitor sees never waits for React.
  * The pre-paint script put the filter on `<html>` before the first paint,
  * and CSS draws the tiles, the count, the current link and the chip from
@@ -129,9 +131,20 @@ export function WorkFilters({
         className,
       )}
     >
-      <ul className="flex items-center gap-x-5">
-        {[undefined, ...WORK_ROLES].map(roleLink)}
-      </ul>
+      <div className="flex flex-wrap items-center gap-x-5">
+        <span
+          id="work-arrange-by"
+          className="text-[0.8125rem] font-medium font-stretch-90% tracking-[0.02em] text-muted-foreground"
+        >
+          {WORK.arrange.lead}
+        </span>
+        <ul
+          aria-labelledby="work-arrange-by"
+          className="flex flex-wrap items-center gap-x-5"
+        >
+          {[undefined, ...WORK_ROLES].map(roleLink)}
+        </ul>
+      </div>
       <button
         type="button"
         data-work-chip

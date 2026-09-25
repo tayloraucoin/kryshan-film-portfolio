@@ -38,6 +38,11 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **SITE-7** — Teaching: where he teaches, camps, coaching, and who vouches for him (2026-09-24)
 - [x] **SITE-8** — Contact: the address, big and copyable (2026-09-24)
 
+### Step 2a — His Demo D feedback (2026-09-25)
+
+- [x] **SITE-3a** — Home: the role rows come out, the three role paragraphs go back to the bottom (2026-09-25)
+- [x] **SITE-4a** — Work: "Arrange by" reorders by his role instead of hiding films (2026-09-25; on the defaults of Q-A1 and Q-A2, which his answers can reopen)
+
 ### Step 3 — His words
 
 - [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string · _in progress: Stage A drafted and landed 2026-09-24; waiting on his approval and the press articles_

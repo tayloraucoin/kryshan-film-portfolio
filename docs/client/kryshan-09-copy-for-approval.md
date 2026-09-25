@@ -26,8 +26,8 @@ Once you've approved a line, changing it later is a change round.
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-### H-2 · Home: Directing caption
-- **Where it shows:** under "Directing" on the home page
+### H-2 · Home: Directing paragraph
+- **Where it shows:** the bottom of the home page, under "Directing" (moved there after your Demo D note)
 - **Kind:** Proposed (O-SITE-16) · this one: 152 characters, 25 words
 - **Text:** Dark comedies and horror shorts that won at Bloodshots and screened at Sitges and Fantasia; PSAs, music videos, web series and sizzle reels for clients.
 - **From:** 03 §8, amended (spec §6.1)
@@ -35,8 +35,8 @@ Once you've approved a line, changing it later is a change round.
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-### H-3 · Home: Camera and editing caption
-- **Where it shows:** under "Camera and editing" on the home page
+### H-3 · Home: Camera and editing paragraph
+- **Where it shows:** the bottom of the home page, under "Camera and editing"
 - **Kind:** Proposed (O-SITE-16) · this one: 165 characters, 24 words
 - **Text:** IATSE 669. Behind-the-scenes and EPK camera for Sony Pictures and Entertainment Weekly; docs and non-fiction, often as a one-person crew. Leo-nominated as an editor.
 - **From:** 03 §8, amended (spec §6.1)
@@ -44,8 +44,8 @@ Once you've approved a line, changing it later is a change round.
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-### H-4 · Home: Teaching caption
-- **Where it shows:** under "Teaching" on the home page
+### H-4 · Home: Teaching paragraph
+- **Where it shows:** the bottom of the home page, under "Teaching"
 - **Kind:** Locked, with its fallback · this one: 84 characters, 11 words
 - **Text:** Directing, shooting and editing at LaSalle College; film camps; one-on-one coaching.
 - **From:** 03 §8; spec §6.1 fallback
@@ -94,6 +94,33 @@ Once you've approved a line, changing it later is a change round.
 - **Where it shows:** under the Work page in search results
 - **Kind:** Write · limit ≤155 characters · this one: 139 characters, 19 words
 - **Text:** Directing, camera and editing by Kryshan Randel: dark comedy shorts, PSAs, music videos, trailers and EPKs, plus behind-the-scenes credits.
+- **From:** new
+- **What changed from your words:** —
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
+
+### W-6 · Work: arrange-by labels
+- **Where it shows:** Work, above the films
+- **Kind:** Write (your idea, 2026-09-25) · this one: 51 characters, 9 words
+- **Text:** Arrange by: Featured · Directing · Camera · Editing
+- **From:** your Demo D note: "Maybe even the words 'arrange by' before?"
+- **What changed from your words:** "Featured" is the default order (your top picks, then newest first); choosing a role brings its films to the front and hides nothing
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
+
+### W-7 · Work: divider label
+- **Where it shows:** Work, between a role's films and the rest
+- **Kind:** Write · this one: 8 characters, 2 words
+- **Text:** The rest
+- **From:** new
+- **What changed from your words:** —
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
+
+### W-8 · Work: what a screen reader hears after arranging
+- **Where it shows:** read aloud to blind visitors, not shown
+- **Kind:** Write · this one: 63 characters, 11 words
+- **Text:** Featured order · Directing first · Camera first · Editing first
 - **From:** new
 - **What changed from your words:** —
 - **Your call:** [ ] OK · Change to: ______

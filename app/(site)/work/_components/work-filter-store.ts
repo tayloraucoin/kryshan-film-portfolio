@@ -7,10 +7,11 @@ import { ALL_WORK, type WorkFilter } from "@/lib/work-filter";
  * tiles carry view-transition names, set to the next filter just before a
  * change starts, so only tiles visible after the change are named.
  *
- * What the visitor *sees* is styled from `<html data-work-role>` and
- * `data-work-passion`, never from this state (SITE-4 ruling 2); this state
- * drives the ARIA attributes, the status, the hrefs and where an open film
- * is inserted. The server snapshot is All. Like the open-film store, it
+ * Which tiles the visitor *sees* is styled from `<html data-work-passion>`,
+ * never from this state (SITE-4 ruling 2). The arrangement is drawn from
+ * `<html data-work-role>` until hydration, then from this state as DOM
+ * order (SITE-4a, M-SITE-8). This state also drives the ARIA attributes,
+ * the status, the hrefs and where an open film is inserted. The server snapshot is All. Like the open-film store, it
  * resets to All when nothing subscribes (the page unmounted).
  */
 type State = Readonly<{

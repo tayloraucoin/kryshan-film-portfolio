@@ -8,19 +8,30 @@
  */
 export const WORK = {
   h1: "Work",
-  /** Beside the h1: "{n} pieces" unfiltered, "{m} of {n}" when a filter is on. */
+  /** Beside the h1: "{n} pieces", or "{m} of {n}" with the passion chip on (a role hides nothing). */
   count: {
     all: (n: number) => `${n} pieces`,
     filtered: (m: number, n: number) => `${m} of ${n}`,
   },
-  /** The role links, then the one chip (D-SITE-5). */
+  /** The role links, which arrange, then the one chip, which filters (D-SITE-5, SITE-4a). */
   filters: {
-    label: "Filter work",
-    all: "All",
+    label: "Arrange and filter work",
+    all: "Featured",
     directing: "Directing",
     camera: "Camera",
     editing: "Editing",
     passion: "Passion projects",
+  },
+  /**
+   * "Arrange by" (SITE-4a, his Demo D feedback): the lead-in before the role
+   * links, the divider's label between a role's films and the rest, and
+   * what a screen reader hears after a change.
+   */
+  // Copy rows W-6, W-7, W-8 (docs/client/kryshan-09-copy-for-approval.md)
+  arrange: {
+    lead: "Arrange by",
+    rest: "The rest",
+    announce: (role?: string) => (role ? `${role} first` : "Featured order"),
   },
   cantShow: {
     heading: "What I can't show you",

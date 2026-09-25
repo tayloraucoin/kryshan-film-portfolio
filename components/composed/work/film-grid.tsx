@@ -56,8 +56,12 @@ const ALL_VISIBLE = () => true;
  * only (`isVisible`, which Work's filters pass).
  *
  * `leading` is an optional first cell two columns wide from 768 (Home's
- * title cell). Each tile's `<li>` carries `id="film-<slug>"`, `data-roles`
- * and, for passion work only, `data-lane="passion"` (Work filters on them).
+ * title cell). `divider` is an optional full-width row after the film
+ * `divider.after` (Work's "The rest", SITE-4a); it is always in the list,
+ * not displayed unless `divider.show`; a shown divider is a line of its own
+ * for the panel's placement. Each tile's `<li>` carries `id="film-<slug>"`,
+ * `data-roles` and, for passion work only, `data-lane="passion"` (Work
+ * arranges and filters on them).
  */
 export function FilmGrid({
   films,
@@ -65,6 +69,7 @@ export function FilmGrid({
   leading,
   isVisible = ALL_VISIBLE,
   isNamed = isVisible,
+  divider,
   preloadFirst = false,
   id,
   className,
@@ -79,6 +84,8 @@ export function FilmGrid({
    * starts, so a leaving tile fades with the page instead of moving.
    */
   isNamed?: (film: Film) => boolean;
+  /** A full-width row after the film `after` (or last, when `after` is unset). */
+  divider?: Readonly<{ after?: string; show: boolean; node: ReactNode }>;
   preloadFirst?: boolean;
   /** Home and Work pass "work", the skip link's target (it is focusable). */
   id?: string;
@@ -99,20 +106,29 @@ export function FilmGrid({
   }, []);
 
   const visible = films.filter(isVisible);
-  const offset = leading ? 1 : 0;
+  const dividerAfter = divider?.after ?? films[films.length - 1]?.slug;
+  /** The visible cells in order: the leading cell, the films, a shown divider (full width). */
+  const cells: ReadonlyArray<{ span: number; slug?: string }> = [
+    ...(leading ? [{ span: 2 }] : []),
+    ...visible.flatMap((film) => [
+      { span: 1, slug: film.slug },
+      ...(divider?.show && film.slug === dividerAfter
+        ? [{ span: columns }]
+        : []),
+    ]),
+  ];
   const ends = lineEnds(
-    [...(leading ? [2] : []), ...visible.map(() => 1)],
+    cells.map((cell) => cell.span),
     columns,
   );
-  /** The slug of the last visible film on the same line as visible film `index`. */
-  const lastOnLine = (index: number): string | undefined => {
-    const end = ends[index + offset] ?? index + offset;
-    return visible[end - offset]?.slug;
+  /** The slug of the last visible film on the same line as the film `slug`. */
+  const lastOnLine = (slug: string): string | undefined => {
+    const index = cells.findIndex((cell) => cell.slug === slug);
+    return cells[ends[index] ?? index]?.slug;
   };
 
-  const openIndex = visible.findIndex((film) => film.slug === open);
-  const openFilmData = openIndex >= 0 ? visible[openIndex] : undefined;
-  const insertAfter = openIndex >= 0 ? lastOnLine(openIndex) : undefined;
+  const openFilmData = visible.find((film) => film.slug === open);
+  const insertAfter = openFilmData ? lastOnLine(openFilmData.slug) : undefined;
 
   function activate(film: Film, trigger: HTMLElement) {
     const current = getOpenFilm();
@@ -120,12 +136,11 @@ export function FilmGrid({
       closeFilm();
       return;
     }
-    const index = visible.findIndex((f) => f.slug === film.slug);
-    const currentIndex = visible.findIndex((f) => f.slug === current);
     const sameLine =
-      currentIndex >= 0 &&
+      current !== null &&
+      visible.some((f) => f.slug === current) &&
       columns > 1 &&
-      lastOnLine(currentIndex) === lastOnLine(index);
+      lastOnLine(current) === lastOnLine(film.slug);
     openFilm(film.slug, trigger, sameLine ? "swap" : "move");
   }
 
@@ -170,6 +185,14 @@ export function FilmGrid({
                 style={{ viewTransitionName: "film-open" }}
               >
                 <FilmPanel film={openFilmData} email={email} />
+              </li>
+            ) : null}
+            {divider && film.slug === dividerAfter ? (
+              <li
+                data-divider
+                className={cn("col-span-full", !divider.show && "hidden")}
+              >
+                {divider.node}
               </li>
             ) : null}
           </Fragment>

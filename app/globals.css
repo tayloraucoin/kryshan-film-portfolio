@@ -179,27 +179,46 @@ html:not([data-js]) [data-needs-js] {
 }
 
 /*
- * Work's filter, drawn before first paint (SITE-4, M-SITE-5). The pre-paint
- * script (lib/pre-paint-script.ts) sets `data-work-role` and
- * `data-work-passion` on <html> from the URL; the filter leaf keeps them in
- * step afterwards. Everything the filter changes on screen is styled from
- * those two attributes, never from React state, so a filtered cold load is
- * right at first paint. `display: none` takes a tile out of the layout, the
- * accessibility tree and the tab order at once.
+ * Work's arrangement and filter, drawn before first paint (SITE-4, M-SITE-5,
+ * SITE-4a, M-SITE-8). The pre-paint script (lib/pre-paint-script.ts) sets
+ * `data-work-role` and `data-work-passion` on <html> from the URL; the
+ * controls keep them in step afterwards, so a cold load is right at first
+ * paint.
+ *
+ * The passion chip filters: `display: none` takes a tile out of the layout,
+ * the accessibility tree and the tab order at once.
  */
-html[data-work-role="directing"]
-  [data-work-grid]
-  li[data-roles]:not([data-roles~="directing"]),
-html[data-work-role="camera"]
-  [data-work-grid]
-  li[data-roles]:not([data-roles~="camera"]),
-html[data-work-role="editing"]
-  [data-work-grid]
-  li[data-roles]:not([data-roles~="editing"]),
 html[data-work-passion]
   [data-work-grid]
   li[data-roles]:not([data-lane="passion"]) {
   display: none;
+}
+
+/*
+ * A role arranges. Until the grid has rendered the arrangement in DOM order
+ * (it then sets `data-work-arranged`), `order` draws it: the role's films,
+ * then the divider, then the rest. After that these rules are off, so the
+ * visual order is the DOM order, for focus and screen readers alike. The
+ * divider carries Tailwind's `hidden` class in the server HTML; this
+ * unlayered rule outranks that layered utility.
+ */
+html[data-work-role="directing"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="directing"],
+html[data-work-role="camera"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="camera"],
+html[data-work-role="editing"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="editing"] {
+  order: -2;
+}
+
+html[data-work-role]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-divider] {
+  display: block;
+  order: -1;
 }
 
 /* The count and the empty line: one variant per combination, one shown. */

@@ -29,11 +29,11 @@ const H2 =
   "font-heading text-[1.75rem] leading-[1.15] font-semibold font-stretch-88%";
 
 /**
- * Work (spec §6.2): every showable film, filterable by role and by passion
- * work, then the credits he can't show as films, then his email. One static
- * page: the query is never read on the server. The filter is presentation
- * over a complete document, drawn before first paint from `<html>`
- * attributes the pre-paint script sets (SITE-4, M-SITE-5).
+ * Work (spec §6.2): every showable film, arranged by role and filterable
+ * by passion work (SITE-4a), then the credits he can't show as films, then
+ * his email. One static page: the query is never read on the server. The
+ * arrangement and filter are drawn before first paint from `<html>`
+ * attributes the pre-paint script sets (SITE-4, M-SITE-5, M-SITE-8).
  */
 export default function WorkPage() {
   const films = workOrder().map(toFilm);
@@ -66,7 +66,7 @@ export default function WorkPage() {
                   const shown = counts[key] ?? 0;
                   return (
                     <span key={key} data-work-count={key}>
-                      {filter.role || filter.passion
+                      {filter.passion
                         ? WORK.count.filtered(shown, total)
                         : WORK.count.all(total)}
                     </span>

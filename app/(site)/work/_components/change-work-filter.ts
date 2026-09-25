@@ -8,6 +8,7 @@ import {
 import { dismissFilm } from "@/components/composed/work/open-film";
 import { runTransition } from "@/components/composed/work/transition";
 import { WORK_COPY } from "@/content/site";
+import { WORK } from "@/content/work";
 import { siteRoutes } from "@/lib/routes";
 import {
   sameWorkFilter,
@@ -28,12 +29,14 @@ export function clearWorkAttributes(): void {
   const root = document.documentElement;
   root.removeAttribute("data-work-role");
   root.removeAttribute("data-work-passion");
+  root.removeAttribute("data-work-arranged");
 }
 
 /**
- * A filter change (spec §6.2): close any open film, show the new set with
- * the site's one transition, write the URL without adding history, announce
- * the count, and leave focus on the control that was used (or `focusTarget`,
+ * An arrangement or filter change (spec §6.2, SITE-4a): close any open
+ * film, show the new order or set with the site's one transition (tiles
+ * move to their new places), write the URL without adding history,
+ * announce the new order or the count, and leave focus on the control that was used (or `focusTarget`,
  * when that control disappears, as "Show all" does).
  *
  * The tiles visible after the change are named just before the transition
@@ -50,7 +53,8 @@ export function changeWorkFilter(
     total: number;
   }>,
 ): void {
-  if (sameWorkFilter(next, getWorkFilter())) return;
+  const previous = getWorkFilter();
+  if (sameWorkFilter(next, previous)) return;
 
   flushSync(() => setWorkNaming(next));
   const { updated } = runTransition(() => {
@@ -60,11 +64,14 @@ export function changeWorkFilter(
     setWorkFilter(next);
   }, "move");
 
+  // A new arrangement is announced by its order; a passion change by its count.
   const shown = options.counts[workFilterKey(next)] ?? 0;
   announceWork(
-    next.role || next.passion
-      ? WORK_COPY.status.filtered(shown, options.total)
-      : WORK_COPY.status.all(options.total),
+    next.role !== previous.role
+      ? WORK.arrange.announce(next.role && WORK.filters[next.role])
+      : next.passion
+        ? WORK_COPY.status.filtered(shown, options.total)
+        : WORK_COPY.status.all(options.total),
   );
 
   void updated.then(() => {

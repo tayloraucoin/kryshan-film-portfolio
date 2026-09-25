@@ -128,7 +128,7 @@ One section per architectural choice with real alternatives. Never edit or delet
 
 **Context:** The live site needs one answer to "may this film be shown?" (D-SITE-8), one poster source (spec §4.5), and consent rules that hold even when he edits the files himself after handover (CONVENTIONS §10a). The old model had `rights: "pending"`, `posterStatus: "replace"`, `featured`/`lead` flags and an old-site link-out, each a second place where visibility or approval could be decided.
 **Options weighed:** A) A union discriminated on `rights` (`PublicProject` requires `embed` and a poster; `HeldProject` doesn't): the type proves completeness, but he edits by copying an entry, and a union's type error is unreadable to him. B) One flat `Project` with `embed?`; `isShowable` a type predicate to `ShowableProject` that tests `rights === "public"` only; `content/validate.ts` checks, in plain words, that every public film has a video, a logline and a `POSTERS` line, and throws once with every problem numbered. C) As B, but `isShowable` also tests for a video and a poster: a broken film would vanish silently, which is D-SITE-8's exact failure.
-**Decision:** B, with the ticket's five calls. (1) One flat type, `embed` required for public films by `validate.ts`. (2) A `POSTERS` line *is* the approval of that frame; there is no separate flag. (3) `logline` is required on every entry. (4) `IsoDate`/`isIsoDate` in `lib/iso-date.ts`, `Photo` in `content/photo.ts` with `src` a static import. (5) The Reel Youth (Whatì) check matches `/wh?at[iì]|reel youth/i` in the caption or alt; it applies to the minors form, the only form that carries `communityConsent`. Plus: `content/projects.ts` and `content/home.ts` import only by relative path and never an image, so `next.config.ts` can read them (verified: a probe import printed 22). `validate.ts` also collects checks beyond spec §5 that protect binding rules nothing else enforces (video, link-out host, one tile per film, the red phrase, quote counts, `LEGACY_PATHS` targets, "at-risk").
+**Decision:** B, with the ticket's five calls. (1) One flat type, `embed` required for public films by `validate.ts`. (2) A `POSTERS` line _is_ the approval of that frame; there is no separate flag. (3) `logline` is required on every entry. (4) `IsoDate`/`isIsoDate` in `lib/iso-date.ts`, `Photo` in `content/photo.ts` with `src` a static import. (5) The Reel Youth (Whatì) check matches `/wh?at[iì]|reel youth/i` in the caption or alt; it applies to the minors form, the only form that carries `communityConsent`. Plus: `content/projects.ts` and `content/home.ts` import only by relative path and never an image, so `next.config.ts` can read them (verified: a probe import printed 22). `validate.ts` also collects checks beyond spec §5 that protect binding rules nothing else enforces (video, link-out host, one tile per film, the red phrase, quote counts, `LEGACY_PATHS` targets, "at-risk").
 **Consequences:** A missing video or poster on a public film fails the build with a sentence naming the file, the film and the fix; he never sees a TypeScript union error for a content mistake. `ShowableProject.embed` is guaranteed by validation, not by the type, so code outside `SHOWABLE_PROJECTS` must not assume it. The messages are one template each, so `docs/EDITING.md` (SITE-10) can quote them word for word. Photo arrays join validation through `PHOTO_SETS`, which SITE-6 and SITE-7 append to.
 **Revisit trigger:** A second kind of visibility (for example, "shown on Work but never on Home"), which would need a second field and would reopen D-SITE-8; or a Whatì photo of adults that needs community consent (the type would need `communityConsent` outside the minors form).
 
@@ -163,3 +163,27 @@ One section per architectural choice with real alternatives. Never edit or delet
 **Decision:** C. One home per quote, and verification carries over automatically; a pick that stops resolving (a quote removed, a source renamed) fails the build in words rather than vanishing. A held film's quote may still appear on About, since it is about him; an NDA'd film's never does.
 **Consequences:** Picks ship empty until SITE-C verifies press. Two quotes on one film from the same source need distinct source names to be pickable.
 **Revisit trigger:** A press quote that isn't about a film (a profile of him), which would need a home of its own.
+
+## 2026-09-25 · SITE-4a · M-SITE-8 · Work's arrangement paints from CSS `order` until hydration, then becomes DOM order
+
+**Context:** His Demo D note asked for roles to _rearrange_ the work rather than divide it. The arranged order must be right at first paint on a cold load of `/work?role=camera` (the SITE-4 no-flash bar, M-SITE-5), on a static page that never reads the query on the server. Once the page is interactive, the visual order must equal DOM order: WCAG 1.3.2 and 2.4.3 require it, and the open-film panel's line walk (M-KR-6) depends on it.
+**Options weighed:**
+
+- A) CSS `order` alone. It's right at first paint, but focus, screen readers and the panel follow a different order from the one on screen.
+- B) Reorder in React only. The server HTML is in `workOrder()`, so a cold arranged load paints in the wrong order, then jumps.
+- C) Server-render all four orders. That means four copies of 22 tiles, duplicate ids and heavier HTML.
+- D) A hand-over: CSS `order` for the pre-hydration moment, then React renders the arranged DOM and switches CSS off.
+
+**Decision:** D.
+
+- The pre-paint script already sets `html[data-work-role]`. Unlayered rules give that role's tiles `order: -2` and the "The rest" divider `order: -1`. The divider is rendered in the server HTML with Tailwind's `hidden` class, which an unlayered rule outranks. It isn't the `hidden` attribute, because Tailwind's `[hidden]` rule is `!important` inside a layer and would win.
+- A layout effect in `WorkGrid` sets `html[data-work-arranged]` once the rendered role equals the one `<html>` asks for. That switches the `order` rules off before the browser paints.
+- **Verified:** the static HTML rendered with scripts disabled gives the same visual order as the settled DOM, for all three roles at 1440, 768 and 390.
+
+**Consequences:**
+
+- A third attribute lives on `<html>` while Work is mounted, removed on unmount with the others.
+- After hydration, arranging is ordinary React state with the site's one view transition, so the tiles move.
+- `FilmGrid` gained an optional full-width `divider` that counts as its own line for panel placement.
+
+**Revisit trigger:** Arranging on Home too (his Q-A2), which would widen the pre-paint script and these rules to `/`. Or an arrangement that isn't a two-group split (a weighted sort), which `order` values can't express without per-tile data.

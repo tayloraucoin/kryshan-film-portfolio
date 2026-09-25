@@ -1,8 +1,10 @@
 import { WORK_ROLES, type WorkRole } from "./routes";
 
 /**
- * Work's filter (spec §6.2, D-SITE-5): a role and the "Passion projects"
- * chip, carried in the URL (`/work?role=camera&passion=1`). Pure and
+ * Work's arrangement and filter (spec §6.2, D-SITE-5 as amended by SITE-4a):
+ * a role that *arranges* (its films first, nothing hidden) and the
+ * "Passion projects" chip that *filters*, carried in the URL
+ * (`/work?role=camera&passion=1`). Pure and
  * env-free: the pre-paint script, the client leaves and the server page all
  * read the same rules from here. The role list is `WORK_ROLES`
  * (`lib/routes.ts`), never a copy.
@@ -28,13 +30,28 @@ export type WorkFilterable = Readonly<{
   passion: boolean;
 }>;
 
+/** Whether a film is shown. Only the passion chip hides; a role never does (SITE-4a). */
 export function matchesWorkFilter(
   film: WorkFilterable,
   filter: WorkFilter,
 ): boolean {
-  if (filter.role && !film.roles.includes(filter.role)) return false;
-  if (filter.passion && !film.passion) return false;
-  return true;
+  return !filter.passion || film.passion;
+}
+
+/**
+ * Films arranged by a role: those credited with it first, then the rest,
+ * each group in the order given (`workOrder()`, D-SITE-6). With no role,
+ * the order given. A film with several roles leads in each of them.
+ */
+export function arrangeWork<T extends WorkFilterable>(
+  films: ReadonlyArray<T>,
+  role: WorkRole | undefined,
+): Readonly<{ first: ReadonlyArray<T>; rest: ReadonlyArray<T> }> {
+  if (!role) return { first: films, rest: [] };
+  return {
+    first: films.filter((film) => film.roles.includes(role)),
+    rest: films.filter((film) => !film.roles.includes(role)),
+  };
 }
 
 export function sameWorkFilter(a: WorkFilter, b: WorkFilter): boolean {
