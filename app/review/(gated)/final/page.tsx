@@ -43,27 +43,37 @@ export default function FinalReviewPage() {
               or a broken link, I fix free for {FINAL_TERMS.mistakesWindow}{" "}
               after it goes live.{" "}
               <a
-                href={FINAL_TERMS.pricingUrl}
+                href={FINAL_TERMS.changesUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground underline underline-offset-4"
               >
                 The prices, in full
               </a>
-            </li>
-            <li>
-              If you’d rather edit words and photos through a login than through
-              the guide, the admin panel add-on ({FINAL_TERMS.adminPanel}) gives
-              you one. Most people do fine with the guide. It’s listed on{" "}
+              . When you want a round,{" "}
               <a
-                href={FINAL_TERMS.pricingUrl}
+                href={FINAL_TERMS.buyUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="text-foreground underline underline-offset-4"
               >
-                the same page
+                pay for it here
               </a>
-              ; tell me in the last box if you want it.
+              , any time.
+            </li>
+            <li>
+              If you’d rather edit words and photos through a login than through
+              the guide, the admin panel add-on ({FINAL_TERMS.adminPanel}) gives
+              you one. Most people do fine with the guide. If you want it,{" "}
+              <a
+                href={FINAL_TERMS.buyAdminPanelUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                add it here
+              </a>
+              , now or later.
             </li>
           </ul>
         </div>

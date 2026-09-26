@@ -1,5 +1,6 @@
 import { FEATURED } from "@/content/home";
 import { findShowableProject } from "@/content/projects";
+import { REVIEW_CLIENT } from "@/lib/review/client";
 import type {
   FeedbackOption,
   FeedbackQuestion,
@@ -20,12 +21,37 @@ import { siteRoutes } from "@/lib/routes";
 export const FINAL_SCHEMA = "kryshan-final-2026-09";
 
 /**
+ * Production tayloraucoin.com, on purpose. This page is Kryshan's, and the
+ * link must reach his real engagement, which exists only in production; a
+ * link that followed the environment would open a staging or local page that
+ * has never heard of him. Clicking it from a local review opens the live
+ * site, which is correct — the live site is where he pays. (Local testing of
+ * the add-ons page happens in taylor-aucoin, whose `getStripe` refuses live
+ * Stripe under `next dev`.)
+ */
+const TAYLOR_AUCOIN = "https://tayloraucoin.com";
+
+/**
+ * His add-ons page (taylor-aucoin FIN-8): a static, self-serve checkout for
+ * his production engagement, `REVIEW_CLIENT.engagementId` — the same id the
+ * review layer sends, saved once in `lib/review/client.ts`. `add=` only
+ * pre-ticks rows; the page decides what he can buy and at what price.
+ */
+const ADD_ONS_PAGE = `${TAYLOR_AUCOIN}/websites/coded/intake/add-ons?engagement=${REVIEW_CLIENT.engagementId}`;
+
+/**
  * What the page says about what comes after, kept here so the numbers are
  * edited in one place. Prices are the change tiers published on
  * tayloraucoin.com/websites/coded; the admin panel is its add-on row.
  */
 export const FINAL_TERMS = {
-  pricingUrl: "https://tayloraucoin.com/websites/coded",
+  /** The change tiers, on the page's `#changes` section. */
+  /** The change tiers, on the page's `#changes` section. */
+  changesUrl: `${TAYLOR_AUCOIN}/websites/coded#changes`,
+  /** His add-ons page, nothing pre-selected: rounds of changes, pages, add-ons. */
+  buyUrl: ADD_ONS_PAGE,
+  /** His add-ons page with the admin panel pre-selected. */
+  buyAdminPanelUrl: `${ADD_ONS_PAGE}&add=showcase_admin_panel`,
   smallRound: "$250",
   standardRound: "$500",
   mistakesWindow: "14 days",
