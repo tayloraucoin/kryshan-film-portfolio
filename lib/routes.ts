@@ -554,6 +554,8 @@ export const reviewRoutes = {
       : `${REVIEW_PREFIX}/mocks/${id}`) as Route,
   brand: `${REVIEW_PREFIX}/brand` as Route,
   feedback: `${REVIEW_PREFIX}/feedback` as Route,
+  /** The last included round of changes, on the built site (page by page). */
+  final: `${REVIEW_PREFIX}/final` as Route,
 } as const;
 
 /** True for any path the review gate protects. */

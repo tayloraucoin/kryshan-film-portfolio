@@ -8,6 +8,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { submitFeedback } from "@/app/review/(gated)/feedback/_actions/submit-feedback";
+import { submitFinal } from "@/app/review/(gated)/final/_actions/submit-final";
 import { Button } from "@/components/primitives/button";
 import { countPendingEverywhere } from "@/lib/review/pending-store";
 import {
@@ -17,14 +18,8 @@ import {
   type FeedbackSection,
   type FeedbackValue,
 } from "@/lib/review/types";
-import { reviewRoutes } from "@/lib/routes";
-import {
-  readDraft,
-  readDraftServer,
-  subscribeDraft,
-  writeDraft,
-  type FeedbackDraft,
-} from "./feedback-draft";
+import { reviewRoutes, siteRoutes } from "@/lib/routes";
+import { designDraft, finalDraft, type FeedbackDraft } from "./feedback-draft";
 import {
   ChoiceField,
   NoteField,
@@ -33,7 +28,11 @@ import {
   TextField,
 } from "./feedback-fields";
 
-type FeedbackFormProps = { sections: ReadonlyArray<FeedbackSection> };
+type FeedbackFormProps = {
+  sections: ReadonlyArray<FeedbackSection>;
+  /** Which form: the design round's (default) or the final review's. */
+  variant?: "design" | "final";
+};
 
 function answered(value: FeedbackValue | undefined): boolean {
   if (value === undefined) return false;
@@ -41,8 +40,14 @@ function answered(value: FeedbackValue | undefined): boolean {
   return typeof value === "number" || value.trim() !== "";
 }
 
+type Words = ReadonlyArray<{
+  key: "flinch" | "fightFor" | "notes";
+  label: string;
+  hint?: string;
+}>;
+
 /** The three free-text boxes: the contract's own fields, always last. */
-const WORDS = [
+const WORDS: Words = [
   {
     key: "flinch",
     label: "What made you flinch?",
@@ -54,7 +59,42 @@ const WORDS = [
     hint: "Things you want kept whatever else changes.",
   },
   { key: "notes", label: "Anything else / general impressions" },
-] as const;
+];
+
+/**
+ * What differs between the two forms: where the draft is kept, which action
+ * files it, the free boxes at the end, and what the reviewer reads after
+ * sending. The final review links out to the live pages, so those open in
+ * a new tab and the form stays where it was.
+ */
+const VARIANTS = {
+  design: {
+    draft: designDraft,
+    submit: submitFeedback,
+    words: WORDS,
+    sendLabel: "Send feedback",
+    sentBody:
+      "Your comments and this form are on their way. You can keep commenting; anything new is picked up too.",
+    back: { label: "Back to the options", href: reviewRoutes.index },
+    linksInNewTab: false,
+  },
+  final: {
+    draft: finalDraft,
+    submit: submitFinal,
+    words: [
+      {
+        key: "notes",
+        label: "Anything else?",
+        hint: "Anything that isn’t about one page, or that you’d like to tell me before it goes live.",
+      },
+    ] satisfies Words,
+    sendLabel: "Send my final changes",
+    sentBody:
+      "I’ll make all of these in one go and tell you when they’re up. After that: your site moves onto kryshanrandel.com, and you get the guide to changing it yourself.",
+    back: { label: "Back to your site", href: siteRoutes.home },
+    linksInNewTab: true,
+  },
+} as const;
 
 /**
  * The round's one form, rendered from `review/feedback.ts` (KR-6). Every
@@ -64,11 +104,16 @@ const WORDS = [
  * nothing by accident. The comment count is read from the browser's own
  * storage at submit time, so it reflects what the reviewer actually left.
  */
-export function FeedbackForm({ sections }: FeedbackFormProps) {
+export function FeedbackForm({
+  sections,
+  variant = "design",
+}: FeedbackFormProps) {
+  const config = VARIANTS[variant];
+  const { read: readDraft, write: writeDraft } = config.draft;
   const draft = useSyncExternalStore(
-    subscribeDraft,
+    config.draft.subscribe,
     readDraft,
-    readDraftServer,
+    config.draft.readServer,
   );
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -85,7 +130,7 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
 
   const questions = sections.flatMap((s) => s.questions);
   const done = questions.filter((q) => answered(draft.answers[q.id])).length;
-  const wrote = WORDS.some((w) => draft[w.key].trim());
+  const wrote = config.words.some((w) => draft[w.key].trim());
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,7 +147,7 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
     const submissionId = draft.submissionId ?? crypto.randomUUID();
     update({ submissionId });
     start(async () => {
-      const result = await submitFeedback(
+      const result = await config.submit(
         {
           answers,
           flinch: draft.flinch,
@@ -131,16 +176,13 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
     return (
       <div className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold">Sent. Thank you.</h2>
-        <p className="text-muted-foreground">
-          Your comments and this form are on their way. You can keep commenting;
-          anything new is picked up too.
-        </p>
+        <p className="text-muted-foreground">{config.sentBody}</p>
         <div className="flex flex-wrap items-center gap-4">
           <Link
-            href={reviewRoutes.index}
+            href={config.back.href}
             className="underline underline-offset-4"
           >
-            Back to the options
+            {config.back.label}
           </Link>
           <button
             type="button"
@@ -182,6 +224,9 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
                     key={link.href}
                     href={link.href}
                     className="underline underline-offset-4"
+                    {...(config.linksInNewTab
+                      ? { target: "_blank", rel: "noreferrer" }
+                      : {})}
                   >
                     {link.label}
                   </Link>
@@ -230,12 +275,12 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
             In your words
           </h2>
         </header>
-        {WORDS.map((w) => (
+        {config.words.map((w) => (
           <TextField
             key={w.key}
             id={w.key}
             label={w.label}
-            hint={"hint" in w ? w.hint : undefined}
+            hint={w.hint}
             maxLength={5000}
             value={draft[w.key]}
             onChange={(v) => update({ [w.key]: v })}
@@ -251,7 +296,7 @@ export function FeedbackForm({ sections }: FeedbackFormProps) {
         ) : null}
         <div className="flex flex-wrap items-center gap-3">
           <Button type="submit" size="lg" disabled={pending}>
-            {pending ? "Sending…" : "Send feedback"}
+            {pending ? "Sending…" : config.sendLabel}
           </Button>
           <span className="text-sm text-muted-foreground" aria-live="polite">
             {done} of {questions.length} answered. Every question is optional,

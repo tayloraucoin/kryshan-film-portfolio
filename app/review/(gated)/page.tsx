@@ -60,7 +60,8 @@ function Column({
 }
 
 /**
- * The review layer's front page. First the revision built after his review
+ * The review layer's front page. The final review of the built site leads,
+ * once the build is done. Then the revision built after his review
  * (round 2: Demo D, with a before/after link to Demo A; D-KRD-18), then the
  * first round as he saw it: three kits, three layouts, three demo home
  * pages, and the feedback form. Same order everywhere so the client
@@ -152,6 +153,19 @@ export default function ReviewIndexPage() {
             <code className="mx-1">REVIEW_INGEST_KEY</code> to send them on.
           </p>
         ) : null}
+        <Link
+          href={reviewRoutes.final}
+          data-review-id="index-final"
+          className="flex flex-col gap-1 rounded-lg border border-foreground/40 bg-primary p-4 text-primary-foreground transition-colors hover:bg-primary/85"
+        >
+          <span className="text-xs tracking-widest uppercase opacity-80">
+            Now: the final review
+          </span>
+          <span className="font-medium">
+            Your site is built. Go through it page by page, on your phone and a
+            computer, and send the last round of changes →
+          </span>
+        </Link>
       </header>
 
       {revisedItems.length > 0 ? (

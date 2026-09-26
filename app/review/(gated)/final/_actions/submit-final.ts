@@ -9,18 +9,21 @@ import {
   feedbackFormInput,
   reviewSubmissionInput,
 } from "@/lib/validators/review";
-import { FEEDBACK_SCHEMA, FEEDBACK_SECTIONS } from "@/review/feedback";
+import { FINAL_SCHEMA, FINAL_SECTIONS } from "@/review/final";
 
 const input = feedbackFormInput.extend({
   commentCount: z.number().int().min(0).default(0),
 });
 
 /**
- * Files the round's feedback form. The form mints the id and keeps it in its
- * draft until a send is confirmed, so a retry after a lost response is the
- * same submission to the backend; a missing or malformed id gets a fresh one.
+ * Files the final review (`/review/final`): the page-by-page answers and the
+ * one free box, sent as `stage: "final"` so taylor-aucoin files and emails
+ * it as the last included round (M-REV-7). There is no kit, layout or demo
+ * to prefer any more, and the design round's flinch / fight-for boxes are
+ * not asked. Same id discipline as `submitFeedback`: the form's id is
+ * reused on retry, a malformed one is replaced.
  */
-export async function submitFeedback(
+export async function submitFinal(
   values: unknown,
   existingId?: string,
 ): Promise<ReviewActionResult<{ id: string }>> {
@@ -28,13 +31,7 @@ export async function submitFeedback(
   if (!parsed.success) return { ok: false, reason: "invalid" };
 
   const v = parsed.data;
-  const blank = (s: string | undefined) => (s && s.trim() ? s.trim() : null);
-
-  const built = buildAnswers(
-    v.answers ?? {},
-    FEEDBACK_SECTIONS,
-    FEEDBACK_SCHEMA,
-  );
+  const built = buildAnswers(v.answers ?? {}, FINAL_SECTIONS, FINAL_SCHEMA);
   if (!built) return { ok: false, reason: "invalid" };
 
   const submission = reviewSubmissionInput.safeParse({
@@ -42,17 +39,16 @@ export async function submitFeedback(
       existingId && z.uuid().safeParse(existingId).success
         ? existingId
         : randomUUID(),
-    preferredKit: blank(v.preferredKit) ?? built.legacy.preferredKit ?? null,
-    preferredLayout:
-      blank(v.preferredLayout) ?? built.legacy.preferredLayout ?? null,
-    preferredMock: blank(v.preferredMock) ?? built.legacy.preferredMock ?? null,
-    flinch: blank(v.flinch),
-    fightFor: blank(v.fightFor),
-    notes: blank(v.notes),
+    preferredKit: null,
+    preferredLayout: null,
+    preferredMock: null,
+    flinch: null,
+    fightFor: null,
+    notes: v.notes?.trim() ? v.notes.trim() : null,
     commentCount: v.commentCount,
     submittedAt: new Date().toISOString(),
     answers: built.answers,
-    stage: "design",
+    stage: "final",
   });
   if (!submission.success) return { ok: false, reason: "invalid" };
 
