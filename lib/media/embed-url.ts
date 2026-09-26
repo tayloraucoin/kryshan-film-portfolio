@@ -15,12 +15,19 @@ export type VideoRef = {
   hash?: string;
 };
 
-/** The iframe src, with autoplay on because it only ever mounts after a tap. */
-export function embedUrl(video: VideoRef): string {
+/**
+ * The iframe src. Autoplay is on by default because the iframe only ever
+ * mounts after a tap; `{ autoplay: false }` gives the plain embed, for
+ * structured data (`VideoObject.embedUrl`).
+ */
+export function embedUrl(
+  video: VideoRef,
+  { autoplay = true }: { autoplay?: boolean } = {},
+): string {
   switch (video.provider) {
     case "youtube": {
       const params = new URLSearchParams({
-        autoplay: "1",
+        ...(autoplay ? { autoplay: "1" } : {}),
         rel: "0",
         modestbranding: "1",
         playsinline: "1",
@@ -29,7 +36,7 @@ export function embedUrl(video: VideoRef): string {
     }
     case "vimeo": {
       const params = new URLSearchParams({
-        autoplay: "1",
+        ...(autoplay ? { autoplay: "1" } : {}),
         dnt: "1",
         title: "0",
         byline: "0",

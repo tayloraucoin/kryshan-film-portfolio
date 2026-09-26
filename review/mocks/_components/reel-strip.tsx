@@ -6,6 +6,10 @@ import { VideoEmbed } from "@/components/composed/media/video-embed";
 import type { Project } from "@/content/projects";
 import { cn } from "@/lib/cn";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
+import {
+  FRAME_TO_REPLACE,
+  reviewPoster,
+} from "@/review/mocks/_components/review-posters";
 
 type ReelStripProps = {
   /** Playable pieces only (YouTube or Vimeo); the strip has no link-out state. */
@@ -53,8 +57,8 @@ export function ReelStrip({ projects, reviewPrefix }: ReelStripProps) {
       >
         {projects.map((project, index) => {
           if (
-            project.embed.provider !== "youtube" &&
-            project.embed.provider !== "vimeo"
+            project.embed?.provider !== "youtube" &&
+            project.embed?.provider !== "vimeo"
           ) {
             return null;
           }
@@ -71,13 +75,13 @@ export function ReelStrip({ projects, reviewPrefix }: ReelStripProps) {
                 <VideoEmbed
                   video={project.embed}
                   title={project.title}
-                  poster={project.poster}
+                  poster={reviewPoster(project.slug)}
                   priority={index === 0}
                   onPlay={() =>
                     setPlaying((current) => new Set(current).add(project.slug))
                   }
                 />
-                {project.posterStatus === "replace" && !isPlaying ? (
+                {FRAME_TO_REPLACE.has(project.slug) && !isPlaying ? (
                   <FrameRibbon>Frame to be replaced</FrameRibbon>
                 ) : null}
                 <div

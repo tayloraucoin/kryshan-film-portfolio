@@ -1,38 +1,116 @@
-import type { Metadata } from "next";
-import { HOME } from "@/content/home";
+import type { Metadata, Route } from "next";
+import Link from "next/link";
+import { TitleCell } from "@/app/(site)/_components/title-cell";
+import { createLinker } from "@/components/composed/site/linked-text";
+import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
+import { SiteShell } from "@/components/composed/site/site-shell";
+import { filmsFor } from "@/components/composed/work/film";
+import { FilmGrid } from "@/components/composed/work/film-grid";
+import { FEATURED, HOME_LINKS, HOME_META } from "@/content/home";
+import { NAME_LINKS } from "@/content/links";
+import { posterFor } from "@/content/posters";
+import { findShowableProject, SHOWABLE_PROJECTS } from "@/content/projects";
+import { FILM_COPY, STRANDS, type Strand } from "@/content/site";
 import { SITE } from "@/lib/config";
 import { createPageMetadata } from "@/lib/metadata";
+import { siteRoutes } from "@/lib/routes";
 
-export const metadata: Metadata = createPageMetadata({
-  title: SITE.name,
-  description: SITE.description,
-  path: "/",
-  absoluteTitle: true,
-});
+/** The share image until his social card exists (O-SITE-11): Just Watch Us's poster. */
+const OG_SLUG = "just-watch-us";
+
+export function generateMetadata(): Metadata {
+  const poster = posterFor(OG_SLUG);
+  const title = findShowableProject(OG_SLUG)?.title ?? SITE.name;
+  return createPageMetadata({
+    title: HOME_META.title,
+    description: HOME_META.description,
+    path: siteRoutes.home,
+    absoluteTitle: true,
+    image: {
+      url: poster.src,
+      width: poster.width,
+      height: poster.height,
+      alt: FILM_COPY.ogAlt(title),
+    },
+  });
+}
+
+/** Where each strand's link goes: Work arranged by that role, or Teaching. */
+const STRAND_LINKS: Record<Strand["id"], { label: string; href: Route }> = {
+  directing: {
+    label: HOME_LINKS.allDirecting,
+    href: siteRoutes.work({ role: "directing" }),
+  },
+  "camera-editing": {
+    label: HOME_LINKS.allCamera,
+    href: siteRoutes.work({ role: "camera" }),
+  },
+  teaching: { label: HOME_LINKS.teaching, href: siteRoutes.teaching },
+};
 
 /**
- * Home. Static, server-rendered, and deliberately empty of pattern: no
- * centred hero with three cards. The client's layout deliverable decides
- * what goes here; this page proves the chrome, the tokens and the type.
+ * Home: Demo D, live (spec §6.1, handoff §6), with his Demo D feedback
+ * applied (SITE-3a): his line in a two-column first square, the featured
+ * films, "All {n} pieces →", then his three strands side by side, as in
+ * Demo A. No role rows: a film credited for several roles belonged to only
+ * one of them. A tap opens a film in place; every tile is also a real link
+ * to its page. Static: nothing here reads a request.
  */
 export default function HomePage() {
+  const linkText = createLinker(NAME_LINKS);
+  const featured = filmsFor(FEATURED);
+  const firstFilmId = featured[0] ? `film-${featured[0].slug}` : "work";
+
   return (
-    <section
-      className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 sm:px-6 sm:py-24"
-      data-review-id="home-hero"
-    >
-      <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
-        {HOME.headline}
-      </h1>
-      <p className="max-w-xl text-lg text-muted-foreground">{HOME.support}</p>
-      <p>
-        <a
-          href={HOME.action.href}
-          className="inline-flex h-10 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
-        >
-          {HOME.action.label}
-        </a>
-      </p>
-    </section>
+    <SiteShell skipTo="work">
+      <PersonJsonLd />
+      <div className="flex flex-col gap-16 pt-3 pb-16 md:gap-20 md:pt-4">
+        <FilmGrid
+          id="work"
+          leading={<TitleCell firstFilmId={firstFilmId} />}
+          films={featured}
+          email={SITE.email}
+          preloadFirst
+        />
+        <p className="px-3 md:px-6">
+          <Link
+            href={siteRoutes.work()}
+            className="inline-flex min-h-11 items-center gap-2 rounded-(--radius) font-heading text-[1.75rem] leading-none font-bold font-stretch-80% transition-colors hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            {HOME_LINKS.allPieces(SHOWABLE_PROJECTS.length)}
+            <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+        <div className="grid gap-10 px-3 md:px-6 xl:grid-cols-3 xl:gap-8">
+          {STRANDS.map((strand) => {
+            const link = STRAND_LINKS[strand.id];
+            return (
+              <section
+                key={strand.id}
+                aria-labelledby={`strand-${strand.id}`}
+                className="flex flex-col gap-3 border-t border-border/40 pt-4"
+              >
+                <h2
+                  id={`strand-${strand.id}`}
+                  className="font-heading text-[1.75rem] leading-[1.15] font-semibold font-stretch-88%"
+                >
+                  {strand.title}
+                </h2>
+                <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
+                  {linkText(strand.body)}
+                </p>
+                <Link
+                  href={link.href}
+                  className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-(--radius) text-sm font-semibold text-(--link) underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                >
+                  {link.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </section>
+            );
+          })}
+        </div>
+      </div>
+    </SiteShell>
   );
 }

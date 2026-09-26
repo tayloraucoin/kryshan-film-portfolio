@@ -34,7 +34,7 @@ The contract for this repo and every client repo duplicated from it. It is the C
 
 ```
 app/                 Composition only: routes, layouts, metadata.
-  (site)/            The public site. Chrome in its layout.
+  (site)/            The public site. Each page renders its chrome through `SiteShell`.
   review/            The client review round (docs/REVIEW-LAYER.md). Deleted before launch.
   **/_components/    Client leaves for one route.
   **/_actions/       Server actions for one route: validate, call, return a result.

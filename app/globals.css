@@ -10,7 +10,13 @@
  * the fallbacks here are the neutral kit, repeated only so the stylesheet is
  * complete before hydration. Do not add hex values here. See docs/BRANDING.md.
  */
-@custom-variant dark (&:is(.dark *));
+/*
+ * `dark:` applies inside a dark scope, unless a light scope sits between
+ * (`kitClassName()` emits `light` for a light kit). The production kit is
+ * dark on `<html>`; review kits B and C are light `KitScope`s inside it and
+ * must not pick up `dark:` styles until the review layer is deleted.
+ */
+@custom-variant dark (&:is(.dark *):not(.light, .light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -97,6 +103,178 @@
   p {
     text-wrap: pretty;
   }
+}
+
+/*
+ * Site chrome (spec §4.2, §9). `--bar-h` is the bar's height; the focus
+ * offset keeps a tabbed-to element clear of it (WCAG 2.4.11). The bar's
+ * hairline appears once the page has scrolled 8 px, through a scroll
+ * timeline; where that isn't supported it shows all the time. No JS, and no
+ * colour of its own: the hairline is `--border` at 40%.
+ */
+:root {
+  --bar-h: 44px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --bar-h: 56px;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--bar-h) + 1rem);
+}
+
+[data-site-bar] {
+  border-bottom: 1px solid transparent;
+}
+
+@keyframes site-bar-line {
+  from {
+    border-bottom-color: transparent;
+  }
+  to {
+    border-bottom-color: color-mix(in oklab, var(--border) 40%, transparent);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  [data-site-bar] {
+    animation: site-bar-line linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 8px;
+  }
+}
+
+@supports not (animation-timeline: scroll()) {
+  [data-site-bar] {
+    border-bottom-color: color-mix(in oklab, var(--border) 40%, transparent);
+  }
+}
+
+/*
+ * Film components (M-KR-1, M-KR-6; SITE-3 ruling 3). The panel and Work's
+ * filter are the site's only view transitions (D-SITE-21): 220 ms,
+ * out-eased, and 150 ms for a swap in place (`runTransition` sets
+ * `html[data-film-vt=swap]`). Under reduced motion no transition starts.
+ * `--player-cap` keeps the whole player frame under the bar.
+ */
+:root {
+  --player-cap: calc((100svh - var(--bar-h) - 76px) * 16 / 9);
+}
+
+::view-transition-group(*) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-film-vt="swap"]::view-transition-group(*) {
+  animation-duration: 150ms;
+}
+
+/* JavaScript-only controls: shown once the pre-paint script marks <html>. */
+html:not([data-js]) [data-needs-js] {
+  display: none;
+}
+
+/*
+ * Work's arrangement and filter, drawn before first paint (SITE-4, M-SITE-5,
+ * SITE-4a, M-SITE-8). The pre-paint script (lib/pre-paint-script.ts) sets
+ * `data-work-role` and `data-work-passion` on <html> from the URL; the
+ * controls keep them in step afterwards, so a cold load is right at first
+ * paint.
+ *
+ * The passion chip filters: `display: none` takes a tile out of the layout,
+ * the accessibility tree and the tab order at once.
+ */
+html[data-work-passion]
+  [data-work-grid]
+  li[data-roles]:not([data-lane="passion"]) {
+  display: none;
+}
+
+/*
+ * A role arranges. Until the grid has rendered the arrangement in DOM order
+ * (it then sets `data-work-arranged`), `order` draws it: the role's films,
+ * then the divider, then the rest. After that these rules are off, so the
+ * visual order is the DOM order, for focus and screen readers alike. The
+ * divider carries Tailwind's `hidden` class in the server HTML; this
+ * unlayered rule outranks that layered utility.
+ */
+html[data-work-role="directing"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="directing"],
+html[data-work-role="camera"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="camera"],
+html[data-work-role="editing"]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-roles~="editing"] {
+  order: -2;
+}
+
+html[data-work-role]:not([data-work-arranged])
+  [data-work-grid]
+  li[data-divider] {
+  display: block;
+  order: -1;
+}
+
+/* The count and the empty line: one variant per combination, one shown. */
+[data-work-count],
+[data-work-empty] {
+  display: none;
+}
+
+html:not([data-work-role]):not([data-work-passion]) [data-work-count="all"],
+html:not([data-work-role])[data-work-passion] [data-work-count="all+passion"],
+html[data-work-role="directing"]:not([data-work-passion])
+  [data-work-count="directing"],
+html[data-work-role="directing"][data-work-passion]
+  [data-work-count="directing+passion"],
+html[data-work-role="camera"]:not([data-work-passion])
+  [data-work-count="camera"],
+html[data-work-role="camera"][data-work-passion]
+  [data-work-count="camera+passion"],
+html[data-work-role="editing"]:not([data-work-passion])
+  [data-work-count="editing"],
+html[data-work-role="editing"][data-work-passion]
+  [data-work-count="editing+passion"] {
+  display: inline;
+}
+
+html:not([data-work-role]):not([data-work-passion]) [data-work-empty="all"],
+html:not([data-work-role])[data-work-passion] [data-work-empty="all+passion"],
+html[data-work-role="directing"]:not([data-work-passion])
+  [data-work-empty="directing"],
+html[data-work-role="directing"][data-work-passion]
+  [data-work-empty="directing+passion"],
+html[data-work-role="camera"]:not([data-work-passion])
+  [data-work-empty="camera"],
+html[data-work-role="camera"][data-work-passion]
+  [data-work-empty="camera+passion"],
+html[data-work-role="editing"]:not([data-work-passion])
+  [data-work-empty="editing"],
+html[data-work-role="editing"][data-work-passion]
+  [data-work-empty="editing+passion"] {
+  display: block;
+}
+
+/* The current role link and the chip's on-look. */
+html:not([data-work-role]) [data-work-link="all"],
+html[data-work-role="directing"] [data-work-link="directing"],
+html[data-work-role="camera"] [data-work-link="camera"],
+html[data-work-role="editing"] [data-work-link="editing"] {
+  color: var(--foreground);
+  text-decoration-line: underline;
+  text-decoration-color: var(--link);
+  text-decoration-thickness: 2px;
+}
+
+html[data-work-passion] [data-work-chip] > span {
+  color: var(--link);
+  border-color: var(--link);
 }
 
 /*

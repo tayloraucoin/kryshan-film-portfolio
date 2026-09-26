@@ -6,6 +6,10 @@ import { Frame } from "@/components/composed/media/frame";
 import { projectMetaLine, type Project } from "@/content/projects";
 import { cn } from "@/lib/cn";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
+import {
+  FRAME_TO_REPLACE,
+  reviewPoster,
+} from "@/review/mocks/_components/review-posters";
 
 const TILE_SIZES = "(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw";
 
@@ -45,7 +49,8 @@ export function FilmTile({
 }>) {
   const [failed, setFailed] = useState(false);
   const playable =
-    project.embed.provider === "youtube" || project.embed.provider === "vimeo";
+    project.embed?.provider === "youtube" ||
+    project.embed?.provider === "vimeo";
   const meta = projectMetaLine(project);
 
   return (
@@ -66,7 +71,7 @@ export function FilmTile({
       >
         {failed ? null : (
           <Image
-            src={poster ?? project.poster.src}
+            src={poster ?? reviewPoster(project.slug).src}
             alt=""
             fill
             sizes={sizes}
@@ -76,7 +81,7 @@ export function FilmTile({
             className="object-cover"
           />
         )}
-        {project.posterStatus === "replace" && !failed ? (
+        {FRAME_TO_REPLACE.has(project.slug) && !failed ? (
           <FrameRibbon>Frame to be replaced</FrameRibbon>
         ) : null}
         {project.lane === "passion" || project.client ? (

@@ -55,7 +55,15 @@ export function createPageMetadata({
 
 /** The root layout's metadata: base URL, title template, site-wide defaults. */
 export function rootMetadata(): Metadata {
+  // The page defaults first, then the title template: spread after it, the
+  // defaults' absolute title would replace the template for every page.
   return {
+    ...createPageMetadata({
+      title: SITE.name,
+      description: SITE.description,
+      path: "/",
+      absoluteTitle: true,
+    }),
     metadataBase: new URL(`${SITE_URL}/`),
     title: {
       default: SITE.name,
@@ -63,12 +71,6 @@ export function rootMetadata(): Metadata {
     },
     description: SITE.description,
     applicationName: SITE.name,
-    ...createPageMetadata({
-      title: SITE.name,
-      description: SITE.description,
-      path: "/",
-      absoluteTitle: true,
-    }),
   };
 }
 

@@ -1,5 +1,5 @@
 import { findProject, PROJECTS, type Project } from "@/content/projects";
-import { NAV_LABELS, STRANDS } from "@/content/site";
+import { NAV_LABELS, SOCIALS, STRANDS } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
 import type { ReviewKit } from "@/review/kits/types";
@@ -263,8 +263,8 @@ function TeachingStrand() {
 }
 
 function Footer() {
-  const primary = SITE.social.filter((item) => !item.secondary);
-  const secondary = SITE.social.filter((item) => item.secondary);
+  const primary = SOCIALS.filter((item) => !item.secondary);
+  const secondary = SOCIALS.filter((item) => item.secondary);
 
   return (
     <footer

@@ -29,7 +29,7 @@ Speed is a design material. A client's visitor meets the site on a mid-range pho
 - `next/image` everywhere. Always pass `width` and `height` (or `fill` inside a `Frame`) and a real `sizes`. `w-auto` on a `next/image` is a known trap: the browser picks the largest srcset candidate and lays the image out at a fraction of its size.
 - Formats: AVIF then WebP (`next.config.ts`). Posters are JPEG or WebP sources at 1600 px wide at most, chosen frames, never auto-generated.
 - Posters and stills live in `public/` unless a client's images genuinely live elsewhere; add that one host to `remotePatterns` and nothing more. An optimizer pointed at arbitrary hosts is an open image proxy.
-- The first poster on a page gets `priority`; everything below the first screen is lazy (the default).
+- The first poster on a page gets `preload` (Next 16 deprecates `priority`; `node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md`); everything below the first screen is lazy (the default).
 
 ## 5. Video
 

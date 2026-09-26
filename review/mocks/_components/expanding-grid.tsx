@@ -15,6 +15,10 @@ import { cn } from "@/lib/cn";
 import { FrameRibbon } from "@/review/mocks/_components/frame-ribbon";
 import { ProjectPlayer } from "@/review/mocks/_components/project-player";
 import {
+  FRAME_TO_REPLACE,
+  reviewPoster,
+} from "@/review/mocks/_components/review-posters";
+import {
   changeWithTransition,
   prefersReducedMotion,
   VIEW_TRANSITION_CSS,
@@ -165,7 +169,8 @@ function GridCell({
   buttonRef: (node: HTMLButtonElement | null) => void;
 }>) {
   const playable =
-    project.embed.provider === "youtube" || project.embed.provider === "vimeo";
+    project.embed?.provider === "youtube" ||
+    project.embed?.provider === "vimeo";
 
   return (
     <button
@@ -182,14 +187,14 @@ function GridCell({
         )}
       >
         <Image
-          src={project.poster.src}
+          src={reviewPoster(project.slug).src}
           alt=""
           fill
           sizes={CELL_SIZES}
           preload={preload}
           className="object-cover"
         />
-        {project.posterStatus === "replace" ? (
+        {FRAME_TO_REPLACE.has(project.slug) ? (
           <FrameRibbon>Frame to be replaced</FrameRibbon>
         ) : null}
         {project.lane === "passion" || project.client ? (

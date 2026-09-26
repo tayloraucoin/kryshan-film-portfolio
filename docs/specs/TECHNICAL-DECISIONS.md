@@ -105,3 +105,118 @@ One section per architectural choice with real alternatives. Never edit or delet
 **Decision:** C. Nothing reorders, DOM order stays visual order, and the same panel component is reused under a row in KR-9. One open film per page lives in a module-level store read through `useSyncExternalStore` (no provider), so the grid and rows share it. The motion is still a same-document view transition (M-KR-1): tiles and the panel carry `view-transition-name`s; a same-line swap runs at 150 ms (`data-demo-vt`).
 **Consequences:** The grid's column count must come from CSS, not a JS breakpoint table, so it can never disagree with what the browser draws. The panel's position depends on the title cell's two-column span; a portrait making it 2 × 2 (handoff §6.3) would change the line arithmetic. The layer is review-only and ports to `components/composed/work/` in the real build (handoff Appendix D).
 **Revisit trigger:** A grid with items of mixed row spans, where line membership can't be computed from column spans alone.
+
+## 2026-09-24 · SITE-1 · M-SITE-1 · The public chrome renders per page through a server `SiteShell`, not in `app/(site)/layout.tsx`
+
+**Context:** The bar marks the current page with `aria-current` (`"page"`, or `"true"` on detail pages for Work) and the skip link's words differ by page ("Skip to the work" on Home and Work, "Skip to content" elsewhere; spec §4.2). A layout in the App Router cannot see which page it wraps. Spec §10 allows no JavaScript on the public site beyond the film leaves, the filter leaf and the copy buttons. `app/not-found.tsx` sits outside `(site)` and needs the same chrome.
+**Options weighed:** A) Chrome in `app/(site)/layout.tsx`, with a client leaf reading `usePathname()` for `aria-current`: a client component on every page, against spec §10, and the skip-link text still can't vary without it. B) One layout per section (`(site)/work/layout.tsx`, …) passing the current item: works for `aria-current`, but Home and Work share the skip text, the 404 still needs its own copy, and five layouts hold one fact each. C) A server `SiteShell` (`components/composed/site/site-shell.tsx`) that renders skip link → bar → `<main id="main">` → footer, taking `current`, `currentKind` and `skipTo`; every page (and the 404) wraps its content in it; the route-group layout returns `children`.
+**Decision:** C. Zero client JavaScript for the chrome, the page states its own current item where the fact lives, and the 404 reuses the same component. `main` carries `tabIndex={-1}` so the skip link moves focus, not just scroll; a page that passes `skipTo="work"` must render a focusable `id="work"` on the element holding its first tile.
+**Consequences:** Each page ticket adds one wrapper line. A page that forgets the wrapper renders without chrome, which is obvious on the first look. CONVENTIONS §2's `(site)/` line is corrected to match. `app/(site)/layout.tsx` stays as the home of SITE-2's validation import.
+**Revisit trigger:** Next gaining a server-side way for a layout to know its active segment without making the page dynamic, or a page whose chrome genuinely differs (then a prop, not a fork).
+
+## 2026-09-24 · SITE-1 · M-SITE-2 · A kit scope always declares its ground (`dark` or `light`), and `dark:` stops at a `light` scope
+
+**Context:** The production kit is dark and applied on `<html>` (`class="dark"`). Until SITE-9 deletes the review layer, review kits B (light) render inside it through `KitScope`. Tailwind's `dark` variant was `&:is(.dark *)`, so every `dark:` style inside a light kit scope switched on under the dark root: `FrameRibbon`'s amber 300 on kit B's cream is the known case (KR-5), and shadcn primitives carry many more.
+**Options weighed:** A) Leave `<html>` unbranded until SITE-9 and put the production kit on a wrapper inside `(site)`: the review layer stays correct, but the root background, `color-scheme` and the 404 (outside `(site)`) would need a second application of the kit. B) Strip `dark` from `<html>` and rely on colour tokens only: shadcn's `dark:` variants (inputs, buttons) would then render their light forms on ink. C) `kitClassName()` emits `light` for a light kit (as it emits `dark` for dark), and the variant becomes `&:is(.dark *):not(.light, .light *)`, so the nearest declared ground wins.
+**Decision:** C. One line in each of two files, no change to any component or mock, and nested scopes behave as nested scopes. Verified: kit B's ribbon is amber 800 under the dark root; Demos A and D render identically to before at 1440 and 390 (per-element computed colour, font, border and box).
+**Consequences:** A light scope nested inside a dark scope inside a light scope would need the rule extended; nothing does that. After SITE-9 only the production kit remains, and the `light` class is simply never emitted by it.
+**Revisit trigger:** A second production surface with its own ground (a light band inside the dark site), which would make this the site's real theming mechanism rather than a review-era guard.
+
+## 2026-09-24 · SITE-2 · M-SITE-3 · One flat `Project` type; "public" is the only visibility test; `POSTERS` is the approval; the build refuses bad content in his words
+
+(The ticket routed this as "M-SITE-2"; SITE-1 had already used that ID for nested kit grounds, so it is M-SITE-3.)
+
+**Context:** The live site needs one answer to "may this film be shown?" (D-SITE-8), one poster source (spec §4.5), and consent rules that hold even when he edits the files himself after handover (CONVENTIONS §10a). The old model had `rights: "pending"`, `posterStatus: "replace"`, `featured`/`lead` flags and an old-site link-out, each a second place where visibility or approval could be decided.
+**Options weighed:** A) A union discriminated on `rights` (`PublicProject` requires `embed` and a poster; `HeldProject` doesn't): the type proves completeness, but he edits by copying an entry, and a union's type error is unreadable to him. B) One flat `Project` with `embed?`; `isShowable` a type predicate to `ShowableProject` that tests `rights === "public"` only; `content/validate.ts` checks, in plain words, that every public film has a video, a logline and a `POSTERS` line, and throws once with every problem numbered. C) As B, but `isShowable` also tests for a video and a poster: a broken film would vanish silently, which is D-SITE-8's exact failure.
+**Decision:** B, with the ticket's five calls. (1) One flat type, `embed` required for public films by `validate.ts`. (2) A `POSTERS` line _is_ the approval of that frame; there is no separate flag. (3) `logline` is required on every entry. (4) `IsoDate`/`isIsoDate` in `lib/iso-date.ts`, `Photo` in `content/photo.ts` with `src` a static import. (5) The Reel Youth (Whatì) check matches `/wh?at[iì]|reel youth/i` in the caption or alt; it applies to the minors form, the only form that carries `communityConsent`. Plus: `content/projects.ts` and `content/home.ts` import only by relative path and never an image, so `next.config.ts` can read them (verified: a probe import printed 22). `validate.ts` also collects checks beyond spec §5 that protect binding rules nothing else enforces (video, link-out host, one tile per film, the red phrase, quote counts, `LEGACY_PATHS` targets, "at-risk").
+**Consequences:** A missing video or poster on a public film fails the build with a sentence naming the file, the film and the fix; he never sees a TypeScript union error for a content mistake. `ShowableProject.embed` is guaranteed by validation, not by the type, so code outside `SHOWABLE_PROJECTS` must not assume it. The messages are one template each, so `docs/EDITING.md` (SITE-10) can quote them word for word. Photo arrays join validation through `PHOTO_SETS`, which SITE-6 and SITE-7 append to.
+**Revisit trigger:** A second kind of visibility (for example, "shown on Work but never on Home"), which would need a second field and would reopen D-SITE-8; or a Whatì photo of adults that needs community consent (the type would need `communityConsent` outside the minors form).
+
+## 2026-09-24 · SITE-3 · M-SITE-4 · The film components take a server-built `Film` view model, never a `Project`
+
+**Context:** Home, Work (SITE-4) and the detail pages (SITE-5) share one tile, one panel and one player. Those leaves are client components. Copy link needs an absolute URL, and the origin lives in `lib/config` beside `CONTACT_EMAIL`, a server-only variable (t3-env throws if a client bundle reads it). `Project` also carries stories, full awards, press and articles that the panel must never show (D-SITE-22).
+**Options weighed:** A) Pass `Project` to the leaves and compute URLs on the client from `window.location`: the share URL would be whatever host served the page (a preview URL, localhost), not the canonical; and every story would ride in the page payload. B) Pass `Project` plus a `shareUrl` prop per tile: two sources for one film, and the story still ships. C) `components/composed/work/film.ts` (`server-only`) builds `Film` (`slug`, `title`, `genreLine`, `passion`, `client?`, `logline`, `awards`, `embed`, `roles`, `poster`, `href`, `shareUrl`) from a `ShowableProject` on the server; client leaves import the type only.
+**Decision:** C. `toFilm` takes a `ShowableProject` (not `Project`, as the ticket sketched), so `embed` is the non-optional `ProjectEmbed` that SITE-2's validation guarantees, and `filmsFor(slugs)` skips held or unknown slugs. The poster comes from `posterFor` (SITE-2's only source).
+**Consequences:** No server value can reach a client bundle through a film prop, and "no story in the panel" is a type fact. The RSC payload per tile is small. A new field a leaf needs (SITE-5's story, for instance) is read on the server by the page, not added to `Film`, unless two consumers need it.
+**Revisit trigger:** A client-side view that needs full project data (a search over stories, say), which would need a second, explicit shape rather than widening this one.
+
+## 2026-09-24 · SITE-4 · M-SITE-5 · Work's filter lives on `<html>`, set before first paint by the `(site)` layout's pre-paint script, and everything it changes on screen is CSS
+
+**Context:** `/work` is one static document holding every tile (PERFORMANCE §2). A filtered URL (`/work?role=camera&passion=1`, from Home's end tiles or a pasted link) must paint filtered from the first frame, with the count, the current link and the chip already right (Vesper B2, D-SITE-4). Spec §6.2 put the attributes on the grid wrapper, set by a script before the grid.
+**Options weighed:** A) Read `searchParams` on the server: the page becomes dynamic, against PERFORMANCE §2. B) `useSearchParams` in a client leaf: it bails the grid out of the static HTML to the nearest Suspense boundary. C) A `<script>` rendered by the Work page, before the grid, setting attributes on the grid wrapper: the parser hasn't reached the wrapper when it runs, and a script rendered by a page is created on the client (and never runs) when `/work` is reached by a client-side navigation. D) Attributes on `<html>`, set by the `(site)` layout's inline script (SITE-3's `PRE_PAINT_SCRIPT`, which persists across client navigations and is only ever parsed with a document), read by static unlayered CSS; the filter leaf re-reads the URL in a layout effect (before paint) for client-side arrivals and takes the attributes off on unmount.
+**Decision:** D. The tiles, the count (eight server-rendered variants), the empty line, the current role link and the chip's on-look are all selected from `html[data-work-role]` / `html[data-work-passion]`; React owns the state, the URL (`history.replaceState`, written inside the transition's update so state and URL never disagree for a render), the ARIA and the status. `<html>` already carries `suppressHydrationWarning`. The script's role list and path come from `lib/routes.ts` via `lib/work-filter.ts`.
+**Consequences:** A cold filtered load measured CLS 0 with no hydration warning; client-side arrivals (the bar's Work link on a filtered URL, Back into `/work?role=camera`) are corrected before paint. Two attributes live on `<html>` while Work is mounted and are removed on leave. The before-paint CSS is a fixed set of selectors in `app/globals.css`, generated from the same eight combinations as `workFilterKey`; adding a role means adding it to `WORK_ROLES` and to those selectors.
+**Revisit trigger:** A second page with a before-paint filter (generalise the attributes), or a filter too large for enumerated selectors.
+
+## 2026-09-24 · SITE-5 · M-SITE-6 · Old URLs redirect from data in `next.config.ts`, sources stored without the trailing slash, and the builder refuses bad data
+
+**Context:** The old WordPress site served every page with a trailing slash (`/project/jack/`). Next 16 runs its own trailing-slash redirect (`/:path+/` → `/:path+`, 308, before custom redirects), so a custom source written with the slash never matches. D-SITE-25 wants at most two hops, the last a 308, built from `LEGACY_PATHS` and `SHOWABLE_PROJECTS` so a held film's old URL moves to its page when it's unheld, with no code change.
+**Options weighed:** A) `trailingSlash: true` site-wide, keeping the sources as crawled: every new URL (and every canonical) would change shape, and `/about/` → `/about` would still need care. B) Middleware (`proxy.ts`) doing the lookup at request time: dynamic work on every request for a static site, and `proxy.ts` is deleted at launch. C) `redirects()` in `next.config.ts`, sources normalized to no trailing slash, identity rows (`/`, `/about/`) dropped, destinations resolved through `SHOWABLE_PROJECTS` (held → `/work`), and the whole set validated: an unknown slug, a source that is a live route pointing elsewhere, a chain, a conflicting duplicate each fail the build with a message naming `lib/routes.ts`, the row and the fix.
+**Decision:** C. Next's slash hop plus one custom 308 is exactly the two-hop budget. All 105 rows verified with `curl -sIL` (maximum 2 hops, every one a 308, every row landing where its data says). A row that shadows a live page still takes part in the chain check, so a chain through it is reported too.
+**Consequences:** Rows whose destination is a page not built yet (`/about`, `/contact` until SITE-6 and SITE-8) land on the site's 404 in the meantime. Host-level redirects (http → https, www → apex) stay with Vercel's domain settings (SITE-10). A re-crawl before cutover only edits `LEGACY_PATHS`.
+**Revisit trigger:** A crawled path Next's matcher can't express literally (the builder escapes path-to-regexp's special characters today), or a query-string legacy URL (SITE-1 recorded none; it would need `has`).
+
+## 2026-09-24 · SITE-6 · M-SITE-7 · About's press quotes are picks that resolve to a film's verified quote, not copies
+
+**Context:** Spec §6.4 puts up to four press quotes on About; spec §6.3 puts each film's press on its detail page. A quote has to be verified (`verifiedOn`, §11) before it appears anywhere, and he edits these files himself after handover.
+**Options weighed:** A) Copy the chosen quotes into `content/about.ts`: two homes for one quote, and a correction on one page silently misses the other. B) A flag on `PressQuote` ("show on About"): puts About's layout decision inside the film data. C) `pressPicks: { slug; source }[]` in `content/about.ts`, resolved at render to the one quote with that source on that film, and validated at build (at most four; each resolves to exactly one quote on a film that isn't NDA).
+**Decision:** C. One home per quote, and verification carries over automatically; a pick that stops resolving (a quote removed, a source renamed) fails the build in words rather than vanishing. A held film's quote may still appear on About, since it is about him; an NDA'd film's never does.
+**Consequences:** Picks ship empty until SITE-C verifies press. Two quotes on one film from the same source need distinct source names to be pickable.
+**Revisit trigger:** A press quote that isn't about a film (a profile of him), which would need a home of its own.
+
+## 2026-09-25 · SITE-4a · M-SITE-8 · Work's arrangement paints from CSS `order` until hydration, then becomes DOM order
+
+**Context:** His Demo D note asked for roles to _rearrange_ the work rather than divide it. The arranged order must be right at first paint on a cold load of `/work?role=camera` (the SITE-4 no-flash bar, M-SITE-5), on a static page that never reads the query on the server. Once the page is interactive, the visual order must equal DOM order: WCAG 1.3.2 and 2.4.3 require it, and the open-film panel's line walk (M-KR-6) depends on it.
+**Options weighed:**
+
+- A) CSS `order` alone. It's right at first paint, but focus, screen readers and the panel follow a different order from the one on screen.
+- B) Reorder in React only. The server HTML is in `workOrder()`, so a cold arranged load paints in the wrong order, then jumps.
+- C) Server-render all four orders. That means four copies of 22 tiles, duplicate ids and heavier HTML.
+- D) A hand-over: CSS `order` for the pre-hydration moment, then React renders the arranged DOM and switches CSS off.
+
+**Decision:** D.
+
+- The pre-paint script already sets `html[data-work-role]`. Unlayered rules give that role's tiles `order: -2` and the "The rest" divider `order: -1`. The divider is rendered in the server HTML with Tailwind's `hidden` class, which an unlayered rule outranks. It isn't the `hidden` attribute, because Tailwind's `[hidden]` rule is `!important` inside a layer and would win.
+- A layout effect in `WorkGrid` sets `html[data-work-arranged]` once the rendered role equals the one `<html>` asks for. That switches the `order` rules off before the browser paints.
+- **Verified:** the static HTML rendered with scripts disabled gives the same visual order as the settled DOM, for all three roles at 1440, 768 and 390.
+
+**Consequences:**
+
+- A third attribute lives on `<html>` while Work is mounted, removed on unmount with the others.
+- After hydration, arranging is ordinary React state with the site's one view transition, so the tiles move.
+- `FilmGrid` gained an optional full-width `divider` that counts as its own line for panel placement.
+
+**Revisit trigger:** Arranging on Home too (his Q-A2), which would widen the pre-paint script and these rules to `/`. Or an arrangement that isn't a two-group split (a weighted sort), which `order` values can't express without per-tile data.
+
+## 2026-09-26 · SITE-C (Stage B, press) · M-SITE-9 · Press lives in one library, `content/press.ts`; About and each film pick from it by id (amends M-SITE-7)
+
+**Context:** M-SITE-7's revisit trigger fired. His 23 clippings are mostly about the contests he started, and about him, not about a film, so those quotes had no home. Taylor also asked that every usable line be recorded in the code, so Kryshan can change which quotes show without anyone re-reading the scans.
+**Options weighed:**
+
+- A) Keep quotes on `Project.press` and add an About-only list for the rest. That gives two homes, and the contest quotes sit in `about.ts` beside page layout.
+- B) One library keyed by id, with each quote tagged by what it's about (him, a contest, or a film slug). About picks up to four ids; each film picks ids about itself.
+- C) B, but a film page shows every quote about that film automatically. With seven quotes on file for Jack, choosing would mean deleting.
+
+**Decision:** B.
+
+- `content/press.ts` holds `PRESS_SOURCES` (outlet, author, headline, date as printed, year, optional `url`, optional `clip`, `note`) and `PRESS_QUOTES` (the quote, `about`, `source`, optional `speaker`, `verifiedOn`, `note`).
+- `ABOUT.pressPicks` and `Project.press` are both `string[]` of quote ids. `resolvePressQuote` drops quotes about an NDA'd film, as M-SITE-7 did.
+- `content/validate.ts` (`checkPress`, `checkAbout`) fails the build, in words, when:
+  - a pick or film id doesn't exist
+  - a film lists a quote about something else
+  - an About pick is about an NDA'd film
+  - a quote runs over 15 words
+  - a `verifiedOn` date isn't a real day
+  - a year is implausible
+  - a clipping has no alt text
+
+  Each was induced and seen to fail.
+
+**Consequences:**
+
+- `Project.press` changes type. It was empty everywhere, so there was nothing to migrate.
+- `projects.ts` still imports no image. The library does (the clippings), and `next.config.ts` never reads it.
+- A quote's source line now carries its year ("The Province, 2002"), so a 2002 quote can't pass for this year's. On About it also names the film ("…, on Jack"). The shared renderer is `components/composed/press/press-quote.tsx`.
+- A print source may carry a `clip`: a tight, toned crop in `public/media/press/`, opened on request by `ClippingDialog` (the Dialog primitive). Nothing loads until it opens.
+
+**Revisit trigger:** He wants a press page (the library would feed it unchanged), or a quote needs to appear somewhere other than About or a film page.

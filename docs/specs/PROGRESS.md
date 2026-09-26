@@ -22,6 +22,32 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **KR-8** — Demo D's home, revised: name once, a bar that stays, the film opens full width below where you tapped, an ✕ you can see (2026-09-24)
 - [x] **KR-9** — Demo D's rows: Directing, and Camera and editing, to swipe across (2026-09-24)
 
-## Client build (Phase 2)
+## The live site (track `03-site-build/`, epic SITE)
 
-<!-- Cut tickets from the build spec after Kryshan's comments are triaged. -->
+### Step 1 — Demo D goes live
+
+- [x] **SITE-1** — Foundation: production kit, the live chrome, routes, lint walls, the old-URL inventory (2026-09-24)
+- [x] **SITE-2** — Content model: showable data, posters, home lists, consent types, build-time validation (2026-09-24)
+- [x] **SITE-3** — The film components go live, and Demo D becomes the home page (2026-09-24)
+
+### Step 2 — The rest of the site
+
+- [x] **SITE-4** — Work: every film, role and passion filters with no flash, the credits he can't show as films (2026-09-24)
+- [x] **SITE-5** — Detail pages, redirects, sitemap and structured data (2026-09-24)
+- [x] **SITE-6** — About: the person, then the proof (2026-09-24)
+- [x] **SITE-7** — Teaching: where he teaches, camps, coaching, and who vouches for him (2026-09-24)
+- [x] **SITE-8** — Contact: the address, big and copyable (2026-09-24)
+
+### Step 2a — His Demo D feedback (2026-09-25)
+
+- [x] **SITE-3a** — Home: the role rows come out, the three role paragraphs go back to the bottom (2026-09-25)
+- [x] **SITE-4a** — Work: "Arrange by" reorders by his role instead of hiding films (2026-09-25; on the defaults of Q-A1 and Q-A2, which his answers can reopen)
+
+### Step 3 — His words
+
+- [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string · _in progress: Stage A drafted and landed 2026-09-24, round 2 (Taylor's walkthrough) 2026-09-25; press landed 2026-09-26 (the library, About's four, film picks; M-SITE-9); waiting on his approval of both stages_
+
+### Step 4 — Handover and launch
+
+- [ ] **SITE-9** — Style guide exported, then the review layer deleted
+- [ ] **SITE-10** — Launch: gates, launch-tier validation, Lighthouse, EDITING.md, DNS cutover, ownership

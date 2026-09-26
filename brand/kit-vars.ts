@@ -38,9 +38,14 @@ export function kitVars(kit: BrandKit): Record<`--${string}`, string> {
   };
 }
 
-/** Class names a kit's scope element needs: the dark variant and its fonts. */
+/**
+ * Class names a kit's scope element needs: its ground and its fonts.
+ *
+ * The ground class is `dark` or `light`, never absent: a light kit nested
+ * inside a dark scope (a review kit under the dark production `<html>`)
+ * must switch the `dark:` variants back off, and `app/globals.css`'s `dark`
+ * variant excludes `.light` subtrees to do it.
+ */
 export function kitClassName(kit: BrandKit): string {
-  return [kit.ground === "dark" ? "dark" : "", kit.fontClassName ?? ""]
-    .filter(Boolean)
-    .join(" ");
+  return [kit.ground, kit.fontClassName ?? ""].filter(Boolean).join(" ");
 }
