@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { BUSINESS_CARD_DESTINATIONS } from "./lib/business-card";
 import { PROJECTS, SHOWABLE_PROJECTS } from "./content/projects";
 import "./lib/env";
 import { LEGACY_PATHS, siteRoutes, type LegacyPath } from "./lib/routes";
@@ -13,6 +14,7 @@ import { LEGACY_PATHS, siteRoutes, type LegacyPath } from "./lib/routes";
  */
 
 type Redirect = { source: string; destination: string; permanent: true };
+type TemporaryRedirect = { source: string; destination: string; permanent: false };
 
 const PAGE_PATHS = {
   home: siteRoutes.home,
@@ -124,6 +126,27 @@ function buildLegacyRedirects(): Redirect[] {
   }));
 }
 
+/**
+ * The two business-card QR links (SITE-D, `lib/business-card.ts`). Always
+ * `permanent: false`: the card is already printed, so the destination must
+ * stay changeable for years without the scanning browser caching the old
+ * one. Next strips a trailing slash before these run (see `normalizeSource`
+ * above), so only the bare and upper-case forms need an entry here.
+ */
+function businessCardRedirects(): TemporaryRedirect[] {
+  const sources: Array<[string, string]> = [
+    ["/card", BUSINESS_CARD_DESTINATIONS.card],
+    ["/CARD", BUSINESS_CARD_DESTINATIONS.card],
+    ["/imdb", BUSINESS_CARD_DESTINATIONS.imdb],
+    ["/IMDB", BUSINESS_CARD_DESTINATIONS.imdb],
+  ];
+  return sources.map(([source, destination]) => ({
+    source,
+    destination,
+    permanent: false,
+  }));
+}
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
@@ -142,9 +165,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
 
-  /** Every old WordPress URL, 308 to where it lives now (SITE-5, D-SITE-25). */
+  /**
+   * Every old WordPress URL, 308 to where it lives now (SITE-5, D-SITE-25),
+   * plus the two 307 business-card links (SITE-D), which must never be
+   * cached permanently by a scanning browser.
+   */
   async redirects() {
-    return buildLegacyRedirects();
+    return [...buildLegacyRedirects(), ...businessCardRedirects()];
   },
 
   /**

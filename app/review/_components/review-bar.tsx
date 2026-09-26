@@ -10,7 +10,9 @@ import { reviewRoutes } from "@/lib/routes";
 /**
  * The fixed bar at the top of every review page. It is the review layer's
  * only chrome: a way back to the index, the comment-mode switch, the count
- * of comments on this page, and the feedback form. Marked
+ * of comments on this page, and the form in play: the final review, now
+ * that the build is done (the design round's form stays linked from the
+ * index). Marked
  * `data-review-chrome` so comment mode ignores clicks on it.
  *
  * It publishes its own height as `--review-bar-h` on `<html>`, so a demo
@@ -116,9 +118,9 @@ export function ReviewBar({ roundLabel }: { roundLabel: string | null }) {
             size="sm"
             variant="secondary"
             nativeButton={false}
-            render={<Link href={reviewRoutes.feedback} />}
+            render={<Link href={reviewRoutes.final} />}
           >
-            Leave feedback
+            Final review
           </Button>
         </span>
       </div>

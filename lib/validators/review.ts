@@ -109,6 +109,7 @@ export const reviewSubmissionInput = z.object({
   commentCount: z.number().int().min(0),
   submittedAt: z.iso.datetime({ offset: true }),
   answers: reviewAnswersInput.nullable().optional(),
+  stage: z.enum(["design", "final"]).nullable().optional(),
 });
 
 /** What the feedback form posts, before ids and timestamps are attached. */

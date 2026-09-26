@@ -52,6 +52,10 @@ SITE-1 → SITE-2 → SITE-3 → SITE-4 → SITE-5 → SITE-9 → SITE-10
 - [x] **SITE-7** · Teaching: where he teaches, camps, coaching, and who vouches for him · M · Trust surface (minors) · (SITE-2, SITE-3)
 - [x] **SITE-8** · Contact: the address, big and copyable · S · (SITE-1, SITE-3)
 
+### Step 2b — Business card redirects (ad hoc, off the critical path)
+
+- [ ] **SITE-D** · Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub · S · (SITE-1)
+
 ### Step 3 — His words
 
 - [ ] **SITE-C** · The copy pass: loglines, stories, awards, press verification, credits and every Write string · L · Content flags · (starts after SITE-2; closes after SITE-3 to SITE-8)

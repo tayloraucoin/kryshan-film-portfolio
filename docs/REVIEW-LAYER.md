@@ -63,11 +63,16 @@ Done when: every registry entry has `placeholder` false or absent; `/review` sho
 
 ## 6. After the round
 
-Taylor triages every comment (defect · taste adjustment · direction change · scope change), converges on one kit and one layout, and writes the build spec. Then:
+Taylor triages every comment (defect · taste adjustment · direction change · scope change), converges on one kit and one layout, and writes the build spec. Then set the production kit (`docs/BRANDING.md` §4) and build.
 
-1. Set the production kit (`docs/BRANDING.md` §4).
-2. Delete the layer: `app/review/`, `review/`, `lib/review/`, `lib/validators/review.ts`, `proxy.ts` (or its review branch), the `REVIEW_*` variables, the `outputFileTracingIncludes` entry, and the `/review` disallow in `robots.ts`.
-3. `yarn verify`. The public site never imported any of it, so nothing else changes.
+### 6a. The final review (`/review/final`)
+
+Once the site is built, the layer stays for one more form: the last included round of changes, asked page by page on the live pages (`review/final.ts`, rendered by the same `FeedbackForm` with `variant="final"`, its own draft key, filed by `submitFinal` as `stage: "final"`; contract §4). The page states the terms first: this is the last included round, later rounds are paid at the published tiers, what happens next (domain, then the guide), and the admin panel add-on. The review bar's button points here while it is in play.
+
+After the final changes land and before handover:
+
+1. Delete the layer: `app/review/`, `review/`, `lib/review/`, `lib/validators/review.ts`, `proxy.ts` (or its review branch), the `REVIEW_*` variables, the `outputFileTracingIncludes` entry, and the `/review` disallow in `robots.ts`.
+2. `yarn verify`. The public site never imported any of it, so nothing else changes.
 
 ## 7. Not in this layer
 

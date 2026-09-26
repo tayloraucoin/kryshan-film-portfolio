@@ -26,6 +26,13 @@ export type ReviewComment = {
   createdAt: string;
 };
 
+/**
+ * Which form sent a submission (contract §4, taylor-aucoin M-REV-7): the
+ * design round's (`/review/feedback`) or the final review of the built site
+ * (`/review/final`).
+ */
+export type ReviewStage = "design" | "final";
+
 export type ReviewSubmission = {
   id: string;
   preferredKit: string | null;
@@ -38,6 +45,8 @@ export type ReviewSubmission = {
   submittedAt: string;
   /** Structured answers (KR-6, M-KR-4). Absent or null before KR-6. */
   answers?: ReviewAnswers | null;
+  /** Which form sent it. Absent or null reads as "design" on the backend. */
+  stage?: ReviewStage | null;
 };
 
 /** An option as this site labelled it when the answer was given. */

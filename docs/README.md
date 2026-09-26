@@ -10,5 +10,6 @@ One line per document. Read `../AGENTS.md` first; it says which of these binds w
 | [`REVIEW-LAYER.md`](REVIEW-LAYER.md)                       | The client review round: what it is, how it is gated, how comments travel, what Batch 7 fills in. |
 | [`REVIEW-BACKEND-CONTRACT.md`](REVIEW-BACKEND-CONTRACT.md) | The wire contract with tayloraucoin.com. Canonical copy.                                          |
 | [`NEW-CLIENT.md`](NEW-CLIENT.md)                           | The checklist for duplicating this repo for a client.                                             |
+| [`EDITING.md`](EDITING.md)                                 | The client self-edit guide. Stub until SITE-10; holds the business-card links early (SITE-D).      |
 | [`client/`](client/README.md) | Vitrine's deliverables and Kryshan's raw material, filed. Read `client/README.md` first. |
 | [`specs/`](specs/README.md)                                | The spec system: tickets, `PROGRESS`, `DEVIATIONS`, `TECHNICAL-DECISIONS`.                        |
