@@ -28,6 +28,7 @@ import { FEATURED } from "./home";
  */
 
 // Loglines, stories, awards and articles: his intake words, cut in SITE-C (spec §6.3, §7).
+// Press quotes live in content/press.ts; a film's `press` picks from there.
 // Each is a row in docs/client/kryshan-09-copy-for-approval.md, the one record of what he
 // has approved; change a string there and here together.
 
@@ -50,14 +51,6 @@ export type ProjectEmbed =
   /** Watched on its real host; shown as "Watch on {host} ↗" (D-SITE-9). Never kryshanrandel.com. */
   | { provider: "linkout"; host: string; url: string };
 
-/** Verbatim, ≤15 words; a quote without verifiedOn isn't in the file (spec §11). */
-export type PressQuote = {
-  quote: string;
-  source: string;
-  url?: string;
-  verifiedOn: IsoDate;
-};
-
 export type Article = { outlet: string; title: string; url: string };
 
 export type Project = {
@@ -77,7 +70,19 @@ export type Project = {
   /** The short list: one award, two festivals. */
   awards?: ReadonlyArray<string>;
   awardsFull?: ReadonlyArray<string>;
-  press?: ReadonlyArray<PressQuote>;
+  /**
+   * The laurel on the film's tile: the name of an award it won, at most 20
+   * characters, in the same words as its awards ("Grand Jury Prize"). Wins
+   * only, never a nomination or a screening, and rare, or it stops meaning
+   * anything. The build checks the words appear in the film's awards.
+   */
+  laurel?: string;
+  /**
+   * The quotes this film's page shows, in order: ids from content/press.ts,
+   * where every quote is kept verbatim with its source. Each must be about
+   * this film.
+   */
+  press?: ReadonlyArray<string>;
   articles?: ReadonlyArray<Article>;
   /** Required for a public film (content/validate.ts). */
   embed?: ProjectEmbed;
@@ -180,6 +185,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
       "Grand Jury Prize and Best Death, Bloodshots Film Festival",
       "Screened at Fantasia and Sitges",
     ],
+    // Copy row D-jack-W: the tile's laurel (Taylor, 2026-09-26: lead with Jack).
+    laurel: "Grand Jury Prize",
     story:
       "Jack was written, shot and edited in 48 hours for the Bloodshots Film Festival. Shorts International, the primary distributor of short films for iTunes, distributed it for seven years.\n\nDan O’Bannon (creator/writer of Alien and writer of Total Recall) judged the film, praising the effective mix of comedy and horror.",
     awardsFull: [
@@ -187,6 +194,12 @@ export const PROJECTS: ReadonlyArray<Project> = [
       "Won the Silver Audience Choice Award for Best Short Film, Fantasia Film Festival",
       "Won the Jury Prize for best horror film, Sharpcuts Indie Film and Music Festival",
       "Screened at Sitges, the CFC Worldwide Short Film Festival, imagineNATIVE Film + Media Arts Festival, Calgary Underground Film Festival, Weekend Of Fear, Mauvais Genre Festival, Fantastic Week, Moving Image Film Festival, MotelX and Strange Tales",
+    ],
+    // Copy row D-jack-P: picks from content/press.ts (the rest are there too).
+    press: [
+      "toronto-film-scene-2010-hilarious",
+      "rue-morgue-2010-evil-dead",
+      "tmtm-2010-just-wrong",
     ],
     embed: { provider: "vimeo", id: "23552792" },
     rights: "public",
@@ -212,6 +225,8 @@ export const PROJECTS: ReadonlyArray<Project> = [
       "Premiered at the Vancouver International Film Festival, 2007",
       "Awarded the DGC BC Kickstart grant",
     ],
+    // Copy row D-glimpse-P: picks from content/press.ts.
+    press: ["infamous-2007-laughs-and-insight"],
     articles: [
       {
         outlet: "The Province",
@@ -271,6 +286,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
     awardsFull: [
       "Screened at Fantasia Film Festival, Fantastic Fest, Screamfest LA, Horror Fest UK, Sharpcuts Indie Film and Music Festival and the Calgary International Film Festival",
     ],
+    // Copy row D-the-bully-solution-P: picks from content/press.ts. The Skinny's
+    // "sick, sick after-school special" waits on its outlet being confirmed.
+    press: ["aicn-2006-wonderfully-wrong", "fantasia-2007-hysterically-mean"],
     // Held: no approved (non-gory) frame (O-SITE-13), and no Dailymotion URL
     // yet (O-SITE-7). Banned from YouTube and Vimeo, so it will link out:
     // embed: { provider: "linkout", host: "Dailymotion", url: "https://…" }.

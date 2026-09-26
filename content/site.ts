@@ -74,6 +74,15 @@ export const CHROME = {
   newTab: ", opens in a new tab",
 } as const;
 
+/** A press quote's clipping button (docs/client/press/NEXT-STEPS.md, direction 5). */
+export const PRESS_COPY = {
+  seeClipping: "See the clipping",
+  /** Hidden text after the button, so each one has its own name. */
+  clippingFrom: (outlet: string) => ` from ${outlet}`,
+  /** After the source on About, when the quote is about a film. */
+  onFilm: (title: string) => `, on ${title}`,
+} as const;
+
 /** The 404 (spec §6.7, Locked). */
 export const NOT_FOUND = {
   h1: "That page doesn't exist. The work does.",
@@ -82,11 +91,16 @@ export const NOT_FOUND = {
 
 /** The film components' words (spec §4.3, §7.6; Locked). */
 export const FILM_COPY = {
-  /** A tile's accessible name. */
-  tileName: (title: string, genreLine: string) => `${title}, ${genreLine}`,
+  /** A tile's accessible name; a laurel adds the award it names. */
+  tileName: (title: string, genreLine: string, laurel?: string) =>
+    laurel ? `${title}, ${genreLine}, ${laurel}` : `${title}, ${genreLine}`,
   /** The one lane label; paid work shows its client instead (D-KRD-10). */
   passion: "Passion project",
   close: (title: string) => `Close ${title}`,
+  /** The open film's link to the film's own page; the → is drawn separately. */
+  fullPage: "Full page",
+  /** Its accessible name, so each open film's link says which film. */
+  fullPageName: (title: string) => `${title}, full page`,
   copyLink: {
     idle: "Copy link",
     done: "Link copied",

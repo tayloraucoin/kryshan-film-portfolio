@@ -50,8 +50,19 @@ const PORTRAIT: Photo | undefined = {
   people: "adults",
 };
 
-/** Press quotes for Recognition: picks of verified quotes in content/projects.ts (≤4). */
-const PRESS_PICKS: ReadonlyArray<{ slug: string; source: string }> = [];
+/**
+ * Recognition › Press: at most four quote ids from content/press.ts, in the
+ * order they show (2 × 2 from 768 px). Every quote on file is there; to
+ * swap one, change its id here.
+ */
+// Copy row A-7: the range the spec asks for, the wicked (the two films) and
+// the galvanizing (the contests he started).
+const PRESS_PICKS: ReadonlyArray<string> = [
+  "toronto-film-scene-2010-hilarious",
+  "aicn-2006-wonderfully-wrong",
+  "nerve-2002-inspire",
+  "province-2002-guerrilla",
+];
 
 export const ABOUT = {
   /** The page's name, in the tab and the bar. */
@@ -102,7 +113,7 @@ export const ABOUT = {
     "Leo-nominated as an editor",
   ],
 
-  /** Recognition › Press: picks of verified quotes in content/projects.ts. Empty until SITE-C verifies them (§11). */
+  /** Recognition › Press: quote ids from content/press.ts (≤4). */
   pressPicks: PRESS_PICKS,
 
   /** One quiet line (spec §6.4). */

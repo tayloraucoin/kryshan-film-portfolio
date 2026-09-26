@@ -4,6 +4,12 @@ import { FEATURED, HOME_H1 } from "@/content/home";
 import { NAME_LINKS } from "@/content/links";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
+import {
+  countQuoteWords,
+  PRESS_QUOTES,
+  PRESS_SOURCES,
+  type PressSource,
+} from "@/content/press";
 import { PROJECTS, type Project } from "@/content/projects";
 import { TEACHING } from "@/content/teaching";
 import { TESTIMONIALS } from "@/content/testimonials";
@@ -125,10 +131,26 @@ const MESSAGES = {
     `content/about.ts: the About page shows at most ${ABOUT_PHOTO_LIMIT} photos under "On set", and ${n} are listed. Remove one.`,
   tooManyPressPicks: (n: number) =>
     `content/about.ts: the About page shows at most ${ABOUT_PRESS_LIMIT} press quotes, and ${n} are picked. Remove one from pressPicks.`,
-  unresolvedPressPick: (slug: string, source: string, found: number) =>
-    found === 0
-      ? `content/about.ts: the press pick "${source}" for "${slug}" doesn't match a verified quote. Add the quote (with verifiedOn) to that film in content/projects.ts, check the spelling of the film and the source, or remove the pick.`
-      : `content/about.ts: the press pick "${source}" for "${slug}" matches ${found} quotes on that film. Make each source name on that film unique, or remove the pick.`,
+  unknownPressPick: (id: string) =>
+    `content/about.ts: the press pick "${id}" isn't a quote in content/press.ts. Check its spelling against the quote's name there, or remove the pick.`,
+  ndaPressPick: (id: string) =>
+    `content/about.ts: the press pick "${id}" is about a film that is NDA, so it can't be shown. Remove the pick.`,
+  unknownFilmPress: (title: string, id: string) =>
+    `content/projects.ts: "${title}" lists the press quote "${id}", which isn't in content/press.ts. Check its spelling against the quote's name there, or remove it from the film.`,
+  wrongFilmPress: (title: string, id: string) =>
+    `content/projects.ts: "${title}" lists the press quote "${id}", but that quote is about something else. A film's page only shows quotes about that film.`,
+  pressTooLong: (id: string, words: number) =>
+    `content/press.ts: the quote "${id}" is ${words} words. Quotes are at most 15: cut words with "…", without changing any word that's left.`,
+  pressUnknownFilm: (id: string, slug: string) =>
+    `content/press.ts: the quote "${id}" is about the film "${slug}", but there's no film with that slug in content/projects.ts. Fix the slug.`,
+  pressNoClipAlt: (source: string) =>
+    `content/press.ts: the clipping for "${source}" has no alt text. Type out the words in the clipping as its alt.`,
+  laurelTooLong: (p: Project, length: number) =>
+    `content/projects.ts: "${p.title}" has the laurel "${p.laurel}", which is ${length} characters. A laurel is at most 20, so it fits the tile: use the award's short name.`,
+  laurelNotAnAward: (p: Project) =>
+    `content/projects.ts: "${p.title}" has the laurel "${p.laurel}", but those words aren't in its awards. Write the award exactly as it appears in awards or awardsFull, or remove the laurel.`,
+  pressBadYear: (source: string, year: number) =>
+    `content/press.ts: "${source}" has the year ${year}. Write the year it ran, as four digits.`,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -139,7 +161,7 @@ function bySlug(slug: string): Project | undefined {
   return PROJECTS.find((project) => project.slug === slug);
 }
 
-/** Checks 1, 4 (press, videoPublished), 5, 10, 11. */
+/** Checks 1, 4 (videoPublished; press dates are in checkPress), 5, 10, 11. */
 export function checkProjects(projects: ReadonlyArray<Project>): string[] {
   const problems: string[] = [];
   const seen = new Set<string>();
@@ -148,18 +170,17 @@ export function checkProjects(projects: ReadonlyArray<Project>): string[] {
     if (seen.has(p.slug)) problems.push(MESSAGES.duplicateSlug(p.slug));
     seen.add(p.slug);
 
-    for (const quote of p.press ?? []) {
-      if (!isIsoDate(quote.verifiedOn)) {
-        problems.push(
-          MESSAGES.badDate(
-            "content/projects.ts",
-            p.title,
-            quote.verifiedOn,
-            "press verifiedOn",
-          ),
-        );
+    if (p.laurel !== undefined) {
+      const laurel = p.laurel;
+      if (laurel.length > 20) {
+        problems.push(MESSAGES.laurelTooLong(p, laurel.length));
+      }
+      const awards = [...(p.awards ?? []), ...(p.awardsFull ?? [])];
+      if (!awards.some((line) => line.includes(laurel))) {
+        problems.push(MESSAGES.laurelNotAnAward(p));
       }
     }
+
     if (p.videoPublished !== undefined && !isIsoDate(p.videoPublished)) {
       problems.push(
         MESSAGES.badDate(
@@ -321,7 +342,7 @@ export function checkPhotos(
   return problems;
 }
 
-/** About (SITE-6): photo and press-pick limits; each pick is one verified quote on a film that isn't NDA. */
+/** About (SITE-6): photo and press-pick limits; each pick is a quote on file, and none is about an NDA'd film. */
 export function checkAbout(): string[] {
   const problems: string[] = [];
   if (ABOUT.photos.length > ABOUT_PHOTO_LIMIT) {
@@ -330,19 +351,72 @@ export function checkAbout(): string[] {
   if (ABOUT.pressPicks.length > ABOUT_PRESS_LIMIT) {
     problems.push(MESSAGES.tooManyPressPicks(ABOUT.pressPicks.length));
   }
-  for (const pick of ABOUT.pressPicks) {
-    const project = bySlug(pick.slug);
-    const found =
-      project && project.rights !== "nda"
-        ? (project.press ?? []).filter((quote) => quote.source === pick.source)
-            .length
-        : 0;
-    if (found !== 1) {
-      problems.push(
-        MESSAGES.unresolvedPressPick(pick.slug, pick.source, found),
-      );
+  for (const id of ABOUT.pressPicks) {
+    const quote = PRESS_QUOTES[id];
+    if (!quote) {
+      problems.push(MESSAGES.unknownPressPick(id));
+      continue;
+    }
+    const { about } = quote;
+    if (typeof about === "object" && bySlug(about.film)?.rights === "nda") {
+      problems.push(MESSAGES.ndaPressPick(id));
     }
   }
+  return problems;
+}
+
+/**
+ * The press library (content/press.ts) and each film's picks from it:
+ * dates, the 15-word limit, film slugs, clipping alt text, and that a film
+ * only lists quotes about itself.
+ */
+export function checkPress(projects: ReadonlyArray<Project>): string[] {
+  const problems: string[] = [];
+  const sources: ReadonlyArray<[string, PressSource]> =
+    Object.entries(PRESS_SOURCES);
+
+  for (const [name, source] of sources) {
+    if (!Number.isInteger(source.year) || source.year < 1990) {
+      problems.push(MESSAGES.pressBadYear(name, source.year));
+    }
+    if (source.clip && !source.clip.alt.trim()) {
+      problems.push(MESSAGES.pressNoClipAlt(name));
+    }
+  }
+
+  for (const [id, quote] of Object.entries(PRESS_QUOTES)) {
+    if (!isIsoDate(quote.verifiedOn)) {
+      problems.push(
+        MESSAGES.badDate(
+          "content/press.ts",
+          id,
+          quote.verifiedOn,
+          "verifiedOn",
+        ),
+      );
+    }
+    const words = countQuoteWords(quote.quote);
+    if (words > 15) problems.push(MESSAGES.pressTooLong(id, words));
+    const { about } = quote;
+    if (typeof about === "object" && !bySlug(about.film)) {
+      problems.push(MESSAGES.pressUnknownFilm(id, about.film));
+    }
+  }
+
+  for (const project of projects) {
+    for (const id of project.press ?? []) {
+      const quote = PRESS_QUOTES[id];
+      if (!quote) {
+        problems.push(MESSAGES.unknownFilmPress(project.title, id));
+      } else if (
+        typeof quote.about !== "object" ||
+        quote.about.film !== project.slug
+      ) {
+        problems.push(MESSAGES.wrongFilmPress(project.title, id));
+      }
+    }
+  }
+
   return problems;
 }
 
@@ -431,6 +505,7 @@ const problems = [
   ...checkLegacyPaths(),
   ...checkCredits(CREDITS),
   ...checkAbout(),
+  ...checkPress(PROJECTS),
   ...checkTeaching(),
   ...checkLinks(),
 ];

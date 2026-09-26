@@ -187,3 +187,36 @@ One section per architectural choice with real alternatives. Never edit or delet
 - `FilmGrid` gained an optional full-width `divider` that counts as its own line for panel placement.
 
 **Revisit trigger:** Arranging on Home too (his Q-A2), which would widen the pre-paint script and these rules to `/`. Or an arrangement that isn't a two-group split (a weighted sort), which `order` values can't express without per-tile data.
+
+## 2026-09-26 · SITE-C (Stage B, press) · M-SITE-9 · Press lives in one library, `content/press.ts`; About and each film pick from it by id (amends M-SITE-7)
+
+**Context:** M-SITE-7's revisit trigger fired. His 23 clippings are mostly about the contests he started, and about him, not about a film, so those quotes had no home. Taylor also asked that every usable line be recorded in the code, so Kryshan can change which quotes show without anyone re-reading the scans.
+**Options weighed:**
+
+- A) Keep quotes on `Project.press` and add an About-only list for the rest. That gives two homes, and the contest quotes sit in `about.ts` beside page layout.
+- B) One library keyed by id, with each quote tagged by what it's about (him, a contest, or a film slug). About picks up to four ids; each film picks ids about itself.
+- C) B, but a film page shows every quote about that film automatically. With seven quotes on file for Jack, choosing would mean deleting.
+
+**Decision:** B.
+
+- `content/press.ts` holds `PRESS_SOURCES` (outlet, author, headline, date as printed, year, optional `url`, optional `clip`, `note`) and `PRESS_QUOTES` (the quote, `about`, `source`, optional `speaker`, `verifiedOn`, `note`).
+- `ABOUT.pressPicks` and `Project.press` are both `string[]` of quote ids. `resolvePressQuote` drops quotes about an NDA'd film, as M-SITE-7 did.
+- `content/validate.ts` (`checkPress`, `checkAbout`) fails the build, in words, when:
+  - a pick or film id doesn't exist
+  - a film lists a quote about something else
+  - an About pick is about an NDA'd film
+  - a quote runs over 15 words
+  - a `verifiedOn` date isn't a real day
+  - a year is implausible
+  - a clipping has no alt text
+
+  Each was induced and seen to fail.
+
+**Consequences:**
+
+- `Project.press` changes type. It was empty everywhere, so there was nothing to migrate.
+- `projects.ts` still imports no image. The library does (the clippings), and `next.config.ts` never reads it.
+- A quote's source line now carries its year ("The Province, 2002"), so a 2002 quote can't pass for this year's. On About it also names the film ("…, on Jack"). The shared renderer is `components/composed/press/press-quote.tsx`.
+- A print source may carry a `clip`: a tight, toned crop in `public/media/press/`, opened on request by `ClippingDialog` (the Dialog primitive). Nothing loads until it opens.
+
+**Revisit trigger:** He wants a press page (the library would feed it unchanged), or a quote needs to appear somewhere other than About or a film page.

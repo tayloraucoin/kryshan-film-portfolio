@@ -4,6 +4,7 @@ import { useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { Frame } from "@/components/composed/media/frame";
 import type { Film } from "@/components/composed/work/film";
+import { LaurelMark } from "@/components/composed/work/laurel-mark";
 import { FILM_COPY } from "@/content/site";
 import { cn } from "@/lib/cn";
 
@@ -35,7 +36,8 @@ function isPlainClick(event: MouseEvent<HTMLAnchorElement>): boolean {
  *
  * A 16:9 poster that is never blank (a build-time blur, and a titled card
  * if the image fails), the lane label top-left ("Passion project", or the
- * client; never "For hire"), the title with the genre line over a scrim, a
+ * client; never "For hire"), a laurel top-right on a film that won an award
+ * worth leading with (the award's name opens beside it on hover), the title with the genre line over a scrim, a
  * play mark on hover and focus for mouse and trackpad users, and a red rule
  * along the bottom while its film is open.
  */
@@ -70,7 +72,7 @@ export function FilmTile({
       }}
       aria-expanded={open}
       aria-controls={open ? panelId : undefined}
-      aria-label={FILM_COPY.tileName(film.title, film.genreLine)}
+      aria-label={FILM_COPY.tileName(film.title, film.genreLine, film.laurel)}
       className={cn(
         "group block w-full cursor-pointer text-left",
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none",
@@ -101,6 +103,9 @@ export function FilmTile({
             className={cn(
               LABEL,
               "absolute top-2 left-2 max-w-[70%] truncate bg-background/85 px-1.5 py-1",
+              // Steps aside while the laurel names its award, so the two never collide on a narrow tile.
+              film.laurel &&
+                "transition-opacity duration-(--dur-fast) pointer-fine:group-hover:opacity-0 pointer-fine:group-focus-visible:opacity-0",
             )}
           >
             {film.passion ? (
@@ -108,6 +113,29 @@ export function FilmTile({
             ) : (
               <span className="text-muted-foreground">{film.client}</span>
             )}
+          </span>
+        ) : null}
+        {film.laurel ? (
+          <span
+            aria-hidden="true"
+            className={cn(
+              LABEL,
+              "absolute top-2 right-2 flex items-center bg-background/85 px-1.5 py-1 text-foreground",
+            )}
+          >
+            {/* The award's name opens leftward from the laurel on hover and
+                focus; at rest, and on touch, the laurel stands alone. */}
+            <span
+              className={cn(
+                "grid grid-cols-[0fr] transition-[grid-template-columns] duration-(--dur-fast)",
+                "pointer-fine:group-hover:grid-cols-[1fr] pointer-fine:group-focus-visible:grid-cols-[1fr]",
+              )}
+            >
+              <span className="overflow-hidden whitespace-nowrap">
+                <span className="pr-1.5">{film.laurel}</span>
+              </span>
+            </span>
+            <LaurelMark className="size-[0.8125rem] shrink-0" />
           </span>
         ) : null}
         <span className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 bg-linear-to-t from-background/95 via-background/60 to-transparent px-3 pt-8 pr-14 pb-2.5">

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { CopyButton } from "@/components/composed/site/copy-button";
 import type { Film } from "@/components/composed/work/film";
 import { FilmPlayer } from "@/components/composed/work/film-player";
 import { closeFilm, FILM_PANEL_ID } from "@/components/composed/work/open-film";
-import { FILM_COPY } from "@/content/site";
+import { CHROME, FILM_COPY } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { mailtoHref } from "@/lib/mailto";
 
@@ -14,11 +15,15 @@ import { mailtoHref } from "@/lib/mailto";
  * the tile that opened it. The decision it carries: nothing sits between a
  * playing film and his email. A 44 px strip above the player (never over
  * it; YouTube's and Vimeo's controls live in the video's corners) holds
- * "Copy link" at its left end and the ✕ at its right, Copy link first in
- * the DOM so Shift+Tab out of the player reaches the ✕. Then the player,
- * already playing; then the title, genre line, lane, logline and short
- * awards; and his email alone and last, as a message already titled with
- * the film (D-SITE-23). No story (D-SITE-22), no "Full page", no Close text.
+ * "Copy link" and "Full page →" at its left end and the ✕ at its right,
+ * both first in the DOM so Shift+Tab out of the player reaches the ✕. Then
+ * the player, already playing; then the title (a link to the film's
+ * page), genre line, lane, logline, short awards and the film's first
+ * press quote; and his email alone and last, as a message already titled
+ * with the film (D-SITE-23). No story
+ * (D-SITE-22) and no Close text. "Full page" is a working link in the
+ * utility strip, never beside the email: his review read the old one, a
+ * dead link on the email's line, as noise (DEVIATIONS, 2026-09-26).
  *
  * At ≥1280 the player and the credits sit side by side; below, stacked.
  * The player's width is capped (`--player-cap`, app/globals.css) so the
@@ -61,6 +66,15 @@ export function FilmPanel({
           shareTitle={film.title}
           classes={{ fallback: "order-last pr-4 pb-2" }}
         />
+        <Link
+          href={film.href}
+          prefetch={false}
+          aria-label={FILM_COPY.fullPageName(film.title)}
+          className="mr-auto inline-flex min-h-11 items-center gap-1.5 rounded-(--radius) text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] text-muted-foreground uppercase transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          {FILM_COPY.fullPage}
+          <span aria-hidden="true">→</span>
+        </Link>
         <button
           type="button"
           onClick={closeFilm}
@@ -93,7 +107,14 @@ export function FilmPanel({
               id={titleId}
               className="font-heading text-[1.75rem] leading-[1.02] font-bold font-stretch-80%"
             >
-              {film.title}
+              {/* The title is the film's page, as titles are everywhere else. */}
+              <Link
+                href={film.href}
+                prefetch={false}
+                className="rounded-(--radius) underline-offset-4 transition-colors hover:text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              >
+                {film.title}
+              </Link>
             </h2>
             <p className="text-[0.8125rem] font-medium font-stretch-90% tracking-[0.02em] text-muted-foreground">
               {film.genreLine}
@@ -115,6 +136,28 @@ export function FilmPanel({
                 <li key={line}>{line}</li>
               ))}
             </ul>
+          ) : null}
+          {film.pullQuote ? (
+            <figure className="flex max-w-[68ch] flex-col gap-1">
+              <blockquote className="font-(family-name:--font-quote) text-sm leading-relaxed italic">
+                {film.pullQuote.quote}
+              </blockquote>
+              <figcaption className="text-[0.8125rem] text-muted-foreground">
+                {film.pullQuote.url ? (
+                  <a
+                    href={film.pullQuote.url}
+                    target="_blank"
+                    rel="noopener"
+                    className="text-(--link) underline-offset-4 hover:underline"
+                  >
+                    {film.pullQuote.citation}
+                    <span className="sr-only">{CHROME.newTab}</span>
+                  </a>
+                ) : (
+                  film.pullQuote.citation
+                )}
+              </figcaption>
+            </figure>
           ) : null}
           <p className="pt-1">
             <a

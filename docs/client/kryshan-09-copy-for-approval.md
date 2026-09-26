@@ -8,7 +8,7 @@
 > Working notes for Taylor and Vitrine (remove this block before sending):
 > - Generated from `content/` by a throwaway script, so every count below is the data's own (SITE-C acceptance 2 and 12).
 > - Stage A is everything above "Stage B". It goes with the first-look link.
-> - Stage B is drafted from his intake but waits on the ~24 press articles (`docs/client/press/`, `[PENDING — Taylor supplies]`). Send it once press is verified (ruling 1), or earlier without press if you prefer two short sends.
+> - Stage B is drafted from his intake. Press landed 2026-09-26 from his 23 clippings and the reviews he listed (`content/press.ts`; `docs/client/press/NEXT-STEPS.md` holds the questions for him), so Stage B can go in one send.
 > - Round 2 (2026-09-25, Taylor's walkthrough): H-2 to H-4 lose their semicolons; four stories cut where they repeated their one-line description or leaned on "very" (Dare, TUTS 2025, RFFC, It's A Crazier Life); "MPIAA" corrected to MPPIA (A-6, A-8.1, the A Very B.C. Production card); the bio's serial comma fixed; About gains a portrait (A-8.3) and a heading over the Glimpse story (A-12); the Home place line turns grey, as in the footer (layout only, no words changed); Teaching gains two photos (T-6.1, T-6.2) and one Held (T-6.3). Every row stays Draft.
 > - Links (2026-09-25, his OK to Taylor): names in the site's text now link — people to IMDb, a musician to his own site, organisations, festivals and schools to their own sites, and each behind-the-scenes credit to its IMDb page. The words don't change; the Links ledger at the end lists every address for him to check.
 > - Rows marked "held: not shown yet" belong to films that aren't on the site yet. Approving them now means unholding a film is a one-field change.
@@ -194,6 +194,15 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
+
+### D-jack-W · Jack: the laurel on its tile
+- **Where it shows:** a small laurel at the top right of Jack's tile on Home and Work; pointing at it shows the award's name beside it
+- **Kind:** Your words (data) · limit ≤20 characters · this one: 16 characters
+- **Text:** Grand Jury Prize
+- **From:** your awards (D-jack-A)
+- **What changed from your words:** — (new: only a film's win gets a laurel, so it stays rare. Jack is the only one today; Contact Club's Best Actor could be the second)
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
 ### 5Rhythms (2025)
 
 ### D-5rhythms-L · 5Rhythms: one-line description
@@ -552,13 +561,17 @@ One heading per film, in the order Work shows them, then the films not shown yet
 - **Result:** Draft
 
 ### A-7 · About: press quotes
-- **Where it shows:** About › Recognition › Press
-- **Kind:** From the verified press (Stage B) · limit ≤4
-- **Text:** — (nothing until the articles are verified)
-- **From:** Stage B
-- **What changed from your words:** —
+- **Where it shows:** About › Recognition › Press (two by two on a computer)
+- **Kind:** Their words, verbatim · picked from the press library (`content/press.ts`, 97 quotes) · limit ≤4 · this one: 4
+- **Text:**
+  - “A hilarious pumpkin revenge fantasy. Brilliant. Fantastic ending. See it. That is all.” (Toronto Film Scene, 2010, on Jack)
+  - “…wonderfully wrong.” (Ain’t It Cool News, 2006, on The Bully Solution)
+  - “…Randel’s main objective is to motivate and inspire filmmakers…” (The Nerve, 2002 · See the clipping)
+  - “…this is guerrilla filmmaking at its best (or at least at its quickest)…” (The Province, 2002 · See the clipping)
+- **From:** your clippings and the reviews you listed, each read in its source (Press ledger)
+- **What changed from your words:** two about your films (the wicked), two about the contests you started (what gets a room moving). "See the clipping" opens a tight crop of the printed article: the headline and the passage only. Every other quote is on file; swapping one is a one-word change.
 - **Your call:** [ ] OK · Change to: ______
-- **Result:** Held — waits on the press articles
+- **Result:** Draft
 
 ### A-8.1 · About: photo 1 caption and description
 - **Where it shows:** About › On set (the description is read aloud by screen readers)
@@ -756,7 +769,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Contact Club (2020)
 
@@ -780,7 +793,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Jack (2009)
 
@@ -808,13 +821,23 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+### D-jack-P · Jack: press
+- **Where it shows:** the film's page, beside the story
+- **Kind:** Their words, verbatim · picked from the press library (`content/press.ts`) · ≤15 words each · this one: 3 quotes
+- **Text:**
+  - “A hilarious pumpkin revenge fantasy. Brilliant. Fantastic ending. See it. That is all.” (Toronto Film Scene, 2010)
+  - “The Evil Dead is an obvious influence on this slickly-made tale…” (Rue Morgue, 2010)
+  - “The short film Jack about pumpkin revenge is just wrong!” (The More the Merrier, 2010)
+- **From:** the reviews and clippings, each read in its source (Press ledger)
+- **What changed from your words:** Rue Morgue's line is the published one: your "Slickly-made tale…the gore gags…I can't believe they did it" joined three sentences, and the last is the reviewer's shrug rather than praise. "The More The Merrier Arts Radio" is cited as the blog names itself. Four more Jack quotes are on file to swap in (Exclaim!'s "campy chuckles", CityNews's "must-sees", and two more).
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
 
 ### 5Rhythms (2025)
 
 - **Story:** — (no story: your intake's story is the same as the description)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### The Wolf of West Georgia Street (2014)
 
@@ -829,13 +852,13 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Just Up The Block (2025)
 
 - **Story:** — (no story, by the spec)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### TUTS 2026 Trailer (2026)
 
@@ -848,7 +871,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Dare (2025)
 
@@ -861,13 +884,13 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Tradeswoman Exhibit (2025)
 
 - **Story:** — (no story, by the spec)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### TUTS 2025 Season Teaser (2025)
 
@@ -880,7 +903,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Born To Be (2023)
 
@@ -904,7 +927,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### A Very B.C. Production (2021)
 
@@ -917,19 +940,19 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### A Dog’s Way Home EPK (2019)
 
 - **Story:** — (no story: your intake's story is the same as the description)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Twenty8s (2019)
 
 - **Story:** — (no story: your intake's story is the same as the description)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Be Reel Green (2018)
 
@@ -945,7 +968,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Digital Days (2017)
 
@@ -958,7 +981,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Riverdale EW BTS (2017)
 
@@ -971,13 +994,13 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### United8s (2017)
 
 - **Story:** — (no story: what's left after the cuts (the Crazy8s count, "tribute") repeats the description)
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Lyons Heart (2016)
 
@@ -990,7 +1013,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### RFFC: We’re In This Together (2015)
 
@@ -1003,7 +1026,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### It’s A Crazier Life (2014)
 
@@ -1016,7 +1039,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Artless (2009)
 
@@ -1041,7 +1064,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Directors Reel (2023) (held: not shown yet)
 
@@ -1054,7 +1077,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### Glimpse (2007) (held: not shown yet)
 
@@ -1091,7 +1114,15 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+### D-glimpse-P · Glimpse: press
+- **Where it shows:** the film's page, beside the story
+- **Kind:** Their words, verbatim · picked from the press library (`content/press.ts`) · ≤15 words each · this one: 1 quote
+- **Text:**
+  - “Delivering both laughs and insight, Randel worked with mentor Scott Smith…” (Infamous, 2007)
+- **From:** the reviews and clippings, each read in its source (Press ledger)
+- **What changed from your words:** — (new: from the Infamous clipping, "The Future of BC Film")
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
 
 ### The Bully Solution (2005) (held: not shown yet)
 
@@ -1114,7 +1145,16 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+### D-the-bully-solution-P · The Bully Solution: press
+- **Where it shows:** the film's page, beside the story
+- **Kind:** Their words, verbatim · picked from the press library (`content/press.ts`) · ≤15 words each · this one: 2 quotes
+- **Text:**
+  - “…wonderfully wrong.” (Ain’t It Cool News, 2006)
+  - “…this hysterically mean “educational film” suggests several.” (Mitch Davis, Fantasia, 2007)
+- **From:** the reviews and clippings, each read in its source (Press ledger)
+- **What changed from your words:** Both lines are lowercase in the middle of their sentences, so they start with "…". Mitch Davis's note is in Fantasia's 2007 programme. The Skinny's "A sick, sick after-school special…" is on file but waits: the clipping has no masthead (your question 1).
+- **Your call:** [ ] OK · Change to: ______
+- **Result:** Draft
 
 ### Shotlister (2018) (held: not shown yet)
 
@@ -1127,7 +1167,7 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ### VANDU (2019) (held: not shown yet)
 
@@ -1140,13 +1180,22 @@ Drafted from your intake. Each film's page shows these under the video. A film w
 - **Your call:** [ ] OK · Change to: ______
 - **Result:** Draft
 
-- **Press:** `[PENDING — Taylor supplies the articles]`
+- **Press:** none on file. Neither your clippings nor your list has a quote about this film.
 
 ## Ledgers
 ### Press ledger
 | # | Film | Quote as you supplied it | Quote as published (≤15 words) | Source, as styled | URL | verifiedOn | Result (verified · corrected: what · dropped: why) |
 |---|---|---|---|---|---|---|---|
-| — | — | `[PENDING — Taylor supplies the ~24 articles in docs/client/press/]` | — | — | — | — | Nothing is in `press` until each quote is read in its source (ruling 4). Known already: "Midnight Mania Honorable Mention" (Panic Manual) and "Midnight Mania Highlight" (Examiner.com) are mentions, not quotes: dropped. |
+| 1 | The Bully Solution | "Wonderfully wrong" – Aint It Cool News | …wonderfully wrong. | Ain’t It Cool News | legacy.aintitcool.com/node/30178 | 2026-09-26 | corrected: lowercase mid-sentence, so "…" leads |
+| 2 | The Bully Solution | "Hysterically mean" – Mitch Davis, Fantasia | …this hysterically mean “educational film” suggests several. | Fantasia (Mitch Davis) | archive.org, fantasiafest.com 2007 | 2026-09-26 | corrected: the 2007 programme; lowercase mid-sentence |
+| 3 | Jack | A hilarious pumpkin revenge fantasy. Brilliant. Fantastic ending. See it. That is all. | the same | Toronto Film Scene | archive.org, thetfs.ca | 2026-09-26 | verified |
+| 4 | Jack | "Must-see...should send their filmmakers to the big leagues." – CityTV News | …Jack, Everybody, and Mrdrchain are must-sees and should send their filmmakers to the big leagues | CityNews | archive.org, citytv.com | 2026-09-26 | corrected: plural, shared with two other films; not picked |
+| 5 | Jack | "Slickly-made tale...the gore gags are pretty awesome, and the final image...I can't believe they did it." – Rue Morgue | The Evil Dead is an obvious influence on this slickly-made tale… · The gore gags are pretty awesome… | Rue Morgue (blog) | archive.org, rue-morgue.com | 2026-09-26 | corrected: split into two; "I can't believe they did it" dropped (a shrug, not praise) |
+| 6 | Jack | "Just wrong!" – The More The Merrier Arts Radio | The short film Jack about pumpkin revenge is just wrong! | The More the Merrier | tmtmshow.blogspot.com | 2026-09-26 | corrected: the full sentence; outlet as the blog names itself |
+| 7 | Jack | "Campy chuckles" – Exclaim | Jack flips back to the campy chuckles. | Exclaim! | exclaim.ca | 2026-09-26 | corrected: the full sentence; not picked |
+| 8 | The Bully Solution | — (a clipping) | A sick, sick after-school special with an ominous onscreen countdown and child-to-child violence. | The Skinny (to confirm) | — | 2026-09-26 | held: no masthead on the clipping (question 1) |
+| 9 | — | "Midnight Mania Honorable Mention" – Panic Manual · "Midnight Mania Highlight" – Examiner.com | — | — | — | — | dropped: mentions, not quotes |
+| 10 | — | — (the 23 clippings and the pages above) | 88 more lines about you, the contests and the films | 30 sources | — | 2026-09-26 | verified: all in `content/press.ts`, each with its source, date and any reason to think twice |
 
 **Articles checked (not press quotes):** PLANK Magazine, Artless (200) · Roots Music Canada, Born To Be (200) · Tinnitist, Born To Be (200) · The Province, Glimpse (200) · The Uncarved Blog, Artless: only a month-archive page resolves (200), not the post; left out · Vancouver Is Awesome, Bloodshots contestants: 403 and no archive capture; left out · Vancouver Is Awesome, Frames: 403 live, archive capture exists; Teaching has no articles slot (spec out of scope), so not used.
 

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Frame } from "@/components/composed/media/frame";
 import { PhotoFigure } from "@/components/composed/media/photo-figure";
+import { PressQuote } from "@/components/composed/press/press-quote";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { createLinker } from "@/components/composed/site/linked-text";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
@@ -10,8 +11,8 @@ import { SiteShell } from "@/components/composed/site/site-shell";
 import { Testimonial } from "@/components/composed/site/testimonial";
 import { ABOUT, CLIENTS } from "@/content/about";
 import { NAME_LINKS } from "@/content/links";
-import { PROJECTS, SHOWABLE_PROJECTS } from "@/content/projects";
-import { CHROME } from "@/content/site";
+import { resolvePressQuotes } from "@/content/press";
+import { SHOWABLE_PROJECTS } from "@/content/projects";
 import { TESTIMONIALS } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
@@ -32,21 +33,6 @@ const H3 =
   "text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] uppercase text-muted-foreground";
 
 /**
- * About's press quotes: each pick resolved to the one verified quote on its
- * film (validated at build). A held film's quote may appear, since it's
- * about him, not the film; an NDA'd film's never does (spec §11).
- */
-function resolvedPress() {
-  return ABOUT.pressPicks.flatMap((pick) => {
-    const project = PROJECTS.find(
-      (item) => item.slug === pick.slug && item.rights !== "nda",
-    );
-    const quote = project?.press?.find((item) => item.source === pick.source);
-    return quote ? [quote] : [];
-  });
-}
-
-/**
  * About (spec §6.4): the person briefly, then the proof, skimmable in under
  * a minute. Recognition comes before the story (D-SITE-12); every section
  * whose content hasn't arrived (a portrait, press, testimonials) renders
@@ -62,7 +48,9 @@ export default function AboutPage() {
       href: siteRoutes.project(project.slug),
     })),
   );
-  const press = resolvedPress();
+  // Picks from content/press.ts (validated at build). A held film's quote
+  // may appear, since it's about him too; an NDA'd film's never does (§11).
+  const press = resolvePressQuotes(ABOUT.pressPicks);
   const testimonials = TESTIMONIALS.filter(
     (testimonial) => testimonial.page === "about",
   ).slice(0, 3);
@@ -161,27 +149,8 @@ export default function AboutPage() {
                 <h3 className={H3}>{ABOUT.headings.press}</h3>
                 <ul className="grid gap-6 md:grid-cols-2">
                   {press.map((quote) => (
-                    <li key={quote.quote}>
-                      <figure className="flex max-w-[68ch] flex-col gap-1">
-                        <blockquote className="font-(family-name:--font-quote) text-lg italic">
-                          {quote.quote}
-                        </blockquote>
-                        <figcaption className="text-sm text-muted-foreground">
-                          {quote.url ? (
-                            <a
-                              href={quote.url}
-                              target="_blank"
-                              rel="noopener"
-                              className="text-(--link) underline-offset-4 hover:underline"
-                            >
-                              {quote.source}
-                              <span className="sr-only">{CHROME.newTab}</span>
-                            </a>
-                          ) : (
-                            quote.source
-                          )}
-                        </figcaption>
-                      </figure>
+                    <li key={quote.id}>
+                      <PressQuote item={quote} size="lead" showFilm />
                     </li>
                   ))}
                 </ul>

@@ -8,7 +8,7 @@
 - a private detail (the Wolf, Ashley Judd, a VANDU or RFFC participant)
 - a string he never saw
 
-**Status:** In progress · Stage A drafted and landed 2026-09-24, round 2 (Taylor's walkthrough) landed 2026-09-25; Stage B drafted except press. Vitrine signed the in-place check 2026-09-25. Waiting on Taylor's send, his approval, and the ~24 press articles. (authored 2026-09-24)
+**Status:** In progress · Stage A drafted and landed 2026-09-24, round 2 (Taylor's walkthrough) landed 2026-09-25; Stage B drafted, press landed 2026-09-26 from his 23 clippings and the reviews he listed (`content/press.ts`, M-SITE-9; questions for him in `docs/client/press/NEXT-STEPS.md`). Vitrine signed the in-place check 2026-09-25. Waiting on Taylor's send and his approval. (authored 2026-09-24)
 
 > **⚠ CONTENT FLAGS: what is provisional in the output, not just the process.**
 > - **Press:** only quotes read in their source ship. The rest are dropped, not softened. The ~24 articles are `[PENDING — Taylor supplies]`.

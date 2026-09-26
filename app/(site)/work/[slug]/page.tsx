@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PressQuote } from "@/components/composed/press/press-quote";
 import { CopyButton } from "@/components/composed/site/copy-button";
 import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { JsonLd } from "@/components/composed/site/json-ld";
@@ -11,6 +12,7 @@ import { toFilm } from "@/components/composed/work/film";
 import { FilmPlayer } from "@/components/composed/work/film-player";
 import { NAME_LINKS } from "@/content/links";
 import { posterFor } from "@/content/posters";
+import { resolvePressQuotes } from "@/content/press";
 import {
   findShowableProject,
   SHOWABLE_PROJECTS,
@@ -101,7 +103,7 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
       .map((paragraph) => paragraph.trim())
       .filter(Boolean) ?? [];
   const awards = project.awardsFull ?? [];
-  const press = project.press ?? [];
+  const press = resolvePressQuotes(project.press ?? []);
   const articles = project.articles ?? [];
   const linkText = createLinker(NAME_LINKS);
   const hasFacts = awards.length + press.length + articles.length > 0;
@@ -203,19 +205,8 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
                     </h2>
                     <ul className="flex flex-col gap-4">
                       {press.map((item) => (
-                        <li key={item.quote} className="flex flex-col gap-1">
-                          <blockquote className="font-(family-name:--font-quote) italic">
-                            {item.quote}
-                          </blockquote>
-                          <p className="text-sm text-muted-foreground">
-                            {item.url ? (
-                              <ExternalLink href={item.url}>
-                                {item.source}
-                              </ExternalLink>
-                            ) : (
-                              item.source
-                            )}
-                          </p>
+                        <li key={item.id}>
+                          <PressQuote item={item} />
                         </li>
                       ))}
                     </ul>

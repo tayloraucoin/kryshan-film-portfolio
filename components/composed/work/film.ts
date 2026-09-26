@@ -2,6 +2,7 @@ import "server-only";
 import type { Route } from "next";
 import type { StaticImageData } from "next/image";
 import { posterFor } from "@/content/posters";
+import { inQuotes, pressCitation, resolvePressQuote } from "@/content/press";
 import {
   findShowableProject,
   projectMetaLine,
@@ -17,9 +18,10 @@ import { siteRoutes } from "@/lib/routes";
  * decision it carries: client leaves never see a `Project`. The share URL
  * needs the site's origin, which lives beside the server-only contact
  * address in `lib/config`, so it is computed here and arrives as data
- * (spec §4.3). The slim shape also keeps stories, full awards and press out
- * of the page payload, which makes "the panel carries no story" (D-SITE-22)
- * a type fact. Client leaves import `Film` with `import type` only.
+ * (spec §4.3). The slim shape also keeps stories, full awards and all but
+ * one press quote out of the page payload, which makes "the panel carries no
+ * story" (D-SITE-22) a type fact. Client leaves import `Film` with
+ * `import type` only.
  */
 export type Film = Readonly<{
   slug: string;
@@ -32,6 +34,10 @@ export type Film = Readonly<{
   logline: string;
   /** The short list; `[]` when there are none. */
   awards: ReadonlyArray<string>;
+  /** The award named on the tile's laurel, when the film won one worth leading with. */
+  laurel?: string;
+  /** The first of the film's press picks (in its quotation marks), for the open film; the rest are on its page. */
+  pullQuote?: Readonly<{ quote: string; citation: string; url?: string }>;
   embed: ProjectEmbed;
   roles: ReadonlyArray<ProjectRole>;
   poster: StaticImageData;
@@ -40,8 +46,21 @@ export type Film = Readonly<{
   shareUrl: string;
 }>;
 
+/** A film's first press pick, slimmed to what the open film shows. */
+function pullQuoteFor(project: ShowableProject): Film["pullQuote"] {
+  const first = project.press?.[0];
+  const item = first ? resolvePressQuote(first) : undefined;
+  if (!item) return undefined;
+  return {
+    quote: inQuotes(item.quote),
+    citation: pressCitation(item),
+    ...(item.source.url ? { url: item.source.url } : {}),
+  };
+}
+
 export function toFilm(project: ShowableProject): Film {
   const href = siteRoutes.project(project.slug);
+  const pullQuote = pullQuoteFor(project);
   return {
     slug: project.slug,
     title: project.title,
@@ -50,6 +69,8 @@ export function toFilm(project: ShowableProject): Film {
     ...(project.client ? { client: project.client } : {}),
     logline: project.logline,
     awards: project.awards ?? [],
+    ...(project.laurel ? { laurel: project.laurel } : {}),
+    ...(pullQuote ? { pullQuote } : {}),
     embed: project.embed,
     roles: project.roles,
     poster: posterFor(project.slug),
