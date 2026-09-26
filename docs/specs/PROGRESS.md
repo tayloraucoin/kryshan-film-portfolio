@@ -43,6 +43,10 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 - [x] **SITE-3a** — Home: the role rows come out, the three role paragraphs go back to the bottom (2026-09-25)
 - [x] **SITE-4a** — Work: "Arrange by" reorders by his role instead of hiding films (2026-09-25; on the defaults of Q-A1 and Q-A2, which his answers can reopen)
 
+### Step 2b — Business card redirects (ad hoc, off the critical path)
+
+- [ ] **SITE-D** — Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub (2026-09-26, in progress)
+
 ### Step 3 — His words
 
 - [ ] **SITE-C** — The copy pass: loglines, stories, awards, press verification, credits and every Write string · _in progress: Stage A drafted and landed 2026-09-24, round 2 (Taylor's walkthrough) 2026-09-25; press landed 2026-09-26 (the library, About's four, film picks; M-SITE-9); waiting on his approval of both stages_
