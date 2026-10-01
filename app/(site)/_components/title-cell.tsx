@@ -1,6 +1,6 @@
 import type { Route } from "next";
 import Link from "next/link";
-import { HOME_H1, HOME_LINKS } from "@/content/home";
+import { HOME_H1, HOME_LINKS, HOME_ROLES } from "@/content/home";
 import { cn } from "@/lib/cn";
 import { SITE } from "@/lib/config";
 import { siteRoutes } from "@/lib/routes";
@@ -9,8 +9,8 @@ import { siteRoutes } from "@/lib/routes";
 const LABEL =
   "text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] uppercase";
 
-/** Where each word of the headline goes. */
-const WORD_LINKS: Record<(typeof HOME_H1)[number]["to"], Route> = {
+/** Where each word of the roles line goes. */
+const WORD_LINKS: Record<(typeof HOME_ROLES)[number]["to"], Route> = {
   directing: siteRoutes.work({ role: "directing" }),
   camera: siteRoutes.work({ role: "camera" }),
   editing: siteRoutes.work({ role: "editing" }),
@@ -20,28 +20,35 @@ const WORD_LINKS: Record<(typeof HOME_H1)[number]["to"], Route> = {
 
 /**
  * Home's first cell (D-KRD-3, D-KRD-5; handoff §6.3): him, in his voice,
- * never his name. The page's only h1 is his five words, each a link to
- * that part of the site (his round-3 notes), then the place line and, on
- * phones, "Watch ↓" to the first film. No portrait and no empty frame
+ * never his name. The page's only h1, with its one red phrase; then his
+ * five words, each a link to that part of the site (his round-3 notes),
+ * then the place line and, on phones, "Watch ↓" to the first film. No portrait and no empty frame
  * until he supplies one (D-SITE-16).
  */
 export function TitleCell({ firstFilmId }: Readonly<{ firstFilmId: string }>) {
+  const [before = "", after = ""] = HOME_H1.text.split(HOME_H1.red);
+
   return (
     <div className="flex h-full flex-col justify-end gap-3 pt-6 pb-4 md:py-6 xl:py-2">
       <h1 className="font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] xl:text-[2.5rem]">
-        {HOME_H1.map(({ word, to }, index) => (
+        {before}
+        <span className="text-primary">{HOME_H1.red}</span>
+        {after}
+      </h1>
+      <p className="max-w-[48ch] text-base leading-[1.4] md:text-xl">
+        {HOME_ROLES.map(({ word, to }, index) => (
           <span key={word}>
             {index > 0 ? " " : null}
             <Link
               href={WORD_LINKS[to]}
-              className="rounded-(--radius) underline decoration-current/35 decoration-2 underline-offset-[0.12em] transition-colors hover:text-primary hover:decoration-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              className="rounded-(--radius) underline decoration-current/35 decoration-1 underline-offset-[0.2em] transition-colors hover:text-(--link) hover:decoration-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               {word}
             </Link>
             .
           </span>
         ))}
-      </h1>
+      </p>
       <p className="max-w-[48ch] text-base leading-[1.4] text-muted-foreground md:text-xl">
         {SITE.place}
       </p>
