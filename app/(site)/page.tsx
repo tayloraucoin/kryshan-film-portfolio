@@ -6,30 +6,17 @@ import { SiteShell } from "@/components/composed/site/site-shell";
 import { filmsFor } from "@/components/composed/work/film";
 import { FilmGrid } from "@/components/composed/work/film-grid";
 import { FEATURED, HOME_LINKS, HOME_META } from "@/content/home";
-import { posterFor } from "@/content/posters";
-import { findShowableProject, SHOWABLE_PROJECTS } from "@/content/projects";
-import { FILM_COPY } from "@/content/site";
-import { SITE } from "@/lib/config";
+import { SHOWABLE_PROJECTS } from "@/content/projects";
 import { createPageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
 
-/** The share image until his social card exists (O-SITE-11): Just Watch Us's poster. */
-const OG_SLUG = "just-watch-us";
-
+/** The share image is the site's social card (`SITE.ogImage`, O-SITE-11). */
 export function generateMetadata(): Metadata {
-  const poster = posterFor(OG_SLUG);
-  const title = findShowableProject(OG_SLUG)?.title ?? SITE.name;
   return createPageMetadata({
     title: HOME_META.title,
     description: HOME_META.description,
     path: siteRoutes.home,
     absoluteTitle: true,
-    image: {
-      url: poster.src,
-      width: poster.width,
-      height: poster.height,
-      alt: FILM_COPY.ogAlt(title),
-    },
   });
 }
 
