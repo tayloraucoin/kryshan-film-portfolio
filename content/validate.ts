@@ -1,6 +1,6 @@
 import { ABOUT } from "@/content/about";
 import { CREDITS, type Credit } from "@/content/credits";
-import { FEATURED, HOME_H1 } from "@/content/home";
+import { FEATURED } from "@/content/home";
 import { NAME_LINKS } from "@/content/links";
 import type { Photo } from "@/content/photo";
 import { POSTERS } from "@/content/posters";
@@ -99,8 +99,6 @@ const MESSAGES = {
     `content/projects.ts: "${p.title}" links out to ${url}. A link-out must go to where the video really lives, over https, and never to kryshanrandel.com, which becomes this site.`,
   twiceOnHome: (title: string, a: string, b: string) =>
     `content/home.ts: "${title}" is in both ${a} and ${b}. A film appears once on the home page; take it out of one.`,
-  redPhrase: (red: string, text: string) =>
-    `content/home.ts: the red phrase "${red}" must appear word for word, once, in the headline "${text}". Change one to match the other.`,
   tooManyQuotes: (page: "about" | "teaching", n: number) =>
     page === "about"
       ? `content/testimonials.ts: the About page shows at most ${QUOTE_LIMITS.about} quotes, and ${n} are marked for it. Remove one, or move it to Teaching.`
@@ -249,10 +247,6 @@ export function checkHomeLists(): string[] {
         firstList.set(slug, list);
       }
     }
-  }
-
-  if (HOME_H1.text.split(HOME_H1.red).length !== 2) {
-    problems.push(MESSAGES.redPhrase(HOME_H1.red, HOME_H1.text));
   }
 
   return problems;

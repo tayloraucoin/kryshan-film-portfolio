@@ -50,8 +50,9 @@ function syncFromUrl(): void {
 /**
  * Work's controls (spec §6.2, D-SITE-5 as amended by SITE-4a): "Arrange
  * by" and the role links Featured · Directing · Camera · Editing, which
- * reorder and never hide, and one "Passion projects" chip, which filters.
- * Both are carried in the URL.
+ * reorder and never hide, and one "Personal projects" chip, which filters.
+ * Both are carried in the URL. Between them sits a plain jump to the
+ * credits below the grid (his round-3 notes: grey, in the row, no arrow).
  * The decision it carries: what the visitor sees never waits for React.
  * The pre-paint script put the filter on `<html>` before the first paint,
  * and CSS draws the tiles, the count, the current link and the chip from
@@ -70,10 +71,13 @@ function syncFromUrl(): void {
 export function WorkFilters({
   counts,
   total,
+  creditsLabel,
   className,
 }: Readonly<{
   counts: Readonly<Record<string, number>>;
   total: number;
+  /** The jump to the credits below the grid; none when there are none. */
+  creditsLabel?: string;
   className?: string;
 }>) {
   const { filter, announcement } = useWorkFilter();
@@ -145,6 +149,18 @@ export function WorkFilters({
           {[undefined, ...WORK_ROLES].map(roleLink)}
         </ul>
       </div>
+      {creditsLabel ? (
+        <a
+          href="#credits"
+          className={cn(
+            LABEL,
+            "inline-flex min-h-11 items-center text-muted-foreground transition-colors hover:text-foreground",
+            FOCUS,
+          )}
+        >
+          {creditsLabel}
+        </a>
+      ) : null}
       <button
         type="button"
         data-work-chip

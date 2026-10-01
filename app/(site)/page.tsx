@@ -1,16 +1,14 @@
-import type { Metadata, Route } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TitleCell } from "@/app/(site)/_components/title-cell";
-import { createLinker } from "@/components/composed/site/linked-text";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { filmsFor } from "@/components/composed/work/film";
 import { FilmGrid } from "@/components/composed/work/film-grid";
 import { FEATURED, HOME_LINKS, HOME_META } from "@/content/home";
-import { NAME_LINKS } from "@/content/links";
 import { posterFor } from "@/content/posters";
 import { findShowableProject, SHOWABLE_PROJECTS } from "@/content/projects";
-import { FILM_COPY, STRANDS, type Strand } from "@/content/site";
+import { FILM_COPY } from "@/content/site";
 import { SITE } from "@/lib/config";
 import { createPageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
@@ -35,29 +33,14 @@ export function generateMetadata(): Metadata {
   });
 }
 
-/** Where each strand's link goes: Work arranged by that role, or Teaching. */
-const STRAND_LINKS: Record<Strand["id"], { label: string; href: Route }> = {
-  directing: {
-    label: HOME_LINKS.allDirecting,
-    href: siteRoutes.work({ role: "directing" }),
-  },
-  "camera-editing": {
-    label: HOME_LINKS.allCamera,
-    href: siteRoutes.work({ role: "camera" }),
-  },
-  teaching: { label: HOME_LINKS.teaching, href: siteRoutes.teaching },
-};
-
 /**
  * Home: Demo D, live (spec §6.1, handoff §6), with his Demo D feedback
  * applied (SITE-3a): his line in a two-column first square, the featured
- * films, "All {n} pieces →", then his three strands side by side, as in
- * Demo A. No role rows: a film credited for several roles belonged to only
- * one of them. A tap opens a film in place; every tile is also a real link
+ * films, then "All {n} pieces →". The three strands that once followed it
+ * are gone (his round-3 notes: About says it). A tap opens a film in place; every tile is also a real link
  * to its page. Static: nothing here reads a request.
  */
 export default function HomePage() {
-  const linkText = createLinker(NAME_LINKS);
   const featured = filmsFor(FEATURED);
   const firstFilmId = featured[0] ? `film-${featured[0].slug}` : "work";
 
@@ -69,7 +52,6 @@ export default function HomePage() {
           id="work"
           leading={<TitleCell firstFilmId={firstFilmId} />}
           films={featured}
-          email={SITE.email}
           preloadFirst
         />
         <p className="px-3 md:px-6">
@@ -81,35 +63,6 @@ export default function HomePage() {
             <span aria-hidden="true">→</span>
           </Link>
         </p>
-        <div className="grid gap-10 px-3 md:px-6 xl:grid-cols-3 xl:gap-8">
-          {STRANDS.map((strand) => {
-            const link = STRAND_LINKS[strand.id];
-            return (
-              <section
-                key={strand.id}
-                aria-labelledby={`strand-${strand.id}`}
-                className="flex flex-col gap-3 border-t border-border/40 pt-4"
-              >
-                <h2
-                  id={`strand-${strand.id}`}
-                  className="font-heading text-[1.75rem] leading-[1.15] font-semibold font-stretch-88%"
-                >
-                  {strand.title}
-                </h2>
-                <p className="max-w-[60ch] leading-relaxed text-muted-foreground">
-                  {linkText(strand.body)}
-                </p>
-                <Link
-                  href={link.href}
-                  className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-(--radius) text-sm font-semibold text-(--link) underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                >
-                  {link.label}
-                  <span aria-hidden="true">→</span>
-                </Link>
-              </section>
-            );
-          })}
-        </div>
       </div>
     </SiteShell>
   );

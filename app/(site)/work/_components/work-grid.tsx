@@ -37,13 +37,11 @@ const LABEL =
  */
 export function WorkGrid({
   films,
-  email,
   counts,
   total,
   empty,
 }: Readonly<{
   films: ReadonlyArray<Film>;
-  email: string;
   counts: Readonly<Record<string, number>>;
   total: number;
   /** The combinations with no match. */
@@ -67,7 +65,6 @@ export function WorkGrid({
       <FilmGrid
         id="work"
         films={[...first, ...rest]}
-        email={email}
         isVisible={isVisible}
         isNamed={(film) => matchesWorkFilter(film, naming)}
         divider={{

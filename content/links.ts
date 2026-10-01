@@ -92,6 +92,7 @@ export const NAME_LINKS: ReadonlyArray<NameLink> = [
   { phrase: "Entertainment Weekly", href: "https://ew.com/" },
 
   // Schools and programs
+  { phrase: "Vancouver Film School", href: "https://vfs.edu/" },
   {
     phrase: "LaSalle College",
     href: "https://www.lasallecollegevancouver.com/",
@@ -102,6 +103,7 @@ export const NAME_LINKS: ReadonlyArray<NameLink> = [
     href: "https://www.froghollow.bc.ca/",
   },
   { phrase: "Reel Youth", href: "https://www.reelyouth.ca/" },
+  { phrase: "Cinevic Summer Film Camp", href: "https://cinevic.ca/" },
   { phrase: "CEDIM", href: "https://www.cedim.edu.mx/" },
   { phrase: "Capilano College", href: "https://www.capilanou.ca/" },
   {

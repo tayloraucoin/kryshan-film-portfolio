@@ -8,19 +8,18 @@ import { FilmPlayer } from "@/components/composed/work/film-player";
 import { closeFilm, FILM_PANEL_ID } from "@/components/composed/work/open-film";
 import { CHROME, FILM_COPY } from "@/content/site";
 import { cn } from "@/lib/cn";
-import { mailtoHref } from "@/lib/mailto";
 
 /**
  * The open film (D-KRD-6, 7, 8; spec §4.3): full width, on the line below
- * the tile that opened it. The decision it carries: nothing sits between a
- * playing film and his email. A 44 px strip above the player (never over
+ * the tile that opened it. The decision it carries: nothing gets between a
+ * viewer and the film. A 44 px strip above the player (never over
  * it; YouTube's and Vimeo's controls live in the video's corners) holds
  * "Copy link" and "Full page →" at its left end and the ✕ at its right,
  * both first in the DOM so Shift+Tab out of the player reaches the ✕. Then
  * the player, already playing; then the title (a link to the film's
  * page), genre line, lane, logline, short awards and the film's first
- * press quote; and his email alone and last, as a message already titled
- * with the film (D-SITE-23). No story
+ * press quote. No email here (his round-3 notes; the film's page and
+ * Contact carry it). No story
  * (D-SITE-22) and no Close text. "Full page" is a working link in the
  * utility strip, never beside the email: his review read the old one, a
  * dead link on the email's line, as noise (DEVIATIONS, 2026-09-26).
@@ -33,9 +32,8 @@ import { mailtoHref } from "@/lib/mailto";
  */
 export function FilmPanel({
   film,
-  email,
   className,
-}: Readonly<{ film: Film; email: string; className?: string }>) {
+}: Readonly<{ film: Film; className?: string }>) {
   const titleId = `${FILM_PANEL_ID}-title`;
 
   useEffect(() => {
@@ -159,14 +157,6 @@ export function FilmPanel({
               </figcaption>
             </figure>
           ) : null}
-          <p className="pt-1">
-            <a
-              href={mailtoHref(email, film.title)}
-              className="text-sm text-(--link) underline-offset-4 hover:underline"
-            >
-              {email}
-            </a>
-          </p>
         </div>
       </div>
     </div>

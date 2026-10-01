@@ -8,6 +8,7 @@ import bornToBe from "@/public/media/posters/born-to-be.jpg";
 import contactClub from "@/public/media/posters/contact-club.jpg";
 import dare from "@/public/media/posters/dare.jpg";
 import digitalDays from "@/public/media/posters/digital-days.jpg";
+import glimpse from "@/public/media/posters/glimpse.jpg";
 import itsACrazierLife from "@/public/media/posters/its-a-crazier-life.jpg";
 import jack from "@/public/media/posters/jack.jpg";
 import justUpTheBlock from "@/public/media/posters/just-up-the-block.jpg";
@@ -15,6 +16,7 @@ import justWatchUs from "@/public/media/posters/just-watch-us.jpg";
 import lyonsHeart from "@/public/media/posters/lyons-heart.jpg";
 import rffcWereInThisTogether from "@/public/media/posters/rffc-were-in-this-together.jpg";
 import riverdaleEwBts from "@/public/media/posters/riverdale-ew-bts.jpg";
+import theBullySolution from "@/public/media/posters/the-bully-solution.jpg";
 import theWolfOfWestGeorgiaStreet from "@/public/media/posters/the-wolf-of-west-georgia-street.jpg";
 import tradeswomanExhibit from "@/public/media/posters/tradeswoman-exhibit.jpg";
 import tutsTwentyFiveSeasonTeaser from "@/public/media/posters/tuts-2025-season-teaser.jpg";
@@ -30,14 +32,16 @@ import unitedEights from "@/public/media/posters/united8s.jpg";
  * film's rights to "public" in content/projects.ts.
  *
  * Static imports give each poster its width, height and blur placeholder at
- * build time, and a missing file fails the build. Held films have no line:
- * their frames aren't approved.
+ * build time, and a missing file fails the build. A film with no line here
+ * can't be public.
  */
 export const POSTERS: Readonly<Record<string, StaticImageData | undefined>> = {
   "just-watch-us": justWatchUs,
   "a-very-bc-production": aVeryBcProduction,
   artless: artless,
   jack: jack,
+  glimpse: glimpse,
+  "the-bully-solution": theBullySolution,
   "born-to-be": bornToBe,
   dare: dare,
   "just-up-the-block": justUpTheBlock,

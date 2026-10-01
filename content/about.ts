@@ -56,12 +56,12 @@ const PORTRAIT: Photo | undefined = {
  * swap one, change its id here.
  */
 // Copy row A-7: the range the spec asks for, the wicked (the two films) and
-// the galvanizing (the contests he started).
+// the galvanizing (the contests he started). The Province pick is out: he
+// couldn't find the quote in the clipping (the line breaks "quick-est").
 const PRESS_PICKS: ReadonlyArray<string> = [
   "toronto-film-scene-2010-hilarious",
   "aicn-2006-wonderfully-wrong",
   "nerve-2002-inspire",
-  "province-2002-guerrilla",
 ];
 
 export const ABOUT = {
@@ -71,43 +71,30 @@ export const ABOUT = {
   headings: {
     recognition: "Recognition",
     awards: "Awards",
-    directed: "Directed and shot",
     press: "Press",
     onSet: "On set",
     testimonials: "What people say",
-    /** Over the Glimpse paragraph, so it reads as how he works, not a stray quote. */
-    // Copy row A-12
-    glimpse: "Working with actors",
   },
-  /** Before the client names under "Directed and shot". */
-  clientsLead: "Clients include",
   /** The h1. Default A (O-SITE-3); B is offered to him. */
   // Copy row A-1
   opener:
     "Born and raised in BC, I’ve been making films for as long as I can remember.",
 
-  /** ≤3 paragraphs, ≤200 words, the first ≤60. The person before the résumé. */
+  /** The person before the résumé: his round-3 text, as sent. */
   // Copy row A-2
   bio: [
-    "I directed two horror shorts for the Bloodshots Film Festival, Jack and The Bully Solution. I’ve shot and edited hundreds of news segments, behind-the-scenes work and other non-fiction projects, often as a one-person crew. I’m a member of the IATSE 669 camera union in the EPK category.",
-    "My career started with producing two fast film contests, The 24 Hour Film Contest and The Great Canadian Commercial Contest. Through these events, I met many of my favourite collaborators and started making short films on weekends with them. Outside of the industry, I practise transcendental meditation, ski and play beach volleyball, DJ, and host large-scale immersive events.",
-    "As a film instructor I teach directing, shooting and editing at LaSalle College, and do individual coaching and mentorship.",
+    "My career started with producing two fast film contests, The 24 Hour Film Contest and The Great Canadian Commercial Contest, where I met many of my favourite collaborators and started making short films on weekends with them.",
+    "Two of these shorts, Jack and The Bully Solution, screened and won awards at many top genre festivals, including Sitges and Fantasia. I also received a DGC Kickstart award to make the short film Glimpse, which premiered at the Vancouver International Film Festival, and screened on the Sundance Channel and Movieola.",
+    "These accolades led to me getting work as a director for hire, including PSAs for the Directors Guild of Canada, Creative BC, MPPIA and IATSE 669; social media ads for Zach Lipovsky’s Shotlister app; and four episodes of the web series Libelle later incorporated into the feature film Mission Ninety Two: Dragonfly. In recent years I’ve directed numerous stars including Ted Danson, Kevin Smith, Aubrey Plaza and Mary Steenburgen for various social media spots and PSAs.",
+    "I’ve also shot and edited hundreds of news segments, corporate and behind the scenes work, and other non-fiction projects, often as a one-person crew. I’m a Leo-nominated editor, and a member of IATSE 669 in the EPK category.",
+    "As a film instructor, I teach directing and cinematography at Vancouver Film School and LaSalle College, and do individual coaching and mentorship. Outside of the industry, I practice transcendental meditation, ski and play beach volleyball, DJ, and host large-scale invite-only immersive events. You’ll also find me out dancing nearly every Saturday night.",
   ],
 
-  /** Between hairlines, no heading: how an audition rewrote Glimpse. ≤70 words. */
-  // Copy row A-3 (from his 2017 talent-lab application)
-  glimpse:
-    "My lead actress Justine Warrington was so strong in her casting sessions for my short film Glimpse that I rewrote the script around the character she portrayed. She included all the layers implied in my previous draft, and then some, so the script had to rise to the level of her more multi-dimensional performance.",
-
-  /** Recognition › Directed and shot: the people he may name but not show (02 §8.3). */
-  // Copy row A-5. Aubrey Plaza waits on Q12 (SITE-C ruling 6).
-  namesLine:
-    "I’ve directed Ted Danson, Mary Steenburgen and Peter Gallagher in Ted on Set, and Kevin Smith and Tom Green in the Rio Theatre PSAs: work I’m not allowed to show you.",
-
   /** Recognition › Awards: award, film, festival. Only facts his sources agree on (02 §8.1, §13). */
-  // Copy row A-4. The Bully Solution waits on Q18, the nomination's film on O-SITE-4.
+  // Copy row A-4
   awards: [
-    "Grand Jury Prize and Best Death, Jack, Bloodshots Film Festival",
+    "Grand Jury Prize, Audience Choice Award, Best Script, Best Death, Jack, Bloodshots Film Festival. Also Silver Audience Choice Award, Fantasia Film Festival and Best Horror Film, Sharpcuts Indie Film and Music Festival",
+    "Grand Jury Prize, Audience Choice Award, Best Acting, The Bully Solution, Bloodshots Film Festival",
     "A&E Short Filmmakers Award, Glimpse, National Screen Institute",
     "Best Actor (Riaan Smit), Contact Club, Vancouver Quarantine Performance Project",
     "Leo-nominated as an editor",
@@ -116,11 +103,6 @@ export const ABOUT = {
   /** Recognition › Press: quote ids from content/press.ts (≤4). */
   pressPicks: PRESS_PICKS,
 
-  /** One quiet line (spec §6.4). */
-  // Copy row A-9
-  credentials:
-    "IATSE 669 (EPK) · Capilano College · American Academy of Dramatic Arts · Motion Picture Orientation, WHMIS, ActSafe",
-
   /** On set: two or three cleared photos (spec §11). */
   photos: ON_SET,
 
@@ -128,21 +110,15 @@ export const ABOUT = {
   // Widened on purpose: the slot holds a Photo once he supplies one.
   portrait: PORTRAIT as Photo | undefined,
 
-  /**
-   * The page's closing sentence. Plain, because the names line keeps the
-   * page's one dry turn (spec §6.4).
-   */
-  // Copy row A-10
-  handOff: "If you’re making something, email me.",
-
   /** The meta description (≤155 characters). */
   // Copy row A-11
   description:
-    "Kryshan Randel directs, shoots and edits in Vancouver: dark comedy shorts, PSAs, music videos and studio EPKs. He teaches film at LaSalle College.",
+    "Kryshan Randel directs, shoots and edits in Vancouver: dark comedy shorts, PSAs, music videos and studio EPKs. He teaches film at Vancouver Film School and LaSalle College.",
 } as const;
 
 /**
- * Clients, named in type (no logos until cleared, Q2). Studios and networks
+ * Clients, named in type (no logos until cleared, Q2). Not shown since his
+ * round-3 notes took out "Directed and shot"; the page can list them again. Studios and networks
  * first, then the rest in 02 §4's order. Not Legendary Pictures (02 §13 #10).
  */
 // Copy row A-6 (from 02 §4)
