@@ -1,5 +1,11 @@
+import Link from "next/link";
+import { EMAIL_PAUSED_COPY } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { mailtoHref } from "@/lib/mailto";
+import { siteRoutes } from "@/lib/routes";
+
+const LINK =
+  "inline-flex min-h-11 items-center rounded-(--radius) text-xl leading-[1.4] text-(--link) underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
 /**
  * The end of a page's content (spec §4.3, Vesper C6): one sentence in the
@@ -8,6 +14,9 @@ import { mailtoHref } from "@/lib/mailto";
  * an exit off-site. Without a sentence it renders the address alone (the
  * panel and Contact use that form, and a page whose sentence SITE-C hasn't
  * written yet). Server component; the address arrives as a prop.
+ *
+ * TEMPORARY: a null `email` (the address is paused, lib/config.ts) links to
+ * Contact instead, in the same place and style.
  */
 export function EmailHandOff({
   email,
@@ -15,7 +24,7 @@ export function EmailHandOff({
   subject,
   className,
 }: Readonly<{
-  email: string;
+  email: string | null;
   sentence?: string;
   subject?: string;
   className?: string;
@@ -26,12 +35,15 @@ export function EmailHandOff({
         <p className="max-w-[68ch] text-xl leading-[1.4]">{sentence}</p>
       ) : null}
       <p className="max-w-[68ch]">
-        <a
-          href={mailtoHref(email, subject)}
-          className="inline-flex min-h-11 items-center rounded-(--radius) text-xl leading-[1.4] text-(--link) underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-        >
-          {email}
-        </a>
+        {email ? (
+          <a href={mailtoHref(email, subject)} className={LINK}>
+            {email}
+          </a>
+        ) : (
+          <Link href={siteRoutes.contact} className={LINK}>
+            {EMAIL_PAUSED_COPY.link}
+          </Link>
+        )}
       </p>
     </div>
   );

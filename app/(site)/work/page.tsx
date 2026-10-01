@@ -9,9 +9,9 @@ import { toFilm } from "@/components/composed/work/film";
 import { RELEASED_CREDITS } from "@/content/credits";
 import { NAME_LINKS } from "@/content/links";
 import { workOrder } from "@/content/projects";
-import { CHROME, SOCIALS, WORK_COPY } from "@/content/site";
+import { CHROME, EMAIL_PAUSED_COPY, SOCIALS, WORK_COPY } from "@/content/site";
 import { WORK } from "@/content/work";
-import { SITE } from "@/lib/config";
+import { PUBLIC_EMAIL, SITE } from "@/lib/config";
 import { createPageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
 import {
@@ -121,8 +121,11 @@ export default function WorkPage() {
             </section>
           ) : null}
           <EmailHandOff
-            email={SITE.email}
-            sentence={WORK.handOff || undefined}
+            email={PUBLIC_EMAIL}
+            sentence={
+              (PUBLIC_EMAIL ? WORK.handOff : EMAIL_PAUSED_COPY.workHandOff) ||
+              undefined
+            }
           />
         </div>
       </div>

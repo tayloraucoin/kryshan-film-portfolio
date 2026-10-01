@@ -30,6 +30,24 @@ export const env = createEnv({
     CONTACT_EMAIL: z.email().default("hello@kryshanrandel.com"),
 
     /**
+     * Where Contact's form delivers (`lib/contact/send-message.ts`). Never
+     * rendered. Unset, it falls back to his Gmail (the intake's address):
+     * kryshan@kryshanrandel.com bounces until the domain's mail is fixed.
+     */
+    CONTACT_FORM_TO: z.email().default("kryshanrandel@gmail.com"),
+    /**
+     * The form's sender. Resend only sends from a domain verified in its
+     * dashboard, so this must be an address on one. The visitor's address
+     * rides as Reply-To.
+     */
+    CONTACT_FORM_FROM: z
+      .string()
+      .min(3)
+      .default("Kryshan Randel website <website@kryshanrandel.com>"),
+    /** Resend's API key. Unset, the form says it couldn't send and offers the address. */
+    RESEND_API_KEY: z.string().min(1).optional(),
+
+    /**
      * The review gate. "on" (the default, and the only safe value for a
      * deployed round) requires the access code; "off" lets every `/review`
      * request through with no code, for local development only. Fails
@@ -71,6 +89,9 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     CONTACT_EMAIL: process.env.CONTACT_EMAIL,
+    CONTACT_FORM_TO: process.env.CONTACT_FORM_TO,
+    CONTACT_FORM_FROM: process.env.CONTACT_FORM_FROM,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
     REVIEW_GATE: process.env.REVIEW_GATE,
     REVIEW_ACCESS_CODE: process.env.REVIEW_ACCESS_CODE,
     REVIEW_SESSION_SECRET: process.env.REVIEW_SESSION_SECRET,

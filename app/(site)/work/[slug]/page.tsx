@@ -19,9 +19,14 @@ import {
   workOrder,
   type ShowableProject,
 } from "@/content/projects";
-import { CHROME, DETAIL_COPY, FILM_COPY } from "@/content/site";
+import {
+  CHROME,
+  DETAIL_COPY,
+  EMAIL_PAUSED_COPY,
+  FILM_COPY,
+} from "@/content/site";
 import { cn } from "@/lib/cn";
-import { SITE } from "@/lib/config";
+import { PUBLIC_EMAIL } from "@/lib/config";
 import { mailtoHref } from "@/lib/mailto";
 import { embedUrl } from "@/lib/media/embed-url";
 import { absoluteUrl, createPageMetadata } from "@/lib/metadata";
@@ -163,15 +168,27 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
             />
           </div>
           <p>
-            <a
-              href={mailtoHref(SITE.email, project.title)}
-              className={cn(
-                "inline-flex min-h-11 items-center text-(--link) underline-offset-4 hover:underline",
-                FOCUS,
-              )}
-            >
-              {SITE.email}
-            </a>
+            {PUBLIC_EMAIL ? (
+              <a
+                href={mailtoHref(PUBLIC_EMAIL, project.title)}
+                className={cn(
+                  "inline-flex min-h-11 items-center text-(--link) underline-offset-4 hover:underline",
+                  FOCUS,
+                )}
+              >
+                {PUBLIC_EMAIL}
+              </a>
+            ) : (
+              <Link
+                href={siteRoutes.contact}
+                className={cn(
+                  "inline-flex min-h-11 items-center text-(--link) underline-offset-4 hover:underline",
+                  FOCUS,
+                )}
+              >
+                {EMAIL_PAUSED_COPY.link}
+              </Link>
+            )}
           </p>
         </div>
 
@@ -246,8 +263,12 @@ export default async function FilmPage({ params }: PageProps<"/work/[slug]">) {
 
         {DETAIL_COPY.handOff ? (
           <EmailHandOff
-            email={SITE.email}
-            sentence={DETAIL_COPY.handOff}
+            email={PUBLIC_EMAIL}
+            sentence={
+              PUBLIC_EMAIL
+                ? DETAIL_COPY.handOff
+                : EMAIL_PAUSED_COPY.detailHandOff
+            }
             subject={project.title}
             className="px-3 md:px-6"
           />

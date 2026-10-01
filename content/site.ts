@@ -154,8 +154,12 @@ export const DETAIL_COPY = {
 export const CONTACT = {
   /** The page's name, in the tab and the bar. */
   title: "Contact",
-  /** Locked; flagged to him (O-SITE-16): "No waiting" promises how fast he replies. Alternative offered: "No agent and no form. Email me." */
-  h1: "No agent, no form, no waiting.",
+  /**
+   * [PROVISIONAL — Taylor, then him] The page has a form now (D-SITE-14
+   * reversed), so the locked "No agent, no form, no waiting." would be
+   * false. True of both routes in: the address and the form both reach him.
+   */
+  h1: "No agent. Write to me directly.",
   /** The meta description (Locked, Cantor). */
   description:
     "Email Kryshan Randel directly. Director, camera operator, editor and film instructor. Vancouver, works anywhere.",
@@ -168,6 +172,49 @@ export const CONTACT = {
     done: "Copied",
     failed: "Couldn't copy. The address is selected.",
   },
+  /** The form under the address. [PROVISIONAL — Taylor] */
+  form: {
+    heading: "Or write here",
+    name: "Your name",
+    email: "Your email",
+    message: "Message",
+    send: "Send",
+    sending: "Sending…",
+    /** After it sent; the form is replaced by this and "Write another". */
+    sent: "Sent. Thank you. My reply will come to the email you gave.",
+    another: "Write another",
+    /** Under a field the server refused. */
+    invalid: {
+      name: "Add your name.",
+      email: "That email address doesn't look complete.",
+      message: "Write a message.",
+    },
+    /** When the send failed; his address follows as a link. What they wrote stays in the form. */
+    failed:
+      "That didn't send. Your message is still here. You can also email me at",
+  },
+} as const;
+
+/**
+ * TEMPORARY: the words used while his address is off the site (`PUBLIC_EMAIL`
+ * is null, lib/config.ts). Each replaces a line above that says "email";
+ * delete this block when the address comes back. [PROVISIONAL — Taylor]
+ */
+export const EMAIL_PAUSED_COPY = {
+  /** The link to Contact that stands where the address stood. */
+  link: "Write to me",
+  /** Replaces `WORK.handOff`. */
+  workHandOff: "For camera or editing on your production, write to me.",
+  /** Replaces `DETAIL_COPY.handOff`. */
+  detailHandOff: "If you want something like this, write to me.",
+  /** Replaces `CONTACT.description`. */
+  contactDescription:
+    "Write to Kryshan Randel directly. Director, camera operator, editor and film instructor. Vancouver, works anywhere.",
+  /** Replaces `CONTACT.teachingLine`. */
+  teachingLine: "For teaching and coaching, write here too.",
+  /** Replaces `CONTACT.form.failed`; there is no address to offer. */
+  formFailed:
+    "That didn't send. Your message is still here. Please try again in a minute.",
 } as const;
 
 export type Strand = {

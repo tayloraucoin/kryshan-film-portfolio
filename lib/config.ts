@@ -44,6 +44,18 @@ export const SITE = {
   },
 } as const;
 
+/**
+ * TEMPORARY (2026-10-01): his address is off the public site while the new
+ * mailbox is being fixed. Everywhere it appeared links to Contact (the form)
+ * instead, in `EMAIL_PAUSED_COPY`'s words (content/site.ts). To bring it
+ * back everywhere, set this to `false`. The review mocks still read
+ * `SITE.email`.
+ */
+const EMAIL_PAUSED = true;
+
+/** The address the public site shows, or null while it is paused. */
+export const PUBLIC_EMAIL: string | null = EMAIL_PAUSED ? null : SITE.email;
+
 /** The canonical origin, no trailing slash. */
 export const SITE_URL = env.NEXT_PUBLIC_SITE_URL;
 
