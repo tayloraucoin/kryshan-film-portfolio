@@ -1,7 +1,7 @@
 import type { IsoDate } from "../lib/iso-date";
 import type { VideoProvider } from "../lib/media/embed-url";
 import type { WorkRole } from "../lib/routes";
-import { FEATURED } from "./home";
+import { FEATURED, PERSONAL_ORDER } from "./home";
 
 /**
  * Every film, one entry each, from the intake inventory
@@ -34,7 +34,7 @@ import { FEATURED } from "./home";
 
 export type ProjectRole = WorkRole;
 
-/** Internal only; never rendered. "passion" shows as "Passion project"; "hire" shows the client's name. */
+/** Internal only; never rendered. "passion" shows as "Personal project"; "hire" shows the client's name. */
 export type ProjectLane = "passion" | "hire";
 
 /**
@@ -154,7 +154,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     year: 2009,
     roles: ["directing"],
     roleLabel: "Director / Co-writer",
-    lane: "passion",
+    lane: "hire",
     client: "Wrecking Ball Society",
     kind: "PSA",
     logline:
@@ -182,7 +182,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "A weekend getaway turns into a horrific nightmare when two couples engage in a perverse pumpkin slaughter.",
     awards: [
-      "Grand Jury Prize and Best Death, Bloodshots Film Festival",
+      "Grand Jury Prize, Audience Choice Award, Best Script and Best Death, Bloodshots Film Festival",
       "Screened at Fantasia and Sitges",
     ],
     // Copy row D-jack-W: the tile's laurel (Taylor, 2026-09-26: lead with Jack).
@@ -235,10 +235,9 @@ export const PROJECTS: ReadonlyArray<Project> = [
       },
     ],
     embed: { provider: "youtube", id: "-MoaRA-QC8E" },
-    // Held: its frame isn't approved (O-SITE-13); today's file is 720 × 480
-    // and near black. To unhold: an approved frame in content/posters.ts,
-    // then rights "public".
-    rights: "held",
+    // Shown at his request (round 3), on the frame on file: 720 × 480 and
+    // dark. A better frame goes in public/media/posters/glimpse.jpg.
+    rights: "public",
   },
   {
     slug: "born-to-be",
@@ -252,7 +251,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     logline:
       "Myk Gordon’s first single from his album Born To Be, with cameos from friends and strangers.",
     story:
-      "Directed and shot during one of the windiest days of the year, it features cameos half from friends and half from strangers, often selected only minutes before appearing on camera.",
+      "Directed and shot during one of the windiest days of the year, this tribute to self-expression features cameos half from friends and half from strangers, often selected only minutes before appearing on camera.",
     articles: [
       {
         outlet: "Roots Music Canada",
@@ -279,22 +278,25 @@ export const PROJECTS: ReadonlyArray<Project> = [
     kind: "Short",
     logline:
       "Shy eight-year-old Timmy is picked on, until school groundskeeper Jack Raddick gives him some tools to deal with bullies. Power tools…",
-    // Award list disagrees between sources (02 §13 #6); festivals only until Q18.
-    awards: ["Screened at Fantastic Fest and Fantasia"],
+    // His round-3 notes: the Bloodshots awards (Grand Jury Prize, Audience
+    // Choice Award, Best Acting), then the festivals.
+    awards: [
+      "Grand Jury Prize, Audience Choice Award and Best Acting, Bloodshots Film Festival",
+      "Screened at Fantastic Fest and Fantasia",
+    ],
     story:
       "The Bully Solution was written, shot and edited in 48 hours for the Bloodshots Film Festival. Judges included director Robert Rodriguez (Sin City, Spy Kids), who stated that the “kid revenge flick” was the standout film of the festival.",
     awardsFull: [
+      "Won the Grand Jury Prize, the Audience Choice Award and Best Acting, Bloodshots Film Festival",
       "Screened at Fantasia Film Festival, Fantastic Fest, Screamfest LA, Horror Fest UK, Sharpcuts Indie Film and Music Festival and the Calgary International Film Festival",
     ],
     // Copy row D-the-bully-solution-P: picks from content/press.ts. The Skinny's
     // "sick, sick after-school special" waits on its outlet being confirmed.
     press: ["aicn-2006-wonderfully-wrong", "fantasia-2007-hysterically-mean"],
-    // Held: no approved (non-gory) frame (O-SITE-13), and no Dailymotion URL
-    // yet (O-SITE-7). Banned from YouTube and Vimeo, so it will link out:
-    // embed: { provider: "linkout", host: "Dailymotion", url: "https://…" }.
-    // The old-site link-out is gone: that address becomes this site
-    // (D-SITE-9, handoff O-6).
-    rights: "held",
+    embed: { provider: "youtube", id: "WbCNeA1bdAw" },
+    // Shown at his request (round 3), on the frame on file, which is bloody.
+    // A gentler frame goes in public/media/posters/the-bully-solution.jpg.
+    rights: "public",
   },
   {
     slug: "dare",
@@ -428,12 +430,13 @@ export const PROJECTS: ReadonlyArray<Project> = [
     year: 2014,
     roles: ["directing", "editing"],
     roleLabel: "Director / Co-editor",
-    lane: "passion",
+    lane: "hire",
+    client: "Andrew Johns",
     kind: "Fake trailer",
     logline:
       "A man’s fortieth birthday present: a movie trailer that turns him into a superhero wolfman.",
     story:
-      "The ‘star’ was filmed for what he thought was a work video, then re-edited out of context, with his friends, family and co-workers playing versions of themselves, to turn him into a superhero wolfman.\n\nI had never met him before I started filming him. One of the most unusual and rewarding challenges I’ve ever had.",
+      "Filmed for what he thought was a corporate video, Andrew Johns was shocked to see the footage re-edited out of context into the blockbuster movie trailer version of his life, all orchestrated by his wife as a surprise fortieth birthday present.",
     embed: { provider: "youtube", id: "X272pj_iu7Y" },
     // A private person's birthday gift: shown on Q13's default, "shown"
     // (O-SITE-8). If he says no, set rights to "held".
@@ -445,7 +448,7 @@ export const PROJECTS: ReadonlyArray<Project> = [
     year: 2014,
     roles: ["directing"],
     roleLabel: "Director",
-    lane: "passion",
+    lane: "hire",
     client: "Crazy8s",
     kind: "Promo / satire",
     logline:
@@ -618,7 +621,19 @@ export function workOrder(): ReadonlyArray<ShowableProject> {
   const rest = SHOWABLE_PROJECTS.filter(
     (project) => !FEATURED.includes(project.slug),
   ).sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, "en-CA"));
-  return [...pinned, ...rest];
+  // Personal projects take the slots personal projects held, in PERSONAL_ORDER.
+  const isPersonal = (project: ShowableProject) =>
+    PERSONAL_ORDER.includes(project.slug);
+  const personal = rest
+    .filter(isPersonal)
+    .sort(
+      (a, b) => PERSONAL_ORDER.indexOf(a.slug) - PERSONAL_ORDER.indexOf(b.slug),
+    );
+  let next = 0;
+  const ordered = rest.map((project) =>
+    isPersonal(project) ? (personal[next++] ?? project) : project,
+  );
+  return [...pinned, ...ordered];
 }
 
 /**

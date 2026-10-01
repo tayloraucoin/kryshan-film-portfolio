@@ -77,41 +77,14 @@ export default function WorkPage() {
                 })}
               </p>
             </div>
-            <WorkFilters counts={counts} total={total} />
+            <WorkFilters
+              counts={counts}
+              total={total}
+              creditsLabel={hasCredits ? WORK_COPY.credits.jump : undefined}
+            />
           </header>
-          {hasCredits ? (
-            <p className="-mt-3 px-3 md:px-6">
-              <a
-                href="#credits"
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-(--radius) text-[0.6875rem] leading-none font-semibold font-stretch-88% tracking-[0.18em] text-(--link) uppercase focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-              >
-                {WORK_COPY.credits.jump}
-                <span aria-hidden="true">↓</span>
-              </a>
-            </p>
-          ) : null}
-          <WorkGrid
-            films={films}
-            email={SITE.email}
-            counts={counts}
-            total={total}
-            empty={empty}
-          />
+          <WorkGrid films={films} counts={counts} total={total} empty={empty} />
         </div>
-
-        {WORK.cantShow.body ? (
-          <section
-            aria-labelledby="cant-show"
-            className="flex flex-col gap-3 px-3 md:px-6"
-          >
-            <h2 id="cant-show" className={H2}>
-              {WORK.cantShow.heading}
-            </h2>
-            <p className="max-w-[60ch] leading-relaxed">
-              {linkText(WORK.cantShow.body)}
-            </p>
-          </section>
-        ) : null}
 
         <div className="flex flex-col gap-10 px-3 md:px-6">
           {hasCredits ? (

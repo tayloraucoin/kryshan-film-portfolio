@@ -1,15 +1,13 @@
-import { Fragment } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Frame } from "@/components/composed/media/frame";
 import { PhotoFigure } from "@/components/composed/media/photo-figure";
 import { PressQuote } from "@/components/composed/press/press-quote";
-import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { createLinker } from "@/components/composed/site/linked-text";
 import { PersonJsonLd } from "@/components/composed/site/person-json-ld";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { Testimonial } from "@/components/composed/site/testimonial";
-import { ABOUT, CLIENTS } from "@/content/about";
+import { ABOUT } from "@/content/about";
 import { NAME_LINKS } from "@/content/links";
 import { resolvePressQuotes } from "@/content/press";
 import { SHOWABLE_PROJECTS } from "@/content/projects";
@@ -55,8 +53,7 @@ export default function AboutPage() {
     (testimonial) => testimonial.page === "about",
   ).slice(0, 3);
   const hasAwards = ABOUT.awards.length > 0;
-  const hasDirected = Boolean(ABOUT.namesLine) || CLIENTS.length > 0;
-  const hasRecognition = hasAwards || hasDirected || press.length > 0;
+  const hasRecognition = hasAwards || press.length > 0;
   const { portrait } = ABOUT;
 
   return (
@@ -107,41 +104,14 @@ export default function AboutPage() {
             <h2 id="recognition" className={H2}>
               {ABOUT.headings.recognition}
             </h2>
-            {hasAwards || hasDirected ? (
-              <div className="grid gap-8 md:grid-cols-2 md:gap-12">
-                {hasAwards ? (
-                  <div className="flex flex-col gap-3">
-                    <h3 className={H3}>{ABOUT.headings.awards}</h3>
-                    <ul className="flex max-w-[68ch] flex-col gap-2">
-                      {ABOUT.awards.map((line) => (
-                        <li key={line}>{linkText(line, { repeat: true })}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-                {hasDirected ? (
-                  <div className="flex flex-col gap-3">
-                    <h3 className={H3}>{ABOUT.headings.directed}</h3>
-                    {ABOUT.namesLine ? (
-                      <p className="max-w-[68ch] leading-relaxed">
-                        {linkText(ABOUT.namesLine)}
-                      </p>
-                    ) : null}
-                    {CLIENTS.length > 0 ? (
-                      <p className="max-w-[68ch] leading-relaxed">
-                        <span className="text-muted-foreground">
-                          {ABOUT.clientsLead}{" "}
-                        </span>
-                        {CLIENTS.map((client, index) => (
-                          <Fragment key={client}>
-                            {index > 0 ? " · " : null}
-                            {linkText(client, { repeat: true })}
-                          </Fragment>
-                        ))}
-                      </p>
-                    ) : null}
-                  </div>
-                ) : null}
+            {hasAwards ? (
+              <div className="flex flex-col gap-3">
+                <h3 className={H3}>{ABOUT.headings.awards}</h3>
+                <ul className="flex max-w-[68ch] flex-col gap-2">
+                  {ABOUT.awards.map((line) => (
+                    <li key={line}>{linkText(line, { repeat: true })}</li>
+                  ))}
+                </ul>
               </div>
             ) : null}
             {press.length > 0 ? (
@@ -156,17 +126,6 @@ export default function AboutPage() {
                 </ul>
               </div>
             ) : null}
-          </section>
-        ) : null}
-
-        {ABOUT.glimpse ? (
-          <section aria-labelledby="glimpse" className="flex flex-col gap-6">
-            <h2 id="glimpse" className={H2}>
-              {ABOUT.headings.glimpse}
-            </h2>
-            <p className="max-w-[52ch] border-y border-border/40 py-6 text-xl leading-[1.4]">
-              {linkText(ABOUT.glimpse)}
-            </p>
           </section>
         ) : null}
 
@@ -200,13 +159,6 @@ export default function AboutPage() {
             </ul>
           </section>
         ) : null}
-
-        <div className="flex flex-col gap-10">
-          <p className="max-w-[68ch] text-sm text-muted-foreground">
-            {linkText(ABOUT.credentials)}
-          </p>
-          <EmailHandOff email={SITE.email} sentence={ABOUT.handOff} />
-        </div>
       </div>
     </SiteShell>
   );

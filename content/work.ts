@@ -8,7 +8,7 @@
  */
 export const WORK = {
   h1: "Work",
-  /** Beside the h1: "{n} pieces", or "{m} of {n}" with the passion chip on (a role hides nothing). */
+  /** Beside the h1: "{n} pieces", or "{m} of {n}" with the personal-projects chip on (a role hides nothing). */
   count: {
     all: (n: number) => `${n} pieces`,
     filtered: (m: number, n: number) => `${m} of ${n}`,
@@ -20,7 +20,7 @@ export const WORK = {
     directing: "Directing",
     camera: "Camera",
     editing: "Editing",
-    passion: "Passion projects",
+    passion: "Personal projects",
   },
   /**
    * "Arrange by" (SITE-4a, his Demo D feedback): the lead-in before the role
@@ -32,15 +32,6 @@ export const WORK = {
     lead: "Arrange by",
     rest: "The rest",
     announce: (role?: string) => (role ? `${role} first` : "Featured order"),
-  },
-  cantShow: {
-    heading: "What I can't show you",
-    /**
-     * His names line, cut (≤55 words). Aubrey Plaza waits on Q12 (SITE-C
-     * ruling 6). Empty: the section doesn't render.
-     */
-    // Copy row W-1 (docs/client/kryshan-09-copy-for-approval.md)
-    body: "I’ve directed Ted Danson, Mary Steenburgen and Peter Gallagher in Ted on Set, and Kevin Smith and Tom Green in the Rio Theatre PSAs. I am allowed to say I worked with them but not allowed to post the results of our work online.",
   },
   credits: {
     /** A Write string, 2–4 words, literal (SITE-4 ruling 8). */

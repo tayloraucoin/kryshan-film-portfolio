@@ -65,7 +65,6 @@ const ALL_VISIBLE = () => true;
  */
 export function FilmGrid({
   films,
-  email,
   leading,
   isVisible = ALL_VISIBLE,
   isNamed = isVisible,
@@ -75,7 +74,6 @@ export function FilmGrid({
   className,
 }: Readonly<{
   films: ReadonlyArray<Film>;
-  email: string;
   leading?: ReactNode;
   isVisible?: (film: Film) => boolean;
   /**
@@ -184,7 +182,7 @@ export function FilmGrid({
                 className="col-span-full"
                 style={{ viewTransitionName: "film-open" }}
               >
-                <FilmPanel film={openFilmData} email={email} />
+                <FilmPanel film={openFilmData} />
               </li>
             ) : null}
             {divider && film.slug === dividerAfter ? (

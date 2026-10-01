@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PhotoFigure } from "@/components/composed/media/photo-figure";
-import { EmailHandOff } from "@/components/composed/site/email-hand-off";
 import { createLinker } from "@/components/composed/site/linked-text";
 import { SiteShell } from "@/components/composed/site/site-shell";
 import { Testimonial } from "@/components/composed/site/testimonial";
@@ -8,7 +7,6 @@ import { NAME_LINKS } from "@/content/links";
 import { TEACHING } from "@/content/teaching";
 import { TESTIMONIALS } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
-import { SITE } from "@/lib/config";
 import { createPageMetadata } from "@/lib/metadata";
 import { siteRoutes } from "@/lib/routes";
 
@@ -56,9 +54,6 @@ export default function TeachingPage() {
             <h1 className="font-heading text-[2rem] leading-[1.02] font-bold font-stretch-80% md:text-[clamp(2rem,2.6vw,2.5rem)] xl:text-[2.5rem]">
               {TEACHING.h1}
             </h1>
-            {TEACHING.opener ? (
-              <p className="leading-relaxed">{linkText(TEACHING.opener)}</p>
-            ) : null}
           </div>
           {openerPhoto ? (
             <PhotoFigure
@@ -132,8 +127,6 @@ export default function TeachingPage() {
             </ul>
           </section>
         ) : null}
-
-        <EmailHandOff email={SITE.email} sentence={TEACHING.handOff} />
       </div>
     </SiteShell>
   );

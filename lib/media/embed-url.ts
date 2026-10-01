@@ -29,6 +29,8 @@ export function embedUrl(
       const params = new URLSearchParams({
         ...(autoplay ? { autoplay: "1" } : {}),
         rel: "0",
+        // Captions stay off until the viewer asks (his round-3 notes).
+        cc_load_policy: "0",
         modestbranding: "1",
         playsinline: "1",
       });

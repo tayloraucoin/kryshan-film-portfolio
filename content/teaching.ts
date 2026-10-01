@@ -47,11 +47,7 @@ export const TEACHING = {
   title: "Teaching",
   /** The h1: the spec's provisional default (D-SITE-17); no red phrase. */
   // Copy row T-1
-  h1: "Bring a story. You’ll leave having directed, shot and cut it.",
-  /** One or two sentences under the h1 (≤40 words). */
-  // Copy row T-2
-  opener:
-    "I teach directing, camera and editing at LaSalle College. I run film camps and programs for young people and coach filmmakers one on one.",
+  h1: "Discover or develop your creative voice. Direct, shoot, write, edit.",
   // Widened on purpose: the slot holds a Photo once he sends one.
   openerPhoto: OPENER_PHOTO as Photo | undefined,
   blocks: {
@@ -60,6 +56,7 @@ export const TEACHING = {
       // Copy row T-3
       /** The second school is left out until he confirms it (O-SITE-5). */
       items: [
+        "Vancouver Film School (2026–present)",
         "LaSalle College (2023–present)",
         "InFocus Film School (2010–2022)",
       ],
@@ -69,11 +66,10 @@ export const TEACHING = {
       /** Places as the places spell them. Frames' descriptor waits on his and Frog Hollow's wording (O-SITE-14). */
       // Copy row T-3
       items: [
-        "Frames Film Project (founder, with Frog Hollow Neighbourhood House, 2012–2015)",
-        "Reel Youth: Whatì, NWT and Mississauga (2017–2018)",
-        "CEDIM, Mexico: visiting professor (2010)",
-        "Camps in Victoria and Toronto",
-        "Remote camps",
+        "Frames Film Program (co-founder with Frog Hollow Neighbourhood House)",
+        "Reel Youth: Whatì, NWT and Mississauga",
+        "CEDIM, Mexico: visiting professor",
+        "Cinevic Summer Film Camp",
       ],
       /** One line of camp facts (ages, length, what they leave with, his check); empty until O-SITE-14. */
       // Copy row T-4 (held)
@@ -89,10 +85,8 @@ export const TEACHING = {
   roomPhotos: ROOM_PHOTOS,
   /** The heading over teaching testimonials. */
   testimonialsHeading: "What people say",
-  /** The page's closing sentence (Locked, 06-A §4). */
-  handOff: "If you run a program or want coaching, email me.",
   /** The meta description (≤155 characters). */
   // Copy row T-7
   description:
-    "Film teaching with Kryshan Randel: directing, camera and editing at LaSalle College, film camps and one-on-one coaching.",
+    "Film teaching with Kryshan Randel: directing and cinematography at Vancouver Film School and LaSalle College, film camps and one-on-one coaching.",
 } as const;

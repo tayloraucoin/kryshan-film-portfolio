@@ -95,7 +95,7 @@ export const FILM_COPY = {
   tileName: (title: string, genreLine: string, laurel?: string) =>
     laurel ? `${title}, ${genreLine}, ${laurel}` : `${title}, ${genreLine}`,
   /** The one lane label; paid work shows its client instead (D-KRD-10). */
-  passion: "Passion project",
+  passion: "Personal project",
   close: (title: string) => `Close ${title}`,
   /** The open film's link to the film's own page; the → is drawn separately. */
   fullPage: "Full page",
@@ -118,13 +118,13 @@ export const WORK_COPY = {
     filtered: (m: number, n: number) => `Showing ${m} of ${n}`,
     all: (n: number) => `Showing all ${n}`,
   },
-  /** `role` is the lowercase role; with no role, "No passion projects yet." */
+  /** `role` is the lowercase role; with no role, "No personal projects yet." */
   empty: (role?: string) =>
-    role ? `No ${role} passion projects yet.` : "No passion projects yet.",
+    role ? `No ${role} personal projects yet.` : "No personal projects yet.",
   showAll: "Show all",
   credits: {
-    /** The jump link under Work's header; the ↓ is drawn by the page. */
-    jump: "Behind-the-scenes credits",
+    /** The jump link in Work's filter row: grey, like the roles, no arrow. */
+    jump: "Behind the scenes",
     all: (n: number) => `All ${n} credits`,
     imdb: "Full credits on IMDb",
   },
