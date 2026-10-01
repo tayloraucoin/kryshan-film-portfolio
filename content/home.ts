@@ -38,10 +38,19 @@ export const PERSONAL_ORDER: ReadonlyArray<string> = [
 ];
 
 /**
- * Home's h1: five words, each a link (his round-3 notes). `to` names the
- * page it opens; the title cell turns it into a route.
+ * Home's h1 and its one red phrase (Locked, §6.1). `red` must appear in
+ * `text` word for word, once; the title cell colours that part.
  */
-export const HOME_H1 = [
+export const HOME_H1 = {
+  text: "I direct, shoot and edit stories that are hard to look away from.",
+  red: "hard to look away from.",
+} as const;
+
+/**
+ * The line under the h1: five words, each a link (his round-3 notes). `to`
+ * names the page it opens; the title cell turns it into a route.
+ */
+export const HOME_ROLES = [
   { word: "Director", to: "directing" },
   { word: "Camera", to: "camera" },
   { word: "Editor", to: "editing" },
