@@ -26,8 +26,17 @@ export const SITE = {
    * leaves receive it as a prop.
    */
   email: env.CONTACT_EMAIL,
-  /** Set to the client's social card once one exists (1200×630). */
-  ogImage: null as null | {
+  /**
+   * The link preview for every page that doesn't name its own (O-SITE-11).
+   * Film pages share their poster instead (spec §6.3). JPEG, not WebP: some
+   * link unfurlers still drop WebP. Keep it 1200×630 and under 300 KB.
+   */
+  ogImage: {
+    url: "/media/social/kryshan-randel-card.jpg",
+    width: 1200,
+    height: 630,
+    alt: "Kryshan Randel on a Vancouver shoot. Director, camera, editor, teacher, storyteller.",
+  } as null | {
     url: string;
     width: number;
     height: number;
