@@ -1,3 +1,4 @@
+import { KRYSHAN_IMDB_URL } from "./imdb";
 import { siteRoutes } from "./routes";
 
 /**
@@ -17,6 +18,6 @@ import { siteRoutes } from "./routes";
 export const BUSINESS_CARD_DESTINATIONS = {
   /** Home, tagged so scans from the card show up apart from other traffic. */
   card: `${siteRoutes.home}?utm_source=business-card&utm_medium=qr`,
-  /** Kryshan's IMDb profile. */
-  imdb: "https://www.imdb.com/name/nmXXXXXXX/",
+  /** Kryshan's IMDb profile, the same URL as the footer's IMDb link. */
+  imdb: KRYSHAN_IMDB_URL,
 } as const;

@@ -1,4 +1,5 @@
 import type { Route } from "next";
+import { KRYSHAN_IMDB_URL } from "@/lib/imdb";
 import { siteRoutes } from "@/lib/routes";
 
 /**
@@ -44,7 +45,7 @@ export const SOCIALS: ReadonlyArray<{
   href: string;
   secondary?: boolean;
 }> = [
-  { label: "IMDb", href: "https://www.imdb.com/name/nm1451064/" },
+  { label: "IMDb", href: KRYSHAN_IMDB_URL },
   { label: "Vimeo", href: "https://vimeo.com/kryshanrandel" },
   {
     label: "YouTube",
