@@ -3,7 +3,7 @@
 **Epic:** SITE — Kryshan Randel's live site · **Step 2b (ad hoc, off the critical path)** · Size: S
 **Slice type:** two static redirects, config only. The risk is a link printed on paper that can't be reprinted: if either source path or the temporary status is wrong, the card is either dead or permanently miscached in someone's browser.
 
-**Status:** Not started
+**Status:** Complete (2026-10-01)
 
 > **Vigil: the print is permanent, the redirect is not.** Review by inducing the failure: confirm both redirects are 307 (not 308/301) with `curl -sIL`, since a browser that has already cached a 308 will never re-check the destination even after this file changes.
 
@@ -17,7 +17,7 @@ This slice does not add analytics: the repo has none (checked `package.json` and
 
 ## Why / intent
 
-- **The client's request:** two redirect links for a printed business card (source: Taylor, 2026-09-26), replacing a placeholder IMDb URL supplied in that request.
+- **The client's request:** two redirect links for a printed business card (source: Taylor, 2026-09-26). The IMDb URL is `https://www.imdb.com/name/nm1451064/` — the same one already in the footer's `SOCIALS` list (`content/site.ts`), confirmed by Taylor 2026-10-01.
 - **What this slice is NOT (binding):** no analytics integration (none exists to integrate with); no change to `LEGACY_PATHS` or `buildLegacyRedirects()` (SITE-5); no new page or route under `app/(site)/` — these are pure config redirects.
 
 **Rulings this slice makes (labelled, logged):**
@@ -25,6 +25,7 @@ This slice does not add analytics: the repo has none (checked `package.json` and
 - **A new file, `lib/business-card.ts`, holds the two destinations as one named constant,** rather than inlining them in `next.config.ts` next to `buildLegacyRedirects()`. CONVENTIONS §0.6 puts routes in `lib/routes.ts`, but these two destinations are club to the constants pattern in `lib/config.ts` (`SITE`), not the route-building pattern (`siteRoutes` builds paths on this site; one of these targets is an external host). A dedicated file keeps the "these are printed, don't rename the source paths" warning next to the values it protects, where `git blame` and a future editor will actually see it. Logged.
 - **Both redirects are `permanent: false` (307), always,** even though every other redirect in this file (`buildLegacyRedirects`) is `permanent: true`. That's the one substantive rule in the client's brief: a 308 gets cached by the scanning browser, and the destination could never change for that visitor again. Logged.
 - **The client self-edit guide doesn't exist yet** (`docs/EDITING.md` is written wholesale at SITE-10, per `00-build-order.md` Step 4, and SITE-10 hasn't started). This slice creates `docs/EDITING.md` now, as a stub holding only this one entry, rather than waiting for SITE-10 or skipping the client's explicit ask. SITE-10 will find the file already started and add to it, not overwrite it. Logged.
+- **The IMDb URL is a shared constant (`lib/imdb.ts`, `KRYSHAN_IMDB_URL`), read by both the footer's `SOCIALS` entry (`content/site.ts`) and the `/imdb` redirect (`lib/business-card.ts`), not duplicated.** `content/site.ts` is imported by client components and must not import `lib/config.ts` (which reads env), so the shared value lives in its own env-free file rather than in `SITE`; `lib/business-card.ts` can import it directly since `lib/` may import `lib/` (CONVENTIONS §0.2). Taylor's instruction, 2026-10-01. Logged.
 
 ## Experience & states
 
@@ -48,7 +49,9 @@ This slice does not add analytics: the repo has none (checked `package.json` and
 
 ## Placement
 
-- `lib/business-card.ts` — new. Exports the two destination URLs as one named constant, with the "printed on a business card, don't rename the source paths" comment.
+- `lib/imdb.ts` — new. Exports `KRYSHAN_IMDB_URL`, the one place that URL is written.
+- `lib/business-card.ts` — new. Exports the two redirect destinations as one named constant (the `/card` destination built from `siteRoutes.home`, the `/imdb` destination read from `lib/imdb.ts`), with the "printed on a business card, don't rename the source paths" comment.
+- `content/site.ts` — the `SOCIALS` IMDb entry now reads `KRYSHAN_IMDB_URL` from `lib/imdb.ts` instead of its own literal.
 - `next.config.ts` — `redirects()` gains a second source of entries alongside `buildLegacyRedirects()`, built from `lib/business-card.ts`, covering the bare, trailing-slash and upper-case forms.
 - `docs/EDITING.md` — new (stub). One section: what `/card` and `/imdb` are, that they're on printed cards, and how to change where they point.
 - `docs/specs/DEVIATIONS.md` — one line for the `docs/EDITING.md` stub, once closed.
@@ -66,7 +69,7 @@ Not applicable: a 307 response has no render cost, and this adds no bytes to any
 1. `curl -sIL` against `yarn build:agent && yarn start:agent` (:4510) for `/card`, `/card/`, `/CARD`, `/CARD/` each returns a 307 whose `location` is `/?utm_source=business-card&utm_medium=qr`.
 2. The same for `/imdb`, `/imdb/`, `/IMDB`, `/IMDB/`, each landing on Kryshan's IMDb URL.
 3. Both entries in `next.config.ts`'s redirect list read `permanent: false`.
-4. `lib/business-card.ts` is the only place either destination URL is written; `next.config.ts` imports it.
+4. `lib/business-card.ts` is the only place the `/card` destination is written; `lib/imdb.ts` is the only place the IMDb URL is written, read by both `lib/business-card.ts` and `content/site.ts`'s footer entry. `next.config.ts` imports `lib/business-card.ts`.
 5. `docs/EDITING.md` exists and names `/card` and `/imdb`, that they are printed on Kryshan's business card, and which file to edit (`lib/business-card.ts`) to change where they point.
 6. `yarn verify` passes.
 

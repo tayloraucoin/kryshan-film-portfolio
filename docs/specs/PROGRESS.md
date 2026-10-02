@@ -45,7 +45,7 @@ The only source of truth for Complete. One line per ticket; tick when closed in 
 
 ### Step 2b — Business card redirects (ad hoc, off the critical path)
 
-- [ ] **SITE-D** — Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub (2026-09-26, in progress)
+- [x] **SITE-D** — Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub (2026-10-01)
 
 ### Step 3 — His words
 

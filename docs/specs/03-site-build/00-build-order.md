@@ -54,7 +54,7 @@ SITE-1 → SITE-2 → SITE-3 → SITE-4 → SITE-5 → SITE-9 → SITE-10
 
 ### Step 2b — Business card redirects (ad hoc, off the critical path)
 
-- [ ] **SITE-D** · Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub · S · (SITE-1)
+- [x] **SITE-D** · Two temporary redirects (`/card`, `/imdb`) for a printed business card, and the `docs/EDITING.md` stub · S · (SITE-1)
 
 ### Step 3 — His words
 
